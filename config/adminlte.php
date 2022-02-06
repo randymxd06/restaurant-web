@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>RDSR</b>', // Titulo del sidebar
+    'logo' => '<b>RD</b>SR', // Titulo del sidebar
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png', // Imagen del sidebar
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -86,7 +86,7 @@ return [
     'layout_topnav' => null,
     'layout_boxed' => null,
     'layout_fixed_sidebar' => null,
-    'layout_fixed_navbar' => null,
+    'layout_fixed_navbar' => true,
     'layout_fixed_footer' => null,
     'layout_dark_mode' => false,
 
@@ -270,36 +270,15 @@ return [
             'icon'    => 'fas fa-fw fa-cash-register',
             'submenu' => [
                 [
-                    'text' => 'level_one',
+                    'text' => 'Ventas',
                     'url'  => '#',
                 ],
                 [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
+                    'text' => 'Cuadre de caja',
+                    'url'  => '#',
                 ],
-
                 [
-                    'text' => 'level_one',
+                    'text' => 'Control de propinas',
                     'url'  => '#',
                 ],
             ],
@@ -308,9 +287,88 @@ return [
         // Cocina
         [
             'text' => 'Cocina',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+            'url'  => '#',
+            'icon' => 'fas fa-fw fa-bread-slice',
         ],
+
+        // Reservación
+        [
+            'text'    => 'Reservación',
+            'icon'    => 'fas fa-fw fa-cash-register',
+            'submenu' => [
+                [
+                    'text' => 'Reservaciones',
+                    'url'  => '#',
+                ],
+                [
+                    'text' => 'Eventos',
+                    'url'  => '#',
+                ],
+            ],
+        ],
+
+        // Bar
+        [
+            'text' => 'Bar',
+            'url'  => '#',
+            'icon' => 'fas fa-fw fa-beer',
+        ],
+
+        // Mesas
+        [
+            'text' => 'Mesas',
+            'url'  => '#',
+            'icon' => 'fas fa-fw fa-chair',
+        ],
+        
+        // Menú
+        [
+            'text' => 'Menú',
+            'url'  => '#',
+            'icon' => 'fas fa-fw fa-border-all',
+        ],
+
+        // Mesas
+        [
+            'text' => 'Productos',
+            'url'  => '#',
+            'icon' => 'fas fa-fw fa-hamburger',
+        ],
+        
+        // Inventario
+        [
+            'text' => 'Inventario',
+            'url'  => '#',
+            'icon' => 'fas fa-fw fa-truck-loading',
+        ],
+
+        // Compras
+        [
+            'text' => 'Compras',
+            'url'  => '#',
+            'icon' => 'fas fa-fw fa-shopping-cart',
+        ],
+
+        // Reportes
+        [
+            'text' => 'Reportes',
+            'url'  => '#',
+            'icon' => 'fas fa-fw fa-print',
+        ],
+
+        // Seguridad
+        [
+            'text' => 'Seguridad',
+            'url'  => '#',
+            'icon' => 'fas fa-fw fa-fingerprint',
+        ],
+
+        // Empleados
+        [
+            'text' => 'Empleados',
+            'url'  => '#',
+            'icon' => 'fas fa-fw fa-user-friends',
+        ]
 
         // ------------------------------- 
         // EJEMPLOS PARA EL SIDEBAR
