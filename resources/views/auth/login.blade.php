@@ -11,9 +11,10 @@
 
         <!-- CARD LOGIN -->
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 card-login">
+            
             <x-jet-authentication-card>
 
-            <!-- LOGO IMG LOGIN -->
+                <!-- LOGO IMG LOGIN -->
                 <div class="logo-rdsr">
                     <img src="{{URL::asset('images/RDSR.png')}}">
                 </div>
@@ -58,8 +59,6 @@
             </x-jet-authentication-card>
 
         </div>
-
-        
         
     </div>
 
