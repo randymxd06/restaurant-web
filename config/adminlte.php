@@ -253,38 +253,21 @@ return [
             'text' => 'search',
         ],
 
-        
-        // [
-        //     'text' => 'blog',
-        //     'url'  => 'admin/blog',
-        //     'can'  => 'manage-blog',
-        // ],
-        // [
-        //     'text'        => 'pages',
-        //     'url'         => 'admin/pages',
-        //     'icon'        => 'far fa-fw fa-file',
-        //     'label'       => 4,
-        //     'label_color' => 'success',
-        // ],
 
-        /*-----------
-            TITULO
-        -------------*/
-        ['header' => 'MENÚ'],
+        // Titutlo 
+        ['header' => 'Menú'],
 
-        /*--------------
-            DASHBOARD
-        ----------------*/
+        // Dashboard
         [
             'text' => 'Dashboard',
             'url'  => 'dashboard',
             'icon' => 'fas fa-fw fa-utensils',
         ],
 
-        
+        // Caja/Mesero
         [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
+            'text'    => 'Caja/Mesero',
+            'icon'    => 'fas fa-fw fa-cash-register',
             'submenu' => [
                 [
                     'text' => 'level_one',
@@ -314,22 +297,65 @@ return [
                         ],
                     ],
                 ],
+
                 [
                     'text' => 'level_one',
                     'url'  => '#',
                 ],
             ],
         ],
+
+        // Cocina
+        [
+            'text' => 'Cocina',
+            'url'  => 'admin/settings',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+
+        // ------------------------------- 
+        // EJEMPLOS PARA EL SIDEBAR
+        // -------------------------------  
+            // Un solo link
+        /*
+        [
+            'text' => 'blog',
+            'url'  => 'admin/blog',
+            'can'  => 'manage-blog',
+        ],
+        */
+            // Label 
+       /*  
+       [
+            'text'        => 'pages',
+            'url'         => 'admin/pages',
+            'icon'        => 'far fa-fw fa-file',
+            'label'       => 4,
+            'label_color' => 'success',
+        ], 
+        */
+
+            // Titulo
+        /* 
+        ['header' => 'Account Settings'], 
+        */
+        
+            // Un solo link
+        /* 
         [
             'text' => 'profile',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-user',
         ],
+
         [
             'text' => 'change_password',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
-        ],
+        ], 
+        */
+
+            // Multilevel
+        /* 
         [
             'text'    => 'multilevel',
             'icon'    => 'fas fa-fw fa-share',
@@ -367,7 +393,8 @@ return [
                     'url'  => '#',
                 ],
             ],
-        ],
+        ], 
+        */
 
         // ['header' => 'labels'],
         // [
