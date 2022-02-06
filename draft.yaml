@@ -2,7 +2,24 @@ models:
   # ...
 
 controllers:
-  # ...
+  Caja:
+    resource
+  Recepcion:
+    resource
+  Cocina:
+    resource
+  Mesas:
+    resource
+  Menu:
+    resource
+  PedidosRapidos:
+    resource
+  Reportes:
+    resource
+  Compras:
+    resource
+  Inventario:
+    resource
 
 sedders:
   # ...
