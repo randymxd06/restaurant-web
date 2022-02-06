@@ -112,7 +112,7 @@ Route::delete('/compras/{id}', [ComprasController::class, 'destroy']);
 
 /*-------------------------------------------------------------
     RUTA BASE: http://127.0.0.1:8000/inventario
-    DESCRIPCION: ESTAS SON LAS RUTAS DEL MODULO DE REPORTES.
+    DESCRIPCION: ESTAS SON LAS RUTAS DEL MODULO DE INVENTARIO.
 ---------------------------------------------------------------*/
 Route::get('/inventario', [InventarioController::class, 'index']);
 Route::post('/inventario', [InventarioController::class, 'store']);
