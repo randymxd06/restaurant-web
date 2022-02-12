@@ -318,8 +318,20 @@ return [
         // Mesas
         [
             'text' => 'Mesas',
-            'url'  => 'mesas',
-            'icon' => 'fas fa-fw fa-chair',
+            // 'url'  => 'mesas',
+            'icon' => 'fas fa-chair',
+            'submenu' => [
+                [
+                    'text' => 'Gestionar Mesas',
+                    'url'  => 'mesas',
+                    'icon' => 'fas fa-table'
+                ],
+                [
+                    'text' => 'Agregar Mesa',
+                    'url'  => 'mesas/create',
+                    'icon' => 'fas fa-save'
+                ],
+            ],
         ],
         
         // Menú
