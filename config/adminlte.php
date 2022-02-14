@@ -45,9 +45,9 @@ return [
     |
     */
 
-    'logo' => '<b>RD</b>SR', // Titulo del sidebar
+    'logo' => '<b>Daraguma</b> RS', // Titulo del sidebar
     // 'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png', // Imagen del sidebar
-    'logo_img' => 'images/RDSR-icon.png', // Imagen del sidebar
+    'logo_img' => 'images/daraguma-icon.png', // Imagen del sidebar
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
