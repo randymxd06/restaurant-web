@@ -65,6 +65,7 @@ Route::delete('/cocina/{id}', [CocinaController::class, 'destroy']);
     DESCRIPCION: ESTAS SON LAS RUTAS DEL MODULO DE MESAS.
 ------------------------------------------------------------*/
 Route::get('/mesas', [MesasController::class, 'index']);
+Route::get('/mesas/create', [MesasController::class, 'create']);
 Route::post('/mesas', [MesasController::class, 'store']);
 Route::get('/mesas/{id}', [MesasController::class, 'show']);
 Route::put('/mesas/{id}', [MesasController::class, 'update']);
