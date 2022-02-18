@@ -255,7 +255,7 @@ return [
         ],
 
 
-        // Titutlo 
+        // Titulo
         ['header' => 'Menú'],
 
         // Dashboard
@@ -321,7 +321,7 @@ return [
             'url'  => 'mesas',
             'icon' => 'fas fa-fw fa-chair',
         ],
-        
+
         // Menú
         [
             'text' => 'Menú',
@@ -335,7 +335,7 @@ return [
             'url'  => '#',
             'icon' => 'fas fa-fw fa-hamburger',
         ],
-        
+
         // Inventario
         [
             'text' => 'Inventario',
@@ -371,9 +371,9 @@ return [
             'icon' => 'fas fa-fw fa-user-friends',
         ]
 
-        // ------------------------------- 
+        // -------------------------------
         // EJEMPLOS PARA EL SIDEBAR
-        // -------------------------------  
+        // -------------------------------
             // Un solo link
         /*
         [
@@ -382,24 +382,24 @@ return [
             'can'  => 'manage-blog',
         ],
         */
-            // Label 
-       /*  
+            // Label
+       /*
        [
             'text'        => 'pages',
             'url'         => 'admin/pages',
             'icon'        => 'far fa-fw fa-file',
             'label'       => 4,
             'label_color' => 'success',
-        ], 
+        ],
         */
 
             // Titulo
-        /* 
-        ['header' => 'Account Settings'], 
+        /*
+        ['header' => 'Account Settings'],
         */
-        
+
             // Un solo link
-        /* 
+        /*
         [
             'text' => 'profile',
             'url'  => 'admin/settings',
@@ -410,11 +410,11 @@ return [
             'text' => 'change_password',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
-        ], 
+        ],
         */
 
             // Multilevel
-        /* 
+        /*
         [
             'text'    => 'multilevel',
             'icon'    => 'fas fa-fw fa-share',
@@ -452,7 +452,7 @@ return [
                     'url'  => '#',
                 ],
             ],
-        ], 
+        ],
         */
 
         // ['header' => 'labels'],
