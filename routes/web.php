@@ -34,89 +34,142 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     RUTA BASE: http://127.0.0.1:8000/caja
     DESCRIPCION: ESTAS SON LAS RUTAS DEL MODULO DE CAJA.
 -----------------------------------------------------------*/
-Route::get('/caja', [CajaController::class, 'index']);
-Route::post('/caja', [CajaController::class, 'store']);
-Route::get('/caja/{id}', [CajaController::class, 'show']);
-Route::put('/caja/{id}', [CajaController::class, 'update']);
-Route::delete('/caja/{id}', [CajaController::class, 'destroy']);
+Route::group([
+    'prefix' => 'caja',
+], function () {
+    Route::get('/', [CajaController::class, 'index']);
+    Route::post('/', [CajaController::class, 'store']);
+    Route::get('/{id}', [CajaController::class, 'show']);
+    Route::put('/{id}', [CajaController::class, 'update']);
+    Route::delete('/{id}', [CajaController::class, 'destroy']);
+});
 
 /*--------------------------------------------------------------
     RUTA BASE: http://127.0.0.1:8000/recepcion
     DESCRIPCION: ESTAS SON LAS RUTAS DEL MODULO DE RECEPCION.
 ----------------------------------------------------------------*/
-Route::get('/recepcion', [RecepcionController::class, 'index']);
-Route::post('/recepcion', [RecepcionController::class, 'store']);
-Route::get('/recepcion/{id}', [RecepcionController::class, 'show']);
-Route::put('/recepcion/{id}', [RecepcionController::class, 'update']);
-Route::delete('/recepcion/{id}', [RecepcionController::class, 'destroy']);
+Route::group([
+    'prefix' => 'recepcion',
+], function () {
+    Route::get('/', [RecepcionController::class, 'index']);
+    Route::post('/', [RecepcionController::class, 'store']);
+    Route::get('/{id}', [RecepcionController::class, 'show']);
+    Route::put('/{id}', [RecepcionController::class, 'update']);
+    Route::delete('/{id}', [RecepcionController::class, 'destroy']);
+});
 
 /*-----------------------------------------------------------
     RUTA BASE: http://127.0.0.1:8000/cocina
     DESCRIPCION: ESTAS SON LAS RUTAS DEL MODULO DE COCINA.
 -------------------------------------------------------------*/
-Route::get('/cocina', [CocinaController::class, 'index']);
-Route::post('/cocina', [CocinaController::class, 'store']);
-Route::get('/cocina/{id}', [CocinaController::class, 'show']);
-Route::put('/cocina/{id}', [CocinaController::class, 'update']);
-Route::delete('/cocina/{id}', [CocinaController::class, 'destroy']);
+Route::group([
+    'prefix' => 'cocina',
+], function () {
+    Route::get('/', [CocinaController::class, 'index']);
+    Route::post('/', [CocinaController::class, 'store']);
+    Route::get('/{id}', [CocinaController::class, 'show']);
+    Route::put('/{id}', [CocinaController::class, 'update']);
+    Route::delete('/{id}', [CocinaController::class, 'destroy']);
+});
 
 /*----------------------------------------------------------
     RUTA BASE: http://127.0.0.1:8000/mesas
     DESCRIPCION: ESTAS SON LAS RUTAS DEL MODULO DE MESAS.
 ------------------------------------------------------------*/
-Route::get('/mesas', [MesasController::class, 'index']);
-Route::get('/mesas/create', [MesasController::class, 'create']);
-Route::post('/mesas', [MesasController::class, 'store']);
-Route::get('/mesas/{id}', [MesasController::class, 'show']);
-Route::put('/mesas/{id}', [MesasController::class, 'update']);
-Route::delete('/mesas/{id}', [MesasController::class, 'destroy']);
+Route::group([
+    'prefix' => 'mesas',
+], function () {
+    Route::get('/', [MesasController::class, 'index']);
+    Route::get('/create', [MesasController::class, 'create']);
+    Route::post('/', [MesasController::class, 'store']);
+    Route::get('/{id}', [MesasController::class, 'show']);
+    Route::put('/{id}', [MesasController::class, 'update']);
+    Route::delete('/{id}', [MesasController::class, 'destroy']);
+});
 
 /*---------------------------------------------------------
     RUTA BASE: http://127.0.0.1:8000/menu
     DESCRIPCION: ESTAS SON LAS RUTAS DEL MODULO DE MENU.
 -----------------------------------------------------------*/
-Route::get('/menu', [MenuController::class, 'index']);
-Route::post('/menu', [MenuController::class, 'store']);
-Route::get('/menu/{id}', [MenuController::class, 'show']);
-Route::put('/menu/{id}', [MenuController::class, 'update']);
-Route::delete('/menu/{id}', [MenuController::class, 'destroy']);
+Route::group([
+    'prefix' => 'menu',
+], function () {
+    Route::get('/', [MenuController::class, 'index']);
+    Route::post('/', [MenuController::class, 'store']);
+    Route::get('/{id}', [MenuController::class, 'show']);
+    Route::put('/{id}', [MenuController::class, 'update']);
+    Route::delete('/{id}', [MenuController::class, 'destroy']);
+});
 
 /*--------------------------------------------------------------------
     RUTA BASE: http://127.0.0.1:8000/pedidos-rapidos
     DESCRIPCION: ESTAS SON LAS RUTAS DEL MODULO DE PEDIDOS RAPIDOS.
 ----------------------------------------------------------------------*/
-Route::get('/pedidos-rapidos', [PedidosRapidosController::class, 'index']);
-Route::post('/pedidos-rapidos', [PedidosRapidosController::class, 'store']);
-Route::get('/pedidos-rapidos/{id}', [PedidosRapidosController::class, 'show']);
-Route::put('/pedidos-rapidos/{id}', [PedidosRapidosController::class, 'update']);
-Route::delete('/pedidos-rapidos/{id}', [PedidosRapidosController::class, 'destroy']);
+Route::group([
+    'prefix' => 'pedidos-rapidos',
+], function () {
+    Route::get('/', [PedidosRapidosController::class, 'index']);
+    Route::post('/', [PedidosRapidosController::class, 'store']);
+    Route::get('/{id}', [PedidosRapidosController::class, 'show']);
+    Route::put('/{id}', [PedidosRapidosController::class, 'update']);
+    Route::delete('/{id}', [PedidosRapidosController::class, 'destroy']);
+});
 
 /*-------------------------------------------------------------
     RUTA BASE: http://127.0.0.1:8000/reportes
     DESCRIPCION: ESTAS SON LAS RUTAS DEL MODULO DE REPORTES.
 ---------------------------------------------------------------*/
-Route::get('/reportes', [ReportesController::class, 'index']);
-Route::post('/reportes', [ReportesController::class, 'store']);
-Route::get('/reportes/{id}', [ReportesController::class, 'show']);
-Route::put('/reportes/{id}', [ReportesController::class, 'update']);
-Route::delete('/reportes/{id}', [ReportesController::class, 'destroy']);
+Route::group([
+    'prefix' => 'reportes',
+], function () {
+    Route::get('/', [ReportesController::class, 'index']);
+    Route::post('/', [ReportesController::class, 'store']);
+    Route::get('/{id}', [ReportesController::class, 'show']);
+    Route::put('/{id}', [ReportesController::class, 'update']);
+    Route::delete('/{id}', [ReportesController::class, 'destroy']);
+});
 
 /*------------------------------------------------------------
     RUTA BASE: http://127.0.0.1:8000/compras
     DESCRIPCION: ESTAS SON LAS RUTAS DEL MODULO DE COMPRAS.
 --------------------------------------------------------------*/
-Route::get('/compras', [ComprasController::class, 'index']);
-Route::post('/compras', [ComprasController::class, 'store']);
-Route::get('/compras/{id}', [ComprasController::class, 'show']);
-Route::put('/compras/{id}', [ComprasController::class, 'update']);
-Route::delete('/compras/{id}', [ComprasController::class, 'destroy']);
+Route::group([
+    'prefix' => 'compras',
+], function () {
+    Route::get('/', [ComprasController::class, 'index']);
+    Route::post('/', [ComprasController::class, 'store']);
+    Route::get('/{id}', [ComprasController::class, 'show']);
+    Route::put('/{id}', [ComprasController::class, 'update']);
+    Route::delete('/{id}', [ComprasController::class, 'destroy']);
+});
 
 /*-------------------------------------------------------------
     RUTA BASE: http://127.0.0.1:8000/inventario
     DESCRIPCION: ESTAS SON LAS RUTAS DEL MODULO DE INVENTARIO.
 ---------------------------------------------------------------*/
-Route::get('/inventario', [InventarioController::class, 'index']);
-Route::post('/inventario', [InventarioController::class, 'store']);
-Route::get('/inventario/{id}', [InventarioController::class, 'show']);
-Route::put('/inventario/{id}', [InventarioController::class, 'update']);
-Route::delete('/inventario/{id}', [InventarioController::class, 'destroy']);
+Route::group([
+    'prefix' => 'inventario',
+], function () {
+    Route::get('/', [InventarioController::class, 'index']);
+    Route::post('/', [InventarioController::class, 'store']);
+    Route::get('/{id}', [InventarioController::class, 'show']);
+    Route::put('/{id}', [InventarioController::class, 'update']);
+    Route::delete('/{id}', [InventarioController::class, 'destroy']);
+});
+
+/*-----------------------------------------------------------------------------------------
+    NOTA: ESTAS RUTAS ESTAN CREADAS POR SI ACASO, NO BORRARLAS HASTA LLEGAR A UN ACUERDO
+-------------------------------------------------------------------------------------------*/
+//Route::resource('sex', App\Http\Controllers\SexController::class);
+//Route::resource('civil_-statu', App\Http\Controllers\Civil_StatuController::class);
+//Route::resource('nationality', App\Http\Controllers\NationalityController::class);
+//Route::resource('entity', App\Http\Controllers\EntityController::class);
+//Route::resource('product_-category', App\Http\Controllers\Product_CategoryController::class);
+//Route::resource('product', App\Http\Controllers\ProductController::class);
+//Route::resource('box', App\Http\Controllers\BoxController::class);
+//Route::resource('customer_-type', App\Http\Controllers\Customer_TypeController::class);
+//Route::resource('customer', App\Http\Controllers\CustomerController::class);
+//Route::resource('order_-type', App\Http\Controllers\Order_TypeController::class);
+//Route::resource('living_-room', App\Http\Controllers\Living_RoomController::class);
+//Route::resource('table', App\Http\Controllers\TableController::class);
+//Route::resource('order', App\Http\Controllers\OrderController::class);

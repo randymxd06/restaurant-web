@@ -1,24 +1,172 @@
 models:
-  # ...
+
+  Sex:
+    id: bigIncrements
+    name: string
+    symbol: string
+    description: text
+    timestamps
+    softDeletes
+    relationships:
+      belongsTo: Entity
+
+  Civil_Statu:
+    id: id
+    description: text
+    status: boolean
+    timestamps
+    softDeletes
+    relationships:
+      belongsTo: Entity
+
+  Nationality:
+    id: bigIncrements
+    name: string
+    description: text
+    status: boolean
+    timestamps
+    softDeletes
+    relationships:
+      belongsTo: Entity
+
+  Entity:
+    id: bigIncrements
+    first_name: string
+    last_name: string
+    identification: string
+    sex_id: unsignedBigInteger foreign:sexs.id
+    civil_status_id: unsignedBigInteger foreign:civil_status.id
+    nationality_id: unsignedBigInteger foreign:nationalities.id
+    status: boolean
+    timestamps
+    softDeletes
+    relationships:
+      hasMany: Sex, Civil_Statu, Nationality
+
+  Product_Category:
+    id: bigIncrements
+    name: string
+    description: string
+    status: boolean
+    timestamps
+    softDeletes
+    relationships:
+      belongsTo: Product
+
+  Product:
+    id:  autoIncrements
+    name: string
+    description: text
+    products_categories_id: unsignedBigInteger foreign:product_categories.id
+    price: decimal
+    status: boolean
+    timestamps
+    softDeletes
+    relationships:
+      hasMany: Products_Category
+
+  Box:
+    id: bigIncrements
+    start_time: time
+    end_time: time
+    status: boolean
+    timestamps
+    relationships:
+      belongsTo: Order
+
+  Customer_Type:
+    id: bigIncrements
+    name: string
+    description: text
+    status: boolean
+    timestamps
+    softDeletes
+    relationships:
+      belongsTo: Customer
+
+  Customer:
+    id: bigIncrements
+    entity_id: unsignedBigInteger foreign:entities.id
+    customer_type_id: unsignedBigInteger foreign:customer_types.id
+    timestamps
+    softDeletes
+    relationships:
+      belongsTo: Entity
+      hasOne: Customer_Type
+
+  Order_Type:
+    id: bigIncremets
+    name: string
+    description: text
+    status: boolean
+    timestamps
+    softDeletes
+    relationships:
+      belongsTo: Order
+
+  Living_Room:
+    id: bigIncrements
+    name: string
+    description: text
+    tables_capacity: unsignedBigInteger
+    status: boolean
+    timestamps
+    softDeletes
+    relationships:
+      hasMany: Table
+
+  Table:
+    id: bigIncrements
+    people_capacity: unsignedBigInteger
+    living_room_id: unsignedBigInteger foreign:living_rooms.id
+    description: text
+    status: boolean
+    timestamps
+    softDeletes
+    relationships:
+      belongsTo: Order, Living_Room
+
+  Order:
+    id: bitIncrements
+    user_id: unsignedBigInteger foreign:users.id
+    box_id: unsignedBigInteger foreign:boxes.id
+    customer_id: unsignedBigInteger foreign:customers.id
+    orders_types_id: unsignedBigInteger foreign:orders_types.id
+    table_id: unsignedBigInteger foreign:tables.id
+    total: decimal
+    status: boolean
+    timestamps
+    softDeletes
+    relationships:
+      hasOne: User, Box, Customer, Order_Type, Table
 
 controllers:
-  Caja:
+
+  Sex:
     resource
-  Recepcion:
+  Civil_Statu:
     resource
-  Cocina:
+  Nationality:
     resource
-  Mesas:
+  Entity:
     resource
-  Menu:
+  Product_Category:
     resource
-  PedidosRapidos:
+  Product:
     resource
-  Reportes:
+  Box:
     resource
-  Compras:
+  Customer_Type:
     resource
-  Inventario:
+  Customer:
+    resource
+  Order_Type:
+    resource
+  Living_Room:
+    resource
+  Table:
+    resource
+  Order:
     resource
 
 sedders:
