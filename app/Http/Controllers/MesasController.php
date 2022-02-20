@@ -20,8 +20,11 @@ class MesasController extends Controller
         return view('mesa.create');
     }
 
-    public function store(MesasStoreRequest $request)
+    public function store(Request $request)
     {
+
+        dd($request->all());
+
         $mesa = Mesa::create($request->validated());
 
         $request->session()->flash('mesa.id', $mesa->id);

@@ -81,7 +81,7 @@ Route::group([
 ], function () {
     Route::get('/', [MesasController::class, 'index']);
     Route::get('/create', [MesasController::class, 'create']);
-    Route::post('/', [MesasController::class, 'store']);
+    Route::post('/store', [MesasController::class, 'store']);
     Route::get('/{id}', [MesasController::class, 'show']);
     Route::put('/{id}', [MesasController::class, 'update']);
     Route::delete('/{id}', [MesasController::class, 'destroy']);
