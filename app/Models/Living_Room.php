@@ -10,18 +10,15 @@ class LivingRoom extends Model
 {
     use HasFactory, SoftDeletes;
 
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
+    protected $table = 'living_rooms';
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
+    protected $fillable = [
+        'name',
+        'description',
+        'tables_capacity',
+        'status',
+    ];
+
     protected $casts = [
         'tables_capacity' => 'integer',
         'status' => 'boolean',
@@ -31,4 +28,5 @@ class LivingRoom extends Model
     {
         return $this->hasMany(Table::class);
     }
+
 }

@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Product_CategoryStoreRequest;
 use App\Http\Requests\Product_CategoryUpdateRequest;
-use App\ProductCategory;
+//use App\ProductCategory;
 use Illuminate\Http\Request;
+use App\Models\ProductCategory;
 
 class Product_CategoryController extends Controller
 {
@@ -13,6 +14,7 @@ class Product_CategoryController extends Controller
     public function index(Request $request)
     {
         $productCategories = ProductCategory::all();
+        dd($productCategories);
         return view('productCategory.index', compact('productCategories'));
     }
 
