@@ -5,6 +5,7 @@ use App\Http\Controllers\CajaController;
 use App\Http\Controllers\RecepcionController;
 use App\Http\Controllers\CocinaController;
 use App\Http\Controllers\MesasController;
+use App\Http\Controllers\TableController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PedidosRapidosController;
 use App\Http\Controllers\ReportesController;
@@ -25,6 +26,7 @@ use App\Http\Controllers\InventarioController;
 Route::get('/', function () {
     return view('auth.login ');
 });
+
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard.index');
@@ -70,21 +72,6 @@ Route::group([
     Route::get('/{id}', [CocinaController::class, 'show']);
     Route::put('/{id}', [CocinaController::class, 'update']);
     Route::delete('/{id}', [CocinaController::class, 'destroy']);
-});
-
-/*----------------------------------------------------------
-    RUTA BASE: http://127.0.0.1:8000/mesas
-    DESCRIPCION: ESTAS SON LAS RUTAS DEL MODULO DE MESAS.
-------------------------------------------------------------*/
-Route::group([
-    'prefix' => 'mesas',
-], function () {
-    Route::get('/', [MesasController::class, 'index']);
-    Route::get('/create', [MesasController::class, 'create']);
-    Route::post('/store', [MesasController::class, 'store']);
-    Route::get('/{id}', [MesasController::class, 'show']);
-    Route::put('/{id}', [MesasController::class, 'update']);
-    Route::delete('/{id}', [MesasController::class, 'destroy']);
 });
 
 /*---------------------------------------------------------
@@ -157,6 +144,21 @@ Route::group([
     Route::delete('/{id}', [InventarioController::class, 'destroy']);
 });
 
+
+/*----------------------------------------------------------
+    RUTA BASE: http://127.0.0.1:8000/mesas
+    DESCRIPCION: ESTAS SON LAS RUTAS DEL MODULO DE MESAS.
+------------------------------------------------------------*/
+Route::group([
+    'prefix' => 'mesas',
+], function () {
+    Route::get('/', [TableController::class, 'index']);
+    Route::get('/create', [TableController::class, 'create']);
+    Route::post('/store', [TableController::class, 'store']);
+    Route::get('/{id}', [TableController::class, 'show']);
+    Route::put('/{id}', [TableController::class, 'update']);
+    Route::delete('/{id}', [TableController::class, 'destroy']);
+});
 /*-----------------------------------------------------------------------------------------
     NOTA: ESTAS RUTAS ESTAN CREADAS POR SI ACASO, NO BORRARLAS HASTA LLEGAR A UN ACUERDO
 -------------------------------------------------------------------------------------------*/

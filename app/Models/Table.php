@@ -23,8 +23,7 @@ class Table extends Model
      * @var array
      */
     protected $casts = [
-        'people_capacity' => 'integer',
-        'living_room_id' => 'integer',
+    
         'status' => 'boolean',
     ];
 
@@ -38,8 +37,8 @@ class Table extends Model
         return $this->belongsTo(LivingRoom::class);
     }
 
-    public function livingRoom()
-    {
-        return $this->belongsTo(LivingRoom::class);
-    }
+    // public function livingRoom()
+    // {
+    //     return $this->belongsTo(LivingRoom::class);
+    // }
 }

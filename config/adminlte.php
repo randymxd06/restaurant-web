@@ -295,7 +295,7 @@ return [
         // Reservación
         [
             'text'    => 'Reservación',
-            'icon'    => 'fas fa-fw fa-cash-register',
+            'icon'    => 'fas fa-fw fa-concierge-bell',
             'submenu' => [
                 [
                     'text' => 'Reservaciones',
@@ -331,6 +331,11 @@ return [
                     'url'  => 'mesas/create',
                     'icon' => 'fas fa-save'
                 ],
+                [
+                    'text' => 'Salones',
+                    'url'  => 'living_room',
+                    'icon' => 'fas fa-person-booth'
+                ],
             ],
         ],
 
@@ -341,11 +346,28 @@ return [
             'icon' => 'fas fa-fw fa-border-all',
         ],
 
-        // Mesas
+        // Productos
         [
             'text' => 'Productos',
-            'url'  => '#',
-            'icon' => 'fas fa-fw fa-hamburger',
+            // 'url'  => '#',
+            'icon' => 'fas fa-fw fa-utensils',
+            'submenu' => [
+                [
+                    'text' => 'Gestionar Productos',
+                    'url'  => 'productos',
+                    'icon' => 'fas fa-table'
+                ],
+                [
+                    'text' => 'Agregar Productos',
+                    'url'  => 'productos/create',
+                    'icon' => 'fas fa-hotdog'
+                ],
+                [
+                    'text' => 'Categorias',
+                    'url'  => 'categorias', 
+                    'icon' => 'fas fa-tags'
+                ]
+            ]
         ],
 
         // Inventario

@@ -44,8 +44,7 @@
     <!-- Sidebar Menu -->
     <nav>
       <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu">
-        <!-- Add icons to the links using the .nav-icon class
-             with font-awesome or any other icon font library -->
+        <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
         <li class="nav-header"> </li>
         <!-- Categorias -->
         <li class="nav-item">
@@ -69,7 +68,7 @@
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-th"></i>
             <p>
-             Bebidas
+              Bebidas
             </p>
           </a>
         </li>
@@ -99,138 +98,142 @@
 
 @section('content')
 <div class="tab-content" id="myTabContent">
-  <!-- Productos -->
-  <div class="tab-pane fade show active" id="Products" role="tabpanel" aria-labelledby="Products-tab">
-    <div class="row row-cols-2 row-cols-md-4 g-4">
-      <!-- Card -->
-      <button class="col "> 
-        <div class="card" >
-          <img src="https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvYTAxOS1qYWt1YmstMDc1MS1zdXNoaS15YW0tbWFraS1yb2xsczIuanBn.jpg?s=vfs8-70mdtj139nl2sZkPbta0YANGjNJWGPHSXgRYYc" class="card-img-top" alt="...">
-          <div class="card-body">
-            <p class="card-text">Sushi</p>
-            <span class="badge bg-light text-dark">RD$ 100.00</span>
-          </div>
+    <!-- Productos -->
+    <div class="tab-pane fade show active" id="Products" role="tabpanel" aria-labelledby="Products-tab">
+        <div class="row row-cols-2 row-cols-md-4 g-4">
+            <!-- Card -->
+            <button class="col ">
+                <div class="card">
+                    <img src="https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvYTAxOS1qYWt1YmstMDc1MS1zdXNoaS15YW0tbWFraS1yb2xsczIuanBn.jpg?s=vfs8-70mdtj139nl2sZkPbta0YANGjNJWGPHSXgRYYc"
+                        class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">Sushi</p>
+                        <span class="badge bg-light text-dark">RD$ 100.00</span>
+                    </div>
+                </div>
+            </button>
+            <!-- /Card -->
+            <button class="col ">
+                <div class="card">
+                    <img src="https://www.stockvault.net/data/2013/09/28/148242/preview16.jpg" class="card-img-top"
+                        alt="...">
+                    <div class="card-body">
+                        <p class="card-text">Pizza</p>
+                        <span class="badge bg-light text-dark">RD$ 100.00</span>
+                    </div>
+                </div>
+            </button>
+            <button class="col ">
+                <div class="card">
+                    <img src="https://img.freepik.com/foto-gratis/vista-lateral-doble-hamburguesa-queso-empanadas-carne-parrilla-queso-hojas-lechuga-bollos_141793-4883.jpg?w=740"
+                        class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">Hamburguesa</p>
+                        <span class="badge bg-light text-dark">RD$ 100.00</span>
+                    </div>
+                </div>
+            </button>
+            <button class="col ">
+                <div class="card">
+                    <img src="https://img.freepik.com/foto-gratis/tazon-ramen-abulon-japones_1205-10107.jpg?w=740"
+                        class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">Ramen</p>
+                        <span class="badge bg-light text-dark">RD$ 100.00</span>
+                    </div>
+                </div>
+            </button>
         </div>
-      </button>
-      <!-- /Card -->
-      <button class="col ">
-        <div class="card" >
-          <img src="https://www.stockvault.net/data/2013/09/28/148242/preview16.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <p class="card-text">Pizza</p>
-            <span class="badge bg-light text-dark">RD$ 100.00</span>
-          </div>
-        </div>
-      </button>
-      <button class="col ">
-        <div class="card" >
-          <img src="https://img.freepik.com/foto-gratis/vista-lateral-doble-hamburguesa-queso-empanadas-carne-parrilla-queso-hojas-lechuga-bollos_141793-4883.jpg?w=740" class="card-img-top" alt="...">
-          <div class="card-body">
-            <p class="card-text">Hamburguesa</p>
-            <span class="badge bg-light text-dark">RD$ 100.00</span>
-          </div>
-        </div>
-      </button>
-      <button class="col ">
-        <div class="card" >
-          <img src="https://img.freepik.com/foto-gratis/tazon-ramen-abulon-japones_1205-10107.jpg?w=740" class="card-img-top" alt="...">
-          <div class="card-body">
-            <p class="card-text">Ramen</p>
-            <span class="badge bg-light text-dark">RD$ 100.00</span>
-          </div>
-        </div>
-      </button>
     </div>
-  </div>
-  <!-- /Productos-->
+    <!-- /Productos-->
 
-  <!-- Ordenes -->
-  <div class="tab-pane fade" id="invoice" role="tabpanel" aria-labelledby="invoice-tab">
-    <div class="container-order">
-      <div class="order-header">
-       <table class="table-order">
-         <tr>
-            <th>Empleado: </th>
-            <td>Test</td>           
-         </tr>
-         <tr>
-           <th>Caja: </th>
-           <td>#02</td>
-           <th>Mesa: </th>
-           <td>#02</td>
-         </tr>
-       </table>
-      </div>
-      <!-- Productos Ordenados -->
-      <table class="order-products table table-striped">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Cantidad</th>
-            <th style="width: 40px">Precio</th>
-            <th style="width: 40px">Subtotal</th>
-            <th style="width: 20px"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Ramen</td>
-            <td>1</td>
-            <td>RD$100.00</td>
-            <td>RD$100.00</td>
-            <td>
-              <a href="#">
-                <i class="far fa-trash-alt"></i>
-              </a>
-            </td>
-            
-          </tr>
-        </tbody>
-      </table>
-      <!-- /Productos Ordenados -->
-      <!-- Ordenes Footer -->
-      <div class="order-footer">
-        <div class="order-btn btnd-grid gap-2">
-          <button class="btn btn-success btn-block">
-            <i class="fas fa-receipt"></i>
-            Enviar
-          </button>
+    <!-- Ordenes -->
+    <div class="tab-pane fade" id="invoice" role="tabpanel" aria-labelledby="invoice-tab">
+        <div class="container-order">
+            <div class="order-header">
+                <table class="table-order">
+                    <tr>
+                        <th>Empleado: </th>
+                        <td>Test</td>
+                    </tr>
+                    <tr>
+                        <th>Caja: </th>
+                        <td>#02</td>
+                        <th>Mesa: </th>
+                        <td>#02</td>
+                    </tr>
+                </table>
+            </div>
+            <!-- Productos Ordenados -->
+            <table class="order-products table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                        <th style="width: 40px">Precio</th>
+                        <th style="width: 40px">Subtotal</th>
+                        <th style="width: 20px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ramen</td>
+                        <td>1</td>
+                        <td>RD$100.00</td>
+                        <td>RD$100.00</td>
+                        <td>
+                            <a href="#">
+                                <i class="far fa-trash-alt"></i>
+                            </a>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+            <!-- /Productos Ordenados -->
+            <!-- Ordenes Footer -->
+            <div class="order-footer">
+                <div class="order-btn btnd-grid gap-2">
+                    <button class="btn btn-success btn-block">
+                        <i class="fas fa-receipt"></i>
+                        Enviar
+                    </button>
+                </div>
+                <!-- Detalles -->
+                <table class="order-details table">
+                    <tbody>
+                        <tr>
+                            <th>Subtotal</th>
+                            <td style="width: 20px">RD$</td>
+                            <td style="width: 40px">100.00</td>
+                        </tr>
+                        <tr>
+                            <th>Descuento</th>
+                            <td style="width: 20px">%</td>
+                            <td style="width: 40px">00</td>
+                        </tr>
+                        <tr>
+                            <th>Total</th>
+                            <td style="width: 20px">RD$</td>
+                            <td style="width: 40px">100.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- /Detalles -->
+                <div class="order-btn d-grid gap-2 d-flex justify-content-end">
+                    <button class="btn btn-dark">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    <button class="btn btn-success btn-lg">
+                        <i class="fas fa-cash-register"></i>
+                        Facturar
+                    </button>
+                </div>
+            </div>
+            <!--/ Odenes Footer -->
         </div>
-        <!-- Detalles -->
-        <table class="order-details table">
-          <tbody>
-            <tr>
-              <th>Subtotal</th>
-              <td style="width: 20px">RD$</td>
-              <td style="width: 40px">100.00</td>
-            </tr>
-            <tr>
-              <th>Descuento</th>
-              <td style="width: 20px">%</td>
-              <td style="width: 40px">00</td>
-            </tr>
-            <tr>
-              <th>Total</th>
-              <td style="width: 20px">RD$</td>
-              <td style="width: 40px">100.00</td>
-            </tr>
-          </tbody>
-        </table>
-        <!-- /Detalles -->
-        <div class="order-btn d-grid gap-2 d-flex justify-content-end">
-          <button class="btn btn-dark">
-            <i class="fas fa-trash"></i>
-          </button>
-          <button class="btn btn-success btn-lg">
-            <i class="fas fa-cash-register"></i>
-            Facturar
-          </button>
-        </div>
-      </div>
-      <!--/ Odenes Footer -->
     </div>
-  </div>
-  <!-- /Ordenes -->
+    <!-- /Ordenes -->
 </div>
 @stop
 

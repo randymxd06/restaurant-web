@@ -16,8 +16,8 @@
     <div class="card-body" style="display: block;">
         <p>Las órdenes con un encabezado <span class="badge bg-primary text-dark">AZUL</span>, son órdenes para mesas (Normales).</p>
         <p>Las órdenes con un encabezado <span class="badge bg-gray text-dark">GRIS</span>, son órdenes para llevar (Delivery/Takeouts).</p>
-        <p>Al hacer un clic sobre un item, este pasará a estado trabajando/cocinando y la se pondrá en color <span class="badge bg-warning text-dark">NARANJA</span>.</p>
-        <p>Al hacer un clic sobre un ítem en estado trabajando-NARANJA. este se pondrá en color <span class="badge bg-success text-dark">VERDE</span> y estado finalizado y automáticamente se quitara de la orden luego de 30s. </p>
+        <p>Al hacer un clic sobre un orden, este pasará a estado trabajando/cocinando y la se pondrá en color <span class="badge bg-warning text-dark">NARANJA</span>.</p>
+        <p>Al hacer un clic sobre un orden en estado trabajando-NARANJA. este se pondrá en color <span class="badge bg-success text-dark">VERDE</span> y estado finalizado y automáticamente se quitara de la orden luego de 30s. </p>
     </div>
 </div>
 @stop
