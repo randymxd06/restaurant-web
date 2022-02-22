@@ -20,6 +20,11 @@
     </ul>
 
     <ul class="navbar-nav ml-auto">
+      <li class="nav-link">
+        <a href="#" role="button">
+          <i class="fas fa-ellipsis-v"></i>
+        </a>
+      </li>
         <li class="nav-item">
             <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                 <i class="fas fa-expand-arrows-alt"></i>
@@ -108,7 +113,7 @@
         </div>
       </button>
       <!-- /Card -->
-      <div class="col ">
+      <button class="col ">
         <div class="card" >
           <img src="https://www.stockvault.net/data/2013/09/28/148242/preview16.jpg" class="card-img-top" alt="...">
           <div class="card-body">
@@ -116,8 +121,8 @@
             <span class="badge bg-light text-dark">RD$ 100.00</span>
           </div>
         </div>
-      </div>
-      <div class="col ">
+      </button>
+      <button class="col ">
         <div class="card" >
           <img src="https://img.freepik.com/foto-gratis/vista-lateral-doble-hamburguesa-queso-empanadas-carne-parrilla-queso-hojas-lechuga-bollos_141793-4883.jpg?w=740" class="card-img-top" alt="...">
           <div class="card-body">
@@ -125,8 +130,8 @@
             <span class="badge bg-light text-dark">RD$ 100.00</span>
           </div>
         </div>
-      </div>
-      <div class="col ">
+      </button>
+      <button class="col ">
         <div class="card" >
           <img src="https://img.freepik.com/foto-gratis/tazon-ramen-abulon-japones_1205-10107.jpg?w=740" class="card-img-top" alt="...">
           <div class="card-body">
@@ -134,7 +139,7 @@
             <span class="badge bg-light text-dark">RD$ 100.00</span>
           </div>
         </div>
-      </div>
+      </button>
     </div>
   </div>
   <!-- /Productos-->
@@ -142,6 +147,20 @@
   <!-- Ordenes -->
   <div class="tab-pane fade" id="invoice" role="tabpanel" aria-labelledby="invoice-tab">
     <div class="container-order">
+      <div class="order-header">
+       <table class="table-order">
+         <tr>
+            <th>Empleado: </th>
+            <td>Test</td>           
+         </tr>
+         <tr>
+           <th>Caja: </th>
+           <td>#02</td>
+           <th>Mesa: </th>
+           <td>#02</td>
+         </tr>
+       </table>
+      </div>
       <!-- Productos Ordenados -->
       <table class="order-products table table-striped">
         <thead>
@@ -247,6 +266,13 @@ padding: 0 !important;
 }
 .order-btn{
   padding: 0 0.5rem;
+}
+.table-order {
+    width: 100%;
+}
+.table-order th {
+    width: 80px;
+    padding: 4px 10px;
 }
 .order-footer{
   width: 100%;
