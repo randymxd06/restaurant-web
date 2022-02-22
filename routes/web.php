@@ -1,5 +1,8 @@
 <?php
 
+/*------------------
+    IMPORTACIONES
+--------------------*/
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CajaController;
 use App\Http\Controllers\RecepcionController;
@@ -10,6 +13,19 @@ use App\Http\Controllers\PedidosRapidosController;
 use App\Http\Controllers\ReportesController;
 use App\Http\Controllers\ComprasController;
 use App\Http\Controllers\InventarioController;
+use App\Http\Controllers\SexController;
+use App\Http\Controllers\Civil_StatuController;
+use App\Http\Controllers\NationalityController;
+use App\Http\Controllers\EntityController;
+use App\Http\Controllers\Product_CategoryController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\BoxController;
+use App\Http\Controllers\Customer_TypeController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\Order_TypeController;
+use App\Http\Controllers\Living_RoomController;
+use App\Http\Controllers\TableController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -106,7 +122,7 @@ Route::group([
     DESCRIPCION: ESTAS SON LAS RUTAS DEL MODULO DE PEDIDOS RAPIDOS.
 ----------------------------------------------------------------------*/
 Route::group([
-    'prefix' => 'pedidos-rapidos',
+    'prefix' => 'pedidos_rapidos',
 ], function () {
     Route::get('/', [PedidosRapidosController::class, 'index']);
     Route::post('/', [PedidosRapidosController::class, 'store']);
@@ -143,10 +159,10 @@ Route::group([
     Route::delete('/{id}', [ComprasController::class, 'destroy']);
 });
 
-/*-------------------------------------------------------------
+/*---------------------------------------------------------------
     RUTA BASE: http://127.0.0.1:8000/inventario
     DESCRIPCION: ESTAS SON LAS RUTAS DEL MODULO DE INVENTARIO.
----------------------------------------------------------------*/
+-----------------------------------------------------------------*/
 Route::group([
     'prefix' => 'inventario',
 ], function () {
@@ -157,19 +173,184 @@ Route::group([
     Route::delete('/{id}', [InventarioController::class, 'destroy']);
 });
 
-/*-----------------------------------------------------------------------------------------
-    NOTA: ESTAS RUTAS ESTAN CREADAS POR SI ACASO, NO BORRARLAS HASTA LLEGAR A UN ACUERDO
--------------------------------------------------------------------------------------------*/
-//Route::resource('sex', App\Http\Controllers\SexController::class);
-//Route::resource('civil_-statu', App\Http\Controllers\Civil_StatuController::class);
-//Route::resource('nationality', App\Http\Controllers\NationalityController::class);
-//Route::resource('entity', App\Http\Controllers\EntityController::class);
-//Route::resource('product_-category', App\Http\Controllers\Product_CategoryController::class);
-//Route::resource('product', App\Http\Controllers\ProductController::class);
-//Route::resource('box', App\Http\Controllers\BoxController::class);
-//Route::resource('customer_-type', App\Http\Controllers\Customer_TypeController::class);
-//Route::resource('customer', App\Http\Controllers\CustomerController::class);
-//Route::resource('order_-type', App\Http\Controllers\Order_TypeController::class);
-//Route::resource('living_-room', App\Http\Controllers\Living_RoomController::class);
-//Route::resource('table', App\Http\Controllers\TableController::class);
-//Route::resource('order', App\Http\Controllers\OrderController::class);
+/*-------------------------------------------------------------
+    RUTA BASE: http://127.0.0.1:8000/sex
+    DESCRIPCION: ESTAS SON LAS RUTAS PARA MANEJAR LOS SEXOS.
+---------------------------------------------------------------*/
+Route::group([
+    'prefix' => 'sex',
+], function () {
+    Route::get('/', [SexController::class, 'index']);
+    Route::post('/', [SexController::class, 'store']);
+    Route::get('/{id}', [SexController::class, 'show']);
+    Route::put('/{id}', [SexController::class, 'update']);
+    Route::delete('/{id}', [SexController::class, 'destroy']);
+});
+
+/*-----------------------------------------------------------------------
+    RUTA BASE: http://127.0.0.1:8000/civil_status
+    DESCRIPCION: ESTAS SON LAS RUTAS PARA MANEJAR LOS ESTADOS CIVILES.
+-------------------------------------------------------------------------*/
+Route::group([
+    'prefix' => 'civil_status',
+], function () {
+    Route::get('/', [Civil_StatuController::class, 'index']);
+    Route::post('/', [Civil_StatuController::class, 'store']);
+    Route::get('/{id}', [Civil_StatuController::class, 'show']);
+    Route::put('/{id}', [Civil_StatuController::class, 'update']);
+    Route::delete('/{id}', [Civil_StatuController::class, 'destroy']);
+});
+
+/*----------------------------------------------------------------------
+    RUTA BASE: http://127.0.0.1:8000/nationality
+    DESCRIPCION: ESTAS SON LAS RUTAS PARA MANEJAR LAS NACIONALIDADES.
+------------------------------------------------------------------------*/
+Route::group([
+    'prefix' => 'nationality',
+], function () {
+    Route::get('/', [NationalityController::class, 'index']);
+    Route::post('/', [NationalityController::class, 'store']);
+    Route::get('/{id}', [NationalityController::class, 'show']);
+    Route::put('/{id}', [NationalityController::class, 'update']);
+    Route::delete('/{id}', [NationalityController::class, 'destroy']);
+});
+
+/*-----------------------------------------------------------------
+    RUTA BASE: http://127.0.0.1:8000/entities
+    DESCRIPCION: ESTAS SON LAS RUTAS PARA MANEJAR LAS ENTIDADES.
+-------------------------------------------------------------------*/
+Route::group([
+    'prefix' => 'entities',
+], function () {
+    Route::get('/', [EntityController::class, 'index']);
+    Route::post('/', [EntityController::class, 'store']);
+    Route::get('/{id}', [EntityController::class, 'show']);
+    Route::put('/{id}', [EntityController::class, 'update']);
+    Route::delete('/{id}', [EntityController::class, 'destroy']);
+});
+
+/*-----------------------------------------------------------------------------------
+    RUTA BASE: http://127.0.0.1:8000/product_category
+    DESCRIPCION: ESTAS SON LAS RUTAS PARA MANEJAR LAS CATEGORIAS DE LOS PRODUCTOS.
+-------------------------------------------------------------------------------------*/
+Route::group([
+    'prefix' => 'product_category',
+], function () {
+    Route::get('/', [Product_CategoryController::class, 'index']);
+    Route::post('/', [Product_CategoryController::class, 'store']);
+    Route::get('/{id}', [Product_CategoryController::class, 'show']);
+    Route::put('/{id}', [Product_CategoryController::class, 'update']);
+    Route::delete('/{id}', [Product_CategoryController::class, 'destroy']);
+});
+
+/*-----------------------------------------------------------------
+    RUTA BASE: http://127.0.0.1:8000/products
+    DESCRIPCION: ESTAS SON LAS RUTAS PARA MANEJAR LOS PRODUCTOS.
+-------------------------------------------------------------------*/
+Route::group([
+    'prefix' => 'products',
+], function () {
+    Route::get('/', [ProductController::class, 'index']);
+    Route::post('/', [ProductController::class, 'store']);
+    Route::get('/{id}', [ProductController::class, 'show']);
+    Route::put('/{id}', [ProductController::class, 'update']);
+    Route::delete('/{id}', [ProductController::class, 'destroy']);
+});
+
+/*-------------------------------------------------------------
+    RUTA BASE: http://127.0.0.1:8000/box
+    DESCRIPCION: ESTAS SON LAS RUTAS PARA MANEJAR LAS CAJAS.
+---------------------------------------------------------------*/
+Route::group([
+    'prefix' => 'box',
+], function () {
+    Route::get('/', [BoxController::class, 'index']);
+    Route::post('/', [BoxController::class, 'store']);
+    Route::get('/{id}', [BoxController::class, 'show']);
+    Route::put('/{id}', [BoxController::class, 'update']);
+    Route::delete('/{id}', [BoxController::class, 'destroy']);
+});
+
+/*-------------------------------------------------------------------------
+    RUTA BASE: http://127.0.0.1:8000/customer_type
+    DESCRIPCION: ESTAS SON LAS RUTAS PARA MANEJAR LOS TIPOS DE CLIENTES.
+---------------------------------------------------------------------------*/
+Route::group([
+    'prefix' => 'customer_type',
+], function () {
+    Route::get('/', [Customer_TypeController::class, 'index']);
+    Route::post('/', [Customer_TypeController::class, 'store']);
+    Route::get('/{id}', [Customer_TypeController::class, 'show']);
+    Route::put('/{id}', [Customer_TypeController::class, 'update']);
+    Route::delete('/{id}', [Customer_TypeController::class, 'destroy']);
+});
+
+/*----------------------------------------------------------------
+    RUTA BASE: http://127.0.0.1:8000/customer
+    DESCRIPCION: ESTAS SON LAS RUTAS PARA MANEJAR LOS CLIENTES.
+------------------------------------------------------------------*/
+Route::group([
+    'prefix' => 'customer',
+], function () {
+    Route::get('/', [CustomerController::class, 'index']);
+    Route::post('/', [CustomerController::class, 'store']);
+    Route::get('/{id}', [CustomerController::class, 'show']);
+    Route::put('/{id}', [CustomerController::class, 'update']);
+    Route::delete('/{id}', [CustomerController::class, 'destroy']);
+});
+
+/*------------------------------------------------------------------------
+    RUTA BASE: http://127.0.0.1:8000/order_type
+    DESCRIPCION: ESTAS SON LAS RUTAS PARA MANEJAR LOS TIPOS DE ORDENES.
+--------------------------------------------------------------------------*/
+Route::group([
+    'prefix' => 'order_type',
+], function () {
+    Route::get('/', [Order_TypeController::class, 'index']);
+    Route::post('/', [Order_TypeController::class, 'store']);
+    Route::get('/{id}', [Order_TypeController::class, 'show']);
+    Route::put('/{id}', [Order_TypeController::class, 'update']);
+    Route::delete('/{id}', [Order_TypeController::class, 'destroy']);
+});
+
+/*---------------------------------------------------------------
+    RUTA BASE: http://127.0.0.1:8000/living_room
+    DESCRIPCION: ESTAS SON LAS RUTAS PARA MANEJAR LOS SALONES.
+-----------------------------------------------------------------*/
+Route::group([
+    'prefix' => 'living_room',
+], function () {
+    Route::get('/', [Living_RoomController::class, 'index']);
+    Route::post('/', [Living_RoomController::class, 'store']);
+    Route::get('/{id}', [Living_RoomController::class, 'show']);
+    Route::put('/{id}', [Living_RoomController::class, 'update']);
+    Route::delete('/{id}', [Living_RoomController::class, 'destroy']);
+});
+
+/*-------------------------------------------------------------
+    RUTA BASE: http://127.0.0.1:8000/tables
+    DESCRIPCION: ESTAS SON LAS RUTAS PARA MANEJAR LAS MESAS.
+---------------------------------------------------------------*/
+Route::group([
+    'prefix' => 'tables',
+], function () {
+    Route::get('/', [TableController::class, 'index']);
+    Route::post('/', [TableController::class, 'store']);
+    Route::get('/{id}', [TableController::class, 'show']);
+    Route::put('/{id}', [TableController::class, 'update']);
+    Route::delete('/{id}', [TableController::class, 'destroy']);
+});
+
+/*---------------------------------------------------------------
+    RUTA BASE: http://127.0.0.1:8000/orders
+    DESCRIPCION: ESTAS SON LAS RUTAS PARA MANEJAR LAS ORDENES.
+-----------------------------------------------------------------*/
+Route::group([
+    'prefix' => 'orders',
+], function () {
+    Route::get('/', [OrderController::class, 'index']);
+    Route::post('/', [OrderController::class, 'store']);
+    Route::get('/{id}', [OrderController::class, 'show']);
+    Route::put('/{id}', [OrderController::class, 'update']);
+    Route::delete('/{id}', [OrderController::class, 'destroy']);
+});

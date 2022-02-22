@@ -8,20 +8,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Nationality extends Model
 {
+
     use HasFactory, SoftDeletes;
 
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
+    protected $table = 'nationalities';
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
+    protected $fillable = [
+        'name',
+        'description',
+        'status'
+    ];
+
     protected $casts = [
         'status' => 'boolean',
     ];
@@ -30,4 +27,5 @@ class Nationality extends Model
     {
         return $this->belongsTo(Entity::class);
     }
+
 }

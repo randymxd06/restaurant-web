@@ -10,18 +10,18 @@ class Order extends Model
 {
     use HasFactory, SoftDeletes;
 
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
+    protected $table = 'orders';
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
+    protected $fillable = [
+        'user_id',
+        'box_id',
+        'customer_id',
+        'order_types_id',
+        'table_id',
+        'total',
+        'status',
+    ];
+
     protected $casts = [
         'user_id' => 'integer',
         'box_id' => 'integer',

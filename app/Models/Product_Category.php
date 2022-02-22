@@ -10,18 +10,14 @@ class ProductCategory extends Model
 {
     use HasFactory, SoftDeletes;
 
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
+    protected $table = 'product_categories';
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
+    protected $fillable = [
+        'name',
+        'description',
+        'status',
+    ];
+
     protected $casts = [
         'status' => 'boolean',
     ];
@@ -30,4 +26,5 @@ class ProductCategory extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
 }

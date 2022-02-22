@@ -10,18 +10,18 @@ class Entity extends Model
 {
     use HasFactory, SoftDeletes;
 
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
+    protected $table = 'entities';
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'identification',
+        'sex_id',
+        'civil_status_id',
+        'nationality_id',
+        'status'
+    ];
+
     protected $casts = [
         'sex_id' => 'integer',
         'civil_status_id' => 'integer',

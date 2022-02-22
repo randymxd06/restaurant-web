@@ -10,18 +10,13 @@ class Customer extends Model
 {
     use HasFactory, SoftDeletes;
 
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
+    protected $table = 'customers';
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
+    protected $fillable = [
+        'entity_id',
+        'customer_type_id'
+    ];
+
     protected $casts = [
         'entity_id' => 'integer',
         'customer_type_id' => 'integer',

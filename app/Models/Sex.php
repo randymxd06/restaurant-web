@@ -10,15 +10,22 @@ class Sex extends Model
 {
     use HasFactory, SoftDeletes;
 
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
+    protected $table = 'sexs';
+
+    protected $fillable = [
+        'name',
+        'symbol',
+        'description',
+        'status',
+    ];
+
+    protected $casts = [
+        'status' => 'boolean',
+    ];
 
     public function entity()
     {
         return $this->belongsTo(Entity::class);
     }
+
 }
