@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CajaController;
 use App\Http\Controllers\RecepcionController;
 use App\Http\Controllers\CocinaController;
-use App\Http\Controllers\MesasController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PedidosRapidosController;
 use App\Http\Controllers\ReportesController;
@@ -237,6 +236,7 @@ Route::group([
     'prefix' => 'products',
 ], function () {
     Route::get('/', [ProductController::class, 'index']);
+    Route::get('/create', [ProductController::class, 'create']);
     Route::post('/', [ProductController::class, 'store']);
     Route::get('/{id}', [ProductController::class, 'show']);
     Route::put('/{id}', [ProductController::class, 'update']);
@@ -321,6 +321,7 @@ Route::group([
     'prefix' => 'tables',
 ], function () {
     Route::get('/', [TableController::class, 'index']);
+    Route::get('/create', [TableController::class, 'create']);
     Route::post('/', [TableController::class, 'store']);
     Route::get('/{id}', [TableController::class, 'show']);
     Route::put('/{id}', [TableController::class, 'update']);

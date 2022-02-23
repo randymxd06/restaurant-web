@@ -323,12 +323,12 @@ return [
             'submenu' => [
                 [
                     'text' => 'Gestionar Mesas',
-                    'url'  => 'mesas',
+                    'url'  => 'tables',
                     'icon' => 'fas fa-table'
                 ],
                 [
                     'text' => 'Agregar Mesa',
-                    'url'  => 'mesas/create',
+                    'url'  => 'tables/create',
                     'icon' => 'fas fa-save'
                 ],
                 [
@@ -354,17 +354,17 @@ return [
             'submenu' => [
                 [
                     'text' => 'Gestionar Productos',
-                    'url'  => 'productos',
+                    'url'  => 'products',
                     'icon' => 'fas fa-table'
                 ],
                 [
                     'text' => 'Agregar Productos',
-                    'url'  => 'productos/create',
+                    'url'  => 'products/create',
                     'icon' => 'fas fa-hotdog'
                 ],
                 [
                     'text' => 'Categorias',
-                    'url'  => 'categorias', 
+                    'url'  => 'product_category', 
                     'icon' => 'fas fa-tags'
                 ]
             ]
