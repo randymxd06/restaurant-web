@@ -38,7 +38,7 @@ use App\Http\Controllers\OrderController;
 */
 
 Route::get('/', function () {
-    return view('auth.login ');
+    return view('auth.register ');
 });
 
 
