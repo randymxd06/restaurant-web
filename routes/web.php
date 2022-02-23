@@ -13,16 +13,16 @@ use App\Http\Controllers\ReportesController;
 use App\Http\Controllers\ComprasController;
 use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\SexController;
-use App\Http\Controllers\Civil_StatuController;
+use App\Http\Controllers\CivilStatuController;
 use App\Http\Controllers\NationalityController;
 use App\Http\Controllers\EntityController;
-use App\Http\Controllers\Product_CategoryController;
+use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BoxController;
-use App\Http\Controllers\Customer_TypeController;
+use App\Http\Controllers\CustomerTypeController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\Order_TypeController;
-use App\Http\Controllers\Living_RoomController;
+use App\Http\Controllers\OrderTypeController;
+use App\Http\Controllers\LivingRoomController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\OrderController;
 
@@ -179,11 +179,11 @@ Route::group([
 Route::group([
     'prefix' => 'civil_status',
 ], function () {
-    Route::get('/', [Civil_StatuController::class, 'index']);
-    Route::post('/', [Civil_StatuController::class, 'store']);
-    Route::get('/{id}', [Civil_StatuController::class, 'show']);
-    Route::put('/{id}', [Civil_StatuController::class, 'update']);
-    Route::delete('/{id}', [Civil_StatuController::class, 'destroy']);
+    Route::get('/', [CivilStatuController::class, 'index']);
+    Route::post('/', [CivilStatuController::class, 'store']);
+    Route::get('/{id}', [CivilStatuController::class, 'show']);
+    Route::put('/{id}', [CivilStatuController::class, 'update']);
+    Route::delete('/{id}', [CivilStatuController::class, 'destroy']);
 });
 
 /*----------------------------------------------------------------------
@@ -221,11 +221,11 @@ Route::group([
 Route::group([
     'prefix' => 'product_category',
 ], function () {
-    Route::get('/', [Product_CategoryController::class, 'index']);
-    Route::post('/', [Product_CategoryController::class, 'store']);
-    Route::get('/{id}', [Product_CategoryController::class, 'show']);
-    Route::put('/{id}', [Product_CategoryController::class, 'update']);
-    Route::delete('/{id}', [Product_CategoryController::class, 'destroy']);
+    Route::get('/', [ProductCategoryController::class, 'index']);
+    Route::post('/', [ProductCategoryController::class, 'store']);
+    Route::get('/{id}', [ProductCategoryController::class, 'show']);
+    Route::put('/{id}', [ProductCategoryController::class, 'update']);
+    Route::delete('/{id}', [ProductCategoryController::class, 'destroy']);
 });
 
 /*-----------------------------------------------------------------
@@ -264,11 +264,11 @@ Route::group([
 Route::group([
     'prefix' => 'customer_type',
 ], function () {
-    Route::get('/', [Customer_TypeController::class, 'index']);
-    Route::post('/', [Customer_TypeController::class, 'store']);
-    Route::get('/{id}', [Customer_TypeController::class, 'show']);
-    Route::put('/{id}', [Customer_TypeController::class, 'update']);
-    Route::delete('/{id}', [Customer_TypeController::class, 'destroy']);
+    Route::get('/', [CustomerTypeController::class, 'index']);
+    Route::post('/', [CustomerTypeController::class, 'store']);
+    Route::get('/{id}', [CustomerTypeController::class, 'show']);
+    Route::put('/{id}', [CustomerTypeController::class, 'update']);
+    Route::delete('/{id}', [CustomerTypeController::class, 'destroy']);
 });
 
 /*----------------------------------------------------------------
@@ -292,11 +292,11 @@ Route::group([
 Route::group([
     'prefix' => 'order_type',
 ], function () {
-    Route::get('/', [Order_TypeController::class, 'index']);
-    Route::post('/', [Order_TypeController::class, 'store']);
-    Route::get('/{id}', [Order_TypeController::class, 'show']);
-    Route::put('/{id}', [Order_TypeController::class, 'update']);
-    Route::delete('/{id}', [Order_TypeController::class, 'destroy']);
+    Route::get('/', [OrderTypeController::class, 'index']);
+    Route::post('/', [OrderTypeController::class, 'store']);
+    Route::get('/{id}', [OrderTypeController::class, 'show']);
+    Route::put('/{id}', [OrderTypeController::class, 'update']);
+    Route::delete('/{id}', [OrderTypeController::class, 'destroy']);
 });
 
 /*---------------------------------------------------------------
@@ -306,11 +306,11 @@ Route::group([
 Route::group([
     'prefix' => 'living_room',
 ], function () {
-    Route::get('/', [Living_RoomController::class, 'index']);
-    Route::post('/', [Living_RoomController::class, 'store']);
-    Route::get('/{id}', [Living_RoomController::class, 'show']);
-    Route::put('/{id}', [Living_RoomController::class, 'update']);
-    Route::delete('/{id}', [Living_RoomController::class, 'destroy']);
+    Route::get('/', [LivingRoomController::class, 'index']);
+    Route::post('/', [LivingRoomController::class, 'store']);
+    Route::get('/{id}', [LivingRoomController::class, 'show']);
+    Route::put('/{id}', [LivingRoomController::class, 'update']);
+    Route::delete('/{id}', [LivingRoomController::class, 'destroy']);
 });
 
 /*-------------------------------------------------------------

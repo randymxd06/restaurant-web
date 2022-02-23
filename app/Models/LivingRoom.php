@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Sex extends Model
+class LivingRoom extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -24,10 +24,12 @@ class Sex extends Model
      */
     protected $casts = [
         'id' => 'integer',
+        'tables_capacity' => 'integer',
+        'status' => 'boolean',
     ];
 
-    public function entity()
+    public function tables()
     {
-        return $this->belongsTo(Entity::class);
+        return $this->hasMany(Table::class);
     }
 }

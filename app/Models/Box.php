@@ -4,22 +4,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Box extends Model
 {
+    use HasFactory;
 
-    use HasFactory, softDeletes;
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
 
-    protected $table = 'boxes';
-
-    protected $fillable = [
-        'start_time',
-        'end_time',
-        'status'
-    ];
-
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
     protected $casts = [
+        'id' => 'integer',
         'status' => 'boolean',
     ];
 
@@ -27,5 +30,4 @@ class Box extends Model
     {
         return $this->belongsTo(Order::class);
     }
-
 }
