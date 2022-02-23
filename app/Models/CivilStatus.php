@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Sex extends Model
+class CivilStatus extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -24,6 +24,7 @@ class Sex extends Model
      */
     protected $casts = [
         'id' => 'integer',
+        'status' => 'boolean',
     ];
 
     public function entity()

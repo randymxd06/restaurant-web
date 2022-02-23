@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Order_Type;
+use App\Models\OrderType;
 
 class OrderTypeFactory extends Factory
 {

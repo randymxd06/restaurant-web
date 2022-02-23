@@ -4,16 +4,16 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\LivingRoom;
+use App\Models\CivilStatus;
 
-class LivingRoomFactory extends Factory
+class CivilStatusFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = LivingRoom::class;
+    protected $model = CivilStatus::class;
 
     /**
      * Define the model's default state.
@@ -23,9 +23,7 @@ class LivingRoomFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
             'description' => $this->faker->text,
-            'tables_capacity' => $this->faker->randomNumber(),
             'status' => $this->faker->boolean,
         ];
     }

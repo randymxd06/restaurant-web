@@ -8,19 +8,22 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Table extends Model
 {
-
     use HasFactory, SoftDeletes;
 
-    protected $table = 'tables';
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
 
-    protected $fillable = [
-        'people_capacity',
-        'living_room_id',
-        'description',
-        'status'
-    ];
-
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
     protected $casts = [
+        'id' => 'integer',
         'people_capacity' => 'integer',
         'living_room_id' => 'integer',
         'status' => 'boolean',
@@ -36,4 +39,8 @@ class Table extends Model
         return $this->belongsTo(LivingRoom::class);
     }
 
+    public function livingRoom()
+    {
+        return $this->belongsTo(LivingRoom::class);
+    }
 }

@@ -10,19 +10,20 @@ class Entity extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'entities';
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
 
-    protected $fillable = [
-        'first_name',
-        'last_name',
-        'identification',
-        'sex_id',
-        'civil_status_id',
-        'nationality_id',
-        'status'
-    ];
-
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
     protected $casts = [
+        'id' => 'integer',
         'sex_id' => 'integer',
         'civil_status_id' => 'integer',
         'nationality_id' => 'integer',
@@ -34,9 +35,9 @@ class Entity extends Model
         return $this->hasMany(Sex::class);
     }
 
-    public function civilStatus()
+    public function civilStatuses()
     {
-        return $this->hasMany(CivilStatu::class);
+        return $this->hasMany(CivilStatus::class);
     }
 
     public function nationalities()
@@ -49,9 +50,13 @@ class Entity extends Model
         return $this->belongsTo(Sex::class);
     }
 
+    public function civilStatus()
+    {
+        return $this->belongsTo(CivilStatus::class);
+    }
+
     public function nationality()
     {
         return $this->belongsTo(Nationality::class);
     }
-
 }

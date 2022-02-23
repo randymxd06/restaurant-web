@@ -1,161 +1,47 @@
 created:
-    - app/Http/Controllers/SexController.php
-    - app/Http/Controllers/Civil_StatuController.php
-    - app/Http/Controllers/NationalityController.php
-    - app/Http/Controllers/EntityController.php
-    - app/Http/Controllers/Product_CategoryController.php
-    - app/Http/Controllers/ProductController.php
-    - app/Http/Controllers/BoxController.php
-    - app/Http/Controllers/Customer_TypeController.php
-    - app/Http/Controllers/CustomerController.php
-    - app/Http/Controllers/Order_TypeController.php
-    - app/Http/Controllers/Living_RoomController.php
-    - app/Http/Controllers/TableController.php
-    - app/Http/Controllers/OrderController.php
-    - database/factories/SexFactory.php
-    - database/factories/CivilStatuFactory.php
-    - database/factories/NationalityFactory.php
-    - database/factories/EntityFactory.php
-    - database/factories/ProductCategoryFactory.php
-    - database/factories/ProductFactory.php
-    - database/factories/BoxFactory.php
-    - database/factories/CustomerTypeFactory.php
-    - database/factories/CustomerFactory.php
-    - database/factories/OrderTypeFactory.php
-    - database/factories/LivingRoomFactory.php
-    - database/factories/TableFactory.php
-    - database/factories/OrderFactory.php
-    - database/migrations/2022_02_19_205659_create_sexes_table.php
-    - database/migrations/2022_02_19_205700_create_civil__status_table.php
-    - database/migrations/2022_02_19_205701_create_nationalities_table.php
-    - database/migrations/2022_02_19_205702_create_entities_table.php
-    - database/migrations/2022_02_19_205703_create_product__categories_table.php
-    - database/migrations/2022_02_19_205704_create_products_table.php
-    - database/migrations/2022_02_19_205705_create_boxes_table.php
-    - database/migrations/2022_02_19_205706_create_customer__types_table.php
-    - database/migrations/2022_02_19_205707_create_customers_table.php
-    - database/migrations/2022_02_19_205708_create_order__types_table.php
-    - database/migrations/2022_02_19_205709_create_living__rooms_table.php
-    - database/migrations/2022_02_19_205710_create_tables_table.php
-    - database/migrations/2022_02_19_205711_create_orders_table.php
-    - app/Models/Sex.php
-    - app/Models/Civil_Statu.php
-    - app/Models/Nationality.php
-    - app/Models/Entity.php
-    - app/Models/Product_Category.php
-    - app/Models/Product.php
-    - app/Models/Box.php
-    - app/Models/Customer_Type.php
-    - app/Models/Customer.php
-    - app/Models/Order_Type.php
-    - app/Models/Living_Room.php
-    - app/Models/Table.php
-    - app/Models/Order.php
-    - tests/Feature/Http/Controllers/SexControllerTest.php
-    - tests/Feature/Http/Controllers/Civil_StatuControllerTest.php
-    - tests/Feature/Http/Controllers/NationalityControllerTest.php
-    - tests/Feature/Http/Controllers/EntityControllerTest.php
-    - tests/Feature/Http/Controllers/Product_CategoryControllerTest.php
-    - tests/Feature/Http/Controllers/ProductControllerTest.php
-    - tests/Feature/Http/Controllers/BoxControllerTest.php
-    - tests/Feature/Http/Controllers/Customer_TypeControllerTest.php
-    - tests/Feature/Http/Controllers/CustomerControllerTest.php
-    - tests/Feature/Http/Controllers/Order_TypeControllerTest.php
-    - tests/Feature/Http/Controllers/Living_RoomControllerTest.php
-    - tests/Feature/Http/Controllers/TableControllerTest.php
-    - tests/Feature/Http/Controllers/OrderControllerTest.php
-    - app/Http/Requests/SexStoreRequest.php
-    - app/Http/Requests/SexUpdateRequest.php
-    - app/Http/Requests/Civil_StatuStoreRequest.php
-    - app/Http/Requests/Civil_StatuUpdateRequest.php
-    - app/Http/Requests/NationalityStoreRequest.php
-    - app/Http/Requests/NationalityUpdateRequest.php
-    - app/Http/Requests/EntityStoreRequest.php
-    - app/Http/Requests/EntityUpdateRequest.php
-    - app/Http/Requests/Product_CategoryStoreRequest.php
-    - app/Http/Requests/Product_CategoryUpdateRequest.php
-    - app/Http/Requests/ProductStoreRequest.php
-    - app/Http/Requests/ProductUpdateRequest.php
-    - app/Http/Requests/BoxStoreRequest.php
-    - app/Http/Requests/BoxUpdateRequest.php
-    - app/Http/Requests/Customer_TypeStoreRequest.php
-    - app/Http/Requests/Customer_TypeUpdateRequest.php
-    - app/Http/Requests/CustomerStoreRequest.php
-    - app/Http/Requests/CustomerUpdateRequest.php
-    - app/Http/Requests/Order_TypeStoreRequest.php
-    - app/Http/Requests/Order_TypeUpdateRequest.php
-    - app/Http/Requests/Living_RoomStoreRequest.php
-    - app/Http/Requests/Living_RoomUpdateRequest.php
-    - app/Http/Requests/TableStoreRequest.php
-    - app/Http/Requests/TableUpdateRequest.php
-    - app/Http/Requests/OrderStoreRequest.php
-    - app/Http/Requests/OrderUpdateRequest.php
-    - resources/views/sex/index.blade.php
-    - resources/views/sex/create.blade.php
-    - resources/views/sex/show.blade.php
-    - resources/views/sex/edit.blade.php
-    - resources/views/civilStatu/index.blade.php
-    - resources/views/civilStatu/create.blade.php
-    - resources/views/civilStatu/show.blade.php
-    - resources/views/civilStatu/edit.blade.php
-    - resources/views/nationality/index.blade.php
-    - resources/views/nationality/create.blade.php
-    - resources/views/nationality/show.blade.php
-    - resources/views/nationality/edit.blade.php
-    - resources/views/entity/index.blade.php
-    - resources/views/entity/create.blade.php
-    - resources/views/entity/show.blade.php
-    - resources/views/entity/edit.blade.php
-    - resources/views/productCategory/index.blade.php
-    - resources/views/productCategory/create.blade.php
-    - resources/views/productCategory/show.blade.php
-    - resources/views/productCategory/edit.blade.php
-    - resources/views/product/index.blade.php
-    - resources/views/product/create.blade.php
-    - resources/views/product/show.blade.php
-    - resources/views/product/edit.blade.php
-    - resources/views/box/index.blade.php
-    - resources/views/box/create.blade.php
-    - resources/views/box/show.blade.php
-    - resources/views/box/edit.blade.php
-    - resources/views/customerType/index.blade.php
-    - resources/views/customerType/create.blade.php
-    - resources/views/customerType/show.blade.php
-    - resources/views/customerType/edit.blade.php
-    - resources/views/customer/index.blade.php
-    - resources/views/customer/create.blade.php
-    - resources/views/customer/show.blade.php
-    - resources/views/customer/edit.blade.php
-    - resources/views/orderType/index.blade.php
-    - resources/views/orderType/create.blade.php
-    - resources/views/orderType/show.blade.php
-    - resources/views/orderType/edit.blade.php
-    - resources/views/livingRoom/index.blade.php
-    - resources/views/livingRoom/create.blade.php
-    - resources/views/livingRoom/show.blade.php
-    - resources/views/livingRoom/edit.blade.php
-    - resources/views/table/index.blade.php
-    - resources/views/table/create.blade.php
-    - resources/views/table/show.blade.php
-    - resources/views/table/edit.blade.php
-    - resources/views/order/index.blade.php
-    - resources/views/order/create.blade.php
-    - resources/views/order/show.blade.php
-    - resources/views/order/edit.blade.php
+    - app/Http/Controllers/ProductCategoryController.php
+    - app/Http/Controllers/CivilStatusController.php
+    - app/Http/Controllers/CostumerTypeController.php
+    - app/Http/Controllers/OrderTypeController.php
+    - app/Http/Controllers/LivingRoomController.php
+    - tests/Feature/Http/Controllers/ProductCategoryControllerTest.php
+    - tests/Feature/Http/Controllers/CivilStatusControllerTest.php
+    - tests/Feature/Http/Controllers/CostumerTypeControllerTest.php
+    - tests/Feature/Http/Controllers/OrderTypeControllerTest.php
+    - tests/Feature/Http/Controllers/LivingRoomControllerTest.php
+    - app/Http/Requests/ProductCategoryStoreRequest.php
+    - app/Http/Requests/ProductCategoryUpdateRequest.php
+    - app/Http/Requests/CivilStatusStoreRequest.php
+    - app/Http/Requests/CivilStatusUpdateRequest.php
+    - app/Http/Requests/CostumerTypeStoreRequest.php
+    - app/Http/Requests/CostumerTypeUpdateRequest.php
+    - app/Http/Requests/OrderTypeStoreRequest.php
+    - app/Http/Requests/OrderTypeUpdateRequest.php
+    - app/Http/Requests/LivingRoomStoreRequest.php
+    - app/Http/Requests/LivingRoomUpdateRequest.php
+    - resources/views/costumerType/index.blade.php
+    - resources/views/costumerType/create.blade.php
+    - resources/views/costumerType/show.blade.php
+    - resources/views/costumerType/edit.blade.php
 updated:
     - routes/web.php
 models:
     User: { name: 'string:191', email: 'string:191', email_verified_at: 'datetime nullable', password: 'string:191', two_factor_secret: 'text nullable', two_factor_recovery_codes: 'text nullable', remember_token: 'string:100 nullable', current_team_id: 'biginteger unsigned nullable', profile_photo_path: 'string:2048 nullable' }
-    Sex: { id: bigIncrements, name: string, symbol: string, description: text, timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: Entity } }
+    Sex: { id: id, name: string, symbol: string, description: text, timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: Entity } }
     Civil_Statu: { id: id, description: text, status: boolean, timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: Entity } }
-    Nationality: { id: bigIncrements, name: string, description: text, status: boolean, timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: Entity } }
-    Entity: { id: bigIncrements, first_name: string, last_name: string, identification: string, sex_id: 'unsignedBigInteger foreign:sexs.id', civil_status_id: 'unsignedBigInteger foreign:civil_status.id', nationality_id: 'unsignedBigInteger foreign:nationalities.id', status: boolean, timestamps: timestamps, softdeletes: softDeletes, relationships: { hasMany: 'Sex, Civil_Statu, Nationality' } }
+    Nationality: { id: id, name: string, description: text, status: boolean, timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: Entity } }
+    Entity: { id: id, first_name: string, last_name: string, identification: string, sex_id: 'unsignedBigInteger foreign:sexs.id', civil_status_id: 'unsignedBigInteger foreign:civil_status.id', nationality_id: 'unsignedBigInteger foreign:nationalities.id', status: boolean, timestamps: timestamps, softdeletes: softDeletes, relationships: { hasMany: 'Sex, CivilStatus, Nationality' } }
     Product_Category: { id: bigIncrements, name: string, description: string, status: boolean, timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: Product } }
-    Product: { id: autoIncrements, name: string, description: text, products_categories_id: 'unsignedBigInteger foreign:product_categories.id', price: decimal, status: boolean, timestamps: timestamps, softdeletes: softDeletes, relationships: { hasMany: Products_Category } }
-    Box: { id: bigIncrements, start_time: time, end_time: time, status: boolean, timestamps: timestamps, relationships: { belongsTo: Order } }
+    Product: { id: id, name: string, description: text, products_categories_id: 'unsignedBigInteger foreign:product_categories.id', price: decimal, status: boolean, timestamps: timestamps, softdeletes: softDeletes, relationships: { hasMany: ProductsCategory } }
+    Box: { id: id, start_time: time, end_time: time, status: boolean, timestamps: timestamps, relationships: { belongsTo: Order } }
     Customer_Type: { id: bigIncrements, name: string, description: text, status: boolean, timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: Customer } }
-    Customer: { id: bigIncrements, entity_id: 'unsignedBigInteger foreign:entities.id', customer_type_id: 'unsignedBigInteger foreign:customer_types.id', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: Entity, hasOne: Customer_Type } }
+    Customer: { id: id, entity_id: 'unsignedBigInteger foreign:entities.id', customer_type_id: 'unsignedBigInteger foreign:customer_types.id', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: Entity, hasOne: CustomerType } }
     Order_Type: { id: bigIncremets, name: string, description: text, status: boolean, timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: Order } }
     Living_Room: { id: bigIncrements, name: string, description: text, tables_capacity: unsignedBigInteger, status: boolean, timestamps: timestamps, softdeletes: softDeletes, relationships: { hasMany: Table } }
-    Table: { id: bigIncrements, people_capacity: unsignedBigInteger, living_room_id: 'unsignedBigInteger foreign:living_rooms.id', description: text, status: boolean, timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: 'Order, Living_Room' } }
-    Order: { id: bitIncrements, user_id: 'unsignedBigInteger foreign:users.id', box_id: 'unsignedBigInteger foreign:boxes.id', customer_id: 'unsignedBigInteger foreign:customers.id', orders_types_id: 'unsignedBigInteger foreign:orders_types.id', table_id: 'unsignedBigInteger foreign:tables.id', total: decimal, status: boolean, timestamps: timestamps, softdeletes: softDeletes, relationships: { hasOne: 'User, Box, Customer, Order_Type, Table' } }
+    Table: { id: id, people_capacity: unsignedBigInteger, living_room_id: 'unsignedBigInteger foreign:living_rooms.id', description: text, status: boolean, timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: 'Order, LivingRoom' } }
+    Order: { id: id, user_id: 'unsignedBigInteger foreign:users.id', box_id: 'unsignedBigInteger foreign:boxes.id', customer_id: 'unsignedBigInteger foreign:customers.id', orders_types_id: 'unsignedBigInteger foreign:orders_types.id', table_id: 'unsignedBigInteger foreign:tables.id', total: decimal, status: boolean, timestamps: timestamps, softdeletes: softDeletes, relationships: { hasOne: 'User, Box, Customer, OrderType, Table' } }
+    CivilStatus: { id: id, description: text, status: boolean, timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: Entity } }
+    ProductCategory: { id: id, name: string, description: string, status: boolean, timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: Product } }
+    CustomerType: { id: id, name: string, description: text, status: boolean, timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: Customer } }
+    OrderType: { id: id, name: string, description: text, status: boolean, timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: Order } }
+    LivingRoom: { id: id, name: string, description: text, tables_capacity: unsignedBigInteger, status: boolean, timestamps: timestamps, softdeletes: softDeletes, relationships: { hasMany: Table } }

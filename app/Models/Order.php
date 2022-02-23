@@ -10,19 +10,20 @@ class Order extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'orders';
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
 
-    protected $fillable = [
-        'user_id',
-        'box_id',
-        'customer_id',
-        'order_types_id',
-        'table_id',
-        'total',
-        'status',
-    ];
-
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
     protected $casts = [
+        'id' => 'integer',
         'user_id' => 'integer',
         'box_id' => 'integer',
         'customer_id' => 'integer',
@@ -57,9 +58,28 @@ class Order extends Model
         return $this->hasOne(Table::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function box()
+    {
+        return $this->belongsTo(Box::class);
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
     public function ordersTypes()
     {
         return $this->belongsTo(OrdersType::class);
     }
 
+    public function table()
+    {
+        return $this->belongsTo(Table::class);
+    }
 }

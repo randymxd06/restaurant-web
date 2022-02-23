@@ -10,17 +10,28 @@ class Customer extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'customers';
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
 
-    protected $fillable = [
-        'entity_id',
-        'customer_type_id'
-    ];
-
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
     protected $casts = [
+        'id' => 'integer',
         'entity_id' => 'integer',
         'customer_type_id' => 'integer',
     ];
+
+    public function entity()
+    {
+        return $this->belongsTo(Entity::class);
+    }
 
     public function entity()
     {
@@ -32,4 +43,8 @@ class Customer extends Model
         return $this->belongsTo(CustomerType::class);
     }
 
+    public function customerType()
+    {
+        return $this->hasOne(CustomerType::class);
+    }
 }
