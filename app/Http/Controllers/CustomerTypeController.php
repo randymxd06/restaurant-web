@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\CostumerType;
 use App\Http\Requests\CostumerTypeStoreRequest;
 use App\Http\Requests\CostumerTypeUpdateRequest;
-use App\costumerType;
+use App\Models\CustomerType;
 use Illuminate\Http\Request;
 
-class CostumerTypeController extends Controller
+class CustomerTypeController extends Controller
 {
     /**
      * @param \Illuminate\Http\Request $request
@@ -16,7 +16,7 @@ class CostumerTypeController extends Controller
      */
     public function index(Request $request)
     {
-        $costumerTypes = CostumerType::all();
+        $customerTypes = CustomerType::all();
 
         return view('costumerType.index', compact('costumerTypes'));
     }
@@ -36,7 +36,7 @@ class CostumerTypeController extends Controller
      */
     public function store(CostumerTypeStoreRequest $request)
     {
-        $costumerType = CostumerType::create($request->validated());
+        $costumerType = CustomerType::create($request->validated());
 
         $request->session()->flash('costumerType.id', $costumerType->id);
 
