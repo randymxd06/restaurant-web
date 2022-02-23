@@ -10,10 +10,9 @@
 @section('content')
 
 <!-- FORMULARIO -->
-<form method="post" action="{{ url('/mesas/store') }}">
+<form method="post" action="{{ url('/tables/store') }}">
     <!-- TOKEN -->
     @csrf
-
     {{-- SALON Y CAPACIDAD DE PERSONAS --}}
     <div class="form-row">
         {{-- SALON --}}

@@ -21,9 +21,9 @@ class TableController extends Controller
         return view('table.create');
     }
 
-    public function store(TableStoreRequest $request)
+    public function store(Request $request)
     {
-        $table = Table::create($request->validated());
+        $table = Table::create($request->all());
         $request->session()->flash('table.id', $table->id);
         return redirect()->route('table.index');
     }
