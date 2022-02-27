@@ -323,12 +323,12 @@ return [
             'submenu' => [
                 [
                     'text' => 'Gestionar Mesas',
-                    'url'  => 'tables',
+                    'url'  => 'mesas',
                     'icon' => 'fas fa-table'
                 ],
                 [
                     'text' => 'Agregar Mesa',
-                    'url'  => 'tables/create',
+                    'url'  => 'mesas/create',
                     'icon' => 'fas fa-save'
                 ],
                 [
@@ -364,7 +364,7 @@ return [
                 ],
                 [
                     'text' => 'Categorias',
-                    'url'  => 'product_category', 
+                    'url'  => 'product_category',
                     'icon' => 'fas fa-tags'
                 ]
             ]

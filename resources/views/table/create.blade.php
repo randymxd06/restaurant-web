@@ -10,16 +10,19 @@
 @section('content')
 
 <!-- FORMULARIO -->
-<form method="post" action="{{ url('/tables/store') }}">
+<form method="post" action="{{ url('/mesas/store') }}">
+
     <!-- TOKEN -->
     @csrf
+
     {{-- SALON Y CAPACIDAD DE PERSONAS --}}
     <div class="form-row">
+
         {{-- SALON --}}
         <div class="col-md-6 mb-2">
             <div class="form-group">
                 <label class="form-label">Salón:</label>
-                <select class="custom-select mr-sm-2" id="salon" name="salon">
+                <select class="custom-select mr-sm-2" id="living_room_id" name="living_room_id">
                     <option selected disabled>Choose...</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
@@ -27,6 +30,7 @@
                 </select>
             </div>
         </div>
+
         {{-- CAPACIDAD DE PERSONAS --}}
         <div class="col-md-6 mb-2">
             <div class="form-group">
@@ -49,12 +53,15 @@
             <label class="custom-control-label" for="status">Estado</label>
         </div>
     </div>
+
     <hr>
+
     {{-- BOTON GUARDAR --}}
     <button type="submit" class="btn btn-success mt-4">
         <i class="fas fa-save"></i>
         Guardar
     </button>
+
 </form>
 <!-- FIN DEL FORMULARIO -->
 

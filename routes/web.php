@@ -247,15 +247,15 @@ Route::group([
     RUTA BASE: http://127.0.0.1:8000/box
     DESCRIPCION: ESTAS SON LAS RUTAS PARA MANEJAR LAS CAJAS.
 ---------------------------------------------------------------*/
-Route::group([
-    'prefix' => 'box',
-], function () {
-    Route::get('/', [BoxController::class, 'index']);
-    Route::post('/', [BoxController::class, 'store']);
-    Route::get('/{id}', [BoxController::class, 'show']);
-    Route::put('/{id}', [BoxController::class, 'update']);
-    Route::delete('/{id}', [BoxController::class, 'destroy']);
-});
+//Route::group([
+//    'prefix' => 'box',
+//], function () {
+//    Route::get('/', [BoxController::class, 'index']);
+//    Route::post('/', [BoxController::class, 'store']);
+//    Route::get('/{id}', [BoxController::class, 'show']);
+//    Route::put('/{id}', [BoxController::class, 'update']);
+//    Route::delete('/{id}', [BoxController::class, 'destroy']);
+//});
 
 /*-------------------------------------------------------------------------
     RUTA BASE: http://127.0.0.1:8000/customer_type
@@ -314,11 +314,11 @@ Route::group([
 });
 
 /*-------------------------------------------------------------
-    RUTA BASE: http://127.0.0.1:8000/tables
+    RUTA BASE: http://127.0.0.1:8000/mesas
     DESCRIPCION: ESTAS SON LAS RUTAS PARA MANEJAR LAS MESAS.
 ---------------------------------------------------------------*/
 Route::group([
-    'prefix' => 'tables',
+    'prefix' => 'mesas',
 ], function () {
     Route::get('/', [TableController::class, 'index']);
     Route::get('/create', [TableController::class, 'create']);
