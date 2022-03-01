@@ -65,15 +65,25 @@
                     <!-- The footer of the card -->
                     <div class="btn-group">
 
-                        <button class="btn btn-warning">
+                        {{-- BOTON EDITAR --}}
+                        <a href="{{url('/mesas/edit/'.$table->id)}}" class="btn btn-warning">
                             <i class="fas fa-edit"></i>
                             Editar
-                        </button>
+                        </a>
 
-                        <button class="btn btn-danger">
-                            <i class="fas fa-trash"></i>
-                            Eliminar
-                        </button>
+                        {{-- BOTON ELIMINAR --}}
+                        <form action="{{url('/mesas/delete/'.$table->id)}}" method="post">
+
+                            @csrf
+
+                            {{method_field('DELETE')}}
+
+                            <button type="submit" onclick="return confirm('Deseas eliminar esta mesa?')" class="btn btn-danger" value="borrar">
+                                <i class="fas fa-trash"></i>
+                                Eliminar
+                            </button>
+
+                        </form>
 
                     </div>
 

@@ -321,11 +321,12 @@ Route::group([
     'prefix' => 'mesas',
 ], function () {
     Route::get('/', [TableController::class, 'index']);
+    Route::get('/show/{id}', [TableController::class, 'show']);
     Route::get('/create', [TableController::class, 'create']);
     Route::post('/store', [TableController::class, 'store']);
-    Route::get('/{id}', [TableController::class, 'show']);
-    Route::put('/{id}', [TableController::class, 'update']);
-    Route::delete('/{id}', [TableController::class, 'destroy']);
+    Route::get('/edit/{id}', [TableController::class, 'edit']);
+    Route::put('/update/{id}', [TableController::class, 'update']);
+    Route::delete('/delete/{id}', [TableController::class, 'destroy']);
 });
 
 /*---------------------------------------------------------------
