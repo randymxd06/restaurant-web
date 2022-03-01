@@ -25,10 +25,10 @@
                 <div class="form-group">
                     <label class="form-label">Salón:</label>
                     <select class="custom-select mr-sm-2" id="living_room_id" name="living_room_id">
-                        <option selected disabled>Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option disabled>Choose...</option>
+                        <option {{($table->living_room_id == 1) ? 'selected' : ''}} value="1">One</option>
+                        <option {{($table->living_room_id == 2) ? 'selected' : ''}} value="2">Two</option>
+                        <option {{($table->living_room_id == 3) ? 'selected' : ''}} value="3">Three</option>
                     </select>
                 </div>
             </div>
@@ -51,7 +51,7 @@
         {{-- ESTADO --}}
         <div class="form-group">
             <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="status" name="status" value="{{($table->status == true || $table->status == 1) ? 'on' : 'off'}}">
+                <input type="checkbox" class="custom-control-input" id="status" name="status" {{($table->status == true || $table->status == 1) ? 'checked' : ''}}>
                 <label class="custom-control-label" for="status">Estado</label>
             </div>
         </div>
