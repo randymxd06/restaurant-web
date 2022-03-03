@@ -58,28 +58,28 @@ class Order extends Model
         return $this->hasOne(Table::class);
     }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function user()
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 
-    public function box()
-    {
-        return $this->belongsTo(Box::class);
-    }
+    // public function box()
+    // {
+    //     return $this->belongsTo(Box::class);
+    // }
 
-    public function customer()
-    {
-        return $this->belongsTo(Customer::class);
-    }
+    // public function customer()
+    // {
+    //     return $this->belongsTo(Customer::class);
+    // }
 
-    public function ordersTypes()
-    {
-        return $this->belongsTo(OrdersType::class);
-    }
+    // public function ordersTypes()
+    // {
+    //     return $this->belongsTo(OrdersType::class);
+    // }
 
-    public function table()
-    {
-        return $this->belongsTo(Table::class);
-    }
+    // public function table()
+    // {
+    //     return $this->belongsTo(Table::class);
+    // }
 }
