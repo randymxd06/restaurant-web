@@ -323,17 +323,17 @@ return [
             'submenu' => [
                 [
                     'text' => 'Gestionar Mesas',
-                    'url'  => 'mesas',
+                    'url'  => 'tables',
                     'icon' => 'fas fa-table'
                 ],
                 [
                     'text' => 'Agregar Mesa',
-                    'url'  => 'mesas/create',
+                    'url'  => 'tables/create',
                     'icon' => 'fas fa-save'
                 ],
                 [
                     'text' => 'Salones',
-                    'url'  => 'living_room',
+                    'url'  => 'livingrooms',
                     'icon' => 'fas fa-person-booth'
                 ],
             ],
@@ -417,8 +417,8 @@ return [
         ],
         */
             // Label
-       /*
-       [
+        /*
+        [
             'text'        => 'pages',
             'url'         => 'admin/pages',
             'icon'        => 'far fa-fw fa-file',

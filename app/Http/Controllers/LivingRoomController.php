@@ -13,7 +13,7 @@ class LivingRoomController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $livingRooms = LivingRoom::all();
 
@@ -24,7 +24,7 @@ class LivingRoomController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
         return view('livingRoom.create');
     }
@@ -33,13 +33,41 @@ class LivingRoomController extends Controller
      * @param \App\Http\Requests\LivingRoomStoreRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(LivingRoomStoreRequest $request)
+    public function store(Request $request)
     {
-        $livingRoom = LivingRoom::create($request->validated());
+        try{
+            // Validacion del formulario
+            $validate = [
+                'name' => [
+                    'required',
+                    'string',
+                    'unique:living_rooms,name'
+                ],
+                'tables_capacity' => 'required|numeric',
+            ];
 
-        $request->session()->flash('livingRoom.id', $livingRoom->id);
+            // Mensaje de error al mostrar
+            $message = [
+                'required' => 'El :attribute es requerido.'
+            ];
+            // Realizar validacion de los datos 
+            $this -> validate($request, $validate, $message);
 
-        return redirect()->route('livingRoom.index');
+            // Validar el estado, para enviar como true o false
+            ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;
+
+            // Objeto con la informacion que es guardara, exceptuando el TOKEN
+            $data = request()->except('_token');
+
+            // Comprobar datos recibidos
+            // return response()->json($data);
+            
+            // Inserto el registro en la tabla
+            $livingRooms = LivingRoom::insert($data);
+            return redirect('livingrooms');
+        }catch(Exception $e){
+            throw new Exception($e);
+        }
     }
 
     /**
@@ -57,8 +85,9 @@ class LivingRoomController extends Controller
      * @param \App\Models\LivingRoom $livingRoom
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, LivingRoom $livingRoom)
+    public function edit($id)
     {
+        $livingRoom = LivingRoom::findOrFail($id);
         return view('livingRoom.edit', compact('livingRoom'));
     }
 
@@ -67,13 +96,34 @@ class LivingRoomController extends Controller
      * @param \App\Models\LivingRoom $livingRoom
      * @return \Illuminate\Http\Response
      */
-    public function update(LivingRoomUpdateRequest $request, LivingRoom $livingRoom)
+    public function update(Request $request, $id)
     {
-        $livingRoom->update($request->validated());
+        // Validacion del formulario
+        $validate = [
+            'name' => [
+                'required',
+                'string',
+                'unique:living_rooms,name,'.$id
+            ],
+            'tables_capacity' => 'required|numeric',
+        ];
 
-        $request->session()->flash('livingRoom.id', $livingRoom->id);
+        // Mensaje de error al mostrar
+        $message = [
+            'required' => 'El :attribute es requerido.'
+        ];
+        // Realizar validacion de los datos 
+        $this -> validate($request, $validate, $message);
 
-        return redirect()->route('livingRoom.index');
+        // Validar el estado, para enviar como true o false
+        ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;
+
+        // Objeto con la informacion que es guardara, exceptuando el TOKEN
+        $data = request()->except('_token','_method');
+        
+        // Actualizar datos cuando el id coincida
+        LivingRoom::where('id','=',$id)->update($data);
+        return redirect('livingrooms');
     }
 
     /**
@@ -81,10 +131,14 @@ class LivingRoomController extends Controller
      * @param \App\Models\LivingRoom $livingRoom
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, LivingRoom $livingRoom)
+    public function destroy($id)
     {
-        $livingRoom->delete();
-
-        return redirect()->route('livingRoom.index');
+        try{
+            $livingRoom = LivingRoom::findOrFail($id);
+            $livingRoom->delete();
+            return redirect('livingrooms');
+        }catch(Exception $e){
+            throw new Exception($e);
+        }
     }
 }

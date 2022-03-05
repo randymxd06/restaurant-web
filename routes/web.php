@@ -38,7 +38,7 @@ use App\Http\Controllers\OrderController;
 */
 
 Route::get('/', function () {
-    return view('auth.register ');
+    return view('auth.login ');
 });
 
 
@@ -304,21 +304,22 @@ Route::group([
     DESCRIPCION: ESTAS SON LAS RUTAS PARA MANEJAR LOS SALONES.
 -----------------------------------------------------------------*/
 Route::group([
-    'prefix' => 'living_room',
+    'prefix' => 'livingrooms',
 ], function () {
     Route::get('/', [LivingRoomController::class, 'index']);
-    Route::post('/', [LivingRoomController::class, 'store']);
-    Route::get('/{id}', [LivingRoomController::class, 'show']);
-    Route::put('/{id}', [LivingRoomController::class, 'update']);
-    Route::delete('/{id}', [LivingRoomController::class, 'destroy']);
+    Route::get('/show/{id}', [LivingRoomController::class, 'show']);
+    Route::get('/create', [LivingRoomController::class, 'create']);
+    Route::post('/store', [LivingRoomController::class, 'store']);
+    Route::get('/edit/{id}', [LivingRoomController::class, 'edit']);
+    Route::put('/update/{id}', [LivingRoomController::class, 'update']);
+    Route::delete('/delete/{id}', [LivingRoomController::class, 'destroy']);
 });
-
 /*-------------------------------------------------------------
     RUTA BASE: http://127.0.0.1:8000/mesas
     DESCRIPCION: ESTAS SON LAS RUTAS PARA MANEJAR LAS MESAS.
 ---------------------------------------------------------------*/
 Route::group([
-    'prefix' => 'mesas',
+    'prefix' => 'tables',
 ], function () {
     Route::get('/', [TableController::class, 'index']);
     Route::get('/show/{id}', [TableController::class, 'show']);
