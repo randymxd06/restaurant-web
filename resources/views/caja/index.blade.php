@@ -4,8 +4,8 @@
 
 @section('content_header')
 <nav class="main-header navbar-category navbar navbar-expand navbar-white navbar-light">
-    <ul class="navbar-nav">
-        <li class="nav-item">
+  <ul class="navbar-nav">
+      <li class="nav-item">
             <a class="nav-link" href="{{ url('dashboard') }}">
                 <i class="fas fa-arrow-left"></i>
                 <!-- <span class="sr-only">Toggle navigation</span> -->
@@ -43,38 +43,48 @@
   <div class="sidebar">
     <!-- Sidebar Menu -->
     <nav>
+      <!-- Categorias -->
       <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu">
         <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
+        <!-- Titulo -->
         <li class="nav-header"> </li>
-        <!-- Categorias -->
-        <li class="nav-item">
+        <!-- / -->
+
+        <!-- Ejemplo -->
+        <!-- <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-th"></i>
             <p>
               Entradas
-              <!-- <span class="right badge badge-danger">New</span> -->
+              <span class="right badge badge-danger">New</span> 
+              
+            </p>
+          </a>
+        </li> -->
+        <!-- / -->
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-tags"></i>
+            <p>
+              Todas
             </p>
           </a>
         </li>
+        <!-- Categoria -->
+        @foreach( $productCategories as $productCategory )
         <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-th"></i>
             <p>
-              Postres
+              {{ $productCategory->name }}
             </p>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-th"></i>
-            <p>
-              Bebidas
-            </p>
-          </a>
-        </li>
-        
-        <!-- /. Categorias -->
+        @endforeach
+        <!-- / -->
+
       </ul>
+      <!-- /. Categorias -->
     </nav>
     <!-- /.sidebar-menu -->
   </div>

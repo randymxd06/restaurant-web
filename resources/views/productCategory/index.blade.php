@@ -4,19 +4,24 @@
 
 @section('content_header')
     <h1>Categorias</h1>
-    <hr>
+    <a class="btn btn-success mt-1" href="{{url('/product_category/create')}}">
+        <i class="fas fa-tags"></i>
+        Agregar
+    </a>
+    <hr class="mt-2">
 @stop
 
 @section('content')
 <div class="row row-cols-1 row-cols-md-3">
     <!-- Card -->
+    @foreach( $productCategories as $Category )
     <div class="col mb-4"> 
-        <div class="card card-outline card-primary">
+        <div class="card card-outline {{($Category->status == true || $Category->status == 1) ? 'card-success' : 'card-danger'}}">
             <div class="card-header">
                 <h5 class="card-title">
                     <i class="fas fa-tag"></i>
                     <!-- Nombre -->
-                    Categoria
+                    {{ $Category -> name }}
                 </h5>
             </div>
             <div class="card-body">
@@ -27,25 +32,32 @@
                             Descripción: 
                         </strong>
                         <!-- Descripcion -->
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
+                        {{ $Category -> description }}
                     </li>
                 </ul>
             </div>
             <div class="card-footer text-center">
                 <!-- The footer of the card -->
                 <div class="btn-group">
-                    <button class="btn btn-warning">
+                    <!-- Boton Editar -->      
+                    <a href="{{url('/product_category/edit/'.$Category->id)}}" class="btn btn-warning">
                         <i class="fas fa-edit"></i>
                         Editar
-                    </button>
-                    <button class="btn btn-danger">
-                        <i class="fas fa-trash"></i>
-                        Eliminar
-                    </button>
+                    </a>
+                    <!-- Boton eliminar -->
+                    <form action="{{ url('/product_category/delete/'.$Category->id) }}" method="post">
+                        @csrf
+                        {{method_field('DELETE')}}
+                        <button type="submit" onclick="return confirm('¿Deseas eliminar esta categoria?')" class="btn btn-danger">
+                            <i class="fas fa-trash"></i>
+                            Eliminar
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+    @endforeach
     <!-- / -->
 </div>
 @stop 

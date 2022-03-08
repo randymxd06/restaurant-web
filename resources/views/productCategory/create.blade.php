@@ -3,28 +3,49 @@
 @section('title', 'Categorias')
 
 @section('content_header')
-    <h1 class="mb-4">Categorias</h1>
-    <hr>
+    <h1>Crear Categoria</h1>
+    <a class="btn btn-primary mt-1" href="{{url('/product_category')}}">
+        <i class="fas fa-arrow-left"></i>
+        Volver
+    </a>
+    <hr class="mt-2">
+    <!-- Mensaje de error -->
+    @if(count($errors)>0)
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>
+                        <i class="icon fas fa-exclamation-triangle"></i>{{$error}}
+                    </li>
+                    <hr>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <!-- / -->
 @stop
 
 @section('content')
 <!-- Formulario Producto -->
-<form method="post" action="{{ url('/Categorias/store') }}">
+<form method="post" action="{{ url('/product_category/store') }}">
     <!-- TOKEN -->
     @csrf
     <div class="form-row">
         <!-- Nombre -->
-        <div class="col-md-6 mb-2">
+        <div class="col-md-12 mb-2">
             <div class="form-group">
                 <label class="form-label">Nombre:</label>
-                <input type="text" class="form-control" id="name" name="name">
+                <input type="text" class="form-control" id="name" name="name" value="{{ isset($livingroom->name)?$livingroom->name:old('name') }}">
             </div>
         </div>
-        <div class="col-md-6 mb-2">
+    </div>
+    <div class="form-row">
+        <div class="col-md-12 mb-2">
             <!-- Descripcion -->
             <div class="form-group">
                 <label class="form-label">Descripción</label>
-                <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                <textarea class="form-control" id="description" name="description" rows="3">{{ isset($table->description)?$table->description:old('description') }}</textarea>
             </div>  
         </div>
     </div>

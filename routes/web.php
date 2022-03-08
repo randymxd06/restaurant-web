@@ -222,10 +222,12 @@ Route::group([
     'prefix' => 'product_category',
 ], function () {
     Route::get('/', [ProductCategoryController::class, 'index']);
-    Route::post('/', [ProductCategoryController::class, 'store']);
-    Route::get('/{id}', [ProductCategoryController::class, 'show']);
-    Route::put('/{id}', [ProductCategoryController::class, 'update']);
-    Route::delete('/{id}', [ProductCategoryController::class, 'destroy']);
+    Route::get('/create', [ProductCategoryController::class, 'create']);
+    Route::post('/store', [ProductCategoryController::class, 'store']);
+    Route::get('/show/{id}', [ProductCategoryController::class, 'show']);
+    Route::put('/update/{id}', [ProductCategoryController::class, 'update']);
+    Route::get('/edit/{id}', [ProductCategoryController::class, 'edit']);
+    Route::delete('/delete/{id}', [ProductCategoryController::class, 'destroy']);
 });
 
 /*-----------------------------------------------------------------

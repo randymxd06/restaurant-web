@@ -6,13 +6,15 @@ use App\Caja;
 use App\Http\Requests\CajaStoreRequest;
 use App\Http\Requests\CajaUpdateRequest;
 use Illuminate\Http\Request;
+use App\Models\ProductCategory;
 
 class CajaController extends Controller
 {
 
     public function index(Request $request)
     {
-        return view('caja.index');
+        $productCategories = ProductCategory::all()->where('status', '=', 1);
+        return view('caja.index', compact('productCategories'));
     }
 
     public function create(Request $request)

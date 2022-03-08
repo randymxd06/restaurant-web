@@ -56,7 +56,7 @@
                     <form action="{{ url('/livingrooms/delete/'.$livingRoom->id) }}" method="post">
                         @csrf
                         {{method_field('DELETE')}}
-                        <button type="submit" onclick="return confirm('Deseas eliminar esta mesa?')" class="btn btn-danger">
+                        <button type="submit" onclick="return confirm('¿Deseas eliminar este salon?')" class="btn btn-danger">
                             <i class="fas fa-trash"></i>
                             Eliminar
                         </button>

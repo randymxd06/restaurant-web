@@ -3,7 +3,7 @@
 @section('title', 'Mesas')
 
 @section('content_header')
-    <h1 class="mb-4">Editar Mesa - #{{$table->id}}</h1>
+    <h1 class="mb-4">Editar Mesa | #{{$table->id}}</h1>
     <a class="btn btn-primary mt-1" href="{{url('/tables')}}">
         <i class="fas fa-arrow-left"></i>
         Volver

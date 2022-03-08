@@ -3,7 +3,7 @@
 @section('title', 'Salones')
 
 @section('content_header')
-    <h1>Editar Salon</h1>
+    <h1>Editar Salon | {{ $livingRoom->name }} </h1>
     <a class="btn btn-primary mt-1" href="{{url('/livingrooms')}}">
         <i class="fas fa-arrow-left"></i>
         Volver
@@ -58,7 +58,7 @@
     <!-- Estado -->
     <div class="form-group">
         <div class="custom-control custom-switch">
-            <input type="checkbox" class="custom-control-input" id="status"  name="status">
+            <input type="checkbox" class="custom-control-input" id="status"  name="status" {{($livingRoom->status == true || $livingRoom->status == 1) ? 'checked' : ''}}>
             <label class="custom-control-label" for="status">Estado</label>
         </div>
     </div>
