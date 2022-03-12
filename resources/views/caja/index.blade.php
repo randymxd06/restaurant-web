@@ -37,7 +37,7 @@
   <h1 class="brand-link">
     <span class="brand-text font-weight-light ">
     <b>Categorías</b>
-    </span> 
+    </span>
   </h1>
   <!-- Sidebar -->
   <div class="sidebar">
@@ -56,8 +56,8 @@
             <i class="nav-icon fas fa-th"></i>
             <p>
               Entradas
-              <span class="right badge badge-danger">New</span> 
-              
+              <span class="right badge badge-danger">New</span>
+
             </p>
           </a>
         </li> -->
@@ -107,12 +107,18 @@
 @stop
 
 @section('content')
+
 <div class="tab-content" id="myTabContent">
+
     <!-- Productos -->
     <div class="tab-pane fade show active" id="Products" role="tabpanel" aria-labelledby="Products-tab">
         <div class="row row-cols-2 row-cols-md-4 g-4">
+
             <!-- Card -->
-            <button class="col ">
+            <button
+                onclick="setProducts(12)"
+                class="col"
+            >
                 <div class="card">
                     <img src="https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvYTAxOS1qYWt1YmstMDc1MS1zdXNoaS15YW0tbWFraS1yb2xsczIuanBn.jpg?s=vfs8-70mdtj139nl2sZkPbta0YANGjNJWGPHSXgRYYc"
                         class="card-img-top" alt="...">
@@ -121,8 +127,10 @@
                         <span class="badge bg-light text-dark">RD$ 100.00</span>
                     </div>
                 </div>
+
             </button>
             <!-- /Card -->
+
             <button class="col ">
                 <div class="card">
                     <img src="https://www.stockvault.net/data/2013/09/28/148242/preview16.jpg" class="card-img-top"
@@ -133,6 +141,7 @@
                     </div>
                 </div>
             </button>
+
             <button class="col ">
                 <div class="card">
                     <img src="https://img.freepik.com/foto-gratis/vista-lateral-doble-hamburguesa-queso-empanadas-carne-parrilla-queso-hojas-lechuga-bollos_141793-4883.jpg?w=740"
@@ -164,13 +173,13 @@
                 <table class="table-order">
                     <tr>
                         <th>Empleado: </th>
-                        <td>Test</td>
+                        <td>{{$array['employee_id']}}</td>
                     </tr>
                     <tr>
                         <th>Caja: </th>
-                        <td>#02</td>
+                        <td>#{{$array['box_id']}}</td>
                         <th>Mesa: </th>
-                        <td>#02</td>
+                        <td>#{{$array['table_id']}}</td>
                     </tr>
                 </table>
             </div>
@@ -245,6 +254,7 @@
     </div>
     <!-- /Ordenes -->
 </div>
+
 @stop
 
 @section('css')
@@ -353,5 +363,19 @@ padding: 0 !important;
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-<script>Console.log('HOLA');</script>
+
+<script>
+
+    var products = [];
+
+    function setProducts($id){
+
+        products.push($id);
+
+        console.log(products);
+
+    }
+
+</script>
+
 @stop

@@ -7,14 +7,24 @@ use App\Http\Requests\CajaStoreRequest;
 use App\Http\Requests\CajaUpdateRequest;
 use Illuminate\Http\Request;
 use App\Models\ProductCategory;
+use function MongoDB\BSON\toJSON;
 
 class CajaController extends Controller
 {
 
-    public function index(Request $request)
+    public function index()
     {
+
+         $array = [
+            'employee_id' => '02',
+            'box_id' => '02',
+            'table_id' => '02',
+        ];
+
         $productCategories = ProductCategory::all()->where('status', '=', 1);
-        return view('caja.index', compact('productCategories'));
+
+        return view('caja.index', compact('productCategories', 'array'));
+
     }
 
     public function create(Request $request)
