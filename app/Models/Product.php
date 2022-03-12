@@ -10,18 +10,17 @@ class Product extends Model
 {
     use HasFactory, SoftDeletes;
 
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
+    protected $table = 'products';
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
+    protected $fillable = [
+        'name',
+        'description',
+        'products_categories_id',
+        'price',
+        'status',
+        'image'
+    ];
+
     protected $casts = [
         'id' => 'integer',
         'products_categories_id' => 'integer',
@@ -33,4 +32,5 @@ class Product extends Model
     {
         return $this->hasMany(ProductsCategory::class);
     }
+
 }
