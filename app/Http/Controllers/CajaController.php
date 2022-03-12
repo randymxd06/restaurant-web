@@ -11,16 +11,9 @@ use function MongoDB\BSON\toJSON;
 
 class CajaController extends Controller
 {
-    public static function setProducts($id){
-        // Log::channel('stderr')->info('GG GG!');
-    dd($id);
-    // console.log('1');
-        return "Hello World!";
-
-    }
-
     public function index()
     {
+        
 
         $array = [
             'employee_id' => '02',
