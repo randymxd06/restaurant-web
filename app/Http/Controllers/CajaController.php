@@ -10,9 +10,18 @@ use App\Models\ProductCategory;
 
 class CajaController extends Controller
 {
+    public static function setProducts($id){
+        // Log::channel('stderr')->info('GG GG!');
+    dd($id);
+    // console.log('1');
+        return "Hello World!";
+
+    }
 
     public function index(Request $request)
     {
+
+
         $productCategories = ProductCategory::all()->where('status', '=', 1);
         return view('caja.index', compact('productCategories'));
     }
