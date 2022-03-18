@@ -292,19 +292,30 @@ return [
             'icon' => 'fas fa-fw fa-bread-slice',
         ],
 
-        // Reservación
+        // Recepción
         [
-            'text'    => 'Reservación',
+            'text'    => 'Recepción',
             'icon'    => 'fas fa-fw fa-concierge-bell',
             'submenu' => [
                 [
-                    'text' => 'Reservaciones',
-                    'url'  => '#',
+                    'text' => 'Recepción',
+                    'url'  => '',
+                    'icon'    => 'fas fa-fw fa-calendar-day',
                 ],
                 [
-                    'text' => 'Eventos',
-                    'url'  => '#',
+                    'text' => 'Reservaciones',
+                    'url'  => 'reservations/index',
+                    'icon'    => 'fas fa-fw fa-calendar-alt',
                 ],
+                [
+                    'text' => 'Reservar',
+                    'url'  => 'reservations',
+                    'icon'    => 'fas fa-fw fa-calendar-plus',
+                ],
+                // [
+                //     'text' => 'Eventos',
+                //     'url'  => '#',
+                // ],
             ],
         ],
 
