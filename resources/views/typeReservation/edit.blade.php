@@ -2,6 +2,6 @@
     @extends('layouts.app')
 
     @section('content')
-        reservation.edit template
+        typeReservation.edit template
     @endsection
 --}}

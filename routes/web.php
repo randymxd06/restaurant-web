@@ -239,7 +239,7 @@ Route::group([
 ], function () {
     Route::get('/', [ProductController::class, 'index']);
     Route::get('/create', [ProductController::class, 'create']);
-    Route::post('/', [ProductController::class, 'store']);
+    Route::post('/store', [ProductController::class, 'store']);
     Route::get('/{id}', [ProductController::class, 'show']);
     Route::put('/{id}', [ProductController::class, 'update']);
     Route::delete('/{id}', [ProductController::class, 'destroy']);
@@ -345,21 +345,8 @@ Route::group([
     Route::put('/{id}', [OrderController::class, 'update']);
     Route::delete('/{id}', [OrderController::class, 'destroy']);
 });
-/*---------------------------------------------------------------
-    RUTA BASE: http://127.0.0.1:8000/reservations
-    DESCRIPCION: ESTAS SON LAS RUTAS PARA MANEJAR LAS ORDENES.
------------------------------------------------------------------*/
-// Route::group([
-//     'prefix' => 'reservations',
-// ], function () {
-//     Route::get('/', [Controller::class, 'index']);
-//     Route::get('/show/{id}', [Controller::class, 'show']);
-//     Route::get('/create', [Controller::class, 'create']);
-//     Route::post('/store', [Controller::class, 'store']);
-//     Route::get('/edit/{id}', [Controller::class, 'edit']);
-//     Route::put('/update/{id}', [Controller::class, 'update']);
-//     Route::delete('/delete/{id}', [Controller::class, 'destroy']);
-// });
-Route::get('/reservations', function () {
-    return view('reservation.create ');
-});
+
+
+Route::resource('type-reservation', App\Http\Controllers\TypeReservationController::class);
+
+Route::resource('reservation', App\Http\Controllers\ReservationController::class);
