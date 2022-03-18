@@ -8,11 +8,15 @@
 @stop
 
 @section('content')
+
 <!-- Formulario Producto -->
-<form method="post" action="{{ url('/productos/store') }}" enctype="multipart/form-data">
+<form method="post" action="{{ url('/products/store') }}" enctype="multipart/form-data">
+
     <!-- TOKEN -->
     @csrf
+
     <div class="form-row">
+
         <!-- Nombre -->
         <div class="col-md-6 mb-2">
             <div class="form-group">
@@ -20,18 +24,22 @@
                 <input type="text" class="form-control" id="name" name="name">
             </div>
         </div>
+
         <!-- Imagen/Foto -->
         <div class="col-md-6 mb-2">
             <div class="form-group">
                 <label class="form-label">Imagén/Foto:</label>
                 <div class="custom-file">
-                    <input type="file" accept="image/*" class="custom-file-input" id="img" name="img">
+                    <input type="file" accept="image/*" class="custom-file-input form-control" id="img" name="img">
                     <label class="custom-file-label" for="inputGroupFile01">Seleccione Imagén</label>
                 </div>
             </div>
         </div>
+
     </div>
+
     <div class="form-row">
+
         <!-- Precio -->
         <div class="col-md-6 mb-2">
             <div class="form-group">
@@ -47,6 +55,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Categoria -->
         <div class="col-md-6 mb-2">
             <div class="form-group">
@@ -59,29 +68,34 @@
                 </select>
             </div>
         </div>
+
     </div>
 
     <!-- Descripcion -->
     <div class="form-group">
         <label class="form-label">Descripción</label>
         <textarea class="form-control" id="description" name="description" rows="3"></textarea>
-    </div>  
+    </div>
 
     <!-- Estado -->
     <div class="form-group">
         <div class="custom-control custom-switch">
-            <input type="checkbox" class="custom-control-input" id="status"  name="status">
+            <input type="checkbox" class="custom-control-input" id="status" name="status">
             <label class="custom-control-label" for="status">Estado</label>
         </div>
     </div>
+
     <hr>
+
     <!-- Boton Enviar -->
     <button type="submit" class="btn btn-success mt-4">
         <i class="fas fa-save"></i>
         Guardar
     </button>
+
 </form>
 <!-- /Formulario -->
+
 @stop
 
 @section('css')

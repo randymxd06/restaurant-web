@@ -46,9 +46,9 @@
                     @endforeach
                 </select>
             </div>
-        </div> 
+        </div>
         <!-- / -->
-        
+
         <!--  Capacidad de personas -->
         <div class="col-md-6 mb-2">
             <div class="form-group">
@@ -69,7 +69,7 @@
     <!-- Estado -->
     <div class="form-group">
         <div class="custom-control custom-switch">
-            <input type="checkbox" class="custom-control-input" id="status"  name="status">
+            <input type="checkbox" class="custom-control-input" id="status" name="status">
             <label class="custom-control-label" for="status">Estado</label>
         </div>
     </div>

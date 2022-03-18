@@ -239,7 +239,7 @@ Route::group([
 ], function () {
     Route::get('/', [ProductController::class, 'index']);
     Route::get('/create', [ProductController::class, 'create']);
-    Route::post('/', [ProductController::class, 'store']);
+    Route::post('/store', [ProductController::class, 'store']);
     Route::get('/{id}', [ProductController::class, 'show']);
     Route::put('/{id}', [ProductController::class, 'update']);
     Route::delete('/{id}', [ProductController::class, 'destroy']);
