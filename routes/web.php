@@ -345,3 +345,8 @@ Route::group([
     Route::put('/{id}', [OrderController::class, 'update']);
     Route::delete('/{id}', [OrderController::class, 'destroy']);
 });
+
+
+Route::resource('type-reservation', App\Http\Controllers\TypeReservationController::class);
+
+Route::resource('reservation', App\Http\Controllers\ReservationController::class);
