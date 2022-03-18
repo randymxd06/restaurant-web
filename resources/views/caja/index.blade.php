@@ -119,7 +119,7 @@
                 onclick="setProducts(12)"
                 class="col"
             >
-                <div class="card">
+                <div class="card h-100">
                     <img src="https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvYTAxOS1qYWt1YmstMDc1MS1zdXNoaS15YW0tbWFraS1yb2xsczIuanBn.jpg?s=vfs8-70mdtj139nl2sZkPbta0YANGjNJWGPHSXgRYYc"
                         class="card-img-top" alt="...">
                     <div class="card-body">
@@ -131,8 +131,8 @@
             </button>
             <!-- /Card -->
 
-            <button class="col ">
-                <div class="card">
+            <button class="col">
+                <div class="card h-100">
                     <img src="https://www.stockvault.net/data/2013/09/28/148242/preview16.jpg" class="card-img-top"
                         alt="...">
                     <div class="card-body">
@@ -142,8 +142,8 @@
                 </div>
             </button>
 
-            <button class="col ">
-                <div class="card">
+            <button class="col">
+                <div class="card h-100">
                     <img src="https://img.freepik.com/foto-gratis/vista-lateral-doble-hamburguesa-queso-empanadas-carne-parrilla-queso-hojas-lechuga-bollos_141793-4883.jpg?w=740"
                         class="card-img-top" alt="...">
                     <div class="card-body">
@@ -152,8 +152,8 @@
                     </div>
                 </div>
             </button>
-            <button class="col ">
-                <div class="card">
+            <button class="col">
+                <div class="card h-100">
                     <img src="https://img.freepik.com/foto-gratis/tazon-ramen-abulon-japones_1205-10107.jpg?w=740"
                         class="card-img-top" alt="...">
                     <div class="card-body">
@@ -365,17 +365,13 @@ padding: 0 !important;
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 
 <script>
-
+  // 
     var products = [];
-
     function setProducts($id){
-
         products.push($id);
-
         console.log(products);
-
     }
-
+  // 
 </script>
 
 @stop

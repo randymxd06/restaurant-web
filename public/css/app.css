@@ -189,7 +189,7 @@ button,
 [type='reset'],
 [type='submit'] {
   -webkit-appearance: button; /* 1 */
-  /*background-color: transparent;  2 */
+  /* background-color: transparent; 2 */
   background-image: none; /* 2 */
 }
 
@@ -382,7 +382,7 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 [type='text'],[type='email'],[type='url'],[type='password'],[type='number'],[type='date'],[type='datetime-local'],[type='month'],[type='search'],[type='tel'],[type='time'],[type='week'],[multiple],textarea,select {
   -webkit-appearance: none;
-    -moz-appearance: none;
+     -moz-appearance: none;
           appearance: none;
   background-color: #fff;
   /* border-color: #6b7280; */
@@ -1795,9 +1795,6 @@ select {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-.card {
-  min-height: 100%;
 }
 .card-login div{
     background-color: #fff;

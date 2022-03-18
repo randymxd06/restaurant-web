@@ -107,13 +107,13 @@ Route::group([
     DESCRIPCION: ESTAS SON LAS RUTAS DEL MODULO DE PEDIDOS RAPIDOS.
 ----------------------------------------------------------------------*/
 Route::group([
-    'prefix' => 'pedidos_rapidos',
+    'prefix' => 'order_screen',
 ], function () {
-    Route::get('/', [PedidosRapidosController::class, 'index']);
-    Route::post('/', [PedidosRapidosController::class, 'store']);
-    Route::get('/{id}', [PedidosRapidosController::class, 'show']);
-    Route::put('/{id}', [PedidosRapidosController::class, 'update']);
-    Route::delete('/{id}', [PedidosRapidosController::class, 'destroy']);
+    Route::get('/', [PedidosRapidosController::class, 'create']);
+    // Route::post('/', [PedidosRapidosController::class, 'store']);
+    // Route::get('/{id}', [PedidosRapidosController::class, 'show']);
+    // Route::put('/{id}', [PedidosRapidosController::class, 'update']);
+    // Route::delete('/{id}', [PedidosRapidosController::class, 'destroy']);
 });
 
 /*-------------------------------------------------------------
@@ -344,4 +344,22 @@ Route::group([
     Route::get('/{id}', [OrderController::class, 'show']);
     Route::put('/{id}', [OrderController::class, 'update']);
     Route::delete('/{id}', [OrderController::class, 'destroy']);
+});
+/*---------------------------------------------------------------
+    RUTA BASE: http://127.0.0.1:8000/reservations
+    DESCRIPCION: ESTAS SON LAS RUTAS PARA MANEJAR LAS ORDENES.
+-----------------------------------------------------------------*/
+// Route::group([
+//     'prefix' => 'reservations',
+// ], function () {
+//     Route::get('/', [Controller::class, 'index']);
+//     Route::get('/show/{id}', [Controller::class, 'show']);
+//     Route::get('/create', [Controller::class, 'create']);
+//     Route::post('/store', [Controller::class, 'store']);
+//     Route::get('/edit/{id}', [Controller::class, 'edit']);
+//     Route::put('/update/{id}', [Controller::class, 'update']);
+//     Route::delete('/delete/{id}', [Controller::class, 'destroy']);
+// });
+Route::get('/reservations', function () {
+    return view('reservation.create ');
 });
