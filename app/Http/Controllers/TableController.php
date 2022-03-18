@@ -54,6 +54,19 @@ class TableController extends Controller
 
         try{
 
+            $validate = [
+                'people_capacity' => 'required|numeric',
+                'living_room_id' => 'required|numeric',
+            ];
+
+            // Mensaje de error al mostrar
+            $message = [
+                'required' => 'El :attribute es requerido.'
+            ];
+
+            // Realizar la validacion de los datos
+            $this -> validate($request, $validate, $message);
+
             // HAGO LA VALIDACION DEL STATUS, PARA ENVIARLA COMO TRUE O FALSE //
             ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;
 
