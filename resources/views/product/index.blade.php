@@ -18,10 +18,10 @@
                 <div class="card card-outline card-warning" style="min-height: 100%;">
 
                     <div class="">
-                        <img src="{{ asset('storage').'/'.$product->image }}" class="card-img-top" alt="...">
+                        <img src="{{ asset('storage').'/'.$product['image'] }}" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <p class="card-text">{{$product->name}}</p>
-                            <span class="badge bg-light text-dark">RD$ 0.00</span>
+                            <p class="card-text">{{$product['name']}}</p>
+                            <span class="badge bg-light text-dark">RD$ {{$product['price']}}</span>
                         </div>
                     </div>
 

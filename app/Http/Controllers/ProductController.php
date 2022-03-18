@@ -14,8 +14,19 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = Product::all()->where('status', '=',true);
+
+        $products = [];
+
+        $data = Product::all();
+
+        foreach ($data as $item){
+
+            array_push($products, $item->getAttributes());
+
+        }
+
         return view('product.index', compact('products'));
+
     }
 
     public function create()
