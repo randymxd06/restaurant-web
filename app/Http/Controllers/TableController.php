@@ -23,11 +23,14 @@ class TableController extends Controller
     public function index()
     {
         // OBTENGO TODAS LAS MESAS //
-        $tables = Table::all();//->where('status', '=', true);
+        $tables = Table::all();
+
         // Obtengo todos los salones
         $LivingRooms = LivingRoom::all();
+
         // MUESTRO LA PAGINA PRINCIPAL Y LE MANDO EL OBJETO CON LAS MESAS + El objeto con los salones//
-        return view('table.index', compact('tables'))->with('LivingRooms', $LivingRooms);;
+        return view('table.index', compact('tables'))->with('LivingRooms', $LivingRooms);
+
     }// FIN DEL METODO INDEX //
 
     /*---------------------------------------------------------------------------------------------------
@@ -50,20 +53,6 @@ class TableController extends Controller
     {
 
         try{
-
-            // Validación del formulario
-            $validate = [
-                'people_capacity' => 'required|int',
-                'living_room_id' => 'required|int',
-            ];
-
-            // Mensaje de error al mostrar
-            $message = [
-                'required' => 'El :attribute es requerido.'
-            ];
-
-            // Realizar la validacion de los datos
-            validate($request, $message, $validate);
 
             // HAGO LA VALIDACION DEL STATUS, PARA ENVIARLA COMO TRUE O FALSE //
             ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;
