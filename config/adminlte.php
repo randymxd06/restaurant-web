@@ -299,17 +299,17 @@ return [
             'submenu' => [
                 [
                     'text' => 'Recepción',
-                    'url'  => '',
+                    'url'  => '#',
                     'icon'    => 'fas fa-fw fa-calendar-day',
                 ],
                 [
                     'text' => 'Reservaciones',
-                    'url'  => 'reservations/index',
+                    'url'  => 'reservation',
                     'icon'    => 'fas fa-fw fa-calendar-alt',
                 ],
                 [
                     'text' => 'Reservar',
-                    'url'  => 'reservations',
+                    'url'  => 'reservation/create',
                     'icon'    => 'fas fa-fw fa-calendar-plus',
                 ],
                 // [

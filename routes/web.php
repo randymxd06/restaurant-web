@@ -25,6 +25,8 @@ use App\Http\Controllers\OrderTypeController;
 use App\Http\Controllers\LivingRoomController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\TypeReservationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,10 +43,31 @@ Route::get('/', function () {
     return view('auth.login ');
 });
 
+Route::get('registrarse', function () {
+    return view('auth.register');
+});
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard.index');
 })->name('dashboard');
+
+
+/*--------------------------------------------------------------------
+    RUTA BASE: http://127.0.0.1:8000/Pantalla-pedidos-rapidos
+    DESCRIPCION: ESTAS SON LAS RUTAS DEL MODULO DE PEDIDOS RAPIDOS.
+----------------------------------------------------------------------*/
+Route::group([
+    'prefix' => 'order_screen',
+], function () {
+    Route::get('/', [PedidosRapidosController::class, 'create']);
+    Route::get('/show/{id}', [PedidosRapidosController::class, 'show']);
+    Route::get('/create', [PedidosRapidosController::class, 'create']);
+    Route::post('/store', [PedidosRapidosController::class, 'store']);
+    Route::get('/edit/{id}', [PedidosRapidosController::class, 'edit']);
+    Route::put('/update/{id}', [PedidosRapidosController::class, 'update']);
+    Route::delete('/delete/{id}', [PedidosRapidosController::class, 'destroy']);
+});
+
 
 /*---------------------------------------------------------
     RUTA BASE: http://127.0.0.1:8000/caja
@@ -53,11 +76,13 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::group([
     'prefix' => 'caja',
 ], function () {
-    Route::get('/', [CajaController::class, 'index']);
-    Route::post('/', [CajaController::class, 'store']);
-    Route::get('/{id}', [CajaController::class, 'show']);
-    Route::put('/{id}', [CajaController::class, 'update']);
-    Route::delete('/{id}', [CajaController::class, 'destroy']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/', [CajaController::class, 'index']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/show/{id}', [CajaController::class, 'show']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/create', [CajaController::class, 'create']);
+    Route::middleware(['auth:sanctum', 'verified'])->post('/store', [CajaController::class, 'store']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/edit/{id}', [CajaController::class, 'edit']);
+    Route::middleware(['auth:sanctum', 'verified'])->put('/update/{id}', [CajaController::class, 'update']);
+    Route::middleware(['auth:sanctum', 'verified'])->delete('/delete/{id}', [CajaController::class, 'destroy']);
 });
 
 /*--------------------------------------------------------------
@@ -67,11 +92,13 @@ Route::group([
 Route::group([
     'prefix' => 'recepcion',
 ], function () {
-    Route::get('/', [RecepcionController::class, 'index']);
-    Route::post('/', [RecepcionController::class, 'store']);
-    Route::get('/{id}', [RecepcionController::class, 'show']);
-    Route::put('/{id}', [RecepcionController::class, 'update']);
-    Route::delete('/{id}', [RecepcionController::class, 'destroy']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/', [RecepcionController::class, 'index']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/show/{id}', [RecepcionController::class, 'show']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/create', [RecepcionController::class, 'create']);
+    Route::middleware(['auth:sanctum', 'verified'])->post('/store', [RecepcionController::class, 'store']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/edit/{id}', [RecepcionController::class, 'edit']);
+    Route::middleware(['auth:sanctum', 'verified'])->put('/update/{id}', [RecepcionController::class, 'update']);
+    Route::middleware(['auth:sanctum', 'verified'])->delete('/delete/{id}', [RecepcionController::class, 'destroy']);
 });
 
 /*-----------------------------------------------------------
@@ -81,11 +108,13 @@ Route::group([
 Route::group([
     'prefix' => 'cocina',
 ], function () {
-    Route::get('/', [CocinaController::class, 'index']);
-    Route::post('/', [CocinaController::class, 'store']);
-    Route::get('/{id}', [CocinaController::class, 'show']);
-    Route::put('/{id}', [CocinaController::class, 'update']);
-    Route::delete('/{id}', [CocinaController::class, 'destroy']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/', [CocinaController::class, 'index']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/show/{id}', [CocinaController::class, 'show']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/create', [CocinaController::class, 'create']);
+    Route::middleware(['auth:sanctum', 'verified'])->post('/store', [CocinaController::class, 'store']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/edit/{id}', [CocinaController::class, 'edit']);
+    Route::middleware(['auth:sanctum', 'verified'])->put('/update/{id}', [CocinaController::class, 'update']);
+    Route::middleware(['auth:sanctum', 'verified'])->delete('/delete/{id}', [CocinaController::class, 'destroy']);
 });
 
 /*---------------------------------------------------------
@@ -95,26 +124,15 @@ Route::group([
 Route::group([
     'prefix' => 'menu',
 ], function () {
-    Route::get('/', [MenuController::class, 'index']);
-    Route::post('/', [MenuController::class, 'store']);
-    Route::get('/{id}', [MenuController::class, 'show']);
-    Route::put('/{id}', [MenuController::class, 'update']);
-    Route::delete('/{id}', [MenuController::class, 'destroy']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/', [MenuController::class, 'index']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/show/{id}', [MenuController::class, 'show']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/create', [MenuController::class, 'create']);
+    Route::middleware(['auth:sanctum', 'verified'])->post('/store', [MenuController::class, 'store']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/edit/{id}', [MenuController::class, 'edit']);
+    Route::middleware(['auth:sanctum', 'verified'])->put('/update/{id}', [MenuController::class, 'update']);
+    Route::middleware(['auth:sanctum', 'verified'])->delete('/delete/{id}', [MenuController::class, 'destroy']);
 });
 
-/*--------------------------------------------------------------------
-    RUTA BASE: http://127.0.0.1:8000/pedidos-rapidos
-    DESCRIPCION: ESTAS SON LAS RUTAS DEL MODULO DE PEDIDOS RAPIDOS.
-----------------------------------------------------------------------*/
-Route::group([
-    'prefix' => 'order_screen',
-], function () {
-    Route::get('/', [PedidosRapidosController::class, 'create']);
-    // Route::post('/', [PedidosRapidosController::class, 'store']);
-    // Route::get('/{id}', [PedidosRapidosController::class, 'show']);
-    // Route::put('/{id}', [PedidosRapidosController::class, 'update']);
-    // Route::delete('/{id}', [PedidosRapidosController::class, 'destroy']);
-});
 
 /*-------------------------------------------------------------
     RUTA BASE: http://127.0.0.1:8000/reportes
@@ -123,11 +141,13 @@ Route::group([
 Route::group([
     'prefix' => 'reportes',
 ], function () {
-    Route::get('/', [ReportesController::class, 'index']);
-    Route::post('/', [ReportesController::class, 'store']);
-    Route::get('/{id}', [ReportesController::class, 'show']);
-    Route::put('/{id}', [ReportesController::class, 'update']);
-    Route::delete('/{id}', [ReportesController::class, 'destroy']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/', [ReportesController::class, 'index']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/show/{id}', [ReportesController::class, 'show']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/create', [ReportesController::class, 'create']);
+    Route::middleware(['auth:sanctum', 'verified'])->post('/store', [ReportesController::class, 'store']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/edit/{id}', [ReportesController::class, 'edit']);
+    Route::middleware(['auth:sanctum', 'verified'])->put('/update/{id}', [ReportesController::class, 'update']);
+    Route::middleware(['auth:sanctum', 'verified'])->delete('/delete/{id}', [ReportesController::class, 'destroy']);
 });
 
 /*------------------------------------------------------------
@@ -137,11 +157,13 @@ Route::group([
 Route::group([
     'prefix' => 'compras',
 ], function () {
-    Route::get('/', [ComprasController::class, 'index']);
-    Route::post('/', [ComprasController::class, 'store']);
-    Route::get('/{id}', [ComprasController::class, 'show']);
-    Route::put('/{id}', [ComprasController::class, 'update']);
-    Route::delete('/{id}', [ComprasController::class, 'destroy']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/', [ComprasController::class, 'index']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/show/{id}', [ComprasController::class, 'show']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/create', [ComprasController::class, 'create']);
+    Route::middleware(['auth:sanctum', 'verified'])->post('/store', [ComprasController::class, 'store']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/edit/{id}', [ComprasController::class, 'edit']);
+    Route::middleware(['auth:sanctum', 'verified'])->put('/update/{id}', [ComprasController::class, 'update']);
+    Route::middleware(['auth:sanctum', 'verified'])->delete('/delete/{id}', [ComprasController::class, 'destroy']);
 });
 
 /*---------------------------------------------------------------
@@ -151,11 +173,13 @@ Route::group([
 Route::group([
     'prefix' => 'inventario',
 ], function () {
-    Route::get('/', [InventarioController::class, 'index']);
-    Route::post('/', [InventarioController::class, 'store']);
-    Route::get('/{id}', [InventarioController::class, 'show']);
-    Route::put('/{id}', [InventarioController::class, 'update']);
-    Route::delete('/{id}', [InventarioController::class, 'destroy']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/', [InventarioController::class, 'index']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/show/{id}', [InventarioController::class, 'show']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/create', [InventarioController::class, 'create']);
+    Route::middleware(['auth:sanctum', 'verified'])->post('/store', [InventarioController::class, 'store']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/edit/{id}', [InventarioController::class, 'edit']);
+    Route::middleware(['auth:sanctum', 'verified'])->put('/update/{id}', [InventarioController::class, 'update']);
+    Route::middleware(['auth:sanctum', 'verified'])->delete('/delete/{id}', [InventarioController::class, 'destroy']);
 });
 
 /*-------------------------------------------------------------
@@ -165,11 +189,13 @@ Route::group([
 Route::group([
     'prefix' => 'sex',
 ], function () {
-    Route::get('/', [SexController::class, 'index']);
-    Route::post('/', [SexController::class, 'store']);
-    Route::get('/{id}', [SexController::class, 'show']);
-    Route::put('/{id}', [SexController::class, 'update']);
-    Route::delete('/{id}', [SexController::class, 'destroy']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/', [SexController::class, 'index']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/show/{id}', [SexController::class, 'show']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/create', [SexController::class, 'create']);
+    Route::middleware(['auth:sanctum', 'verified'])->post('/store', [SexController::class, 'store']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/edit/{id}', [SexController::class, 'edit']);
+    Route::middleware(['auth:sanctum', 'verified'])->put('/update/{id}', [SexController::class, 'update']);
+    Route::middleware(['auth:sanctum', 'verified'])->delete('/delete/{id}', [SexController::class, 'destroy']);
 });
 
 /*-----------------------------------------------------------------------
@@ -179,11 +205,13 @@ Route::group([
 Route::group([
     'prefix' => 'civil_status',
 ], function () {
-    Route::get('/', [CivilStatuController::class, 'index']);
-    Route::post('/', [CivilStatuController::class, 'store']);
-    Route::get('/{id}', [CivilStatuController::class, 'show']);
-    Route::put('/{id}', [CivilStatuController::class, 'update']);
-    Route::delete('/{id}', [CivilStatuController::class, 'destroy']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/', [CivilStatuController::class, 'index']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/show/{id}', [CivilStatuController::class, 'show']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/create', [CivilStatuController::class, 'create']);
+    Route::middleware(['auth:sanctum', 'verified'])->post('/store', [CivilStatuController::class, 'store']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/edit/{id}', [CivilStatuController::class, 'edit']);
+    Route::middleware(['auth:sanctum', 'verified'])->put('/update/{id}', [CivilStatuController::class, 'update']);
+    Route::middleware(['auth:sanctum', 'verified'])->delete('/delete/{id}', [CivilStatuController::class, 'destroy']);
 });
 
 /*----------------------------------------------------------------------
@@ -193,11 +221,13 @@ Route::group([
 Route::group([
     'prefix' => 'nationality',
 ], function () {
-    Route::get('/', [NationalityController::class, 'index']);
-    Route::post('/', [NationalityController::class, 'store']);
-    Route::get('/{id}', [NationalityController::class, 'show']);
-    Route::put('/{id}', [NationalityController::class, 'update']);
-    Route::delete('/{id}', [NationalityController::class, 'destroy']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/', [NationalityController::class, 'index']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/show/{id}', [NationalityController::class, 'show']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/create', [NationalityController::class, 'create']);
+    Route::middleware(['auth:sanctum', 'verified'])->post('/store', [NationalityController::class, 'store']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/edit/{id}', [NationalityController::class, 'edit']);
+    Route::middleware(['auth:sanctum', 'verified'])->put('/update/{id}', [NationalityController::class, 'update']);
+    Route::middleware(['auth:sanctum', 'verified'])->delete('/delete/{id}', [NationalityController::class, 'destroy']);
 });
 
 /*-----------------------------------------------------------------
@@ -207,11 +237,13 @@ Route::group([
 Route::group([
     'prefix' => 'entities',
 ], function () {
-    Route::get('/', [EntityController::class, 'index']);
-    Route::post('/', [EntityController::class, 'store']);
-    Route::get('/{id}', [EntityController::class, 'show']);
-    Route::put('/{id}', [EntityController::class, 'update']);
-    Route::delete('/{id}', [EntityController::class, 'destroy']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/', [EntityController::class, 'index']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/show/{id}', [EntityController::class, 'show']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/create', [EntityController::class, 'create']);
+    Route::middleware(['auth:sanctum', 'verified'])->post('/store', [EntityController::class, 'store']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/edit/{id}', [EntityController::class, 'edit']);
+    Route::middleware(['auth:sanctum', 'verified'])->put('/update/{id}', [EntityController::class, 'update']);
+    Route::middleware(['auth:sanctum', 'verified'])->delete('/delete/{id}', [EntityController::class, 'destroy']);
 });
 
 /*-----------------------------------------------------------------------------------
@@ -221,13 +253,13 @@ Route::group([
 Route::group([
     'prefix' => 'product_category',
 ], function () {
-    Route::get('/', [ProductCategoryController::class, 'index']);
-    Route::get('/create', [ProductCategoryController::class, 'create']);
-    Route::post('/store', [ProductCategoryController::class, 'store']);
-    Route::get('/show/{id}', [ProductCategoryController::class, 'show']);
-    Route::put('/update/{id}', [ProductCategoryController::class, 'update']);
-    Route::get('/edit/{id}', [ProductCategoryController::class, 'edit']);
-    Route::delete('/delete/{id}', [ProductCategoryController::class, 'destroy']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/', [ProductCategoryController::class, 'index']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/create', [ProductCategoryController::class, 'create']);
+    Route::middleware(['auth:sanctum', 'verified'])->post('/store', [ProductCategoryController::class, 'store']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/show/{id}', [ProductCategoryController::class, 'show']);
+    Route::middleware(['auth:sanctum', 'verified'])->put('/update/{id}', [ProductCategoryController::class, 'update']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/edit/{id}', [ProductCategoryController::class, 'edit']);
+    Route::middleware(['auth:sanctum', 'verified'])->delete('/delete/{id}', [ProductCategoryController::class, 'destroy']);
 });
 
 /*-----------------------------------------------------------------
@@ -237,27 +269,30 @@ Route::group([
 Route::group([
     'prefix' => 'products',
 ], function () {
-    Route::get('/', [ProductController::class, 'index']);
-    Route::get('/create', [ProductController::class, 'create']);
-    Route::post('/store', [ProductController::class, 'store']);
-    Route::get('/{id}', [ProductController::class, 'show']);
-    Route::put('/{id}', [ProductController::class, 'update']);
-    Route::delete('/{id}', [ProductController::class, 'destroy']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/', [ProductController::class, 'index']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/show/{id}', [ProductController::class, 'show']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/create', [ProductController::class, 'create']);
+    Route::middleware(['auth:sanctum', 'verified'])->post('/store', [ProductController::class, 'store']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/edit/{id}', [ProductController::class, 'edit']);
+    Route::middleware(['auth:sanctum', 'verified'])->put('/update/{id}', [ProductController::class, 'update']);
+    Route::middleware(['auth:sanctum', 'verified'])->delete('/delete/{id}', [ProductController::class, 'destroy']);
 });
 
 /*-------------------------------------------------------------
     RUTA BASE: http://127.0.0.1:8000/box
     DESCRIPCION: ESTAS SON LAS RUTAS PARA MANEJAR LAS CAJAS.
 ---------------------------------------------------------------*/
-//Route::group([
-//    'prefix' => 'box',
-//], function () {
-//    Route::get('/', [BoxController::class, 'index']);
-//    Route::post('/', [BoxController::class, 'store']);
-//    Route::get('/{id}', [BoxController::class, 'show']);
-//    Route::put('/{id}', [BoxController::class, 'update']);
-//    Route::delete('/{id}', [BoxController::class, 'destroy']);
-//});
+Route::group([
+    'prefix' => 'box',
+], function () {
+    Route::middleware(['auth:sanctum', 'verified'])->get('/', [BoxController::class, 'index']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/show/{id}', [BoxController::class, 'show']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/create', [BoxController::class, 'create']);
+    Route::middleware(['auth:sanctum', 'verified'])->post('/store', [BoxController::class, 'store']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/edit/{id}', [BoxController::class, 'edit']);
+    Route::middleware(['auth:sanctum', 'verified'])->put('/update/{id}', [BoxController::class, 'update']);
+    Route::middleware(['auth:sanctum', 'verified'])->delete('/delete/{id}', [BoxController::class, 'destroy']);
+});
 
 /*-------------------------------------------------------------------------
     RUTA BASE: http://127.0.0.1:8000/customer_type
@@ -266,11 +301,13 @@ Route::group([
 Route::group([
     'prefix' => 'customer_type',
 ], function () {
-    Route::get('/', [CustomerTypeController::class, 'index']);
-    Route::post('/', [CustomerTypeController::class, 'store']);
-    Route::get('/{id}', [CustomerTypeController::class, 'show']);
-    Route::put('/{id}', [CustomerTypeController::class, 'update']);
-    Route::delete('/{id}', [CustomerTypeController::class, 'destroy']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/', [CustomerTypeController::class, 'index']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/show/{id}', [CustomerTypeController::class, 'show']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/create', [CustomerTypeController::class, 'create']);
+    Route::middleware(['auth:sanctum', 'verified'])->post('/store', [CustomerTypeController::class, 'store']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/edit/{id}', [CustomerTypeController::class, 'edit']);
+    Route::middleware(['auth:sanctum', 'verified'])->put('/update/{id}', [CustomerTypeController::class, 'update']);
+    Route::middleware(['auth:sanctum', 'verified'])->delete('/delete/{id}', [CustomerTypeController::class, 'destroy']);
 });
 
 /*----------------------------------------------------------------
@@ -280,11 +317,13 @@ Route::group([
 Route::group([
     'prefix' => 'customer',
 ], function () {
-    Route::get('/', [CustomerController::class, 'index']);
-    Route::post('/', [CustomerController::class, 'store']);
-    Route::get('/{id}', [CustomerController::class, 'show']);
-    Route::put('/{id}', [CustomerController::class, 'update']);
-    Route::delete('/{id}', [CustomerController::class, 'destroy']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/', [CustomerController::class, 'index']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/show/{id}', [CustomerController::class, 'show']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/create', [CustomerController::class, 'create']);
+    Route::middleware(['auth:sanctum', 'verified'])->post('/store', [CustomerController::class, 'store']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/edit/{id}', [CustomerController::class, 'edit']);
+    Route::middleware(['auth:sanctum', 'verified'])->put('/update/{id}', [CustomerController::class, 'update']);
+    Route::middleware(['auth:sanctum', 'verified'])->delete('/delete/{id}', [CustomerController::class, 'destroy']);
 });
 
 /*------------------------------------------------------------------------
@@ -294,11 +333,13 @@ Route::group([
 Route::group([
     'prefix' => 'order_type',
 ], function () {
-    Route::get('/', [OrderTypeController::class, 'index']);
-    Route::post('/', [OrderTypeController::class, 'store']);
-    Route::get('/{id}', [OrderTypeController::class, 'show']);
-    Route::put('/{id}', [OrderTypeController::class, 'update']);
-    Route::delete('/{id}', [OrderTypeController::class, 'destroy']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/', [OrderTypeController::class, 'index']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/show/{id}', [OrderTypeController::class, 'show']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/create', [OrderTypeController::class, 'create']);
+    Route::middleware(['auth:sanctum', 'verified'])->post('/store', [OrderTypeController::class, 'store']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/edit/{id}', [OrderTypeController::class, 'edit']);
+    Route::middleware(['auth:sanctum', 'verified'])->put('/update/{id}', [OrderTypeController::class, 'update']);
+    Route::middleware(['auth:sanctum', 'verified'])->delete('/delete/{id}', [OrderTypeController::class, 'destroy']);
 });
 
 /*---------------------------------------------------------------
@@ -308,13 +349,13 @@ Route::group([
 Route::group([
     'prefix' => 'livingrooms',
 ], function () {
-    Route::get('/', [LivingRoomController::class, 'index']);
-    Route::get('/show/{id}', [LivingRoomController::class, 'show']);
-    Route::get('/create', [LivingRoomController::class, 'create']);
-    Route::post('/store', [LivingRoomController::class, 'store']);
-    Route::get('/edit/{id}', [LivingRoomController::class, 'edit']);
-    Route::put('/update/{id}', [LivingRoomController::class, 'update']);
-    Route::delete('/delete/{id}', [LivingRoomController::class, 'destroy']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/', [LivingRoomController::class, 'index']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/show/{id}', [LivingRoomController::class, 'show']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/create', [LivingRoomController::class, 'create']);
+    Route::middleware(['auth:sanctum', 'verified'])->post('/store', [LivingRoomController::class, 'store']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/edit/{id}', [LivingRoomController::class, 'edit']);
+    Route::middleware(['auth:sanctum', 'verified'])->put('/update/{id}', [LivingRoomController::class, 'update']);
+    Route::middleware(['auth:sanctum', 'verified'])->delete('/delete/{id}', [LivingRoomController::class, 'destroy']);
 });
 /*-------------------------------------------------------------
     RUTA BASE: http://127.0.0.1:8000/mesas
@@ -323,13 +364,13 @@ Route::group([
 Route::group([
     'prefix' => 'tables',
 ], function () {
-    Route::get('/', [TableController::class, 'index']);
-    Route::get('/show/{id}', [TableController::class, 'show']);
-    Route::get('/create', [TableController::class, 'create']);
-    Route::post('/store', [TableController::class, 'store']);
-    Route::get('/edit/{id}', [TableController::class, 'edit']);
-    Route::put('/update/{id}', [TableController::class, 'update']);
-    Route::delete('/delete/{id}', [TableController::class, 'destroy']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/', [TableController::class, 'index']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/show/{id}', [TableController::class, 'show']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/create', [TableController::class, 'create']);
+    Route::middleware(['auth:sanctum', 'verified'])->post('/store', [TableController::class, 'store']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/edit/{id}', [TableController::class, 'edit']);
+    Route::middleware(['auth:sanctum', 'verified'])->put('/update/{id}', [TableController::class, 'update']);
+    Route::middleware(['auth:sanctum', 'verified'])->delete('/delete/{id}', [TableController::class, 'destroy']);
 });
 
 /*---------------------------------------------------------------
@@ -339,14 +380,43 @@ Route::group([
 Route::group([
     'prefix' => 'orders',
 ], function () {
-    Route::get('/', [OrderController::class, 'index']);
-    Route::post('/', [OrderController::class, 'store']);
-    Route::get('/{id}', [OrderController::class, 'show']);
-    Route::put('/{id}', [OrderController::class, 'update']);
-    Route::delete('/{id}', [OrderController::class, 'destroy']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/', [OrderController::class, 'index']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/show/{id}', [OrderController::class, 'show']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/create', [OrderController::class, 'create']);
+    Route::middleware(['auth:sanctum', 'verified'])->post('/store', [OrderController::class, 'store']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/edit/{id}', [OrderController::class, 'edit']);
+    Route::middleware(['auth:sanctum', 'verified'])->put('/update/{id}', [OrderController::class, 'update']);
+    Route::middleware(['auth:sanctum', 'verified'])->delete('/delete/{id}', [OrderController::class, 'destroy']);
 });
 
+/*---------------------------------------------------------------
+    RUTA BASE: http://127.0.0.1:8000/type-reservation
+    DESCRIPCION: ESTAS SON LAS RUTAS PARA MANEJAR LAS ORDENES.
+-----------------------------------------------------------------*/
+Route::group([
+    'prefix' => 'type-reservation',
+], function () {
+    Route::middleware(['auth:sanctum', 'verified'])->get('/', [TypeReservationController::class, 'index']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/show/{id}', [TypeReservationController::class, 'show']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/create', [TypeReservationController::class, 'create']);
+    Route::middleware(['auth:sanctum', 'verified'])->post('/store', [TypeReservationController::class, 'store']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/edit/{id}', [TypeReservationController::class, 'edit']);
+    Route::middleware(['auth:sanctum', 'verified'])->put('/update/{id}', [TypeReservationController::class, 'update']);
+    Route::middleware(['auth:sanctum', 'verified'])->delete('/delete/{id}', [TypeReservationController::class, 'destroy']);
+});
 
-Route::resource('type-reservation', App\Http\Controllers\TypeReservationController::class);
-
-Route::resource('reservation', App\Http\Controllers\ReservationController::class);
+/*---------------------------------------------------------------
+    RUTA BASE: http://127.0.0.1:8000/reservation
+    DESCRIPCION: ESTAS SON LAS RUTAS PARA MANEJAR LAS ORDENES.
+-----------------------------------------------------------------*/
+Route::group([
+    'prefix' => 'reservation',
+], function () {
+    Route::middleware(['auth:sanctum', 'verified'])->get('/', [ReservationController::class, 'index']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/show/{id}', [ReservationController::class, 'show']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/create', [ReservationController::class, 'create']);
+    Route::middleware(['auth:sanctum', 'verified'])->post('/store', [ReservationController::class, 'store']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/edit/{id}', [ReservationController::class, 'edit']);
+    Route::middleware(['auth:sanctum', 'verified'])->put('/update/{id}', [ReservationController::class, 'update']);
+    Route::middleware(['auth:sanctum', 'verified'])->delete('/delete/{id}', [ReservationController::class, 'destroy']);
+});
