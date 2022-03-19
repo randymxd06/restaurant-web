@@ -6,6 +6,7 @@ use App\Http\Requests\ProductCategoryStoreRequest;
 use App\Http\Requests\ProductCategoryUpdateRequest;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class ProductCategoryController extends Controller
 {
@@ -51,7 +52,12 @@ class ProductCategoryController extends Controller
             
             // Mensaje de error al mostrar
             $message = [
-                'required' => 'El :attribute es requerido.'
+                'name.required' => 'El nombre de categoria es requerido.',
+                'name.string' => 'El nombre de la categoria debe ser un texto.',
+                'name.unique' => 'Este nombre de la categoria ya existe.',
+                // 
+                'description.string' => 'La descripcion de la categoria debe ser un texto.',
+                'description.required' => 'La descripción es requerido.'
             ];
 
             // Realizar validacion de los datos
@@ -62,15 +68,18 @@ class ProductCategoryController extends Controller
             
             // Objeto con la informacion que es guardara, exceptuando el TOKEN
             $data = request()->except('_token');
-            
+            $data['name'] = ucfirst(strtolower($data['name']));
+            $data['description'] = ucfirst(strtolower($data['description']));
+            $data['created_at'] = Carbon::now();
+
             // Comprobar datos recibidos 
             // return response()->json($data);
             
             // Insertar el registro a la tabla
-            $productCategories = ProductCategory::insert($data);
+            ProductCategory::insert($data);
             return redirect('product_category');
-        }catch(Exception $e){
-            throw new Exception($e);
+        }catch(Exception $ex){
+            throw new Exception($ex);
         }
     }
 
@@ -91,7 +100,7 @@ class ProductCategoryController extends Controller
      */
     public function edit($id)
     {
-        $productCategory = productCategory::findOrFail($id);
+        $productCategory = ProductCategory::findOrFail($id);
         return view('productCategory.edit', compact('productCategory'));
     }
 
@@ -107,17 +116,23 @@ class ProductCategoryController extends Controller
             $validate = [
                 'name' =>[
                     'required',
-                    'string'
+                    'string',
+                    'unique:product_categories,name,'.$id
                 ],
                 'description' => [
                     'required',
                     'string'
                 ]
             ];
-            
+        
             // Mensaje de error al mostrar
             $message = [
-                'required' => 'El :attribute es requerido.'
+                'name.required' => 'El nombre de categoria es requerido.',
+                'name.string' => 'El nombre de la categoria debe textos.',
+                'name.unique' => 'Este nombre de categoria ya existe.',
+                // 
+                'description.string' => 'El nombre de la categoria debe textos.',
+                'description.required' => 'La descripción es requerido.'
             ];
 
             // Realizar validacion de los datos
@@ -127,7 +142,10 @@ class ProductCategoryController extends Controller
             ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;
             
             // Objeto con la informacion que es guardara, exceptuando el TOKEN
-            $data = request()->except('_token','_method');
+            $data = request()->except('_token', '_method');
+            $data['name'] = ucfirst(strtolower($data['name']));
+            $data['description'] = ucfirst(strtolower($data['description']));
+            $data['updated_at'] = Carbon::now();
             
             // Comprobar datos recibidos 
             // return response()->json($data);
@@ -135,8 +153,8 @@ class ProductCategoryController extends Controller
             // Actualizar datos cuando el id coincida
             ProductCategory::where('id','=',$id)->update($data);
             return redirect('product_category');
-        }catch(Exception $e){
-            throw new Exception($e);
+        }catch(Exception $ex){
+            throw new Exception($ex);
         }
     }
 
@@ -151,8 +169,8 @@ class ProductCategoryController extends Controller
             $productCategory = ProductCategory::findOrFail($id);
             $productCategory->delete();
             return redirect('product_category');
-        }catch(Exception $e){
-            throw new Exception($e);
+        }catch(Exception $ex){
+            throw new Exception($ex);
         }
     }
 }

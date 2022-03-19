@@ -4,79 +4,98 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductStoreRequest;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use mysql_xdevapi\Exception;
 use function MongoDB\BSON\toJSON;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+    
 
+    // Mensaje de error al mostrar
+    public function messageProduct(){
+        return [
+            'name.required' => 'El nombre del producto es requerido.',
+            'name.string' => 'El nombre del producto debe ser un texto.',
+            'name.unique' => 'Este nombre del producto ya existe.',
+            // 
+            'products_categories_id.required' => 'Seleccione una categoria para el producto.',
+            'products_categories_id.numeric' => 'Error en la categoria del producto.',                
+            // 
+            'price.required' => 'El precio es requerido.',
+            'price.numeric' => 'El precio debe ser un número.',
+            // 
+            'description.string' => 'La descripción debe ser un texto.',
+            'description.required' => 'La descripción es requerido.'
+        ];
+    }
+    
     public function index()
     {
-
-        $products = [];
-
-        $data = Product::all();
-
-        foreach ($data as $item){
-
-            array_push($products, $item->getAttributes());
-
-        }
-
-        return view('product.index', compact('products'));
-
+        $products = Product::all();
+        $ProductCategories = ProductCategory::all()->where('status', '=', 1);
+        return view('product.index', compact('products'))->with('ProductCategories', $ProductCategories);
     }
 
     public function create()
     {
-        return view('product.create');
+        $ProductCategories = ProductCategory::all()->where('status', '=', 1);
+        return view('product.create')->with('ProductCategories', $ProductCategories);
     }
 
     public function store(Request $request)
     {
+        try{
+            // Validacion del formulario 
+            $validate = [
+                'name' =>[
+                    'required',
+                    'string',
+                    'unique:products,name'
+                ],
+                'description' => [
+                    'required',
+                    'string'
+                ],
+                'products_categories_id' => [
+                    'required',
+                    'numeric'
+                ],
+                'price' => [
+                    'required',
+                    'numeric'
+                ]
+            ];
+            
+            // Realizar validacion de los datos
+            $this -> validate($request, $validate, $this->messageProduct());
 
-        try {
-
-            // OBTENGO LA DATA POR REQUEST, QUITANDO EL TOKEN //
-            $productsData = $request->except('_token');
-
-            // HAGO LA VALIDACION DEL STATUS, PARA ENVIARLA COMO TRUE O FALSE //
-            ($productsData['status'] == 'on') ? $productsData['status'] = true : $productsData['status'] = false;
-
-            // SI HAY UN ARCHIVO ENTONCES //
-            if ($request->hasFile('img')){
-
-                // GUARDO LA IMAGEN EN EL STORAGE Y LE ASIGNO LA RUTA A LA VARIABLE PRODUCTSDATA['IMG']
-                $productsData['img'] = $request->file('img')->store('uploads', 'public');
-
+            // Validar el estado, para enviar como true o false
+            ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;
+            
+            // Objeto con la informacion que es guardara, exceptuando el TOKEN
+            $data = request()->except('_token');
+            $data['name'] = ucfirst(strtolower($data['name']));
+            $data['price'] = (double) $data['price'];
+            $data['products_categories_id'] = (int) $data['products_categories_id'];
+            $data['description'] = ucfirst(strtolower($data['description']));
+            $data['created_at'] = Carbon::now();
+            
+            if($request->hasFile('image')){
+                $data['image'] = $request->file('image')->store('uploads', 'public');
             }
 
-            // ESTE ES EL OBJETO CON LA INFORMACION QUE SE VA A GUARDAR //
-            $json = [
-                'name' => $productsData['name'],
-                'image' => $productsData['img'],
-                'price' => (double) $productsData['price'],
-                'products_categories_id' => (int) $productsData['products_categories_id'],
-                'description' => ucfirst(strtolower($productsData['description'])),
-                'status' => $productsData['status'],
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ];
+            // return response()->json($data);
 
-            // CREO LA MESA //
-            Product::insert($json);
-
-            // REDIRECCIONO A LA RUTA PRINCIPAL //
+            // Agregar producto 
+            Product::insert($data);
             return redirect('products');
-
-        }catch (Exception $e){
-
-            throw new Exception($e);
-
-        }
-
+        }catch(Exception $ex){
+            throw new Exception($ex);
+        }        
     }
 
     public function show(Request $request, Product $product)
@@ -84,22 +103,79 @@ class ProductController extends Controller
         return view('product.show', compact('product'));
     }
 
-    public function edit(Request $request, Product $product)
+    public function edit($id)
     {
-        return view('product.edit', compact('product'));
+        $product = Product::findOrFail($id);
+        $ProductCategories = ProductCategory::all()->where('status', '=', 1);
+        return view('product.edit', compact('product'))->with('ProductCategories', $ProductCategories);
     }
 
-    public function update(ProductUpdateRequest $request, Product $product)
+    public function update(Request $request, $id)
     {
-        $product->update($request->validated());
-        $request->session()->flash('product.id', $product->id);
-        return redirect()->route('product.index');
+        
+
+        try{
+            $validate = [
+                'name' =>[
+                    'required',
+                    'string',
+                    'unique:products,name,'.$id
+                ],
+                'description' => [
+                    'required',
+                    'string'
+                ],
+                'products_categories_id' => [
+                    'required',
+                    'numeric'
+                ],
+                'price' => [
+                    'required',
+                    'numeric'
+                ]
+            ];
+
+            // Realizar validacion de los datos
+            $this -> validate($request, $validate, $this->messageProduct());
+
+            // Validar el estado, para enviar como true o false
+            ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;
+            
+            // Objeto con la informacion que es guardara, exceptuando el TOKEN
+            $data = request()->except('_token', '_method');
+            $data['name'] = ucfirst(strtolower($data['name']));
+            $data['price'] = (double) $data['price'];
+            $data['products_categories_id'] = (int) $data['products_categories_id'];
+            $data['description'] = ucfirst(strtolower($data['description']));
+            $data['created_at'] = Carbon::now();
+
+            if($request->hasFile('image')){
+                $product = Product::findOrFail($id);
+                Storage::delete('public/'.$product->image);
+                $data['image'] = $request->file('image')->store('uploads', 'public');
+            }
+
+            // Comprobar datos recibidos 
+            // return response()->json($data);
+
+            // Actualizar datos cuando el id coincida
+            Product::where('id','=',$id)->update($data);
+            return redirect('products');
+
+        }catch(Exception $ex){
+            throw new Exception($ex);
+        }
     }
 
-    public function destroy(Request $request, Product $product)
+    public function destroy($id)
     {
-        $product->delete();
-        return redirect()->route('product.index');
+        try{
+            $product = Product::findOrFail($id);
+            $product->delete();
+            return redirect('products');
+        }catch(Exception $ex){
+            throw new Exception($ex);
+        }
     }
 
 }

@@ -25,7 +25,7 @@ class Product extends Model
     protected $casts = [
         'id' => 'integer',
         'products_categories_id' => 'integer',
-        'price' => 'decimal',
+        'price' => 'float',
         'status' => 'boolean',
     ];
 

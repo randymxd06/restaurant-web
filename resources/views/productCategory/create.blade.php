@@ -3,7 +3,7 @@
 @section('title', 'Categorias')
 
 @section('content_header')
-    <h1>Crear Categoria</h1>
+    <h1 class="mb-4">Crear Categoria</h1>
     <a class="btn btn-primary mt-1" href="{{url('/product_category')}}">
         <i class="fas fa-arrow-left"></i>
         Volver
@@ -36,7 +36,7 @@
         <div class="col-md-12 mb-2">
             <div class="form-group">
                 <label class="form-label">Nombre:</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ isset($livingroom->name)?$livingroom->name:old('name') }}">
+                <input type="text" class="form-control" id="name" name="name" value="{{ isset($productCategory->name)?$productCategory->name:old('name') }}">
             </div>
         </div>
     </div>
@@ -45,7 +45,7 @@
             <!-- Descripcion -->
             <div class="form-group">
                 <label class="form-label">Descripción</label>
-                <textarea class="form-control" id="description" name="description" rows="3">{{ isset($table->description)?$table->description:old('description') }}</textarea>
+                <textarea class="form-control" id="description" name="description" rows="3">{{ isset($productCategory->description)?$productCategory->description:old('description') }}</textarea>
             </div>  
         </div>
     </div>

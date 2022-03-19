@@ -42,7 +42,7 @@
                 <select class="custom-select mr-sm-2" id="living_room_id" name="living_room_id">
                     <option selected disabled>Choose...</option>
                     @foreach ($LivingRooms as $LivingRoom)
-                        <option value="{{ $LivingRoom->id }}" {{(old('living_room_id') == $LivingRoom->id) ? 'selected' : ''}}>{{$LivingRoom->name}}</option>
+                        <option value="{{ $LivingRoom->id }}" {{( old('living_room_id') == $LivingRoom->id) ? 'selected' : ''}}>{{$LivingRoom->name}}</option>
                     @endforeach
                 </select>
             </div>
