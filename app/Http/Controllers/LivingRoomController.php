@@ -9,6 +9,17 @@ use Illuminate\Http\Request;
 
 class LivingRoomController extends Controller
 {
+
+    public function messageProduct(){
+        return [
+            'name.required' => 'El nombre del salon es requerido.',
+            'name.string' => 'El nombre debe ser un texto.',
+            'name.unique' => 'El nombre debe ser único.',
+            'tables_capacity.required' => 'La capacidad de mesas es requerida.',
+            'tables_capacity.numeric' => 'La capacidad de mesas debe ser un número.'
+        ];
+    }
+    
     /**
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
@@ -46,12 +57,9 @@ class LivingRoomController extends Controller
                 'tables_capacity' => 'required|numeric',
             ];
 
-            // Mensaje de error al mostrar
-            $message = [
-                'required' => 'El :attribute es requerido.'
-            ];
+            
             // Realizar validacion de los datos 
-            $this -> validate($request, $validate, $message);
+            $this -> validate($request, $validate, $this->messageProduct());
 
             // Validar el estado, para enviar como true o false
             ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;
@@ -108,12 +116,8 @@ class LivingRoomController extends Controller
             'tables_capacity' => 'required|numeric',
         ];
 
-        // Mensaje de error al mostrar
-        $message = [
-            'required' => 'El :attribute es requerido.'
-        ];
         // Realizar validacion de los datos 
-        $this -> validate($request, $validate, $message);
+        $this -> validate($request, $validate, $this->messageProduct());
 
         // Validar el estado, para enviar como true o false
         ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;

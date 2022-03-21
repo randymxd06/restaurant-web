@@ -272,7 +272,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Ventas',
-                    'url'  => 'caja',
+                    'url'  => 'caja/create',
                 ],
                 [
                     'text' => 'Cuadre de caja',

@@ -16,6 +16,17 @@ use mysql_xdevapi\Exception;
 class TableController extends Controller
 {
 
+    // Mensaje de error al mostrar
+    public function messageProduct(){
+        return [
+            'living_room_id.required' => 'El salon es requerido.',
+            'living_room_id.numeric' => 'El salon debe ser un número.',                
+            // 
+            'people_capacity.required' => 'La capacidad de personas es requerida.',
+            'people_capacity.numeric' => 'La capacidad de personas debe ser un número.'
+        ];
+    }
+
     /*-------------------------------------------------------------------------------------------
         METODO INDEX
         NOTA: ESTE METODO ES PARA MOSTRAR LA PAGINA DONDE SE MUESTRAN TODAS LAS MESAS ACTIVAS.
@@ -59,13 +70,8 @@ class TableController extends Controller
                 'living_room_id' => 'required|numeric',
             ];
 
-            // Mensaje de error al mostrar
-            $message = [
-                'required' => 'El :attribute es requerido.'
-            ];
-
             // Realizar la validacion de los datos
-            $this -> validate($request, $validate, $message);
+            $this -> validate($request, $validate, $this->messageProduct());
 
             // HAGO LA VALIDACION DEL STATUS, PARA ENVIARLA COMO TRUE O FALSE //
             ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;
@@ -112,13 +118,8 @@ class TableController extends Controller
             'living_room_id' => 'required|numeric',
         ];
 
-        // Mensaje de error al mostrar
-        $message = [
-            'required' => 'El :attribute es requerido.'
-        ];
-
         // Realizar la validacion de los datos
-        $this -> validate($request, $validate, $message);
+        $this -> validate($request, $validate, $this->messageProduct());
 
         $table = $request->except(['_token', '_method']);
         // HAGO LA VALIDACION DEL STATUS, PARA ENVIARLA COMO TRUE O FALSE //

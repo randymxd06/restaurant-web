@@ -10,6 +10,19 @@ use Carbon\Carbon;
 
 class ProductCategoryController extends Controller
 {
+
+    // Mensaje de error al mostrar
+    public function messageProduct(){
+        return [
+            'name.required' => 'El nombre de categoria es requerido.',
+            'name.string' => 'El nombre de la categoria debe ser un texto.',
+            'name.unique' => 'Este nombre de la categoria ya existe.',
+            // 
+            'description.string' => 'La descripcion de la categoria debe ser un texto.',
+            'description.required' => 'La descripción es requerido.'
+        ];
+    }
+
     /**
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
@@ -50,18 +63,8 @@ class ProductCategoryController extends Controller
                 ]
             ];
             
-            // Mensaje de error al mostrar
-            $message = [
-                'name.required' => 'El nombre de categoria es requerido.',
-                'name.string' => 'El nombre de la categoria debe ser un texto.',
-                'name.unique' => 'Este nombre de la categoria ya existe.',
-                // 
-                'description.string' => 'La descripcion de la categoria debe ser un texto.',
-                'description.required' => 'La descripción es requerido.'
-            ];
-
             // Realizar validacion de los datos
-            $this -> validate($request, $validate, $message);
+            $this -> validate($request, $validate, $this->messageProduct());
             
             // Validar el estado, para enviar como true o false
             ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;
@@ -124,19 +127,9 @@ class ProductCategoryController extends Controller
                     'string'
                 ]
             ];
-        
-            // Mensaje de error al mostrar
-            $message = [
-                'name.required' => 'El nombre de categoria es requerido.',
-                'name.string' => 'El nombre de la categoria debe textos.',
-                'name.unique' => 'Este nombre de categoria ya existe.',
-                // 
-                'description.string' => 'El nombre de la categoria debe textos.',
-                'description.required' => 'La descripción es requerido.'
-            ];
 
             // Realizar validacion de los datos
-            $this -> validate($request, $validate, $message);
+            $this -> validate($request, $validate, $this->messageProduct());
             
             // Validar el estado, para enviar como true o false
             ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;

@@ -4,7 +4,11 @@
 
 @section('content_header')
     <h1>Mesas</h1>
-    <hr>
+    <a class="btn btn-success mt-1" href="{{url('/tables/create')}}">
+        <i class="fas fa-chair"></i>
+        Agregar
+    </a>
+    <hr class="mt-2">
 @stop
 
 @section('content')
