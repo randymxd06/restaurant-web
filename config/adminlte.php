@@ -344,10 +344,21 @@ return [
                 ],
                 [
                     'text' => 'Salones',
-                    'url'  => 'livingrooms',
-                    'icon' => 'fas fa-person-booth'
+                    'icon' => 'fas fa-person-booth',
+                    'submenu' => [
+                        [
+                            'text' => 'Gestionar Salones',
+                            'url'  => 'livingrooms',
+                            'icon' => 'fas fa-table'
+                        ],
+                        [
+                            'text' => 'Agregar Salon',
+                            'url'  => 'livingrooms/create',
+                            'icon' => 'fas fa-save'
+                        ]
+                    ]
                 ],
-            ],
+            ]
         ],
 
         // Menú

@@ -115,9 +115,13 @@
 
             <!-- Card -->
             @foreach($products as $p)
-            <button onclick="setProducts(12)" class="col">
+            <button onclick="addProduct({{$p}})" class="col">
                 <div class="card h-100">
-                    <img src="{{URL::asset('images/daraguma-icon.png')}}" class="card-img-top" alt="...">
+                    @if (!empty($p->image)) 
+                        <img src="{{ asset('storage').'/'.$p->image }}" class="card-img-top" alt="...">
+                    @else
+                        <img src="{{URL::asset('images/daraguma-icon.png')}}" class="card-img-top" alt="...">
+                    @endif
                     <div class="card-body">
                         <p class="card-text"> {{ $p -> name }} </p>
                         <span class="badge bg-light text-dark">RD$ {{ number_format($p->price, 2, '.', ','); }}</span>
@@ -158,21 +162,11 @@
                         <th style="width: 20px"></th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Ramen</td>
-                        <td>1</td>
-                        <td>RD$100.00</td>
-                        <td>RD$100.00</td>
-                        <td>
-                            <a href="#">
-                                <i class="far fa-trash-alt"></i>
-                            </a>
-                        </td>
-
-                    </tr>
-                </tbody>
             </table>
+            <div class="table-responsive">
+                <table class="order-products table table-striped" id="add-products">
+                </table>
+            </div>
             <!-- /Productos Ordenados -->
             <!-- Ordenes Footer -->
             <div class="order-footer">
@@ -230,61 +224,59 @@ margin: 0 !important;
 padding: 0 !important;
 } */
 .layout-navbar-fixed .wrapper .main-header, .layout-fixed .main-sidebar{
-display: none;
+    display: none;
 }
 .sidebar-category{
-display: block !important;
+    display: block !important;
 }
 .navbar-category{
-display: flex !important;
+    display: flex !important;
 }
 /* Order */
 .container-order{
-display: block;
-bottom: 0;
-float: none;
-right: 0;
-position: fixed;
-top: 56px;
-font-size: 12px;
-background-color: #fff;
-max-width: 360px;
-width: 100%;
+    bottom: 0;
+    right: 0;
+    position: fixed;
+    top: 56px;
+    font-size: 12px;
+    background-color: #fff;
+    max-width: 360px;
+    width: 100%;
 }
 .order-btn{
-padding: 0 0.5rem;
+    padding: 0 0.5rem;
 }
 .table-order {
-width: 100%;
+    width: 100%;
 }
 .table-order th {
-width: 80px;
-padding: 4px 10px;
+    width: 80px;
+    padding: 4px 10px;
 }
 .order-footer{
-width: 100%;
-position: absolute;
-bottom: 0;
-max-height: 250px;
-height: 100%;
+
 }
 .order-details{
-font-size: 14px;
+    font-size: 14px;
 }
 /*  */
 .content-wrapper{
-margin-right: 360px;
+    margin-right: 360px;
 }
 
 .tabs-menu-div{
-display: none;
-left: 0;
-position: fixed;
-right: 0;
-top: 56px;
+    display: none;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 56px;
 }
 .card-body{
-text-align: left;
+    text-align: left;
+}
+.card-img-top {
+    height: 180px;
+    object-fit: cover;
 }
 
 @media screen and (max-width: 768px) {
@@ -329,11 +321,35 @@ text-align: left;
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 
 <script>
-  // 
-    var products = [];
-    function setProducts($id){
-        products.push($id);
-        console.log(products);
+    // Objeto con los Productos Seleccionados
+    let products = [];
+
+    // Funcion para Agregar Productos
+    function addProduct(p){
+        let listProductsHTML = "";
+        p.cantidad = 1;
+        products.push(p);
+        // console.log(products);
+        products.forEach(pro => {            
+            listProductsHTML += '<tr>'+
+                                    '<td>'+pro.name+'</td>'+
+                                    '<td>1</td>'+
+                                    '<td>RD$100.00</td>'+
+                                    '<td>RD$100.00</td>'+
+                                    '<td><button onclick="reduceProduct('+ pro.id +')"><i class="far fa-trash-alt"></i></button></td>'+
+                                '</tr>';
+        });
+        document.getElementById("add-products").innerHTML = listProductsHTML;
+    }
+
+    // Funcion Para reducir productos
+    function reduceProduct(id){
+        for(let p of products){
+            if(p.id === id){
+                console.log(p.name);
+                return
+            }
+        }
     }
   // 
 </script>
