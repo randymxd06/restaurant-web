@@ -420,3 +420,5 @@ Route::group([
     Route::middleware(['auth:sanctum', 'verified'])->put('/update/{id}', [ReservationController::class, 'update']);
     Route::middleware(['auth:sanctum', 'verified'])->delete('/delete/{id}', [ReservationController::class, 'destroy']);
 });
+
+Route::resource('order-product', App\Http\Controllers\OrderProductController::class);

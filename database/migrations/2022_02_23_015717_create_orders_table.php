@@ -27,7 +27,7 @@ class CreateOrdersTable extends Migration
             $table->foreign('orders_types_id')->references('id')->on('orders_types')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('table_id');
             $table->foreign('table_id')->references('id')->on('tables')->onDelete('cascade')->onUpdate('cascade');
-            $table->decimal('total', 12, 4);
+            $table->double('total');
             $table->boolean('status')->default(true);
             $table->timestamps();
             $table->softDeletes()->nullable();

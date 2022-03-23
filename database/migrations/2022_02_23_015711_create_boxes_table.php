@@ -21,7 +21,7 @@ class CreateBoxesTable extends Migration
             $table->time('end_time');
             $table->boolean('status')->default(true);
             $table->timestamps();
-            $table->softDeletes();
+            $table->softDeletes()->nullable();
         });
 
         Schema::enableForeignKeyConstraints();

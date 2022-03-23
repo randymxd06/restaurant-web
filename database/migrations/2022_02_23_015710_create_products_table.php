@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->unsignedBigInteger('products_categories_id');
             $table->foreign('products_categories_id')->references('id')->on('product_categories')->onDelete('cascade')->onUpdate('cascade');
-            $table->decimal('price', 12, 2);
+            $table->double('price');
             $table->boolean('status')->default(true);
             $table->timestamps();
             $table->softDeletes()->nullable();

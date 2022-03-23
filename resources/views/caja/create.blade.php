@@ -117,7 +117,7 @@
             @foreach($products as $p)
             <button onclick="addProduct({{$p}})" class="col">
                 <div class="card h-100">
-                    @if (!empty($p->image)) 
+                    @if (!empty($p->image))
                         <img src="{{ asset('storage').'/'.$p->image }}" class="card-img-top" alt="...">
                     @else
                         <img src="{{URL::asset('images/daraguma-icon.png')}}" class="card-img-top" alt="...">
@@ -129,88 +129,96 @@
                 </div>
             </button>
             @endforeach
-            <!-- /Card -->         
+            <!-- /Card -->
         </div>
     </div>
     <!-- /Productos-->
 
-    <!-- Ordenes -->
-    <div class="tab-pane fade" id="invoice" role="tabpanel" aria-labelledby="invoice-tab">
-        <div class="container-order">
-            <div class="order-header">
-                <table class="table-order">
-                    <tr>
-                        <th>Empleado: </th>
-                        <td>{{$array['employee_id']}}</td>
-                    </tr>
-                    <tr>
-                        <th>Caja: </th>
-                        <td>#{{$array['box_id']}}</td>
-                        <th>Mesa: </th>
-                        <td>#{{$array['table_id']}}</td>
-                    </tr>
-                </table>
-            </div>
-            <!-- Productos Ordenados -->
-            <table class="order-products table table-striped">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Cantidad</th>
-                        <th style="width: 40px">Precio</th>
-                        <th style="width: 40px">Subtotal</th>
-                        <th style="width: 20px"></th>
-                    </tr>
-                </thead>
-            </table>
-            <div class="table-responsive">
-                <table class="order-products table table-striped" id="add-products">
-                </table>
-            </div>
-            <!-- /Productos Ordenados -->
-            <!-- Ordenes Footer -->
-            <div class="order-footer">
-                <div class="order-btn btnd-grid gap-2">
-                    <button class="btn btn-success btn-block">
-                        <i class="fas fa-receipt"></i>
-                        Enviar
-                    </button>
+    <form action="{{url('/caja/store')}}" method="post">
+
+        @csrf
+
+        <input hidden type="text" name="products" id="products">
+
+        <!-- Ordenes -->
+        <div class="tab-pane fade" id="invoice" role="tabpanel" aria-labelledby="invoice-tab">
+            <div class="container-order">
+                <div class="order-header">
+                    <table class="table-order">
+                        <tr>
+                            <th>Empleado: </th>
+                            <td>{{$array['employee_id']}}</td>
+                        </tr>
+                        <tr>
+                            <th>Caja: </th>
+                            <td>#{{$array['box_id']}}</td>
+                            <th>Mesa: </th>
+                            <td>#{{$array['table_id']}}</td>
+                        </tr>
+                    </table>
                 </div>
-                <!-- Detalles -->
-                <table class="order-details table">
-                    <tbody>
+                <!-- Productos Ordenados -->
+                <table class="order-products table table-striped">
+                    <thead>
                         <tr>
-                            <th>Subtotal</th>
-                            <td style="width: 20px">RD$</td>
-                            <td style="width: 40px">100.00</td>
+                            <th>Nombre</th>
+                            <th>Cantidad</th>
+                            <th style="width: 40px">Precio</th>
+                            <th style="width: 40px">Subtotal</th>
+                            <th style="width: 20px"></th>
                         </tr>
-                        <tr>
-                            <th>Descuento</th>
-                            <td style="width: 20px">%</td>
-                            <td style="width: 40px">00</td>
-                        </tr>
-                        <tr>
-                            <th>Total</th>
-                            <td style="width: 20px">RD$</td>
-                            <td style="width: 40px">100.00</td>
-                        </tr>
-                    </tbody>
+                    </thead>
                 </table>
-                <!-- /Detalles -->
-                <div class="order-btn d-grid gap-2 d-flex justify-content-end">
-                    <button class="btn btn-dark">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                    <button class="btn btn-success btn-lg">
-                        <i class="fas fa-cash-register"></i>
-                        Facturar
-                    </button>
+                <div class="table-responsive">
+                    <table class="order-products table table-striped" id="add-products">
+                    </table>
                 </div>
+                <!-- /Productos Ordenados -->
+                <!-- Ordenes Footer -->
+                <div class="order-footer">
+                    <div class="order-btn btnd-grid gap-2">
+                        <button class="btn btn-success btn-block">
+                            <i class="fas fa-receipt"></i>
+                            Enviar
+                        </button>
+                    </div>
+                    <!-- Detalles -->
+                    <table class="order-details table">
+                        <tbody>
+                            <tr>
+                                <th>Subtotal</th>
+                                <td style="width: 20px">RD$</td>
+                                <td style="width: 40px">100.00</td>
+                            </tr>
+                            <tr>
+                                <th>Descuento</th>
+                                <td style="width: 20px">%</td>
+                                <td style="width: 40px">00</td>
+                            </tr>
+                            <tr>
+                                <th>Total</th>
+                                <td style="width: 20px">RD$</td>
+                                <td style="width: 40px">100.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- /Detalles -->
+                    <div class="order-btn d-grid gap-2 d-flex justify-content-end">
+                        <button class="btn btn-dark">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        <button class="btn btn-success btn-lg">
+                            <i class="fas fa-cash-register"></i>
+                            Facturar
+                        </button>
+                    </div>
+                </div>
+                <!--/ Odenes Footer -->
             </div>
-            <!--/ Odenes Footer -->
         </div>
-    </div>
-    <!-- /Ordenes -->
+        <!-- /Ordenes -->
+
+    </form>
 </div>
 
 @stop
@@ -330,7 +338,7 @@ padding: 0 !important;
         p.cantidad = 1;
         products.push(p);
         // console.log(products);
-        products.forEach(pro => {            
+        products.forEach(pro => {
             listProductsHTML += '<tr>'+
                                     '<td>'+pro.name+'</td>'+
                                     '<td>1</td>'+
@@ -351,7 +359,7 @@ padding: 0 !important;
             }
         }
     }
-  // 
+  //
 </script>
 
 @stop
