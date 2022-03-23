@@ -134,6 +134,11 @@
     </div>
     <!-- /Productos-->
 
+    <!-- FORMULARIO -->
+    <form method="post" action="{{ url('/caja/store') }}">
+    <!-- TOKEN -->
+        @csrf
+        <input hidden type="text" name="products" id="products" value="">
     <!-- Ordenes -->
     <div class="tab-pane fade" id="invoice" role="tabpanel" aria-labelledby="invoice-tab">
         <div class="container-order">
@@ -201,7 +206,7 @@
                     <button class="btn btn-dark">
                         <i class="fas fa-trash"></i>
                     </button>
-                    <button class="btn btn-success btn-lg">
+                    <button type="submit" class="btn btn-success btn-lg">
                         <i class="fas fa-cash-register"></i>
                         Facturar
                     </button>
@@ -211,7 +216,9 @@
         </div>
     </div>
     <!-- /Ordenes -->
+    </form>
 </div>
+
 
 @stop
 
@@ -322,35 +329,61 @@ padding: 0 !important;
 
 <script>
     // Objeto con los Productos Seleccionados
-    let products = [];
+    let products = []; 
 
     // Funcion para Agregar Productos
     function addProduct(p){
+        let e = false;
+        p.qty = 0;
+        
+        for(let i of products){
+            if(i.name == p.name){
+                e = true;
+                i.qty+=1;
+                break;
+            }
+        }
+        if(!e){
+            p.qty+=1;
+            products.push(p);
+        
+        refreshProduct();
+    }
+
+    // Funcion Para reducir productos
+    function reduceProduct(id){
+        //  Recorerr los productos agregadors
+        
+        for (let p = 0; p < products.length; p++){
+            // If para verificar si el producto a eliminar existe en la lista
+            if(products[p].id === id){
+                // If para eliminar si la cantidad es igual a 1, de lo contrario reducir 1
+                if(products[p].qty == 1){
+                    products.splice(p, 1);
+                }else{
+                    products[p].qty-=1;
+                }
+                refreshProduct();
+                return
+            }
+        }
+    }
+
+    // Funcion para actualizar los productos en el html
+    const refreshProduct = function(){
         let listProductsHTML = "";
-        p.cantidad = 1;
-        products.push(p);
-        // console.log(products);
         products.forEach(pro => {            
             listProductsHTML += '<tr>'+
                                     '<td>'+pro.name+'</td>'+
-                                    '<td>1</td>'+
+                                    '<td>'+pro.qty+'</td>'+
                                     '<td>RD$100.00</td>'+
                                     '<td>RD$100.00</td>'+
                                     '<td><button onclick="reduceProduct('+ pro.id +')"><i class="far fa-trash-alt"></i></button></td>'+
                                 '</tr>';
         });
         document.getElementById("add-products").innerHTML = listProductsHTML;
-    }
-
-    // Funcion Para reducir productos
-    function reduceProduct(id){
-        for(let p of products){
-            if(p.id === id){
-                console.log(p.name);
-                return
-            }
-        }
-    }
+        document.getElementById('products').value = JSON.stringify(products, null, 3);
+    } 
   // 
 </script>
 
