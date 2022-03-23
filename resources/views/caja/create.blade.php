@@ -134,11 +134,13 @@
     </div>
     <!-- /Productos-->
 
-    <!-- FORMULARIO -->
+
     <form method="post" action="{{ url('/caja/store') }}">
     <!-- TOKEN -->
-        @csrf
+    @csrf
+
         <input hidden type="text" name="products" id="products" value="">
+    
     <!-- Ordenes -->
     <div class="tab-pane fade" id="invoice" role="tabpanel" aria-labelledby="invoice-tab">
         <div class="container-order">
@@ -206,7 +208,7 @@
                     <button class="btn btn-dark">
                         <i class="fas fa-trash"></i>
                     </button>
-                    <button type="submit" class="btn btn-success btn-lg">
+                    <button class="btn btn-success btn-lg">
                         <i class="fas fa-cash-register"></i>
                         Facturar
                     </button>
@@ -218,7 +220,6 @@
     <!-- /Ordenes -->
     </form>
 </div>
-
 
 @stop
 
@@ -343,10 +344,12 @@ padding: 0 !important;
                 break;
             }
         }
+        
         if(!e){
             p.qty+=1;
             products.push(p);
-        
+        }
+
         refreshProduct();
     }
 
@@ -384,6 +387,7 @@ padding: 0 !important;
         document.getElementById("add-products").innerHTML = listProductsHTML;
         document.getElementById('products').value = JSON.stringify(products, null, 3);
     } 
+
   // 
 </script>
 

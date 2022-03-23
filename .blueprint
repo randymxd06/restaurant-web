@@ -1,26 +1,15 @@
 created:
-    - app/Http/Controllers/TypeReservationController.php
-    - app/Http/Controllers/ReservationController.php
-    - database/factories/TypeReservationFactory.php
-    - database/factories/ReservationFactory.php
-    - database/migrations/2022_03_18_034803_create_type_reservations_table.php
-    - database/migrations/2022_03_18_034804_create_reservations_table.php
-    - app/Models/TypeReservation.php
-    - app/Models/Reservation.php
-    - tests/Feature/Http/Controllers/TypeReservationControllerTest.php
-    - tests/Feature/Http/Controllers/ReservationControllerTest.php
-    - app/Http/Requests/TypeReservationStoreRequest.php
-    - app/Http/Requests/TypeReservationUpdateRequest.php
-    - app/Http/Requests/ReservationStoreRequest.php
-    - app/Http/Requests/ReservationUpdateRequest.php
-    - resources/views/typeReservation/index.blade.php
-    - resources/views/typeReservation/create.blade.php
-    - resources/views/typeReservation/show.blade.php
-    - resources/views/typeReservation/edit.blade.php
-    - resources/views/reservation/index.blade.php
-    - resources/views/reservation/create.blade.php
-    - resources/views/reservation/show.blade.php
-    - resources/views/reservation/edit.blade.php
+    - app/Http/Controllers/OrderProductController.php
+    - database/factories/OrderProductFactory.php
+    - database/migrations/2022_03_23_012414_create_order_products_table.php
+    - app/Models/OrderProduct.php
+    - tests/Feature/Http/Controllers/OrderProductControllerTest.php
+    - app/Http/Requests/OrderProductStoreRequest.php
+    - app/Http/Requests/OrderProductUpdateRequest.php
+    - resources/views/orderProduct/index.blade.php
+    - resources/views/orderProduct/create.blade.php
+    - resources/views/orderProduct/show.blade.php
+    - resources/views/orderProduct/edit.blade.php
 updated:
     - routes/web.php
 models:
@@ -45,3 +34,4 @@ models:
     LivingRoom: { id: id, name: string, description: text, tables_capacity: unsignedBigInteger, status: boolean, timestamps: timestamps, softdeletes: softDeletes, relationships: { hasMany: Table } }
     TypeReservation: { id: autoIncrement, name: varchar, description: text, timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: Reservation } }
     Reservation: { id: autoIncrement, customers_id: 'unsignedBigInteger foreign:customers.id', type_reservations_id: 'unsignedBigInteger foreign:type_reservations.id', living_room_id: 'unsignedBigInteger foreign:living_rooms.id', date_time: timestamp, number_people: int, description: text, status: 'boolean default:true', timestamps: timestamps, softdeletes: softDeletes, relationships: { hasOne: TypeReservation } }
+    OrderProduct: { order_id: 'unsignedBiginteger foreign:orders.id', box_id: 'unsignedBigInteger foreign:boxes.id', customer_id: 'unsignedBigInteger foreign:customers.id', order_types_id: 'unsignedBigInteger foreign:order_types.id', table_id: 'unsignedBigInteger foreign:tables.id', total: double, status: 'boolean default:true', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: 'Order, Box, Customer, OrderType, Table' } }
