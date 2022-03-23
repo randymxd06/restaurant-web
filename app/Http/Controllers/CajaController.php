@@ -59,7 +59,7 @@ class CajaController extends Controller
     {
         try {
 
-            return redirect('caja');
+            dd(json_decode($request['products']));
 
             $validate = [
                 'user_id' => 'required|int',
@@ -87,18 +87,12 @@ class CajaController extends Controller
 
             $order = Order::insert($jsonOrders);
 
-            // TODO: ESTE JSON SE VA A BORRAR PORQUE SE VA A INSERTAR EL ARRAY CON LOS DATOS DEL DETALLE DIRECTAMENTE //
-            $jsonOrderProducts = [
-                'order_id' => (int) $request['order_id'],
-                'product_id' => (int) $request['product_id'],
-                'quantity' => $request['quantity'],
-                'price' => $request['price'],
-                'discount' => $request['discount'],
-                'total' => $request['total'],
-                'description' => $request['description']
-            ];
+            // TODO: ESTE JSON SE VA A BORRAR PORQUE SE VA A INSERTAR EL ARRAY CON LOS DATOS DEL DETALLE DIRECTAMENTE
+            $products = [];
 
-            $orderProduct = OrderProduct::create();
+            foreach ($products as $product){
+                OrderProduct::create($product);
+            }
 
             redirect('caja');
 
@@ -117,13 +111,46 @@ class CajaController extends Controller
         return view('caja.edit', compact('caja'));
     }
 
-    public function update(CajaUpdateRequest $request, Caja $caja)
+    public function update(Request $request, $id)
     {
-        $caja->update($request->validated());
 
-        $request->session()->flash('caja.id', $caja->id);
+        $validate = [
+            'user_id' => 'required|int',
+            'box_id' => 'required|int',
+            'customer_id' => 'required|int',
+            'order_types_id' => 'required|int',
+            'table_id' => 'required|int',
+            'total' => 'required|double',
+            'status' => 'boolean',
+        ];
 
-        return redirect()->route('caja.index');
+        $this -> validate($request, $validate, $this->messageProduct());
+
+        (isset($request['status'])) ? $request['status'] = 1 : $request['status'] = 0;
+
+        $order = $request->except(['_token', '_method']);
+
+        $jsonOrders = [
+            'user_id' => (int) $order['user_id'],
+            'box_id' => (int) $order['box_id'],
+            'customer_id' => (int) $order['customer_id'],
+            'order_types_id' => (int) $order['order_types_id'],
+            'table_id' => (int) $order['order_types_id'],
+            'total' => (double) $order['total'],
+            'status' => $order['status'],
+        ];
+
+        Order::where('id','=',$id)->update($jsonOrders);
+
+        // TODO: AGREGAR EL ACTUALIZAR DE DETALLE DE ORDEN
+        $products = [];
+
+        foreach ($products as $product){
+            OrderProduct::where('id','=',$id)->update($products);
+        }
+
+        return redirect('caja');
+
     }
 
     public function destroy($id)
