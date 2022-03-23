@@ -117,7 +117,7 @@
             @foreach($products as $p)
             <button onclick="addProduct({{$p}})" class="col">
                 <div class="card h-100">
-                    @if (!empty($p->image))
+                    @if (!empty($p->image)) 
                         <img src="{{ asset('storage').'/'.$p->image }}" class="card-img-top" alt="...">
                     @else
                         <img src="{{URL::asset('images/daraguma-icon.png')}}" class="card-img-top" alt="...">
@@ -129,16 +129,18 @@
                 </div>
             </button>
             @endforeach
-            <!-- /Card -->
+            <!-- /Card -->         
         </div>
     </div>
     <!-- /Productos-->
 
-    <form action="{{url('/caja/store')}}" method="post">
 
-        @csrf
+    <form method="post" action="{{ url('/caja/store') }}">
+    <!-- TOKEN -->
+    @csrf
 
         <input hidden type="text" name="products" id="products" value="">
+<<<<<<< HEAD
 
         <!-- Ordenes -->
         <div class="tab-pane fade" id="invoice" role="tabpanel" aria-labelledby="invoice-tab">
@@ -168,56 +170,86 @@
                             <th style="width: 20px"></th>
                         </tr>
                     </thead>
+=======
+    
+    <!-- Ordenes -->
+    <div class="tab-pane fade" id="invoice" role="tabpanel" aria-labelledby="invoice-tab">
+        <div class="container-order">
+            <div class="order-header">
+                <table class="table-order">
+                    <tr>
+                        <th>Empleado: </th>
+                        <td>{{$array['employee_id']}}</td>
+                    </tr>
+                    <tr>
+                        <th>Caja: </th>
+                        <td>#{{$array['box_id']}}</td>
+                        <th>Mesa: </th>
+                        <td>#{{$array['table_id']}}</td>
+                    </tr>
+>>>>>>> c82a79b8448ab8bd032ee0827bf6903cb87f5237
                 </table>
-                <div class="table-responsive">
-                    <table class="order-products table table-striped" id="add-products">
-                    </table>
-                </div>
-                <!-- /Productos Ordenados -->
-                <!-- Ordenes Footer -->
-                <div class="order-footer">
-                    <div class="order-btn btnd-grid gap-2">
-                        <button class="btn btn-success btn-block">
-                            <i class="fas fa-receipt"></i>
-                            Enviar
-                        </button>
-                    </div>
-                    <!-- Detalles -->
-                    <table class="order-details table">
-                        <tbody>
-                            <tr>
-                                <th>Subtotal</th>
-                                <td style="width: 20px">RD$</td>
-                                <td style="width: 40px">100.00</td>
-                            </tr>
-                            <tr>
-                                <th>Descuento</th>
-                                <td style="width: 20px">%</td>
-                                <td style="width: 40px">00</td>
-                            </tr>
-                            <tr>
-                                <th>Total</th>
-                                <td style="width: 20px">RD$</td>
-                                <td style="width: 40px">100.00</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <!-- /Detalles -->
-                    <div class="order-btn d-grid gap-2 d-flex justify-content-end">
-                        <button class="btn btn-dark">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                        <button class="btn btn-success btn-lg">
-                            <i class="fas fa-cash-register"></i>
-                            Facturar
-                        </button>
-                    </div>
-                </div>
-                <!--/ Odenes Footer -->
             </div>
+            <!-- Productos Ordenados -->
+            <table class="order-products table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                        <th style="width: 40px">Precio</th>
+                        <th style="width: 40px">Subtotal</th>
+                        <th style="width: 20px"></th>
+                    </tr>
+                </thead>
+            </table>
+            <div class="table-responsive">
+                <table class="order-products table table-striped" id="add-products">
+                </table>
+            </div>
+            <!-- /Productos Ordenados -->
+            <!-- Ordenes Footer -->
+            <div class="order-footer">
+                <div class="order-btn btnd-grid gap-2">
+                    <button class="btn btn-success btn-block">
+                        <i class="fas fa-receipt"></i>
+                        Enviar
+                    </button>
+                </div>
+                <!-- Detalles -->
+                <table class="order-details table">
+                    <tbody>
+                        <tr>
+                            <th>Subtotal</th>
+                            <td style="width: 20px">RD$</td>
+                            <td style="width: 40px">100.00</td>
+                        </tr>
+                        <tr>
+                            <th>Descuento</th>
+                            <td style="width: 20px">%</td>
+                            <td style="width: 40px">00</td>
+                        </tr>
+                        <tr>
+                            <th>Total</th>
+                            <td style="width: 20px">RD$</td>
+                            <td style="width: 40px">100.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- /Detalles -->
+                <div class="order-btn d-grid gap-2 d-flex justify-content-end">
+                    <button class="btn btn-dark">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    <button class="btn btn-success btn-lg">
+                        <i class="fas fa-cash-register"></i>
+                        Facturar
+                    </button>
+                </div>
+            </div>
+            <!--/ Odenes Footer -->
         </div>
-        <!-- /Ordenes -->
-
+    </div>
+    <!-- /Ordenes -->
     </form>
 </div>
 
@@ -331,11 +363,52 @@ padding: 0 !important;
 <script>
 
     // Objeto con los Productos Seleccionados
-    let products = [];
+    let products = []; 
 
     // Funcion para Agregar Productos
     function addProduct(p){
+        let e = false;
+        p.qty = 0;
+        
+        for(let i of products){
+            if(i.name == p.name){
+                e = true;
+                i.qty+=1;
+                break;
+            }
+        }
+        
+        if(!e){
+            p.qty+=1;
+            products.push(p);
+        }
+
+        refreshProduct();
+    }
+
+    // Funcion Para reducir productos
+    function reduceProduct(id){
+        //  Recorerr los productos agregadors
+        
+        for (let p = 0; p < products.length; p++){
+            // If para verificar si el producto a eliminar existe en la lista
+            if(products[p].id === id){
+                // If para eliminar si la cantidad es igual a 1, de lo contrario reducir 1
+                if(products[p].qty == 1){
+                    products.splice(p, 1);
+                }else{
+                    products[p].qty-=1;
+                }
+                refreshProduct();
+                return
+            }
+        }
+    }
+
+    // Funcion para actualizar los productos en el html
+    const refreshProduct = function(){
         let listProductsHTML = "";
+<<<<<<< HEAD
         p.cantidad = 1;
         products.push(p);
 
@@ -343,17 +416,22 @@ padding: 0 !important;
 
         // console.log(products);
         products.forEach(pro => {
+=======
+        products.forEach(pro => {            
+>>>>>>> c82a79b8448ab8bd032ee0827bf6903cb87f5237
             listProductsHTML += '<tr>'+
                                     '<td>'+pro.name+'</td>'+
-                                    '<td>1</td>'+
+                                    '<td>'+pro.qty+'</td>'+
                                     '<td>RD$100.00</td>'+
                                     '<td>RD$100.00</td>'+
                                     '<td><button onclick="reduceProduct('+ pro.id +')"><i class="far fa-trash-alt"></i></button></td>'+
                                 '</tr>';
         });
         document.getElementById("add-products").innerHTML = listProductsHTML;
-    }
+        document.getElementById('products').value = JSON.stringify(products, null, 3);
+    } 
 
+<<<<<<< HEAD
     // document.getElementById('products').value = products;
 
     // Funcion Para reducir productos
@@ -366,6 +444,9 @@ padding: 0 !important;
         }
     }
 
+=======
+  // 
+>>>>>>> c82a79b8448ab8bd032ee0827bf6903cb87f5237
 </script>
 
 @stop
