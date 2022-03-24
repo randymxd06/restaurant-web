@@ -395,8 +395,38 @@ return [
         // Inventario
         [
             'text' => 'Inventario',
-            'url'  => 'inventario',
-            'icon' => 'fas fa-fw fa-truck-loading',
+            'icon' => 'fas fa-fw fa-warehouse',
+            'submenu' => [
+                [
+                    'text' => 'Gestionar Inventario',
+                    'url'  => 'inventario',
+                    'icon' => 'fas fa-dolly-flatbed'
+                ],
+                [
+                    'text' => 'Agregar Inventario',
+                    'url'  => 'inventario/create',
+                    'icon' => 'fas fa-pallet'
+                ]
+            ]
+        ],
+
+        // Productos
+        [
+            'text' => 'Cajas',
+            // 'url'  => '#',
+            'icon' => 'fas fa-fw fa-cash-register',
+            'submenu' => [
+                [
+                    'text' => 'Gestionar Cajas',
+                    'url'  => 'box',
+                    'icon' => 'fas fa-boxes'
+                ],
+                [
+                    'text' => 'Agregar Cajas',
+                    'url'  => 'box/create',
+                    'icon' => 'fas fa-box'
+                ]
+            ]
         ],
 
         // Compras
