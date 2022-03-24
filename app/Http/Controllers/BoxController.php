@@ -2,13 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\BoxStoreRequest;
-use App\Http\Requests\BoxUpdateRequest;
 use App\Models\Box;
 use Illuminate\Http\Request;
 
 class BoxController extends Controller
 {
+
+    public function messageProduct(){
+        return [
+
+            'start_time.required' => 'La hora de inicio es requerida.',
+            'start_time.time' => 'La hora de inicio debe ser tipo 00:00:00.00.',
+
+            'end_time.required' => 'La hora de cierre es requerida.',
+            'end_time.time' => 'La hora de cierre debe ser tipo 00:00:00.00.',
+
+        ];
+    }
 
     public function index(Request $request)
     {
@@ -21,11 +31,35 @@ class BoxController extends Controller
         return view('box.create');
     }
 
-    public function store(BoxStoreRequest $request)
+    public function store(Request $request)
     {
-        $box = Box::create($request->validated());
-        $request->session()->flash('box.id', $box->id);
-        return redirect()->route('box.index');
+
+        try{
+
+            $validate = [
+                'start_time' => 'required|time',
+                'end_time' => 'required|time',
+                'status' => 'boolean'
+            ];
+
+            $this -> validate($request, $validate, $this->messageProduct());
+
+            ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;
+
+            $jsonBoxes = [
+                'start_time' => $request['start_time'],
+                'end_time' => $request['end_time'],
+                'status' => $request['status'],
+            ];
+
+            Box::insert($jsonBoxes);
+
+            return redirect('box');
+
+        }catch(Exception $e){
+            throw new Exception($e);
+        }
+
     }
 
     public function show(Request $request, Box $box)
@@ -38,17 +72,48 @@ class BoxController extends Controller
         return view('box.edit', compact('box'));
     }
 
-    public function update(BoxUpdateRequest $request, Box $box)
+    public function update(Request $request, $id)
     {
-        $box->update($request->validated());
-        $request->session()->flash('box.id', $box->id);
-        return redirect()->route('box.index');
+
+        try{
+
+            $validate = [
+                'start_time' => 'required|time',
+                'end_time' => 'required|time',
+                'status' => 'boolean'
+            ];
+
+            $this -> validate($request, $validate, $this->messageProduct());
+
+            (isset($request['status'])) ? $request['status'] = 1 : $request['status'] = 0;
+
+            $request->except(['_token', '_method']);
+
+            $jsonBoxes = [
+                'start_time' => $request['start_time'],
+                'end_time' => $request['end_time'],
+                'status' => $request['status'],
+            ];
+
+            Box::where('id', '=', $id)->update($jsonBoxes);
+
+            return redirect('box');
+
+        }catch(Exception $e){
+            throw new Exception($e);
+        }
+
     }
 
-    public function destroy(Request $request, Box $box)
+    public function destroy($id)
     {
-        $box->delete();
-        return redirect()->route('box.index');
+        try{
+            $boxes = Box::findOrFail($id);
+            $boxes->delete();
+            return redirect('box');
+        }catch(Exception $e){
+            throw new Exception($e);
+        }
     }
 
 }
