@@ -395,8 +395,19 @@ return [
         // Inventario
         [
             'text' => 'Inventario',
-            'url'  => 'inventario',
-            'icon' => 'fas fa-fw fa-truck-loading',
+            'icon' => 'fas fa-fw fa-warehouse',
+            'submenu' => [
+                [
+                    'text' => 'Gestionar Inventario',
+                    'url'  => 'inventario',
+                    'icon' => 'fas fa-dolly-flatbed'
+                ],
+                [
+                    'text' => 'Agregar Inventario',
+                    'url'  => 'inventario/create',
+                    'icon' => 'fas fa-pallet'
+                ]
+            ]
         ],
 
         // Productos
