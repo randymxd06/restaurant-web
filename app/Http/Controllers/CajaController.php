@@ -10,6 +10,7 @@ use App\Models\OrderProduct;
 use Illuminate\Http\Request;
 use App\Models\ProductCategory;
 use App\Models\Product;
+use App\Models\Table;
 
 class CajaController extends Controller
 {
@@ -52,7 +53,8 @@ class CajaController extends Controller
         ];
         $productCategories = ProductCategory::all()->where('status', '=', 1);
         $products = Product::all()->where('status', '=', 1);
-        return view('caja.create', compact('productCategories', 'array', 'products'));
+        $tables = Table::all()->where('status', '=', 1);
+        return view('caja.create', compact('productCategories', 'array', 'products', 'tables'));
     }
 
     public function store(Request $request)

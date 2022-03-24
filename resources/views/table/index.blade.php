@@ -70,13 +70,13 @@
                     <div class="btn-group">
 
                         {{-- BOTON EDITAR --}}
-                        <a href="{{url('/mesas/edit/'.$table->id)}}" class="btn btn-warning">
+                        <a href="{{url('/tables/edit/'.$table->id)}}" class="btn btn-warning">
                             <i class="fas fa-edit"></i>
                             Editar
                         </a>
 
                         {{-- BOTON ELIMINAR --}}
-                        <form action="{{url('/mesas/delete/'.$table->id)}}" method="post">
+                        <form action="{{url('/tables/delete/'.$table->id)}}" method="post">
 
                             @csrf
 
