@@ -20,8 +20,8 @@ class TableController extends Controller
     public function messageProduct(){
         return [
             'living_room_id.required' => 'El salon es requerido.',
-            'living_room_id.numeric' => 'El salon debe ser un número.',                
-            // 
+            'living_room_id.numeric' => 'El salon debe ser un número.',
+            //
             'people_capacity.required' => 'La capacidad de personas es requerida.',
             'people_capacity.numeric' => 'La capacidad de personas debe ser un número.'
         ];
@@ -132,8 +132,11 @@ class TableController extends Controller
             'description' => ucfirst(strtolower($request['description'])),
             'status' => $table['status']
         ];
+
         Table::where('id','=',$id)->update($json);
+
         return redirect('tables');
+
     }
 
     /*-------------------------------------------------

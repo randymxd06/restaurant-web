@@ -143,7 +143,7 @@
             @foreach($products as $p)
             <button onclick="addProduct({{$p}})" class="col">
                 <div class="card h-100">
-                    @if (!empty($p->image)) 
+                    @if (!empty($p->image))
                         <img src="{{ asset('storage').'/'.$p->image }}" class="card-img-top" alt="...">
                     @else
                         <img src="{{URL::asset('images/daraguma-icon.png')}}" class="card-img-top" alt="...">
@@ -155,7 +155,7 @@
                 </div>
             </button>
             @endforeach
-            <!-- /Card -->         
+            <!-- /Card -->
         </div>
     </div>
     <!-- /Productos-->
@@ -166,7 +166,38 @@
     @csrf
 
         <input hidden type="text" name="products" id="products" value="">
-    
+<<<<<<< HEAD
+
+        <!-- Ordenes -->
+        <div class="tab-pane fade" id="invoice" role="tabpanel" aria-labelledby="invoice-tab">
+            <div class="container-order">
+                <div class="order-header">
+                    <table class="table-order">
+                        <tr>
+                            <th>Empleado: </th>
+                            <td>{{$array['employee_id']}}</td>
+                        </tr>
+                        <tr>
+                            <th>Caja: </th>
+                            <td>#{{$array['box_id']}}</td>
+                            <th>Mesa: </th>
+                            <td>#{{$array['table_id']}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- Productos Ordenados -->
+                <table class="order-products table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Cantidad</th>
+                            <th style="width: 40px">Precio</th>
+                            <th style="width: 40px">Subtotal</th>
+                            <th style="width: 20px"></th>
+                        </tr>
+                    </thead>
+
+
     <!-- Ordenes -->
     <div class="tab-pane fade" id="invoice" role="tabpanel" aria-labelledby="invoice-tab">
         <div class="container-order">
@@ -182,6 +213,7 @@
                         <th>Mesa: </th>
                         <td>#{{$array['table_id']}}</td>
                     </tr>
+
                 </table>
             </div>
             <!-- Productos Ordenados -->
@@ -402,14 +434,15 @@ padding: 0 !important;
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 
 <script>
+
     // Objeto con los Productos Seleccionados
-    let products = []; 
+    let products = [];
 
     // Funcion para Agregar Productos
     function addProduct(p){
         let e = false;
         p.qty = 0;
-        
+
         for(let i of products){
             if(i.name == p.name){
                 e = true;
@@ -417,7 +450,7 @@ padding: 0 !important;
                 break;
             }
         }
-        
+
         if(!e){
             p.qty+=1;
             products.push(p);
@@ -429,7 +462,7 @@ padding: 0 !important;
     // Funcion Para reducir productos
     function reduceProduct(id){
         //  Recorerr los productos agregadors
-        
+
         for (let p = 0; p < products.length; p++){
             // If para verificar si el producto a eliminar existe en la lista
             if(products[p].id === id){
@@ -448,7 +481,14 @@ padding: 0 !important;
     // Funcion para actualizar los productos en el html
     const refreshProduct = function(){
         let listProductsHTML = "";
-        products.forEach(pro => {            
+
+        p.cantidad = 1;
+        products.push(p);
+
+        document.getElementById('products').value = JSON.stringify(products, null, 3);
+
+        // console.log(products);
+        products.forEach(pro => {
             listProductsHTML += '<tr>'+
                                     '<td>'+pro.name+'</td>'+
                                     '<td>'+pro.qty+'</td>'+
@@ -459,9 +499,20 @@ padding: 0 !important;
         });
         document.getElementById("add-products").innerHTML = listProductsHTML;
         document.getElementById('products').value = JSON.stringify(products, null, 3);
-    } 
+    }
 
-  // 
+
+    // document.getElementById('products').value = products;
+    // Funcion Para reducir productos
+    function reduceProduct(id){
+        for(let p of products){
+            if(p.id === id){
+                console.log(p.name);
+                return
+            }
+        }
+    }
+
 </script>
 
 @stop

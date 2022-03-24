@@ -9,18 +9,14 @@ class Box extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
+    protected $table = 'boxes';
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
+    protected $fillable = [
+        'start_time',
+        'end_time',
+        'status'
+    ];
+
     protected $casts = [
         'id' => 'integer',
         'status' => 'boolean',
