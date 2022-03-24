@@ -6,25 +6,51 @@
 <nav class="main-header navbar-category navbar navbar-expand navbar-white navbar-light">
     <ul class="navbar-nav">
         <li class="nav-item">
-                <a class="nav-link" href="{{ url('dashboard') }}">
-                    <i class="fas fa-arrow-left"></i>
-                    <!-- <span class="sr-only">Toggle navigation</span> -->
-                </a>
-            </li>
-            <li class="nav-item">
+            <a class="nav-link" href="{{ url('dashboard') }}">
+                <i class="fas fa-arrow-left"></i>
+                <!-- <span class="sr-only">Toggle navigation</span> -->
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#">
                 <i class="fas fa-bars"></i>
                 <span class="sr-only">Toggle navigation</span>
             </a>
         </li>
+        
     </ul>
 
     <ul class="navbar-nav ml-auto">
-        <li class="nav-link">
+        <li class="nav-item dropdown show">
+            <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
+                    <i class="fas fa-ellipsis-v"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
+                <span class="dropdown-item dropdown-header">Configuración</span>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" data-toggle="modal" data-target="#exampleModalCenter">
+                    <i class="fas fa-chair mr-2"></i> Seleccionar Mesa
+                    <!-- <span class="float-right text-muted text-sm">3 mins</span> -->
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-percent mr-2"></i> Aplicar Descuento
+                    <!-- <span class="float-right text-muted text-sm">12 hours</span> -->
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-file mr-2"></i> 3 new reports
+                    <!-- <span class="float-right text-muted text-sm">2 days</span> -->
+                </a>
+                <!-- <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> -->
+            </div>
+        </li>
+        <!-- <li class="nav-link">
             <a href="#" role="button">
             <i class="fas fa-ellipsis-v"></i>
             </a>
-        </li>
+        </li> -->
         <li class="nav-item">
             <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                 <i class="fas fa-expand-arrows-alt"></i>
@@ -221,6 +247,53 @@
     </form>
 </div>
 
+
+<!-- Modal para seleccionar mesa -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalCenterTitle">Seleccionar Mesa</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 10px">#</th>
+                                <th>Salon</th>
+                                <th>Estado</th>
+                                <th style="width: 40px"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Principal</td>
+                                <td>
+                                    <div class="progress progress-xs">
+                                    <div class="progress-bar bg-success" style="width: 100%"></div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary btn-xs">
+                                        <i class="fas fa-hand-pointer"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--  -->
 @stop
 
 @section('css')
