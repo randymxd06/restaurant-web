@@ -13,10 +13,10 @@ class BoxController extends Controller
         return [
 
             'start_time.required' => 'La hora de inicio es requerida.',
-            'start_time.date_format:H:i' => 'La hora de inicio debe ser tipo 00:00:00.00.',
+            'start_time.date_format:H:i:s' => 'La hora de inicio debe ser tipo 00:00:00.00.',
 
             'end_time.required' => 'La hora de cierre es requerida.',
-            'end_time.date_format:H:i' => 'La hora de cierre debe ser tipo 00:00:00.00.',
+            'end_time.date_format:H:i:s' => 'La hora de cierre debe ser tipo 00:00:00.00.',
 
         ];
     }
@@ -38,8 +38,8 @@ class BoxController extends Controller
         try{
 
             $validate = [
-                'start_time' => 'required|date_format:H:i',
-                'end_time' => 'required|date_format:H:i',
+                'start_time' => 'required|date_format:H:i:s',
+                'end_time' => 'required|date_format:H:i:s',
                 'status' => 'boolean'
             ];
 
@@ -82,14 +82,14 @@ class BoxController extends Controller
         try{
 
             $validate = [
-                'start_time' => 'required|date_format:H:i',
-                'end_time' => 'required|date_format:H:i',
+                'start_time' => 'required|date_format:H:i:s',
+                'end_time' => 'required|date_format:H:i:s',
                 'status' => 'boolean'
             ];
 
-            $this -> validate($request, $validate, $this->messageProduct());
-
             (isset($request['status'])) ? $request['status'] = 1 : $request['status'] = 0;
+
+            $this -> validate($request, $validate, $this->messageProduct());
 
             $request->except(['_token', '_method']);
 
