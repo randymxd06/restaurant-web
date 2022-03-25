@@ -16,7 +16,7 @@ class Table extends Model
         'id' => 'integer',
         'people_capacity' => 'integer',
         'living_room_id' => 'integer',
-        'status' => 'boolean',
+        'status' => 'integer'
     ];
 
     public function order()

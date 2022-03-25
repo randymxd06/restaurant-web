@@ -27,9 +27,14 @@
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
                 <span class="dropdown-item dropdown-header">Configuración</span>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" data-toggle="modal" data-target="#exampleModalCenter">
+                <a class="dropdown-item" data-toggle="modal" data-target="#tableModal">
                     <i class="fas fa-chair mr-2"></i> Seleccionar Mesa
                     <!-- <span class="float-right text-muted text-sm">3 mins</span> -->
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item">
+                    <i class="far fa-user mr-2"></i> Seleccionar Cliente
+                    <!-- <span class="float-right text-muted text-sm">12 hours</span> -->
                 </a>
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item">
@@ -38,9 +43,14 @@
                 </a>
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item">
-                    <i class="fas fa-file mr-2"></i> 3 new reports
-                    <!-- <span class="float-right text-muted text-sm">2 days</span> -->
+                    <i class="fas fa-user mr-2"></i> Cambiar Usuario
+                    <!-- <span class="float-right text-muted text-sm">12 hours</span> -->
                 </a>
+                <!-- <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-file mr-2"></i> 3 new reports
+                    <span class="float-right text-muted text-sm">2 days</span>
+                </a> -->
                 <!-- <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> -->
             </div>
@@ -159,42 +169,46 @@
     </div>
     <!-- /Productos-->
 
-    <form method="post" action="{{ url('/caja/store') }}">
-    <!-- TOKEN -->
-    @csrf
-        <input hidden type="text" name="products" id="products" value="">
-    
-    <!-- Ordenes -->
-    <div class="tab-pane fade" id="invoice" role="tabpanel" aria-labelledby="invoice-tab">
-        <div class="container-order">
+    <aside class="control-sidebar control-sidebar-light order-sidebar">
+        <form method="post" action="{{ url('/caja/store') }}">
+            <!-- TOKEN -->
+            @csrf
+            <input hidden type="text" name="products" id="products" value="">
+            <input hidden type="number" name="table_id" id="table_id" value="">
+            <input hidden type="number" name="user_id" id="user_id" value="">
+            <input hidden type="number" name="customer_id" id="customer_id" value="">
+            
+            <!-- Ordenes -->
             <div class="order-header">
                 <table class="table-order">
                     <tr>
                         <th>Empleado: </th>
-                        <td>{{$array['employee_id']}}</td>
+                        <td>Juan Perez</td>
                     </tr>
                     <tr>
                         <th>Caja: </th>
-                        <td>#{{$array['box_id']}}</td>
+                        <td>#02</td>
                         <th>Mesa: </th>
-                        <td>#{{$array['table_id']}}</td>
+                        <td class="id-mesa" id="id-mesa">#1</td>
                     </tr>
                 </table>
             </div>
             <!-- Productos Ordenados -->
-            <table class="order-products table table-striped">
+            <table class="order-products-head table table-striped">
                 <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>Cantidad</th>
-                        <th style="width: 40px">Precio</th>
-                        <th style="width: 40px">Subtotal</th>
-                        <th style="width: 20px"></th>
+                        <th>Qty.</th>
+                        <th>Precio</th>
+                        <th>
+                            <!-- <i class="far fa-trash-alt"></i> -->
+                        </th>
                     </tr>
                 </thead>
             </table>
-            <div class="table-responsive">
-                <table class="order-products table table-striped" id="add-products">
+            <div class="order-products-body sidebar table-responsive">
+                <table class="table table-striped" id="add-products">
+                
                 </table>
             </div>
             <!-- /Productos Ordenados -->
@@ -238,19 +252,17 @@
                 </div>
             </div>
             <!--/ Odenes Footer -->
-        </div>
-    </div>
-    <!-- /Ordenes -->
-    </form>
+        <!-- /Ordenes -->
+        </form>
+    </aside>
 </div>
 
-
 <!-- Modal para seleccionar mesa -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="tableModal" tabindex="-1" role="dialog" aria-labelledby="tableModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalCenterTitle">Seleccionar Mesa</h3>
+                <h3 class="modal-title" id="tableModalTitle">Seleccionar Mesa</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -268,17 +280,24 @@
                     <tbody>
                         @foreach($tables as $t)
                             <tr>
-                                <td>1</td>
-                                <td>Principal</td>
+                                <td> {{ $t -> id }} </td>
+                                
+                                @foreach($livingRooms as $lr)
+                                    @if($lr->id == $t->living_room_id)                                
+                                        <td> {{ $lr -> name }} </td>
+                                    @endif
+                                @endforeach
                                 <td>
                                     <div class="progress progress-xs">
-                                    <div class="progress-bar bg-success" style="width: 100%"></div>
+                                        <div class="progress-bar {{(($t->status == 1) ? 'bg-success' : 'bg-warning')}}" style="width: 100%"></div>
                                     </div>
                                 </td>
                                 <td>
-                                    <button class="btn btn-primary btn-xs">
-                                        <i class="fas fa-hand-pointer"></i>
-                                    </button>
+                                    @if($t->status == 1)                                
+                                        <button class="btn btn-primary btn-xs" data-dismiss="modal" onclick="selectTable({{ $t->id }})">
+                                            <i class="fas fa-hand-pointer"></i>
+                                        </button>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -298,99 +317,117 @@
     <link rel="stylesheet" href="/css/admin_custom.css">
     <link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}">
 <style>
-/* .content-header, .container-fluid, .content-wrapper {
-margin: 0 !important;
-padding: 0 !important;
-} */
-.layout-navbar-fixed .wrapper .main-header, .layout-fixed .main-sidebar{
-    display: none;
-}
-.sidebar-category{
-    display: block !important;
-}
-.navbar-category{
-    display: flex !important;
-}
-/* Order */
-.container-order{
-    bottom: 0;
-    right: 0;
-    position: fixed;
-    top: 56px;
-    font-size: 12px;
-    background-color: #fff;
-    max-width: 360px;
-    width: 100%;
-}
-.order-btn{
-    padding: 0 0.5rem;
-}
-.table-order {
-    width: 100%;
-}
-.table-order th {
-    width: 80px;
-    padding: 4px 10px;
-}
-.order-footer{
-
-}
-.order-details{
-    font-size: 14px;
-}
-/*  */
-.content-wrapper{
-    margin-right: 360px;
-}
-
-.tabs-menu-div{
-    display: none;
-    left: 0;
-    position: fixed;
-    right: 0;
-    top: 56px;
-}
-.card-body{
-    text-align: left;
-}
-.card-img-top {
-    height: 180px;
-    object-fit: cover;
-}
-
-@media screen and (max-width: 768px) {
-/*   */
-
-}
-@media screen and (min-width: 640px) {
-    .tab-content>.tab-pane {
-    display: block;
+    /* .content-header, .container-fluid, .content-wrapper {
+    margin: 0 !important;
+    padding: 0 !important;
+    } */
+    .order-products-body{
+        height: 200px !important ;
+        margin-top: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
-
-    .fade:not(.show) {
-    opacity: 100;
+    .order-products-head{
+        margin-bottom: 0 !important
     }
-}
-@media screen and (max-width: 640px) {
+    .layout-fixed .control-sidebar.order-sidebar{
+        display: block;
+        max-width: 350px;
+        width: 100%;
+        float: right !important;
+        right: 0;
+    }
+    .layout-navbar-fixed .wrapper .main-header, .layout-fixed .main-sidebar{
+        display: none;
+    }
+    .sidebar-category{
+        display: block !important;
+    }
+    .navbar-category{
+        display: flex !important;
+    }
+    /* Order */
     .container-order{
-        display: contents;
+        bottom: 0;
+        right: 0;
+        position: fixed;
+        top: 56px;
+        font-size: 12px;
+        background-color: #fff;
+        max-width: 360px;
+        width: 100%;
     }
+    .order-btn{
+        padding: 0 0.5rem;
+    }
+    .table-order {
+        width: 100%;
+    }
+    .table-order th {
+        width: 80px;
+        padding: 4px 10px;
+    }
+    .order-footer {
+        position: absolute;
+        width: 100%;
+        bottom: 6px;
+    }
+    .order-details{
+        font-size: 14px;
+    }
+    /*  */
     .content-wrapper{
-        margin-right: auto;
+        margin-right: 360px;
     }
+
     .tabs-menu-div{
-        display: flex;
+        display: none;
+        left: 0;
+        position: fixed;
+        right: 0;
+        top: 56px;
     }
-    .content-wrapper>.content{
-        padding: 2rem 0;
+    .card-body{
+        text-align: left;
     }
-    .container-fluid{
-        padding: 0;
+    .card-img-top {
+        height: 180px;
+        object-fit: cover;
     }
-    #Products {
-        padding: 1rem;
+
+    @media screen and (max-width: 768px) {
+    /*   */
+
     }
-}
+    @media screen and (min-width: 640px) {
+        .tab-content>.tab-pane {
+        display: block;
+        }
+
+        .fade:not(.show) {
+        opacity: 100;
+        }
+    }
+    @media screen and (max-width: 640px) {
+        .container-order{
+            display: contents;
+        }
+        .content-wrapper{
+            margin-right: auto;
+        }
+        .tabs-menu-div{
+            display: flex;
+        }
+        .content-wrapper>.content{
+            padding: 2rem 0;
+        }
+        .container-fluid{
+            padding: 0;
+        }
+        #Products {
+            padding: 1rem;
+        }
+    }
 </style>
 @stop
 
@@ -446,18 +483,26 @@ padding: 0 !important;
     // Funcion para actualizar los productos en el html
     const refreshProduct = function(){
         let listProductsHTML = "";
-        products.forEach(pro => {            
+        products.forEach(pro => {    
+            let importe = parseFloat(pro.qty*pro.price).toFixed(2);
+                
             listProductsHTML += '<tr>'+
                                     '<td>'+pro.name+'</td>'+
                                     '<td>'+pro.qty+'</td>'+
-                                    '<td>RD$100.00</td>'+
-                                    '<td>RD$100.00</td>'+
+                                    '<td>'+importe+'</td>'+
                                     '<td><button onclick="reduceProduct('+ pro.id +')"><i class="far fa-trash-alt"></i></button></td>'+
                                 '</tr>';
         });
         document.getElementById("add-products").innerHTML = listProductsHTML;
         document.getElementById('products').value = JSON.stringify(products, null, 3);
     } 
+
+    // Seleccionar mesa
+    function selectTable(id){
+        let table_id = id;
+        document.getElementById("id-mesa").innerHTML = '#'+table_id;
+        document.getElementById('table_id').value = table_id;
+    }
 
   // 
 </script>

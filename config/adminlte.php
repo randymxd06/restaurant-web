@@ -446,8 +446,14 @@ return [
         // Seguridad
         [
             'text' => 'Seguridad',
-            'url'  => '#',
             'icon' => 'fas fa-fw fa-fingerprint',
+            'submenu' => [
+                [
+                    'text' => 'Adminsitrar usuarios',
+                    'url'  => '#',
+                    'icon' => 'fas fa-users'
+                ]
+            ]
         ],
 
         // Empleados

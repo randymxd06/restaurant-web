@@ -19,7 +19,7 @@
 
         <div class="col mb-4">
 
-            <div class="card card-outline card-warning" style="min-height: 100%;">
+            <div class="card card-outline h-100 {{(($table->status == 1) ? 'card-success' : (($table->status == 2) ? 'card-warning' : 'card-danger'))}}">
 
                 <div class="card-header">
                     <h5 class="card-title">
@@ -50,7 +50,14 @@
                             <!-- Capacidad de personas -->
                             {{ $table->people_capacity }}
                         </li>
-
+                        <li class="list-group-item">
+                            <strong>
+                                <i class="fas fa-{{(($table->status == 1) ? 'lock-open' : (($table->status == 2) ? 'lock' : 'ban'))}}"></i>
+                                Estado:
+                            </strong>
+                            <!-- Estado -->
+                            {{(($table->status == 1) ? 'Disponible' : (($table->status == 2) ? 'Ocupado' : 'Desahabilitado'))}}
+                        </li>
                         <li class="list-group-item">
                             <strong>
                                 <i class="fas fa-file-alt"></i>

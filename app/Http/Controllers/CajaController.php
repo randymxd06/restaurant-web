@@ -11,13 +11,12 @@ use Illuminate\Http\Request;
 use App\Models\ProductCategory;
 use App\Models\Product;
 use App\Models\Table;
-
+use App\Models\LivingRoom;
 class CajaController extends Controller
 {
 
     public function messageProduct(){
         return [
-
             'user_id.required' => 'El id del usuario es requerido.',
             'user_id.int' => 'El id debe ser un numero.',
 
@@ -34,8 +33,7 @@ class CajaController extends Controller
             'table_id.int' => 'El id debe ser un numero.',
 
             'total.required' => 'El total es requerido.',
-            'total.required' => 'El total debe ser un con punto decimal.',
-
+            'total.required' => 'El total debe ser un con punto decimal.'
         ];
     }
 
@@ -46,22 +44,21 @@ class CajaController extends Controller
 
     public function create(Request $request)
     {
-        $array = [
-            'employee_id' => '02',
-            'box_id' => '02',
-            'table_id' => '02',
-        ];
         $productCategories = ProductCategory::all()->where('status', '=', 1);
         $products = Product::all()->where('status', '=', 1);
-        $tables = Table::all()->where('status', '=', 1);
-        return view('caja.create', compact('productCategories', 'array', 'products', 'tables'));
+        $tables = Table::all()->where('status', '<>', 0);
+        $livingRooms = LivingRoom::all()->where('status', '=', 1);
+        return view('caja.create', compact('productCategories', 'products', 'tables', 'livingRooms'));
     }
 
     public function store(Request $request)
     {
         try {
+            $data = request();
+            $data['products'] = json_decode($data['products']); 
+            return response()->json($data);
 
-            dd(json_decode($request['products']));
+            // dd(json_decode($data['products']));
 
             $validate = [
                 'user_id' => 'required|int',
@@ -93,11 +90,10 @@ class CajaController extends Controller
             $products = [];
 
             foreach ($products as $product){
-                OrderProduct::create($product);
+                // OrderProduct::create($product);
             }
 
             redirect('caja');
-
         }catch (Exception $e){
             throw new Exception($e);
         }

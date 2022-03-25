@@ -6,12 +6,17 @@
 .row-login{
     margin: 0 !important;
 }
+.register.logo-rdsr {
+    width: 60%;
+    margin: 0 auto;
+}
 
 .img-login, .logo-rdsr{
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .card-login div{
     background-color: #fff;
 }
