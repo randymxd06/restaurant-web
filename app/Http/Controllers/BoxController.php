@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Box;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class BoxController extends Controller
@@ -12,10 +13,10 @@ class BoxController extends Controller
         return [
 
             'start_time.required' => 'La hora de inicio es requerida.',
-            'start_time.time' => 'La hora de inicio debe ser tipo 00:00:00.00.',
+            'start_time.date_format:H:i' => 'La hora de inicio debe ser tipo 00:00:00.00.',
 
             'end_time.required' => 'La hora de cierre es requerida.',
-            'end_time.time' => 'La hora de cierre debe ser tipo 00:00:00.00.',
+            'end_time.date_format:H:i' => 'La hora de cierre debe ser tipo 00:00:00.00.',
 
         ];
     }
@@ -37,19 +38,21 @@ class BoxController extends Controller
         try{
 
             $validate = [
-                'start_time' => 'required|time',
-                'end_time' => 'required|time',
+                'start_time' => 'required|date_format:H:i',
+                'end_time' => 'required|date_format:H:i',
                 'status' => 'boolean'
             ];
 
-            $this -> validate($request, $validate, $this->messageProduct());
-
             ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;
+
+            $this -> validate($request, $validate, $this->messageProduct());
 
             $jsonBoxes = [
                 'start_time' => $request['start_time'],
                 'end_time' => $request['end_time'],
                 'status' => $request['status'],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ];
 
             Box::insert($jsonBoxes);
@@ -67,8 +70,9 @@ class BoxController extends Controller
         return view('box.show', compact('box'));
     }
 
-    public function edit(Request $request, Box $box)
+    public function edit($id)
     {
+        $box = Box::findOrFail($id);
         return view('box.edit', compact('box'));
     }
 
@@ -78,8 +82,8 @@ class BoxController extends Controller
         try{
 
             $validate = [
-                'start_time' => 'required|time',
-                'end_time' => 'required|time',
+                'start_time' => 'required|date_format:H:i',
+                'end_time' => 'required|date_format:H:i',
                 'status' => 'boolean'
             ];
 

@@ -23,8 +23,8 @@ class CreateOrdersTable extends Migration
             $table->foreign('box_id')->references('id')->on('boxes')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('customer_id');
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade')->onUpdate('cascade');
-            $table->unsignedBigInteger('orders_types_id');
-            $table->foreign('orders_types_id')->references('id')->on('orders_types')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedBigInteger('order_types_id');
+            $table->foreign('order_types_id')->references('id')->on('order_types')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('table_id');
             $table->foreign('table_id')->references('id')->on('tables')->onDelete('cascade')->onUpdate('cascade');
             $table->double('total');
