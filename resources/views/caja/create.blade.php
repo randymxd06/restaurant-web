@@ -175,8 +175,10 @@
             @csrf
             <input hidden type="text" name="products" id="products" value="">
             <input hidden type="number" name="table_id" id="table_id" value="">
-            <input hidden type="number" name="user_id" id="user_id" value="">
-            <input hidden type="number" name="customer_id" id="customer_id" value="">
+            <input hidden type="number" name="user_id" id="user_id" value="2">
+            <input hidden type="number" name="box_id" id="box_id" value="1">
+            <input hidden type="number" name="customer_id" id="customer_id" value="1">
+            <input hidden type="text" name="total_order" id="total_order" value="">
             
             <!-- Ordenes -->
             <div class="order-header">
@@ -483,9 +485,12 @@
     // Funcion para actualizar los productos en el html
     const refreshProduct = function(){
         let listProductsHTML = "";
+        let total = 0;
+
         products.forEach(pro => {    
-            let importe = parseFloat(pro.qty*pro.price).toFixed(2);
-                
+            let importe = Math.round((parseFloat(pro.qty*pro.price).toFixed(2))*100)/100;
+            total = Math.round((total+importe)*100)/100;
+            console.log('Total: '+total);
             listProductsHTML += '<tr>'+
                                     '<td>'+pro.name+'</td>'+
                                     '<td>'+pro.qty+'</td>'+
@@ -495,6 +500,7 @@
         });
         document.getElementById("add-products").innerHTML = listProductsHTML;
         document.getElementById('products').value = JSON.stringify(products, null, 3);
+        document.getElementById('total_order').value = total;
     } 
 
     // Seleccionar mesa

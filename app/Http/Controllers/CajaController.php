@@ -54,11 +54,36 @@ class CajaController extends Controller
     public function store(Request $request)
     {
         try {
-            $data = request();
-            $data['products'] = json_decode($data['products']); 
-            return response()->json($data);
+            $request['products'] = json_decode($request['products']); 
+            $order = [
+                'user_id' => (int) $request['user_id'],
+                'box_id' => (int) $request['box_id'],
+                'customer_id' => (int) $request['customer_id'],
+                'orders_types_id' => 1,
+                'table_id' => (int) $request['table_id'],
+                'total' => (double) $request['total_order'],
+                'status' => 1
+            ];
 
-            // dd(json_decode($data['products']));
+            $order = Order::insert($order);
+            return $order->id;
+            
+            foreach ($request['products'] as $p){
+                $product = [
+                    'order_id' => (int) $order_id,
+                    'product_id' => (int) $p->id,
+                    'quantity' => (int) $p->qty,
+                    'price' => (double) $p->price,
+                    'discount' => 0,
+                    'total' => (double) $p->total
+                ];
+                return $p->name;
+                return response()->json($p);
+            }
+            
+
+            return response()->json($order);
+            // dd(response()->json($order), $data, $data['products']);
 
             $validate = [
                 'user_id' => 'required|int',
@@ -72,7 +97,7 @@ class CajaController extends Controller
 
             $this -> validate($request, $validate, $this->messageProduct());
 
-            ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;
+            // ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;
 
             $jsonOrders = [
                 'user_id' => (int) $request['user_id'],
