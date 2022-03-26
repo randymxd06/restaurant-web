@@ -386,8 +386,19 @@ return [
                 ],
                 [
                     'text' => 'Categorias',
-                    'url'  => 'product_category',
-                    'icon' => 'fas fa-tags'
+                    'icon' => 'fas fa-tags',
+                    'submenu' => [
+                        [
+                            'text' => 'Gestionar Categorias',
+                            'url'  => 'product_category',
+                            'icon' => 'fas fa-tags'
+                        ],
+                        [
+                            'text' => 'Agregar Categoria',
+                            'url'  => 'product_category/create',
+                            'icon' => 'fas fa-save'
+                        ]
+                    ]
                 ]
             ]
         ],

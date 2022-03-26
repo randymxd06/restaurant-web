@@ -70,7 +70,7 @@ class CajaController extends Controller
             
             foreach ($request['products'] as $p){
                 $product = [
-                    'order_id' => (int) $order_id,
+                    'order_id' => (int) $order->id,
                     'product_id' => (int) $p->id,
                     'quantity' => (int) $p->qty,
                     'price' => (double) $p->price,
@@ -109,7 +109,7 @@ class CajaController extends Controller
                 'status' => $request['status'],
             ];
 
-            $order = Order::insert($jsonOrders);
+            // $order = Order::insert($jsonOrders);
 
             // TODO: ESTE JSON SE VA A BORRAR PORQUE SE VA A INSERTAR EL ARRAY CON LOS DATOS DEL DETALLE DIRECTAMENTE
             $products = [];

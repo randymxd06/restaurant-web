@@ -185,7 +185,7 @@
                 <table class="table-order">
                     <tr>
                         <th>Empleado: </th>
-                        <td>Juan Perez</td>
+                        <td>{{{ Auth::user()->name }}}</td>
                     </tr>
                     <tr>
                         <th>Caja: </th>

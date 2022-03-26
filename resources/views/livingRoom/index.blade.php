@@ -16,7 +16,7 @@
     <!-- Card -->
     @foreach( $livingRooms as $livingRoom )
     <div class="col mb-4"> 
-        <div class="card card-outline {{($livingRoom->status == true || $livingRoom->status == 1) ? 'card-success' : 'card-danger'}}">
+        <div class="card h-100 card-outline {{($livingRoom->status == true || $livingRoom->status == 1) ? 'card-success' : 'card-danger'}}">
             <div class="card-header">
                 <h5 class="card-title">
                     <i class="fas fa-person-booth"></i>
