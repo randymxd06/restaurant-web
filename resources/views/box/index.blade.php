@@ -30,31 +30,35 @@
                         </h5>
                     </div>
 
-                    <div class="card-body">
+                    @foreach($boxesHistory as $boxHistory)
 
-                        <ul class="list-group list-group-flush">
+                        <div class="card-body">
 
-                            <li class="list-group-item">
-                                <strong>
-                                    <i class="fas fa-male"></i>
-                                    Hora de inicio:
-                                </strong>
-                                <!-- Capacidad de personas -->
-                                {{ $box->start_time }}
-                            </li>
+                            <ul class="list-group list-group-flush">
 
-                            <li class="list-group-item">
-                                <strong>
-                                    <i class="fas fa-file-alt"></i>
-                                    Hora de cierre:
-                                </strong>
-                                <!-- Descripcion -->
-                                {{ $box->end_time }}
-                            </li>
+                                <li class="list-group-item">
+                                    <strong>
+                                        <i class="fas fa-male"></i>
+                                        Hora de inicio:
+                                    </strong>
+                                    <!-- Capacidad de personas -->
+                                    {{ $boxHistory->start_time }}
+                                </li>
 
-                        </ul>
+                                <li class="list-group-item">
+                                    <strong>
+                                        <i class="fas fa-file-alt"></i>
+                                        Hora de cierre:
+                                    </strong>
+                                    <!-- Descripcion -->
+                                    {{ $boxHistory->end_time }}
+                                </li>
 
-                    </div>
+                            </ul>
+
+                        </div>
+
+                    @endforeach
 
                     <div class="card-footer text-center">
 

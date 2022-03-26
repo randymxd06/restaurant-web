@@ -1,15 +1,9 @@
 created:
-    - app/Http/Controllers/OrderProductController.php
-    - database/factories/OrderProductFactory.php
-    - database/migrations/2022_03_23_012414_create_order_products_table.php
-    - app/Models/OrderProduct.php
-    - tests/Feature/Http/Controllers/OrderProductControllerTest.php
-    - app/Http/Requests/OrderProductStoreRequest.php
-    - app/Http/Requests/OrderProductUpdateRequest.php
-    - resources/views/orderProduct/index.blade.php
-    - resources/views/orderProduct/create.blade.php
-    - resources/views/orderProduct/show.blade.php
-    - resources/views/orderProduct/edit.blade.php
+    - app/Http/Controllers/BoxHistoryController.php
+    - database/factories/BoxHistoryFactory.php
+    - database/migrations/2022_03_26_001536_create_box_histories_table.php
+    - app/Models/BoxHistory.php
+    - tests/Feature/Http/Controllers/BoxHistoryControllerTest.php
 updated:
     - routes/web.php
 models:
@@ -35,3 +29,4 @@ models:
     TypeReservation: { id: autoIncrement, name: varchar, description: text, timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: Reservation } }
     Reservation: { id: autoIncrement, customers_id: 'unsignedBigInteger foreign:customers.id', type_reservations_id: 'unsignedBigInteger foreign:type_reservations.id', living_room_id: 'unsignedBigInteger foreign:living_rooms.id', date_time: timestamp, number_people: int, description: text, status: 'boolean default:true', timestamps: timestamps, softdeletes: softDeletes, relationships: { hasOne: TypeReservation } }
     OrderProduct: { order_id: 'unsignedBiginteger foreign:orders.id', box_id: 'unsignedBigInteger foreign:boxes.id', customer_id: 'unsignedBigInteger foreign:customers.id', order_types_id: 'unsignedBigInteger foreign:order_types.id', table_id: 'unsignedBigInteger foreign:tables.id', total: double, status: 'boolean default:true', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: 'Order, Box, Customer, OrderType, Table' } }
+    BoxHistory: { box_id: 'unsignedBigInteger foreign:boxes.id', start_time: time, end_time: time, timestamps: timestamps, softdeletes: softDeletes, relationships: 'belongsTo Box' }

@@ -41,12 +41,22 @@
 
             <div class="form-group col-sm-4">
                 <label class="form-label" for="start_time">Hora de inicio</label>
-                <input class="form-control" type="time" name="start_time" id="start_time" value="{{$box->start_time}}">
+                <input class="form-control" type="time" name="start_time" id="start_time" value="{{$boxesHistory->start_time}}">
             </div>
 
             <div class="form-group col-sm-4">
                 <label class="form-label" for="end_time">Hora de cierre</label>
-                <input class="form-control" type="time" name="end_time" id="end_time" value="{{$box->end_time}}">
+                <input class="form-control" type="time" name="end_time" id="end_time" value="{{$boxesHistory->end_time}}">
+            </div>
+
+            <div class="form-group col-sm-12 col-md-4">
+                <label class="form-label" for="device_use">Dispositivo</label>
+                <select class="custom-select mr-sm-2" id="device_use" name="device_use">
+                    <option selected disabled>Selecciona un dispositivo...</option>
+                    <option value="Tablet">Tablet</option>
+                    <option value="Celular">Celular</option>
+                    <option value="Computadora">Computadora</option>
+                </select>
             </div>
 
         </div>
@@ -54,7 +64,7 @@
         <div class="form-group">
             <div class="custom-control custom-switch">
                 <input type="checkbox" class="custom-control-input" id="status" name="status">
-                <label class="custom-control-label" for="status">Estado</label>
+                <label class="custom-control-label" for="status" {{($box->status == true || $box->status == 1) ? 'checked' : ''}}>Estado</label>
             </div>
         </div>
 

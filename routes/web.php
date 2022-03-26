@@ -422,3 +422,9 @@ Route::group([
 });
 
 Route::resource('order-product', App\Http\Controllers\OrderProductController::class);
+
+
+Route::resource('box-history', App\Http\Controllers\BoxHistoryController::class);
+
+
+Route::resource('box-history', App\Http\Controllers\BoxHistoryController::class);
