@@ -33,18 +33,9 @@ class Customer extends Model
         return $this->belongsTo(Entity::class);
     }
 
-    public function entity()
-    {
-        return $this->belongsTo(Entity::class);
-    }
-
     public function customerType()
     {
         return $this->belongsTo(CustomerType::class);
     }
 
-    public function customerType()
-    {
-        return $this->hasOne(CustomerType::class);
-    }
 }
