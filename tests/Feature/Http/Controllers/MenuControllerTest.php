@@ -59,12 +59,26 @@ class MenuControllerTest extends TestCase
      */
     public function store_saves_and_redirects()
     {
-        $response = $this->post(route('menu.store'));
+        $title = $this->faker->sentence(4);
+        $description = $this->faker->text;
+        $product_quantity = $this->faker->word;
+
+        $response = $this->post(route('menu.store'), [
+            'title' => $title,
+            'description' => $description,
+            'product_quantity' => $product_quantity,
+        ]);
+
+        $menus = Menu::query()
+            ->where('title', $title)
+            ->where('description', $description)
+            ->where('product_quantity', $product_quantity)
+            ->get();
+        $this->assertCount(1, $menus);
+        $menu = $menus->first();
 
         $response->assertRedirect(route('menu.index'));
         $response->assertSessionHas('menu.id', $menu->id);
-
-        $this->assertDatabaseHas(menus, [ /* ... */ ]);
     }
 
 
@@ -116,13 +130,24 @@ class MenuControllerTest extends TestCase
     public function update_redirects()
     {
         $menu = Menu::factory()->create();
+        $title = $this->faker->sentence(4);
+        $description = $this->faker->text;
+        $product_quantity = $this->faker->word;
 
-        $response = $this->put(route('menu.update', $menu));
+        $response = $this->put(route('menu.update', $menu), [
+            'title' => $title,
+            'description' => $description,
+            'product_quantity' => $product_quantity,
+        ]);
 
         $menu->refresh();
 
         $response->assertRedirect(route('menu.index'));
         $response->assertSessionHas('menu.id', $menu->id);
+
+        $this->assertEquals($title, $menu->title);
+        $this->assertEquals($description, $menu->description);
+        $this->assertEquals($product_quantity, $menu->product_quantity);
     }
 
 
@@ -137,6 +162,6 @@ class MenuControllerTest extends TestCase
 
         $response->assertRedirect(route('menu.index'));
 
-        $this->assertDeleted($menu);
+        $this->assertSoftDeleted($menu);
     }
 }

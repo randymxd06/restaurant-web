@@ -1,16 +1,8 @@
 models:
-  BoxHistory:
-    box_id: unsignedBigInteger foreign:boxes.id
-    start_time: time
-    end_time: time
-    timestamps
-    softDeletes
-    relationships:
-      belongsTo Box
+  # ...
 
 controllers:
-  BoxHistory:
-    resource
+  # ...
 
 sedders:
   # ...

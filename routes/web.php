@@ -428,3 +428,54 @@ Route::resource('box-history', App\Http\Controllers\BoxHistoryController::class)
 
 
 Route::resource('box-history', App\Http\Controllers\BoxHistoryController::class);
+
+
+Route::resource('phone', App\Http\Controllers\PhoneController::class);
+
+Route::resource('email', App\Http\Controllers\EmailController::class);
+
+Route::resource('warehouse-type', App\Http\Controllers\WarehouseTypeController::class);
+
+Route::resource('ingredient', App\Http\Controllers\IngredientController::class);
+
+Route::resource('units-measurement', App\Http\Controllers\UnitsMeasurementController::class);
+
+Route::resource('ingredients-stock', App\Http\Controllers\IngredientsStockController::class);
+
+Route::resource('recipe', App\Http\Controllers\RecipeController::class);
+
+Route::resource('recipes-vs-ingredients', App\Http\Controllers\RecipesVsIngredientsController::class);
+
+Route::resource('menu', App\Http\Controllers\MenuController::class);
+
+Route::resource('menu-vs-product', App\Http\Controllers\MenuVsProductController::class);
+
+Route::resource('country', App\Http\Controllers\CountryController::class);
+
+Route::resource('province', App\Http\Controllers\ProvinceController::class);
+
+Route::resource('city', App\Http\Controllers\CityController::class);
+
+Route::resource('sector', App\Http\Controllers\SectorController::class);
+
+Route::resource('addresses', App\Http\Controllers\AddressesController::class);
+
+Route::resource('currency', App\Http\Controllers\CurrencyController::class);
+
+Route::resource('payment-method', App\Http\Controllers\PaymentMethodController::class);
+
+Route::resource('invoice', App\Http\Controllers\InvoiceController::class);
+
+Route::resource('work-area', App\Http\Controllers\WorkAreaController::class);
+
+Route::resource('employee-type', App\Http\Controllers\EmployeeTypeController::class);
+
+Route::resource('salary', App\Http\Controllers\SalaryController::class);
+
+Route::resource('employee', App\Http\Controllers\EmployeeController::class);
+
+Route::resource('user-type', App\Http\Controllers\UserTypeController::class);
+
+Route::resource('company', App\Http\Controllers\CompanyController::class);
+
+Route::resource('provider', App\Http\Controllers\ProviderController::class);

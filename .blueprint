@@ -1,9 +1,275 @@
 created:
-    - app/Http/Controllers/BoxHistoryController.php
-    - database/factories/BoxHistoryFactory.php
-    - database/migrations/2022_03_26_001536_create_box_histories_table.php
-    - app/Models/BoxHistory.php
-    - tests/Feature/Http/Controllers/BoxHistoryControllerTest.php
+    - app/Http/Controllers/PhoneController.php
+    - app/Http/Controllers/EmailController.php
+    - app/Http/Controllers/WarehouseTypeController.php
+    - app/Http/Controllers/IngredientController.php
+    - app/Http/Controllers/UnitsMeasurementController.php
+    - app/Http/Controllers/IngredientsStockController.php
+    - app/Http/Controllers/RecipeController.php
+    - app/Http/Controllers/RecipesVsIngredientsController.php
+    - app/Http/Controllers/MenuController.php
+    - app/Http/Controllers/MenuVsProductController.php
+    - app/Http/Controllers/CountryController.php
+    - app/Http/Controllers/ProvinceController.php
+    - app/Http/Controllers/CityController.php
+    - app/Http/Controllers/SectorController.php
+    - app/Http/Controllers/AddressesController.php
+    - app/Http/Controllers/CurrencyController.php
+    - app/Http/Controllers/PaymentMethodController.php
+    - app/Http/Controllers/InvoiceController.php
+    - app/Http/Controllers/WorkAreaController.php
+    - app/Http/Controllers/EmployeeTypeController.php
+    - app/Http/Controllers/SalaryController.php
+    - app/Http/Controllers/EmployeeController.php
+    - app/Http/Controllers/UserTypeController.php
+    - app/Http/Controllers/CompanyController.php
+    - app/Http/Controllers/ProviderController.php
+    - database/factories/CurrencyFactory.php
+    - database/factories/PhoneFactory.php
+    - database/factories/EmailFactory.php
+    - database/factories/WarehouseTypeFactory.php
+    - database/factories/IngredientFactory.php
+    - database/factories/UnitsMeasurementFactory.php
+    - database/factories/IngredientsStockFactory.php
+    - database/factories/RecipeFactory.php
+    - database/factories/RecipesVsIngredientsFactory.php
+    - database/factories/MenuFactory.php
+    - database/factories/MenuVsProductFactory.php
+    - database/factories/CountryFactory.php
+    - database/factories/ProvinceFactory.php
+    - database/factories/CityFactory.php
+    - database/factories/SectorFactory.php
+    - database/factories/AddressesFactory.php
+    - database/factories/PaymentMethodFactory.php
+    - database/factories/InvoiceFactory.php
+    - database/factories/WorkAreaFactory.php
+    - database/factories/EmployeeTypeFactory.php
+    - database/factories/SalaryFactory.php
+    - database/factories/EmployeeFactory.php
+    - database/factories/UserTypeFactory.php
+    - database/factories/CompanyFactory.php
+    - database/factories/ProviderFactory.php
+    - database/migrations/2022_03_27_021027_create_currencies_table.php
+    - database/migrations/2022_03_27_021028_create_phones_table.php
+    - database/migrations/2022_03_27_021029_create_emails_table.php
+    - database/migrations/2022_03_27_021030_create_warehouse_types_table.php
+    - database/migrations/2022_03_27_021031_create_ingredients_table.php
+    - database/migrations/2022_03_27_021032_create_units_measurements_table.php
+    - database/migrations/2022_03_27_021033_create_ingredients_stocks_table.php
+    - database/migrations/2022_03_27_021034_create_recipes_table.php
+    - database/migrations/2022_03_27_021035_create_recipes_vs_ingredients_table.php
+    - database/migrations/2022_03_27_021036_create_menus_table.php
+    - database/migrations/2022_03_27_021037_create_menu_vs_products_table.php
+    - database/migrations/2022_03_27_021038_create_countries_table.php
+    - database/migrations/2022_03_27_021039_create_provinces_table.php
+    - database/migrations/2022_03_27_021040_create_cities_table.php
+    - database/migrations/2022_03_27_021041_create_sectors_table.php
+    - database/migrations/2022_03_27_021042_create_addresses_table.php
+    - database/migrations/2022_03_27_021043_create_payment_methods_table.php
+    - database/migrations/2022_03_27_021044_create_invoices_table.php
+    - database/migrations/2022_03_27_021045_create_work_areas_table.php
+    - database/migrations/2022_03_27_021046_create_employee_types_table.php
+    - database/migrations/2022_03_27_021047_create_salaries_table.php
+    - database/migrations/2022_03_27_021048_create_employees_table.php
+    - database/migrations/2022_03_27_021049_create_user_types_table.php
+    - database/migrations/2022_03_27_021050_create_companies_table.php
+    - database/migrations/2022_03_27_021051_create_providers_table.php
+    - app/Models/Currency.php
+    - app/Models/Phone.php
+    - app/Models/Email.php
+    - app/Models/WarehouseType.php
+    - app/Models/Ingredient.php
+    - app/Models/UnitsMeasurement.php
+    - app/Models/IngredientsStock.php
+    - app/Models/Recipe.php
+    - app/Models/RecipesVsIngredients.php
+    - app/Models/Menu.php
+    - app/Models/MenuVsProduct.php
+    - app/Models/Country.php
+    - app/Models/Province.php
+    - app/Models/City.php
+    - app/Models/Sector.php
+    - app/Models/Addresses.php
+    - app/Models/PaymentMethod.php
+    - app/Models/Invoice.php
+    - app/Models/WorkArea.php
+    - app/Models/EmployeeType.php
+    - app/Models/Salary.php
+    - app/Models/Employee.php
+    - app/Models/UserType.php
+    - app/Models/Company.php
+    - app/Models/Provider.php
+    - tests/Feature/Http/Controllers/PhoneControllerTest.php
+    - tests/Feature/Http/Controllers/EmailControllerTest.php
+    - tests/Feature/Http/Controllers/WarehouseTypeControllerTest.php
+    - tests/Feature/Http/Controllers/IngredientControllerTest.php
+    - tests/Feature/Http/Controllers/UnitsMeasurementControllerTest.php
+    - tests/Feature/Http/Controllers/IngredientsStockControllerTest.php
+    - tests/Feature/Http/Controllers/RecipeControllerTest.php
+    - tests/Feature/Http/Controllers/RecipesVsIngredientsControllerTest.php
+    - tests/Feature/Http/Controllers/MenuControllerTest.php
+    - tests/Feature/Http/Controllers/MenuVsProductControllerTest.php
+    - tests/Feature/Http/Controllers/CountryControllerTest.php
+    - tests/Feature/Http/Controllers/ProvinceControllerTest.php
+    - tests/Feature/Http/Controllers/CityControllerTest.php
+    - tests/Feature/Http/Controllers/SectorControllerTest.php
+    - tests/Feature/Http/Controllers/AddressesControllerTest.php
+    - tests/Feature/Http/Controllers/CurrencyControllerTest.php
+    - tests/Feature/Http/Controllers/PaymentMethodControllerTest.php
+    - tests/Feature/Http/Controllers/InvoiceControllerTest.php
+    - tests/Feature/Http/Controllers/WorkAreaControllerTest.php
+    - tests/Feature/Http/Controllers/EmployeeTypeControllerTest.php
+    - tests/Feature/Http/Controllers/SalaryControllerTest.php
+    - tests/Feature/Http/Controllers/EmployeeControllerTest.php
+    - tests/Feature/Http/Controllers/UserTypeControllerTest.php
+    - tests/Feature/Http/Controllers/CompanyControllerTest.php
+    - tests/Feature/Http/Controllers/ProviderControllerTest.php
+    - app/Http/Requests/PhoneStoreRequest.php
+    - app/Http/Requests/PhoneUpdateRequest.php
+    - app/Http/Requests/EmailStoreRequest.php
+    - app/Http/Requests/EmailUpdateRequest.php
+    - app/Http/Requests/WarehouseTypeStoreRequest.php
+    - app/Http/Requests/WarehouseTypeUpdateRequest.php
+    - app/Http/Requests/IngredientStoreRequest.php
+    - app/Http/Requests/IngredientUpdateRequest.php
+    - app/Http/Requests/UnitsMeasurementStoreRequest.php
+    - app/Http/Requests/UnitsMeasurementUpdateRequest.php
+    - app/Http/Requests/IngredientsStockStoreRequest.php
+    - app/Http/Requests/IngredientsStockUpdateRequest.php
+    - app/Http/Requests/RecipeStoreRequest.php
+    - app/Http/Requests/RecipeUpdateRequest.php
+    - app/Http/Requests/RecipesVsIngredientStoreRequest.php
+    - app/Http/Requests/RecipesVsIngredientUpdateRequest.php
+    - app/Http/Requests/MenuStoreRequest.php
+    - app/Http/Requests/MenuUpdateRequest.php
+    - app/Http/Requests/MenuVsProductStoreRequest.php
+    - app/Http/Requests/MenuVsProductUpdateRequest.php
+    - app/Http/Requests/CountryStoreRequest.php
+    - app/Http/Requests/CountryUpdateRequest.php
+    - app/Http/Requests/ProvinceStoreRequest.php
+    - app/Http/Requests/ProvinceUpdateRequest.php
+    - app/Http/Requests/CityStoreRequest.php
+    - app/Http/Requests/CityUpdateRequest.php
+    - app/Http/Requests/SectorStoreRequest.php
+    - app/Http/Requests/SectorUpdateRequest.php
+    - app/Http/Requests/AddressStoreRequest.php
+    - app/Http/Requests/AddressUpdateRequest.php
+    - app/Http/Requests/CurrencyStoreRequest.php
+    - app/Http/Requests/CurrencyUpdateRequest.php
+    - app/Http/Requests/PaymentMethodStoreRequest.php
+    - app/Http/Requests/PaymentMethodUpdateRequest.php
+    - app/Http/Requests/InvoiceStoreRequest.php
+    - app/Http/Requests/InvoiceUpdateRequest.php
+    - app/Http/Requests/WorkAreaStoreRequest.php
+    - app/Http/Requests/WorkAreaUpdateRequest.php
+    - app/Http/Requests/EmployeeTypeStoreRequest.php
+    - app/Http/Requests/EmployeeTypeUpdateRequest.php
+    - app/Http/Requests/SalaryStoreRequest.php
+    - app/Http/Requests/SalaryUpdateRequest.php
+    - app/Http/Requests/EmployeeStoreRequest.php
+    - app/Http/Requests/EmployeeUpdateRequest.php
+    - app/Http/Requests/UserTypeStoreRequest.php
+    - app/Http/Requests/UserTypeUpdateRequest.php
+    - app/Http/Requests/CompanyStoreRequest.php
+    - app/Http/Requests/CompanyUpdateRequest.php
+    - app/Http/Requests/ProviderStoreRequest.php
+    - app/Http/Requests/ProviderUpdateRequest.php
+    - resources/views/phone/index.blade.php
+    - resources/views/phone/create.blade.php
+    - resources/views/phone/show.blade.php
+    - resources/views/phone/edit.blade.php
+    - resources/views/email/index.blade.php
+    - resources/views/email/create.blade.php
+    - resources/views/email/show.blade.php
+    - resources/views/email/edit.blade.php
+    - resources/views/warehouseType/index.blade.php
+    - resources/views/warehouseType/create.blade.php
+    - resources/views/warehouseType/show.blade.php
+    - resources/views/warehouseType/edit.blade.php
+    - resources/views/ingredient/index.blade.php
+    - resources/views/ingredient/create.blade.php
+    - resources/views/ingredient/show.blade.php
+    - resources/views/ingredient/edit.blade.php
+    - resources/views/unitsMeasurement/index.blade.php
+    - resources/views/unitsMeasurement/create.blade.php
+    - resources/views/unitsMeasurement/show.blade.php
+    - resources/views/unitsMeasurement/edit.blade.php
+    - resources/views/ingredientsStock/index.blade.php
+    - resources/views/ingredientsStock/create.blade.php
+    - resources/views/ingredientsStock/show.blade.php
+    - resources/views/ingredientsStock/edit.blade.php
+    - resources/views/recipe/index.blade.php
+    - resources/views/recipe/create.blade.php
+    - resources/views/recipe/show.blade.php
+    - resources/views/recipe/edit.blade.php
+    - resources/views/recipesVsIngredient/index.blade.php
+    - resources/views/recipesVsIngredient/create.blade.php
+    - resources/views/recipesVsIngredient/show.blade.php
+    - resources/views/recipesVsIngredient/edit.blade.php
+    - resources/views/menuVsProduct/index.blade.php
+    - resources/views/menuVsProduct/create.blade.php
+    - resources/views/menuVsProduct/show.blade.php
+    - resources/views/menuVsProduct/edit.blade.php
+    - resources/views/country/index.blade.php
+    - resources/views/country/create.blade.php
+    - resources/views/country/show.blade.php
+    - resources/views/country/edit.blade.php
+    - resources/views/province/index.blade.php
+    - resources/views/province/create.blade.php
+    - resources/views/province/show.blade.php
+    - resources/views/province/edit.blade.php
+    - resources/views/city/index.blade.php
+    - resources/views/city/create.blade.php
+    - resources/views/city/show.blade.php
+    - resources/views/city/edit.blade.php
+    - resources/views/sector/index.blade.php
+    - resources/views/sector/create.blade.php
+    - resources/views/sector/show.blade.php
+    - resources/views/sector/edit.blade.php
+    - resources/views/address/index.blade.php
+    - resources/views/address/create.blade.php
+    - resources/views/address/show.blade.php
+    - resources/views/address/edit.blade.php
+    - resources/views/currency/index.blade.php
+    - resources/views/currency/create.blade.php
+    - resources/views/currency/show.blade.php
+    - resources/views/currency/edit.blade.php
+    - resources/views/paymentMethod/index.blade.php
+    - resources/views/paymentMethod/create.blade.php
+    - resources/views/paymentMethod/show.blade.php
+    - resources/views/paymentMethod/edit.blade.php
+    - resources/views/invoice/index.blade.php
+    - resources/views/invoice/create.blade.php
+    - resources/views/invoice/show.blade.php
+    - resources/views/invoice/edit.blade.php
+    - resources/views/workArea/index.blade.php
+    - resources/views/workArea/create.blade.php
+    - resources/views/workArea/show.blade.php
+    - resources/views/workArea/edit.blade.php
+    - resources/views/employeeType/index.blade.php
+    - resources/views/employeeType/create.blade.php
+    - resources/views/employeeType/show.blade.php
+    - resources/views/employeeType/edit.blade.php
+    - resources/views/salary/index.blade.php
+    - resources/views/salary/create.blade.php
+    - resources/views/salary/show.blade.php
+    - resources/views/salary/edit.blade.php
+    - resources/views/employee/index.blade.php
+    - resources/views/employee/create.blade.php
+    - resources/views/employee/show.blade.php
+    - resources/views/employee/edit.blade.php
+    - resources/views/userType/index.blade.php
+    - resources/views/userType/create.blade.php
+    - resources/views/userType/show.blade.php
+    - resources/views/userType/edit.blade.php
+    - resources/views/company/index.blade.php
+    - resources/views/company/create.blade.php
+    - resources/views/company/show.blade.php
+    - resources/views/company/edit.blade.php
+    - resources/views/provider/index.blade.php
+    - resources/views/provider/create.blade.php
+    - resources/views/provider/show.blade.php
+    - resources/views/provider/edit.blade.php
 updated:
     - routes/web.php
 models:
@@ -30,3 +296,28 @@ models:
     Reservation: { id: autoIncrement, customers_id: 'unsignedBigInteger foreign:customers.id', type_reservations_id: 'unsignedBigInteger foreign:type_reservations.id', living_room_id: 'unsignedBigInteger foreign:living_rooms.id', date_time: timestamp, number_people: int, description: text, status: 'boolean default:true', timestamps: timestamps, softdeletes: softDeletes, relationships: { hasOne: TypeReservation } }
     OrderProduct: { order_id: 'unsignedBiginteger foreign:orders.id', box_id: 'unsignedBigInteger foreign:boxes.id', customer_id: 'unsignedBigInteger foreign:customers.id', order_types_id: 'unsignedBigInteger foreign:order_types.id', table_id: 'unsignedBigInteger foreign:tables.id', total: double, status: 'boolean default:true', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: 'Order, Box, Customer, OrderType, Table' } }
     BoxHistory: { box_id: 'unsignedBigInteger foreign:boxes.id', start_time: time, end_time: time, timestamps: timestamps, softdeletes: softDeletes, relationships: 'belongsTo Box' }
+    Currency: { name: varchar, symbol: char, description: text, status: 'boolean default:true', timestamps: timestamps, softdeletes: softDeletes }
+    Phone: { entity_id: 'unsignedBigInteger foreign:entities.id', phone: varchar, status: 'boolean default:true', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: Entity } }
+    Email: { entity_id: 'unsignedBigInteger foreign:entities.id', email: varchar, status: 'boolean default:true', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: Entity } }
+    WarehouseType: { name: varchar, description: text, timestamps: timestamps, softdeletes: softDeletes, hasMany: Ingredient }
+    Ingredient: { name: varchar, description: text, warehouse_type_id: 'unsignedBigInteger foreign:warehouse_type.id', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: WarehouseType, hasMany: 'IngredientsStock, RecipesVsIngredients' } }
+    UnitsMeasurement: { name: varchar, symbol: char, description: text, timestamps: timestamps, softdeletes: softDeletes, relationships: { hasMany: IngredientsStock } }
+    IngredientsStock: { ingredient_id: 'unsignedBigInteger foreign:ingredients.id', quantity: int, unit_measurement_id: 'unsignedBigInteger foreign:units_measurement.id', arrival_date: date, expiration_date: date, timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: 'Ingredient, UnitMeasurement' } }
+    Recipe: { product_id: 'unsignedBigInteger foreign:products.id', name: varchar, instructions: text, status: 'boolean default:true', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: Product } }
+    RecipesVsIngredients: { ingredients_id: 'unsignedBigInteger foreign:ingredients.id', quantity: unsignedBigInteger, unit_measurement_id: 'unsignedBigInteger foreign:units_measurement.id', description: text, timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: 'Ingredient, UnitMeasurement' } }
+    Menu: { title: varchar, description: text, product_quantity: int, timestamps: timestamps, softdeletes: softDeletes, relationships: { hasMany: MenuVsProduct } }
+    MenuVsProduct: { menu_id: 'unsignedBigInteger foreign:menu.id', product_id: 'unsignedBigInteger foreign:products.id', status: 'boolean default:true', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: 'Menu, Product' } }
+    Country: { name: varchar, iso_code: varchar, status: 'boolean default:true', timestamps: timestamps, softdeletes: softDeletes, relationships: { hasMany: Provice } }
+    Province: { country_id: 'unsignegBigInteger foreign:countries.id', code: varchar, name: varchar, status: 'boolean default:true', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: Country, hasMany: City } }
+    City: { provice_id: 'unsignegBigInteger foreign:provinces.id', name: varchar, status: 'boolean default:true', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: Provice, hasMany: Sectors } }
+    Sector: { city_id: 'unsignegBigInteger foreign:cities.id', name: varchar, status: 'boolean default:true', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: City, hasMany: Addresses } }
+    Addresses: { entity_id: 'unsignegBigInteger foreign:entities.id', sector_id: 'unsignegBigInteger foreign:sectors.id', reference: varchar, status: 'boolean default:true', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: 'Entity, Sector' } }
+    PaymentMethod: { name: varchar, description: text, status: 'boolean default:true', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: Invoice } }
+    Invoice: { token: 'varchar unique', rnc: 'varchar unique', order_id: 'unsignedBigInteger foreign:orders.id', payment_method_id: 'unsignedBigInteger foreign:payment_method.id', shipping: double, promo: double, taxes: double, discount: double, total: double, status: 'boolean default:true', timestamps: timestamps, softdeletes: softDeletes, relationships: { hasMany: PaymentMethod, belongsTo: Order } }
+    WorkArea: { name: varchar, description: text, status: 'boolean default:true', timestamps: timestamps, softdeletes: softDeletes, relationships: { hasMany: EmployeeType } }
+    EmployeeType: { type: varchar, description: text, work_area_id: 'unsignedBigInteger foreign:work_areas.id', status: 'boolean default:true', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: WorkArea, hasMany: Salary, hasOne: UserType } }
+    Salary: { employee_type_id: 'unsignedBigInteger foreign:employee_types.id', salary: double, status: 'boolean default:true', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: EmployeeType } }
+    Employee: { entity_id: 'unsignedBigInteger foreign:entities.id', employee_type_id: 'unsignedBigInteger foreign:employee_types.id', status: 'boolean default:true', hire_date: timestamp, timestamps: timestamps, softdeletes: softDeletes, relationships: { hasOne: EmployeeType, belongsTo: Entity } }
+    UserType: { description: varchar, employee_type_id: 'unsignedBigInteger foreign:employee_types.id', status: 'boolean default:true', timestamps: timestamps, softdeletes: softDeletes, relationships: { hasOne: EmployeeType } }
+    Company: { name: varchar, description: text, phone: varchar, email: varchar, status: 'boolean default:true', timestamps: timestamps, softdeletes: softDeletes, relationships: { hasMany: Provider } }
+    Provider: { entity_id: 'unsignedBigInteger foreign:entities.id', company_id: 'unsignedBigInteger foreign:companies.id', status: 'boolean default:true', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: Entity, hasMany: Company } }
