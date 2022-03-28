@@ -53,8 +53,10 @@ class CajaController extends Controller
 
     public function store(Request $request)
     {
+
         try {
-            $request['products'] = json_decode($request['products']); 
+
+            $request['products'] = json_decode($request['products']);
             $order = [
                 'user_id' => (int) $request['user_id'],
                 'box_id' => (int) $request['box_id'],
@@ -67,7 +69,7 @@ class CajaController extends Controller
 
             $order = Order::insert($order);
             return $order->id;
-            
+
             foreach ($request['products'] as $p){
                 $product = [
                     'order_id' => (int) $order_id,
@@ -80,7 +82,6 @@ class CajaController extends Controller
                 return $p->name;
                 return response()->json($p);
             }
-            
 
             return response()->json($order);
             // dd(response()->json($order), $data, $data['products']);
@@ -119,9 +120,13 @@ class CajaController extends Controller
             }
 
             redirect('caja');
+
         }catch (Exception $e){
+
             throw new Exception($e);
+
         }
+
     }
 
     public function show(Request $request, Caja $caja)
