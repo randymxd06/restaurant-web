@@ -27,6 +27,7 @@
     <section class="content pb-3">
         <div class="container-fluid h-100">
             <!-- Orden -->
+            @foreach($orders as $o)
             <div class="card card-row card-primary">
                 <div class="card-header order-header">
                     <div class="order-title">
@@ -51,11 +52,11 @@
                     <!-- Productos de la Orden -->
                     <div class="card card-light card-outline">
                         <div class="card-header">
-                           <div class="orden-producto-info">
-                               <i class="fas fa-pizza-slice"></i>
-                               <p class="card-title">Refresco - Coca Cola</p>
-                               <span class="badge bg-primary text-dark">01</span>
-                           </div> 
+                            <div class="orden-producto-info">
+                                <i class="fas fa-pizza-slice"></i>
+                                <p class="card-title">Refresco - Coca Cola</p>
+                                <span class="badge bg-primary text-dark">01</span>
+                            </div> 
                             <div class="card-tools">
                                 <!-- <a href="#" class="btn btn-tool btn-link">#1</a> -->
                                 <a href="#" class="btn btn-tool">
@@ -65,13 +66,13 @@
                         </div>
                     </div>
                     <!-- / -->
-                     <div class="card card-light card-outline">
+                    <div class="card card-light card-outline">
                         <div class="card-header">
-                           <div class="orden-producto-info">
-                               <i class="fas fa-pizza-slice"></i>
-                               <p class="card-title">Pizza Grande Margarita</p>
-                               <span class="badge bg-primary text-dark">02</span>
-                           </div> 
+                            <div class="orden-producto-info">
+                                <i class="fas fa-pizza-slice"></i>
+                                <p class="card-title">Pizza Grande Margarita</p>
+                                <span class="badge bg-primary text-dark">02</span>
+                            </div> 
                             <div class="card-tools">
                                 <!-- <a href="#" class="btn btn-tool btn-link">#1</a> -->
                                 <a href="#" class="btn btn-tool">
@@ -92,6 +93,7 @@
                 </div>
             </div>
             <!-- /Orden -->
+            @endforeach
         </div>
     </section>
 </div>

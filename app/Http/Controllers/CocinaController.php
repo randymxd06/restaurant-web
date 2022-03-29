@@ -6,13 +6,15 @@ use App\Cocina;
 use App\Http\Requests\CocinaStoreRequest;
 use App\Http\Requests\CocinaUpdateRequest;
 use Illuminate\Http\Request;
+use App\Models\Order;
 
 class CocinaController extends Controller
 {
 
     public function index(Request $request)
     {
-        return view('cocina.index');
+        $orders = Order::all();
+        return view('cocina.index', compact('orders'));
     }
 
     public function create(Request $request)

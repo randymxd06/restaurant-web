@@ -12,6 +12,10 @@ use App\Models\ProductCategory;
 use App\Models\Product;
 use App\Models\Table;
 use App\Models\LivingRoom;
+use App\Models\Entity;
+use App\Models\Customer;
+use Carbon\Carbon;
+
 class CajaController extends Controller
 {
 
@@ -48,43 +52,26 @@ class CajaController extends Controller
         $products = Product::all()->where('status', '=', 1);
         $tables = Table::all()->where('status', '<>', 0);
         $livingRooms = LivingRoom::all()->where('status', '=', 1);
-        return view('caja.create', compact('productCategories', 'products', 'tables', 'livingRooms'));
+        $customers = Customer::all();
+        $entities = Entity::all();
+        return view('caja.create', compact('productCategories', 'products', 'tables', 'livingRooms', 'customers', 'entities'));
     }
 
     public function store(Request $request)
     {
         try {
+            
             $request['products'] = json_decode($request['products']); 
             $order = [
                 'user_id' => (int) $request['user_id'],
                 'box_id' => (int) $request['box_id'],
                 'customer_id' => (int) $request['customer_id'],
-                'orders_types_id' => 1,
+                'order_types_id' => 1,
                 'table_id' => (int) $request['table_id'],
                 'total' => (double) $request['total_order'],
                 'status' => 1
             ];
-
-            $order = Order::insert($order);
-            return $order->id;
             
-            foreach ($request['products'] as $p){
-                $product = [
-                    'order_id' => (int) $order->id,
-                    'product_id' => (int) $p->id,
-                    'quantity' => (int) $p->qty,
-                    'price' => (double) $p->price,
-                    'discount' => 0,
-                    'total' => (double) $p->total
-                ];
-                return $p->name;
-                return response()->json($p);
-            }
-            
-
-            return response()->json($order);
-            // dd(response()->json($order), $data, $data['products']);
-
             $validate = [
                 'user_id' => 'required|int',
                 'box_id' => 'required|int',
@@ -95,30 +82,23 @@ class CajaController extends Controller
                 'status' => 'boolean',
             ];
 
-            $this -> validate($request, $validate, $this->messageProduct());
+            // $this -> validate($order, $validate, $this->messageProduct());
+            $order_id = Order::create($order)->id;
 
-            // ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;
-
-            $jsonOrders = [
-                'user_id' => (int) $request['user_id'],
-                'box_id' => (int) $request['box_id'],
-                'customer_id' => (int) $request['customer_id'],
-                'order_types_id' => (int) $request['order_types_id'],
-                'table_id' => (int) $request['order_types_id'],
-                'total' => (double) $request['total'],
-                'status' => $request['status'],
-            ];
-
-            // $order = Order::insert($jsonOrders);
-
-            // TODO: ESTE JSON SE VA A BORRAR PORQUE SE VA A INSERTAR EL ARRAY CON LOS DATOS DEL DETALLE DIRECTAMENTE
-            $products = [];
-
-            foreach ($products as $product){
-                // OrderProduct::create($product);
+            foreach ($request['products'] as $p){
+                $product = [
+                    'order_id' => (int) $order_id,
+                    'product_id' => (int) $p->id,
+                    'quantity' => (int) $p->qty,
+                    'price' => (double) $p->price,
+                    'discount' => 0,
+                    'total' => (double) (($p->qty)*($p->price)),
+                    'description' => "Nota",
+                    'created_at' => Carbon::now()
+                ];
+                OrderProduct::insert($product);
             }
-
-            redirect('caja');
+            return redirect('caja/create');
         }catch (Exception $e){
             throw new Exception($e);
         }

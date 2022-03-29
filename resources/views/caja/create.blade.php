@@ -32,7 +32,7 @@
                     <!-- <span class="float-right text-muted text-sm">3 mins</span> -->
                 </a>
                 <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
+                <a href="#" class="dropdown-item" data-toggle="modal" data-target="#customersModal">
                     <i class="far fa-user mr-2"></i> Seleccionar Cliente
                     <!-- <span class="float-right text-muted text-sm">12 hours</span> -->
                 </a>
@@ -170,15 +170,7 @@
     <!-- /Productos-->
 
     <aside class="control-sidebar control-sidebar-light order-sidebar">
-        <form method="post" action="{{ url('/caja/store') }}">
-            <!-- TOKEN -->
-            @csrf
-            <input hidden type="text" name="products" id="products" value="">
-            <input hidden type="number" name="table_id" id="table_id" value="">
-            <input hidden type="number" name="user_id" id="user_id" value="2">
-            <input hidden type="number" name="box_id" id="box_id" value="1">
-            <input hidden type="number" name="customer_id" id="customer_id" value="1">
-            <input hidden type="text" name="total_order" id="total_order" value="">
+        
             
             <!-- Ordenes -->
             <div class="order-header">
@@ -199,7 +191,7 @@
             <table class="order-products-head table table-striped">
                 <thead>
                     <tr>
-                        <th>Nombre</th>
+                        <th style="width: 170px;">Nombre</th>
                         <th>Qty.</th>
                         <th>Precio</th>
                         <th>
@@ -217,10 +209,26 @@
             <!-- Ordenes Footer -->
             <div class="order-footer">
                 <div class="order-btn btnd-grid gap-2">
-                    <button class="btn btn-success btn-block">
-                        <i class="fas fa-receipt"></i>
-                        Enviar
-                    </button>
+                    <!-- Formulario -->
+                    <form method="post" action="{{ url('/caja/store') }}">
+                        <!-- TOKEN -->
+                        @csrf
+                        
+                        <input hidden type="number" name="user_id" id="user_id" value="{{{ Auth::user()->id }}}">
+                        <input hidden type="number" name="box_id" id="box_id" value="1">
+                        <input hidden type="number" name="customer_id" id="customer_id" value="1">
+                        <input hidden type="number" name="table_id" id="table_id" value="0">
+                        <input hidden type="text" name="total_order" id="total_order" value="0">
+                        
+                        <input hidden type="text" name="products" id="products" value="">
+                        <!-- button -->
+                        <button class="btn btn-success btn-block">
+                            <i class="fas fa-receipt"></i>
+                            Enviar
+                        </button>
+                        <!-- /button -->
+                    </form>
+                    <!-- /Formulario -->
                 </div>
                 <!-- Detalles -->
                 <table class="order-details table">
@@ -228,26 +236,28 @@
                         <tr>
                             <th>Subtotal</th>
                             <td style="width: 20px">RD$</td>
-                            <td style="width: 40px">100.00</td>
+                            <td style="width: 40px" name="order-subtotal" id="order-subtotal">100.00</td>
                         </tr>
                         <tr>
                             <th>Descuento</th>
                             <td style="width: 20px">%</td>
-                            <td style="width: 40px">00</td>
+                            <td style="width: 40px" name="order-descuento" id="order-descuento">00</td>
                         </tr>
                         <tr>
                             <th>Total</th>
                             <td style="width: 20px">RD$</td>
-                            <td style="width: 40px">100.00</td>
+                            <td style="width: 40px" name="order-total" id="order-total">100.00</td>
                         </tr>
                     </tbody>
                 </table>
                 <!-- /Detalles -->
                 <div class="order-btn d-grid gap-2 d-flex justify-content-end">
-                    <button class="btn btn-dark">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                    <button class="btn btn-success btn-lg">
+                        <!-- button -->
+                        <button class="btn btn-dark">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        <!-- /button -->
+                    <button class="btn btn-success btn-lg" disabled>
                         <i class="fas fa-cash-register"></i>
                         Facturar
                     </button>
@@ -255,7 +265,7 @@
             </div>
             <!--/ Odenes Footer -->
         <!-- /Ordenes -->
-        </form>
+        
     </aside>
 </div>
 
@@ -312,7 +322,49 @@
         </div>
     </div>
 </div>
-<!--  -->
+<!-- / -->
+
+<!-- Modal para seleccionar Cliente -->
+<div class="modal fade" id="customersModal" tabindex="-1" role="dialog" aria-labelledby="customersModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="tableModalTitle">Seleccionar Cliente</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 10px">#</th>
+                            <th>Salon</th>
+                            <th style="width: 40px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach( $customers as $c )
+                            <tr>
+                                <td> {{ $c -> id }} </td>
+                                <td>Name</td>
+                                <td>
+                                    <button class="btn btn-primary btn-xs" data-dismiss="modal" onclick="selectTable({{ $c->id }})">
+                                        <i class="fas fa-hand-pointer"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- / -->
 @stop
 
 @section('css')
@@ -492,9 +544,9 @@
             total = Math.round((total+importe)*100)/100;
             console.log('Total: '+total);
             listProductsHTML += '<tr>'+
-                                    '<td>'+pro.name+'</td>'+
+                                    '<td style="width: 170px;">'+pro.name+'</td>'+
                                     '<td>'+pro.qty+'</td>'+
-                                    '<td>'+importe+'</td>'+
+                                    '<td>RD$'+importe+'</td>'+
                                     '<td><button onclick="reduceProduct('+ pro.id +')"><i class="far fa-trash-alt"></i></button></td>'+
                                 '</tr>';
         });
