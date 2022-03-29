@@ -13,27 +13,20 @@ class CreateBoxesTable extends Migration
      */
     public function up()
     {
-        Schema::disableForeignKeyConstraints();
-
         Schema::create('boxes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->time('start_time');
-            $table->time('end_time');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->on('users')->references('id');
+            $table->string('device_use');
             $table->boolean('status')->default(true);
             $table->timestamps();
             $table->softDeletes()->nullable();
         });
-
-        Schema::enableForeignKeyConstraints();
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('boxes');
     }
+
 }

@@ -40,7 +40,7 @@
             <div class="form-group">
                 <label class="form-label">Salón:</label>
                 <select class="custom-select mr-sm-2" id="living_room_id" name="living_room_id">
-                    <option selected disabled>Choose...</option>
+                    <option selected disabled>Selecciona un salón...</option>
                     @foreach ($LivingRooms as $LivingRoom)
                         <option value="{{ $LivingRoom->id }}" {{( old('living_room_id') == $LivingRoom->id) ? 'selected' : ''}}>{{$LivingRoom->name}}</option>
                     @endforeach

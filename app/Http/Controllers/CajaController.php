@@ -59,8 +59,8 @@ class CajaController extends Controller
 
     public function store(Request $request)
     {
+
         try {
-            
             $request['products'] = json_decode($request['products']); 
             $order = [
                 'user_id' => (int) $request['user_id'],
@@ -100,8 +100,11 @@ class CajaController extends Controller
             }
             return redirect('caja/create');
         }catch (Exception $e){
+
             throw new Exception($e);
+
         }
+
     }
 
     public function show(Request $request, Caja $caja)

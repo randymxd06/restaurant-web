@@ -12,9 +12,11 @@ class Box extends Model
     protected $table = 'boxes';
 
     protected $fillable = [
-        'start_time',
-        'end_time',
-        'status'
+        'user_id',
+        'device_use',
+        'status',
+        'created_at',
+        'updated_at'
     ];
 
     protected $casts = [
@@ -26,4 +28,9 @@ class Box extends Model
     {
         return $this->belongsTo(Order::class);
     }
+
+    public function box_history(){
+        return $this->hasMany(BoxHistory::class);
+    }
+
 }
