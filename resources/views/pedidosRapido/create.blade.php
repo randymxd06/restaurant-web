@@ -318,7 +318,7 @@
 
     <link rel="stylesheet" href="/css/admin_custom.css">
     <link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka+One">
+    
     <style>
         .layout-navbar-fixed .wrapper .main-header, .layout-fixed .main-sidebar{
             display: none;

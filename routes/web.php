@@ -29,6 +29,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard.index');
 })->name('dashboard');
 
+Route::get('/info', function () {
+    return view('info ');
+});
+
 /*--------------------
     PEDIDOS RAPIDOS
 ----------------------*/

@@ -7,14 +7,18 @@ use App\Http\Requests\CocinaStoreRequest;
 use App\Http\Requests\CocinaUpdateRequest;
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\OrderProduct;
+use App\Models\Product;
 
 class CocinaController extends Controller
 {
 
     public function index(Request $request)
     {
-        $orders = Order::all();
-        return view('cocina.index', compact('orders'));
+        $orders = Order::all()->where('status', '<>', 0);
+        $order_products = OrderProduct::all();
+        $products = Product::all();
+        return view('cocina.index', compact('orders', 'order_products', 'products'));
     }
 
     public function create(Request $request)

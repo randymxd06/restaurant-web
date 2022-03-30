@@ -36,8 +36,8 @@ class CajaController extends Controller
             'table_id.required' => 'El id de la mesa es requerido.',
             'table_id.int' => 'El id debe ser un numero.',
 
-            'total.required' => 'El total es requerido.',
-            'total.required' => 'El total debe ser un con punto decimal.'
+            'total_order.required' => 'El total es requerido.',
+            'total_order.required' => 'El total debe ser un con punto decimal.'
         ];
     }
 
@@ -61,7 +61,18 @@ class CajaController extends Controller
     {
 
         try {
-            $request['products'] = json_decode($request['products']); 
+            $validate = [
+                'user_id' => 'required|int',
+                'box_id' => 'required|int',
+                'customer_id' => 'required|int',
+                'table_id' => 'required|int',
+                'total_order' => 'required|numeric',
+                'products' => 'required'
+            ];
+            $this -> validate($request, $validate, $this->messageProduct());
+
+            $request['products'] = json_decode($request['products']);
+
             $order = [
                 'user_id' => (int) $request['user_id'],
                 'box_id' => (int) $request['box_id'],
@@ -70,16 +81,6 @@ class CajaController extends Controller
                 'table_id' => (int) $request['table_id'],
                 'total' => (double) $request['total_order'],
                 'status' => 1
-            ];
-            
-            $validate = [
-                'user_id' => 'required|int',
-                'box_id' => 'required|int',
-                'customer_id' => 'required|int',
-                'order_types_id' => 'required|int',
-                'table_id' => 'required|int',
-                'total' => 'required|double',
-                'status' => 'boolean',
             ];
 
             // $this -> validate($order, $validate, $this->messageProduct());

@@ -183,7 +183,11 @@
                         <th>Caja: </th>
                         <td>#02</td>
                         <th>Mesa: </th>
-                        <td class="id-mesa" id="id-mesa">#1</td>
+                        <td class="id-mesa" id="id-mesa">Sin mesa</td>
+                    </tr>
+                    <tr>
+                        <th>Cliente: </th>
+                        <td class="customer-id" id="customer-id">Sin Cliente</td>
                     </tr>
                 </table>
             </div>
@@ -216,7 +220,7 @@
                         
                         <input hidden type="number" name="user_id" id="user_id" value="{{{ Auth::user()->id }}}">
                         <input hidden type="number" name="box_id" id="box_id" value="1">
-                        <input hidden type="number" name="customer_id" id="customer_id" value="1">
+                        <input hidden type="number" name="customer_id" id="customer_id" value="">
                         <input hidden type="number" name="table_id" id="table_id" value="0">
                         <input hidden type="text" name="total_order" id="total_order" value="0">
                         
@@ -349,7 +353,7 @@
                                 <td> {{ $c -> id }} </td>
                                 <td>Name</td>
                                 <td>
-                                    <button class="btn btn-primary btn-xs" data-dismiss="modal" onclick="selectTable({{ $c->id }})">
+                                    <button class="btn btn-primary btn-xs" data-dismiss="modal" onclick="selectCustomer({{ $c->id }})">
                                         <i class="fas fa-hand-pointer"></i>
                                     </button>
                                 </td>
@@ -365,6 +369,10 @@
     </div>
 </div>
 <!-- / -->
+
+<!-- Notificaciones de Error -->
+<!-- / -->
+
 @stop
 
 @section('css')
@@ -562,7 +570,13 @@
         document.getElementById('table_id').value = table_id;
     }
 
-  // 
+    function selectCustomer(id){
+        let customer_id = id;
+        document.getElementById("customer-id").innerHTML = '#' + customer_id;
+        document.getElementById('customer_id').value = customer_id;
+    }
+    
+  //     
 </script>
 
 @stop

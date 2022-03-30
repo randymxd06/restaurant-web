@@ -35,38 +35,46 @@
                             <i class="fas fa-utensils"></i>
                         </a>
                         <h3 class="card-title">
-                            Orden # <strong>000</strong> -
-                            Mesa <strong>00</strong>
+                            Orden #<strong>{{ $o->id }}</strong> <br>
+                            Mesa <strong>{{ $o->table_id }}</strong>
                         </h3>
                     </div>
                     <div class="order-time">
                         <a href="#" class="btn btn-tool">
                             <i class="fas fa-check"></i>
                         </a>
-                        <p class="">
+                        <p class="order-timer">
                             00:00:00
                         </p>
                     </div>
                 </div>
                 <div class="card-body">
                     <!-- Productos de la Orden -->
-                    <div class="card card-light card-outline">
-                        <div class="card-header">
-                            <div class="orden-producto-info">
-                                <i class="fas fa-pizza-slice"></i>
-                                <p class="card-title">Refresco - Coca Cola</p>
-                                <span class="badge bg-primary text-dark">01</span>
-                            </div> 
-                            <div class="card-tools">
-                                <!-- <a href="#" class="btn btn-tool btn-link">#1</a> -->
-                                <a href="#" class="btn btn-tool">
-                                    <i class="fas fa-check"></i>
-                                </a>
+                    @foreach($order_products as $op)
+                        @if($op->order_id == $o->id)
+                            <div class="card card-light card-outline">
+                                <div class="card-header">
+                                    <div class="orden-producto-info">
+                                        <i class="fas fa-pizza-slice"></i>
+                                        @foreach($products as $p)
+                                            @if($p->id == $op->product_id)
+                                            <p class="card-title">{{ $p->name }}</p>
+                                            @endif
+                                        @endforeach
+                                        <span class="badge bg-primary text-dark">{{ $op->quantity }}</span>
+                                    </div> 
+                                    <div class="card-tools">
+                                        <!-- <a href="#" class="btn btn-tool btn-link">#1</a> -->
+                                        <a href="#" class="btn btn-tool">
+                                            <i class="fas fa-check"></i>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                        @endif
+                    @endforeach
                     <!-- / -->
-                    <div class="card card-light card-outline">
+                    <!-- <div class="card card-light card-outline">
                         <div class="card-header">
                             <div class="orden-producto-info">
                                 <i class="fas fa-pizza-slice"></i>
@@ -74,7 +82,7 @@
                                 <span class="badge bg-primary text-dark">02</span>
                             </div> 
                             <div class="card-tools">
-                                <!-- <a href="#" class="btn btn-tool btn-link">#1</a> -->
+                                <a href="#" class="btn btn-tool btn-link">#1</a> 
                                 <a href="#" class="btn btn-tool">
                                     <i class="fas fa-check"></i>
                                 </a>
@@ -88,7 +96,7 @@
                                 nascetur ridiculus mus.
                             </p>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- / productos de la orden -->
                 </div>
             </div>

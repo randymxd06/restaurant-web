@@ -273,14 +273,17 @@ return [
                 [
                     'text' => 'Ventas',
                     'url'  => 'caja/create',
+                    'icon' => 'fas fa-fw fa-receipt'
                 ],
                 [
                     'text' => 'Cuadre de caja',
                     'url'  => '#',
+                    'icon' => 'fas fa-fw fa-cash-register'
                 ],
                 [
                     'text' => 'Control de propinas',
                     'url'  => '#',
+                    'icon' => 'fas fa-fw fa-piggy-bank'
                 ],
             ],
         ],
@@ -289,7 +292,7 @@ return [
         [
             'text' => 'Cocina',
             'url'  => 'cocina',
-            'icon' => 'fas fa-fw fa-bread-slice',
+            'icon' => 'fas fa-fw fa-utensil-spoon',
         ],
 
         // Recepción
@@ -299,19 +302,42 @@ return [
             'submenu' => [
                 [
                     'text' => 'Recepción',
+                    'icon'    => 'fas fa-fw fa-concierge-bell',
                     'url'  => '#',
-                    'icon'    => 'fas fa-fw fa-calendar-day',
                 ],
                 [
                     'text' => 'Reservaciones',
-                    'url'  => 'reservation',
-                    'icon'    => 'fas fa-fw fa-calendar-alt',
+                    'icon'    => 'fas fa-fw fa-calendar-day',
+                    'submenu'  => [
+                        [
+                            'text' => 'Reservaciones',
+                            'url'  => 'reservation',
+                            'icon'    => 'fas fa-fw fa-calendar-alt',
+                        ],
+                        [
+                            'text' => 'Reservar',
+                            'url'  => 'reservation/create',
+                            'icon'    => 'fas fa-fw fa-calendar-plus',
+                        ]
+                    ]
                 ],
                 [
-                    'text' => 'Reservar',
-                    'url'  => 'reservation/create',
-                    'icon'    => 'fas fa-fw fa-calendar-plus',
+                    'text' => 'Clientes',
+                    'icon'    => 'fas fa-fw fa-address-card',
+                    'submenu'  => [
+                        [
+                            'text' => 'Clientes',
+                            'url'  => '#',
+                            'icon'    => 'far fa-fw fa-address-card',
+                        ],
+                        [
+                            'text' => 'Registrar',
+                            'url'  => '#',
+                            'icon'    => 'fas fa-fw fa-clipboard',
+                        ]
+                    ]
                 ],
+                
                 // [
                 //     'text' => 'Eventos',
                 //     'url'  => '#',
@@ -472,8 +498,13 @@ return [
             'text' => 'Empleados',
             'url'  => '#',
             'icon' => 'fas fa-fw fa-user-friends',
+        ],
+        [
+            'text' => 'Info',
+            'url'  => 'info',
+            'icon' => 'fas fa-fw fa-info-circle',
         ]
-
+        
         // -------------------------------
         // EJEMPLOS PARA EL SIDEBAR
         // -------------------------------
