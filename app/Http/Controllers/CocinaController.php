@@ -16,7 +16,7 @@ class CocinaController extends Controller
 
     public function index(Request $request)
     {
-        $orders = Order::all()->where('status', '=', 1);
+        $orders = Order::all()->where('status', '<>', 0);
         $order_products = OrderProduct::all();
         $products = Product::all();
         return view('cocina.index', compact('orders', 'order_products', 'products'));
@@ -50,7 +50,7 @@ class CocinaController extends Controller
     {
         try{
             $data = request()->except('_token', '_method');
-            $data['status'] = 2;
+            $data['status'] = 0;
             $data['updated_at'] = Carbon::now();
             Order::where('id','=',$id)->update($data);
             return redirect('cocina');
