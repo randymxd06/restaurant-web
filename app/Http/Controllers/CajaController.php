@@ -61,6 +61,7 @@ class CajaController extends Controller
     {
 
         try {
+
             $validate = [
                 'user_id' => 'required|int',
                 'box_id' => 'required|int',
@@ -69,7 +70,7 @@ class CajaController extends Controller
                 'total_order' => 'required|numeric',
                 'products' => 'required'
             ];
-            $this -> validate($request, $validate, $this->messageProduct());
+//            $this -> validate($request, $validate, $this->messageProduct());
 
             $request['products'] = json_decode($request['products']);
 

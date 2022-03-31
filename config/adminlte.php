@@ -327,17 +327,17 @@ return [
                     'submenu'  => [
                         [
                             'text' => 'Clientes',
-                            'url'  => '#',
+                            'url'  => 'customer',
                             'icon'    => 'far fa-fw fa-address-card',
                         ],
                         [
                             'text' => 'Registrar',
-                            'url'  => '#',
+                            'url'  => 'customer/create',
                             'icon'    => 'fas fa-fw fa-clipboard',
                         ]
                     ]
                 ],
-                
+
                 // [
                 //     'text' => 'Eventos',
                 //     'url'  => '#',
@@ -504,7 +504,7 @@ return [
             'url'  => 'info',
             'icon' => 'fas fa-fw fa-info-circle',
         ]
-        
+
         // -------------------------------
         // EJEMPLOS PARA EL SIDEBAR
         // -------------------------------
