@@ -1,0 +1,116 @@
+.order-products-body{
+    height: 200px !important ;
+    margin-top: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.order-products-head{
+    margin-bottom: 0 !important
+}
+.layout-fixed .control-sidebar.order-sidebar{
+    display: block;
+    max-width: 350px;
+    width: 100%;
+    float: right !important;
+    right: 0;
+}
+.layout-navbar-fixed .wrapper .main-header, .layout-fixed .main-sidebar{
+    display: none;
+}
+.sidebar-category{
+    display: block !important;
+}
+.navbar-category{
+    display: flex !important;
+}
+/* Order */
+.container-order{
+    bottom: 0;
+    right: 0;
+    position: fixed;
+    top: 56px;
+    font-size: 12px;
+    background-color: #fff;
+    max-width: 360px;
+    width: 100%;
+}
+.order-btn{
+    padding: 0 0.5rem;
+}
+.table-order {
+    width: 100%;
+}
+.table-order th {
+    width: 80px;
+    padding: 4px 10px;
+}
+.order-footer {
+    position: absolute;
+    width: 100%;
+    bottom: 6px;
+}
+.order-details{
+    font-size: 14px;
+}
+/*  */
+.content-wrapper{
+    margin-right: 360px;
+}
+
+.tabs-menu-div{
+    display: none;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 56px;
+}
+.card-body{
+    text-align: left;
+}
+.card-img-top {
+    height: 180px;
+    object-fit: cover;
+}
+.tabs-menu .nav-link{
+    color: #495057;
+}
+.layout-navbar-fixed.layout-fixed .wrapper .control-sidebar {
+    top: calc(3.5rem + 50px);
+}
+
+@media screen and (max-width: 768px) {
+/*   */
+
+}
+@media screen and (min-width: 640px) {
+    .tab-content>.tab-pane {
+    display: block;
+    }
+
+    .fade:not(.show) {
+    opacity: 100;
+    }
+}
+@media screen and (max-width: 640px) {
+    .layout-fixed .control-sidebar.order-sidebar{
+        max-width: 100% !important;
+    }
+    .container-order{
+        display: contents;
+    }
+    .content-wrapper{
+        margin-right: auto;
+    }
+    .tabs-menu-div{
+        display: flex;
+    }
+    .content-wrapper>.content{
+        padding: 2rem 0;
+    }
+    .container-fluid{
+        padding: 0;
+    }
+    #Products {
+        padding: 1rem;
+    }
+}

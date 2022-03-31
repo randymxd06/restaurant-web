@@ -39,7 +39,14 @@
         <div class="col-md-6 mb-2">
             <div class="form-group">
                 <label class="form-label">Nombre:</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ isset($product->name)?$product->name:old('name') }}">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-hamburger"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ isset($product->name)?$product->name:old('name') }}">
+                </div>
             </div>
         </div>
 
@@ -47,9 +54,16 @@
         <div class="col-md-6 mb-2">
             <div class="form-group">
                 <label class="form-label">Imagén/Foto:</label>
-                <div class="custom-file">
-                    <input type="file" accept="image/*" class="custom-file-input form-control" id="image" name="image">
-                    <label class="custom-file-label" for="inputGroupFile01">Seleccione Imagén</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-image"></i>
+                        </span>
+                    </div>
+                    <div class="custom-file">
+                        <input type="file" accept="image/*" class="custom-file-input form-control" id="image" name="image">
+                        <label class="custom-file-label" for="inputGroupFile01">Seleccione Imagén</label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -78,12 +92,19 @@
         <div class="col-md-6 mb-2">
             <div class="form-group">
                 <label class="form-label">Catergoria:</label>
-                <select class="custom-select mr-sm-2" id="products_categories_id" name="products_categories_id">
-                    <option selected disabled>Choose...</option>
-                    @foreach ($ProductCategories as $ProductCategory)
-                        <option value="{{$ProductCategory->id}}" {{( old('products_categories_id') == $ProductCategory->id) ? 'selected' : ''}}>{{$ProductCategory->name}}</option>
-                    @endforeach
-                </select>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-tag"></i>
+                        </span>
+                    </div>
+                    <select class="custom-select mr-sm-2" id="products_categories_id" name="products_categories_id">
+                        <option selected disabled>Choose...</option>
+                        @foreach ($ProductCategories as $ProductCategory)
+                            <option value="{{$ProductCategory->id}}" {{( old('products_categories_id') == $ProductCategory->id) ? 'selected' : ''}}>{{$ProductCategory->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
         </div>
 

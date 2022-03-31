@@ -21,23 +21,24 @@ class CajaController extends Controller
 
     public function messageProduct(){
         return [
-            'user_id.required' => 'El id del usuario es requerido.',
-            'user_id.int' => 'El id debe ser un numero.',
+            'user_id.required' => 'El el usuario es requerido.',
+            'user_id.int' => 'El id del usuario deber ser numerico-int.',
 
-            'box_id.required' => 'El id de la caja es requerido.',
-            'box_id.int' => 'El id debe ser un numero.',
+            'box_id.required' => 'La caja es requerida.',
+            'box_id.int' => 'El id de la caja deber ser numerico-int.',
 
-            'customer_id.required' => 'El id del cliente es requerido.',
-            'customer_id.int' => 'El id debe ser un numero.',
+            'customer_id.required' => 'El cliente es requerido',
+            'customer_id.int' => 'El id del cliente dene ser numerico-int',
 
             'order_types_id.required' => 'El id del tipo de orden es requerido.',
-            'order_types_id.int' => 'El id debe ser un numero.',
+            'order_types_id.int' => 'El id del tipo de orden debe ser numerico-int.',
 
-            'table_id.required' => 'El id de la mesa es requerido.',
-            'table_id.int' => 'El id debe ser un numero.',
+            'table_id.required' => 'La mesa es requerida.',
+            'table_id.int' => 'El id de la mesa debe ser numerico-int.',
 
             'total_order.required' => 'El total es requerido.',
-            'total_order.required' => 'El total debe ser un con punto decimal.'
+            'total_order.required' => 'El total debe ser un con punto decimal.',
+            'products.required' => 'No hay productos seleccionados'
         ];
     }
 

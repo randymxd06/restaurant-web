@@ -168,9 +168,8 @@
         </div>
     </div>
     <!-- /Productos-->
-
+    <div class="tab-pane fade " id="invoice" role="tabpanel" aria-labelledby="invoice-tab">
     <aside class="control-sidebar control-sidebar-light order-sidebar">
-        
             
             <!-- Ordenes -->
             <div class="order-header">
@@ -187,7 +186,9 @@
                     </tr>
                     <tr>
                         <th>Cliente: </th>
-                        <td class="customer-id" id="customer-id">Sin Cliente</td>
+                        <td class="customer-id" id="customer-id">
+                            Sin Cliente
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -217,11 +218,10 @@
                     <form method="post" action="{{ url('/caja/store') }}">
                         <!-- TOKEN -->
                         @csrf
-                        
                         <input hidden type="number" name="user_id" id="user_id" value="{{{ Auth::user()->id }}}">
                         <input hidden type="number" name="box_id" id="box_id" value="1">
                         <input hidden type="number" name="customer_id" id="customer_id" value="">
-                        <input hidden type="number" name="table_id" id="table_id" value="0">
+                        <input hidden type="number" name="table_id" id="table_id" value="">
                         <input hidden type="text" name="total_order" id="total_order" value="0">
                         
                         <input hidden type="text" name="products" id="products" value="">
@@ -240,7 +240,7 @@
                         <tr>
                             <th>Subtotal</th>
                             <td style="width: 20px">RD$</td>
-                            <td style="width: 40px" name="order-subtotal" id="order-subtotal">100.00</td>
+                            <td style="width: 40px" name="order-subtotal" id="order-subtotal">0.00</td>
                         </tr>
                         <tr>
                             <th>Descuento</th>
@@ -250,7 +250,7 @@
                         <tr>
                             <th>Total</th>
                             <td style="width: 20px">RD$</td>
-                            <td style="width: 40px" name="order-total" id="order-total">100.00</td>
+                            <td style="width: 40px" name="order-total" id="order-total">0.00</td>
                         </tr>
                     </tbody>
                 </table>
@@ -271,225 +271,34 @@
         <!-- /Ordenes -->
         
     </aside>
-</div>
-
-<!-- Modal para seleccionar mesa -->
-<div class="modal fade" id="tableModal" tabindex="-1" role="dialog" aria-labelledby="tableModalTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="tableModalTitle">Seleccionar Mesa</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th style="width: 10px">#</th>
-                            <th>Salon</th>
-                            <th>Estado</th>
-                            <th style="width: 40px"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($tables as $t)
-                            <tr>
-                                <td> {{ $t -> id }} </td>
-                                
-                                @foreach($livingRooms as $lr)
-                                    @if($lr->id == $t->living_room_id)                                
-                                        <td> {{ $lr -> name }} </td>
-                                    @endif
-                                @endforeach
-                                <td>
-                                    <div class="progress progress-xs">
-                                        <div class="progress-bar {{(($t->status == 1) ? 'bg-success' : 'bg-warning')}}" style="width: 100%"></div>
-                                    </div>
-                                </td>
-                                <td>
-                                    @if($t->status == 1)                                
-                                        <button class="btn btn-primary btn-xs" data-dismiss="modal" onclick="selectTable({{ $t->id }})">
-                                            <i class="fas fa-hand-pointer"></i>
-                                        </button>
-                                    @endif
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
     </div>
 </div>
-<!-- / -->
-
-<!-- Modal para seleccionar Cliente -->
-<div class="modal fade" id="customersModal" tabindex="-1" role="dialog" aria-labelledby="customersModalTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="tableModalTitle">Seleccionar Cliente</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th style="width: 10px">#</th>
-                            <th>Salon</th>
-                            <th style="width: 40px"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach( $customers as $c )
-                            <tr>
-                                <td> {{ $c -> id }} </td>
-                                <td>Name</td>
-                                <td>
-                                    <button class="btn btn-primary btn-xs" data-dismiss="modal" onclick="selectCustomer({{ $c->id }})">
-                                        <i class="fas fa-hand-pointer"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- / -->
 
 <!-- Notificaciones de Error -->
+@if(count($errors)>0)
+    <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>
+                    <i class="icon fas fa-exclamation-triangle"></i>{{$error}}
+                </li>
+                <hr>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <!-- / -->
+<!-- Modals -->
+@include('caja.includes.modals')
 
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-    <link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}">
+<link rel="stylesheet" href="/css/admin_custom.css">
+<link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}">
 <style>
-    /* .content-header, .container-fluid, .content-wrapper {
-    margin: 0 !important;
-    padding: 0 !important;
-    } */
-    .order-products-body{
-        height: 200px !important ;
-        margin-top: 0 !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    .order-products-head{
-        margin-bottom: 0 !important
-    }
-    .layout-fixed .control-sidebar.order-sidebar{
-        display: block;
-        max-width: 350px;
-        width: 100%;
-        float: right !important;
-        right: 0;
-    }
-    .layout-navbar-fixed .wrapper .main-header, .layout-fixed .main-sidebar{
-        display: none;
-    }
-    .sidebar-category{
-        display: block !important;
-    }
-    .navbar-category{
-        display: flex !important;
-    }
-    /* Order */
-    .container-order{
-        bottom: 0;
-        right: 0;
-        position: fixed;
-        top: 56px;
-        font-size: 12px;
-        background-color: #fff;
-        max-width: 360px;
-        width: 100%;
-    }
-    .order-btn{
-        padding: 0 0.5rem;
-    }
-    .table-order {
-        width: 100%;
-    }
-    .table-order th {
-        width: 80px;
-        padding: 4px 10px;
-    }
-    .order-footer {
-        position: absolute;
-        width: 100%;
-        bottom: 6px;
-    }
-    .order-details{
-        font-size: 14px;
-    }
-    /*  */
-    .content-wrapper{
-        margin-right: 360px;
-    }
-
-    .tabs-menu-div{
-        display: none;
-        left: 0;
-        position: fixed;
-        right: 0;
-        top: 56px;
-    }
-    .card-body{
-        text-align: left;
-    }
-    .card-img-top {
-        height: 180px;
-        object-fit: cover;
-    }
-
-    @media screen and (max-width: 768px) {
-    /*   */
-
-    }
-    @media screen and (min-width: 640px) {
-        .tab-content>.tab-pane {
-        display: block;
-        }
-
-        .fade:not(.show) {
-        opacity: 100;
-        }
-    }
-    @media screen and (max-width: 640px) {
-        .container-order{
-            display: contents;
-        }
-        .content-wrapper{
-            margin-right: auto;
-        }
-        .tabs-menu-div{
-            display: flex;
-        }
-        .content-wrapper>.content{
-            padding: 2rem 0;
-        }
-        .container-fluid{
-            padding: 0;
-        }
-        #Products {
-            padding: 1rem;
-        }
-    }
+    @include('caja.includes.style');
 </style>
 @stop
 
@@ -498,85 +307,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 
+@include('caja.includes.caja_js');
 <script>
-    // Objeto con los Productos Seleccionados
-    let products = []; 
-
-    // Funcion para Agregar Productos
-    function addProduct(p){
-        let e = false;
-        p.qty = 0;
-        
-        for(let i of products){
-            if(i.name == p.name){
-                e = true;
-                i.qty+=1;
-                break;
-            }
-        }
-        
-        if(!e){
-            p.qty+=1;
-            products.push(p);
-        }
-
-        refreshProduct();
-    }
-
-    // Funcion Para reducir productos
-    function reduceProduct(id){
-        //  Recorerr los productos agregadors
-        
-        for (let p = 0; p < products.length; p++){
-            // If para verificar si el producto a eliminar existe en la lista
-            if(products[p].id === id){
-                // If para eliminar si la cantidad es igual a 1, de lo contrario reducir 1
-                if(products[p].qty == 1){
-                    products.splice(p, 1);
-                }else{
-                    products[p].qty-=1;
-                }
-                refreshProduct();
-                return
-            }
-        }
-    }
-
-    // Funcion para actualizar los productos en el html
-    const refreshProduct = function(){
-        let listProductsHTML = "";
-        let total = 0;
-
-        products.forEach(pro => {    
-            let importe = Math.round((parseFloat(pro.qty*pro.price).toFixed(2))*100)/100;
-            total = Math.round((total+importe)*100)/100;
-            console.log('Total: '+total);
-            listProductsHTML += '<tr>'+
-                                    '<td style="width: 170px;">'+pro.name+'</td>'+
-                                    '<td>'+pro.qty+'</td>'+
-                                    '<td>RD$'+importe+'</td>'+
-                                    '<td><button onclick="reduceProduct('+ pro.id +')"><i class="far fa-trash-alt"></i></button></td>'+
-                                '</tr>';
-        });
-        document.getElementById("add-products").innerHTML = listProductsHTML;
-        document.getElementById('products').value = JSON.stringify(products, null, 3);
-        document.getElementById('total_order').value = total;
-    } 
-
-    // Seleccionar mesa
-    function selectTable(id){
-        let table_id = id;
-        document.getElementById("id-mesa").innerHTML = '#'+table_id;
-        document.getElementById('table_id').value = table_id;
-    }
-
-    function selectCustomer(id){
-        let customer_id = id;
-        document.getElementById("customer-id").innerHTML = '#' + customer_id;
-        document.getElementById('customer_id').value = customer_id;
-    }
-    
-  //     
 </script>
 
 @stop

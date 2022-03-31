@@ -320,6 +320,7 @@ return [
                             'icon'    => 'fas fa-fw fa-calendar-plus',
                         ]
                     ]
+<<<<<<< HEAD
                 ],
                 [
                     'text' => 'Clientes',
@@ -338,13 +339,32 @@ return [
                     ]
                 ],
 
+=======
+                ]
+>>>>>>> 21eda2bfb5c8fed7e0151800337e90f2716e3dad
                 // [
                 //     'text' => 'Eventos',
                 //     'url'  => '#',
                 // ],
             ],
         ],
-
+        [
+            'text' => 'Clientes',
+            'icon'    => 'fas fa-fw fa-address-card',
+            'submenu'  => [
+                [
+                    'text' => 'Clientes',
+                    'url'  => '#',
+                    'icon'    => 'far fa-fw fa-address-card',
+                ],
+                [
+                    'text' => 'Registrar',
+                    'url'  => '#',
+                    'icon'    => 'fas fa-fw fa-clipboard',
+                ]
+            ]
+        ],
+        
         // Bar
         [
             'text' => 'Bar',
