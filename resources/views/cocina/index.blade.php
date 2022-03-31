@@ -17,7 +17,7 @@
         <p>Las órdenes con un encabezado <span class="badge bg-primary text-dark">AZUL</span>, son órdenes para mesas (Normales).</p>
         <p>Las órdenes con un encabezado <span class="badge bg-gray text-dark">GRIS</span>, son órdenes para llevar (Delivery/Takeouts).</p>
         <p>Al hacer un clic sobre un orden, este pasará a estado trabajando/cocinando y la se pondrá en color <span class="badge bg-orange text-ligth">NARANJA</span>.</p>
-        <p>Al hacer un clic sobre un orden en estado trabajando-NARANJA. este se pondrá en color <span class="badge bg-success text-dark">VERDE</span> y estado finalizado y automáticamente se quitara de la orden luego de 30s. </p>
+        <p>Al hacer un clic sobre un orden en estado trabajando-NARANJA. este se pondrá en color <span class="badge bg-success text-dark">VERDE</span> y al volver hacer clic la orden se finalziara. </p>
     </div>
 </div>
 @stop
@@ -41,9 +41,18 @@
                         </h3>
                     </div>
                     <div class="order-time">
-                        <button onclick="changeStatus({{ $o->id }})" class="btn btn-tool">
+                        <button onclick="changeStatus({{ $o->id }})" class="btn btn-tool" id="button-{{$o->id}}">
                             <i class="fas fa-check"></i>
                         </button>
+                        <form method="post" action="{{ url('/cocina/update/'.$o->id)}}" class="d-none" id="form-{{$o->id}}">
+                            <!-- TOKEN -->
+                            @csrf
+                            {{method_field('PUT')}}
+                            <input type="checkbox" class="custom-control-input d-none" id="status"  name="status" checked>
+                            <button type="submit" class="btn btn-tool">
+                                <i class="fas fa-check"></i>
+                            </button>
+                        </form>
                         <p class="order-timer" id="order-timer">
                             00:00:00
                         </p>
@@ -134,6 +143,8 @@
             if(element.classList.contains("card-orange")){
                 element.classList.add("card-success");
                 element.classList.remove("card-orange");
+                document.getElementById("form-"+id).classList.remove('d-none');
+                document.getElementById("button-"+id).classList.add('d-none');
                 return;
             }
             

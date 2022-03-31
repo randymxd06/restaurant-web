@@ -9,13 +9,14 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\Product;
+use Carbon\Carbon;
 
 class CocinaController extends Controller
 {
 
     public function index(Request $request)
     {
-        $orders = Order::all()->where('status', '<>', 0);
+        $orders = Order::all()->where('status', '=', 1);
         $order_products = OrderProduct::all();
         $products = Product::all();
         return view('cocina.index', compact('orders', 'order_products', 'products'));
@@ -45,13 +46,17 @@ class CocinaController extends Controller
         return view('cocina.edit', compact('cocina'));
     }
 
-    public function update(CocinaUpdateRequest $request, Cocina $cocina)
+    public function update(Request $request, $id)
     {
-        $cocina->update($request->validated());
-
-        $request->session()->flash('cocina.id', $cocina->id);
-
-        return redirect()->route('cocina.index');
+        try{
+            $data = request()->except('_token', '_method');
+            $data['status'] = 2;
+            $data['updated_at'] = Carbon::now();
+            Order::where('id','=',$id)->update($data);
+            return redirect('cocina');
+        }catch(Exception $ex){
+            throw new Exception($ex);
+        }
     }
 
     public function destroy(Request $request, Cocina $cocina)
