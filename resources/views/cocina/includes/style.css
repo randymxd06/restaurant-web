@@ -1,0 +1,44 @@
+.content-kitchen{
+    margin: 0 !important;
+    padding-top: 5px;
+    min-height: calc(100vh - calc(3.5rem + 1px) - calc(8.5rem + 1px)) !important;
+    height: 100px !important;
+}
+.container-fluid, .content-wrapper .content{
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.content-kitchen.content-wrapper.kanban{
+    margin: 0 10px !important;
+    padding: 0 !important;
+}
+
+.orden-producto-info, .order-title {
+    margin: 0;
+    float: left;
+    display: flex;
+    flex-wrap: nowrap;
+    /* justify-content: center; */
+    align-items: center;
+}
+.orden-producto-info p {
+    margin: 0 5px;
+}
+.order-header{
+    display: flex;
+}
+.order-time{
+    margin: 0;
+    float: right;
+    text-align: center;
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+.order-title{
+    flex: 0 0 75%;
+    max-width: 75%;
+}
+.order-title i{
+    font-size: 30px;
+    margin-right: 10px;
+}

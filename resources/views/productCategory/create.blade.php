@@ -36,7 +36,14 @@
         <div class="col-md-12 mb-2">
             <div class="form-group">
                 <label class="form-label">Nombre:</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ isset($productCategory->name)?$productCategory->name:old('name') }}">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-tag"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ isset($productCategory->name)?$productCategory->name:old('name') }}">
+                </div>
             </div>
         </div>
     </div>

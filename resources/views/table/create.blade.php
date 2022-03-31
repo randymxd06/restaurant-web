@@ -39,12 +39,19 @@
         <div class="col-md-6 mb-2">
             <div class="form-group">
                 <label class="form-label">Salón:</label>
-                <select class="custom-select mr-sm-2" id="living_room_id" name="living_room_id">
-                    <option selected disabled>Selecciona un salón...</option>
-                    @foreach ($LivingRooms as $LivingRoom)
-                        <option value="{{ $LivingRoom->id }}" {{( old('living_room_id') == $LivingRoom->id) ? 'selected' : ''}}>{{$LivingRoom->name}}</option>
-                    @endforeach
-                </select>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-person-booth"></i>
+                        </span>
+                    </div>
+                    <select class="custom-select mr-sm-2" id="living_room_id" name="living_room_id">
+                        <option selected disabled>Selecciona un salón...</option>
+                        @foreach ($LivingRooms as $LivingRoom)
+                            <option value="{{ $LivingRoom->id }}" {{( old('living_room_id') == $LivingRoom->id) ? 'selected' : ''}}>{{$LivingRoom->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
         </div>
         <!-- / -->
@@ -53,7 +60,14 @@
         <div class="col-md-6 mb-2">
             <div class="form-group">
                 <label class="form-label">Capacidad de personas</label>
-                <input type="number" class="form-control" id="people_capacity" name="people_capacity" value="{{ isset($table->people_capacity)?$table->people_capacity:old('people_capacity') }}"/>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-user-friends"></i>
+                        </span>
+                    </div>
+                    <input type="number" class="form-control" id="people_capacity" name="people_capacity" value="{{ isset($table->people_capacity)?$table->people_capacity:old('people_capacity') }}"/>
+                </div>
             </div>
         </div>
         <!-- / -->

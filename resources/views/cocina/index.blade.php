@@ -16,7 +16,7 @@
     <div class="card-body" style="display: block;">
         <p>Las órdenes con un encabezado <span class="badge bg-primary text-dark">AZUL</span>, son órdenes para mesas (Normales).</p>
         <p>Las órdenes con un encabezado <span class="badge bg-gray text-dark">GRIS</span>, son órdenes para llevar (Delivery/Takeouts).</p>
-        <p>Al hacer un clic sobre un orden, este pasará a estado trabajando/cocinando y la se pondrá en color <span class="badge bg-warning text-dark">NARANJA</span>.</p>
+        <p>Al hacer un clic sobre un orden, este pasará a estado trabajando/cocinando y la se pondrá en color <span class="badge bg-orange text-ligth">NARANJA</span>.</p>
         <p>Al hacer un clic sobre un orden en estado trabajando-NARANJA. este se pondrá en color <span class="badge bg-success text-dark">VERDE</span> y estado finalizado y automáticamente se quitara de la orden luego de 30s. </p>
     </div>
 </div>
@@ -28,7 +28,7 @@
         <div class="container-fluid h-100">
             <!-- Orden -->
             @foreach($orders as $o)
-            <div class="card card-row card-primary">
+            <div class="card card-row card-primary" id="order-{{$o->id}}">
                 <div class="card-header order-header">
                     <div class="order-title">
                         <a href="#" class="btn btn-tool">
@@ -36,14 +36,15 @@
                         </a>
                         <h3 class="card-title">
                             Orden #<strong>{{ $o->id }}</strong> <br>
-                            Mesa <strong>{{ $o->table_id }}</strong>
+                            Mesa <strong>{{ $o->table_id }}</strong> <br>
+                            Mesero: <strong>name</strong>
                         </h3>
                     </div>
                     <div class="order-time">
-                        <a href="#" class="btn btn-tool">
+                        <button onclick="changeStatus({{ $o->id }})" class="btn btn-tool">
                             <i class="fas fa-check"></i>
-                        </a>
-                        <p class="order-timer">
+                        </button>
+                        <p class="order-timer" id="order-timer">
                             00:00:00
                         </p>
                     </div>
@@ -111,54 +112,36 @@
 <link rel="stylesheet" href="/css/admin_custom.css">
 <link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}">
 <style>
-    .content-kitchen{
-        margin: 0 !important;
-        padding-top: 5px;
-        min-height: calc(100vh - calc(3.5rem + 1px) - calc(8.5rem + 1px)) !important;
-        height: 100px !important;
-
-    }
-    .container-fluid, .content-wrapper .content{
-        padding: 0 !important;
-        margin: 0 !important;
-    }
-    .content-kitchen.content-wrapper.kanban{
-        margin: 0 10px !important;
-        padding: 0 !important;
-    }
-
-    .orden-producto-info, .order-title {
-        margin: 0;
-        float: left;
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: center;
-        align-items: center;
-    }
-    .orden-producto-info p {
-        margin: 0 5px;
-    }
-    .order-header{
-        display: flex;
-    }
-    .order-time{
-        margin: 0;
-        float: right;
-        text-align: center;
-        flex: 0 0 25%;
-        max-width: 25%;
-    }
-    .order-title{
-        flex: 0 0 75%;
-        max-width: 75%;
-    }
-    .order-title i{
-        font-size: 30px;
-        margin-right: 10px;
-    }
+    @include('cocina.includes.style');
 </style>
 @stop
 
 @section('js')
-    <script>Console.log('HOLA');</script>
+    <script>
+        let time = 10; // Segundos
+        // let orderTimer;
+
+        function changeStatus(id){
+            let element = document.getElementById("order-"+id);
+            
+            if(element.classList.contains("card-primary")){
+                element.classList.add("card-orange");
+                element.classList.remove("card-primary");
+                //Cada 1 segundo se crea un nuevo elemento
+                return;
+            }
+
+            if(element.classList.contains("card-orange")){
+                element.classList.add("card-success");
+                element.classList.remove("card-orange");
+                return;
+            }
+            
+            if(element.classList.contains("card-success")){
+                element.classList.add("card-primary");
+                element.classList.remove("card-success");
+                return;
+            }
+        }
+    </script>
 @stop
