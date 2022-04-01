@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\Box;
@@ -23,8 +24,8 @@ class BoxFactory extends Factory
     public function definition()
     {
         return [
-            'start_time' => $this->faker->time(),
-            'end_time' => $this->faker->time(),
+            'user_id' => User::factory(),
+            'device_use' => $this->faker->name,
             'status' => $this->faker->boolean,
         ];
     }

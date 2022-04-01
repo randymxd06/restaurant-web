@@ -10,18 +10,14 @@ class Phone extends Model
 {
     use HasFactory, SoftDeletes;
 
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
+    protected $table = 'phones';
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
+    protected $fillable = [
+        'entity_id',
+        'phone',
+        'status',
+    ];
+
     protected $casts = [
         'id' => 'integer',
         'entity_id' => 'integer',
@@ -33,8 +29,4 @@ class Phone extends Model
         return $this->belongsTo(Entity::class);
     }
 
-    public function entity()
-    {
-        return $this->belongsTo(Entity::class);
-    }
 }

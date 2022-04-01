@@ -15,7 +15,7 @@ class CreateCivilStatusesTable extends Migration
     {
         Schema::create('civil_status', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('description');
+            $table->string('description')->unique();
             $table->boolean('status')->default(true);
             $table->timestamps();
             $table->softDeletes()->nullable();

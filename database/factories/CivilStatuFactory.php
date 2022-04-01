@@ -15,16 +15,12 @@ class CivilStatuFactory extends Factory
      */
     protected $model = CivilStatu::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         return [
-            'description' => $this->faker->text,
+            'description' => $this->faker->name(),
             'status' => $this->faker->boolean,
         ];
     }
+
 }

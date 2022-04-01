@@ -12,6 +12,11 @@ class CivilStatus extends Model
 
     protected $table = 'civil_status';
 
+    protected $fillable = [
+        'description',
+        'status'
+    ];
+
     protected $casts = [
         'id' => 'integer',
         'status' => 'boolean',
@@ -21,4 +26,5 @@ class CivilStatus extends Model
     {
         return $this->belongsTo(Entity::class);
     }
+
 }

@@ -10,7 +10,13 @@ class ProductCategory extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $guarded = [];
+    protected $table = 'product_categories';
+
+    protected $fillable = [
+        'name',
+        'description',
+        'status',
+    ];
 
     protected $casts = [
         'id' => 'integer',

@@ -33,6 +33,7 @@ class EntityFactory extends Factory
             'civil_status_id' => CivilStatus::factory(),
             'nationality_id' => Nationality::factory(),
             'status' => $this->faker->boolean,
+            'birth_date' => $this->faker->date
         ];
     }
 }

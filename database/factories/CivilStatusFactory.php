@@ -23,7 +23,7 @@ class CivilStatusFactory extends Factory
     public function definition()
     {
         return [
-            'description' => $this->faker->text,
+            'description' => $this->faker->name(),
             'status' => $this->faker->boolean,
         ];
     }
