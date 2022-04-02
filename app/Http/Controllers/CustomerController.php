@@ -182,6 +182,9 @@ class CustomerController extends Controller
 
     }
 
+    /*-----------
+        UPDATE
+    -------------*/
     public function update(Request $request, $id)
     {
 
