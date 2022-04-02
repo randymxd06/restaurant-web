@@ -10,18 +10,17 @@ class Reservation extends Model
 {
     use HasFactory, SoftDeletes;
 
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
+    protected $table = 'reservations';
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
+    protected $fillable = [
+        'customer_id',
+        'type_reservations_id',
+        'living_room_id',
+        'number_people',
+        'description',
+        'status'
+    ];
+
     protected $casts = [
         'customers_id' => 'integer',
         'type_reservations_id' => 'integer',

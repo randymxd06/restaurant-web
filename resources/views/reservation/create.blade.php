@@ -4,7 +4,7 @@
 
 @section('content_header')
     <h1>Realizar Reservación</h1>
-    
+
     <hr class="mt-2">
     <!-- Mensaje de error -->
     @if(count($errors)>0)
@@ -24,18 +24,23 @@
 @stop
 
 @section('content')
+
 <!-- FORMULARIO -->
-<form method="post" action="{{ url('/reservations/store') }}">
+<form method="post" action="{{ url('/reservation/store') }}">
+
     <!-- TOKEN -->
     @csrf
-    <!-- Cliente -->
-    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModalScrollable">
+
+    {{-- BOTON QUE ABRE EL MODAL --}}
+    <button type="button" class="btn btn-outline-primary mb-4" data-toggle="modal" data-target="#exampleModalScrollable">
         <i class="fas fa-user-check"></i>
         Seleccionar Cliente
     </button>
 
-    <div class="form-row">
-        <!-- Nombre -->
+    {{-- INPUTS DEL CLIENTE --}}
+    <div class="row">
+
+        <!-- NOMBRE -->
         <div class="col-md-4 mb-2">
             <div class="form-group">
                 <label class="form-label">Nombre</label>
@@ -45,13 +50,13 @@
                             <i class="fas fa-user"></i>
                         </span>
                     </div>
-                    <input type="text" class="form-control">
+                    <input disabled name="first_name" id="first_name" type="text" class="form-control" placeholder="Nombre del cliente" value="prueba">
                 </div>
             </div>
-        </div> 
+        </div>
         <!-- / -->
 
-        <!-- Apellido -->
+        <!-- APELLIDO -->
         <div class="col-md-4 mb-2">
             <div class="form-group">
                 <label class="form-label">Apellido</label>
@@ -61,12 +66,13 @@
                             <i class="fas fa-dollar-sign"></i>
                         </span>
                     </div> -->
-                    <input type="text" class="form-control">
+                    <input disabled name="last_name" id="last_name" type="text" class="form-control" placeholder="Apellido del cliente" value="prueba">
                 </div>
             </div>
-        </div> 
+        </div>
         <!-- / -->
-        <!-- Telefono -->
+
+        <!-- TELEFONO -->
         <div class="col-md-4 mb-2">
             <div class="form-group">
                 <label>Teléfono</label>
@@ -74,33 +80,33 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-phone"></i></span>
                     </div>
-                    <input type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999&quot;" data-mask="" inputmode="text">
+                    <input disabled name="phone" id="phone" type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999&quot;" data-mask="" inputmode="text" placeholder="Teléfono del cliente" value="809-145-9874">
                 </div>
             </div>
-        </div> 
+        </div>
         <!-- / -->
-    </div>
-    
-    <div class="form-row">
-        <!-- Correo -->
-        <div class="col-md-6 mb-2">
+
+        <!-- CORREO -->
+        <div class="col-md-5 mb-2">
             <div class="form-group">
                 <label>Correo</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                     </div>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input disabled name="email" id="email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Correo electrónico del cliente" value="prueba03@gmail.com">
                 </div>
             </div>
-        </div> 
-        <!-- / -->
+        </div>
+
     </div>
-    <!-- / -->
+
     <hr>
-    <br>
-    <div class="form-row">
-        <!-- Tipo Reservacion -->
+
+    {{-- LOS DEMAS INPUTS --}}
+    <div class="form-row mt-4">
+
+        <!-- TIPO RESERVACION -->
         <div class="col-md-6 mb-2">
             <div class="form-group">
                 <label class="form-label">Reservación para:</label>
@@ -108,17 +114,18 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-glass-cheers"></i></span>
                     </div>
-                    <select class="custom-select mr-sm-2" id="" name="">
-                        <option selected="" disabled="">Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">One</option>
-                        <option value="3">One</option>
+                    <select class="custom-select mr-sm-2" id="type_reservations_id" name="type_reservations_id">
+                        <option selected="" disabled="">Selecciona un tipo de reservacion...</option>
+                        @foreach($typeReservations as $typeReservation)
+                            <option value="{{$typeReservation->id}}">{{$typeReservation->name}}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
         </div>
         <!-- / -->
-        <!-- Salon -->
+
+        <!-- SALON -->
         <div class="col-md-6 mb-2">
             <div class="form-group">
                 <label class="form-label">Salón:</label>
@@ -126,33 +133,33 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-person-booth "></i></span>
                     </div>
-                    <select class="custom-select mr-sm-2" id="" name="">
-                        <option selected="" disabled="">Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">One</option>
-                        <option value="3">One</option>
+                    <select class="custom-select mr-sm-2" id="living_room_id" name="living_room_id">
+                        <option selected="" disabled="">Selecciona un salon...</option>
+                        @foreach($livingRooms as $livingRoom)
+                            <option value="{{$livingRoom->id}}">{{$livingRoom->name}}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
         </div>
         <!-- / -->
-    </div>
 
-    <div class="form-row">
-        <!-- Fecha y Hora -->
+        <!-- FECHA Y HORA -->
         <div class="col-sm-6 mb-2">
             <div class="form-group">
                 <label class="form-label">Fecha & Hora:</label>
                 <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
-                    <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                    </div>
+                    <input name="date_time" id="date_time" type="datetime-local" class="form-control"/>
+{{--                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>--}}
+{{--                    <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">--}}
+{{--                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>--}}
+{{--                    </div>--}}
                 </div>
             </div>
-        </div>        
+        </div>
         <!-- / -->
-        <!-- Numero de personas -->
+
+        <!-- NUMERO DE PERSONAS -->
         <div class="col-sm-6 mb-2">
             <div class="form-group">
                 <label class="form-label">Número de Personas:</label>
@@ -160,11 +167,21 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-user-friends"></i></span>
                     </div>
-                    <input type="number" class="form-control" id="" name="" value="">
+                    <input type="number" class="form-control" id="number_people" name="number_people" value="" placeholder="Escribe la cantidad de personas">
                 </div>
             </div>
         </div>
         <!-- / -->
+
+        <!-- DESCRIPCIÓN -->
+        <div class="col-sm-12 mb-2">
+            <div class="form-group">
+                <label class="form-label">Descripción</label>
+                <textarea class="form-control" id="description" name="description" rows="3" >{{ isset($table->description)?$table->description:old('description') }}</textarea>
+            </div>
+        </div>
+        <!-- / -->
+
     </div>
 
     <!-- NOTA: Al momento de crear la reserva el estado sera activo -->
@@ -176,20 +193,26 @@
         </div>
     </div> -->
     <!-- / -->
+
     <hr>
+
     <!-- Boton Guardar -->
-    <button type="submit" class="btn btn-lg btn-success mt-4">
+    <button type="submit" class="btn btn-lg btn-success mt-4 mr-2">
         <i class="fas fa-calendar-check"></i>
         Reservar
     </button>
-    <a class="btn btn-danger mt-4" href="{{url('/reservations')}}">
+
+    <a class="btn btn-danger mt-4" href="{{url('/reservation')}}">
         <i class="fas fa-ban"></i>
         Cancelar
     </a>
     <!-- / -->
+
 </form>
+
 <!-- FIN DEL FORMULARIO -->
 <br><br><br>
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -217,112 +240,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr><tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr><tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
+                            @foreach($customers as $customer)
+                                <tr>
+                                    <th scope="row">{{$customer->id}}</th>
+                                    <td>{{$customer->first_name.' '.$customer->last_name}}</td>
+                                    <td>{{$customer->phone}}</td>
+                                    <td>{{$customer->email}}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

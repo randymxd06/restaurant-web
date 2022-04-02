@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
 //         \App\Models\OrderType::factory(3)->create();
 //         \App\Models\User::factory(3)->create();
+//         \App\Models\Entity::factory(3)->create();
 //         \App\Models\LivingRoom::factory(3)->create();
 //         \App\Models\Table::factory(20)->create();
 //         \App\Models\ProductCategory::factory(3)->create();
@@ -25,5 +26,9 @@ class DatabaseSeeder extends Seeder
 //         \App\Models\Nationality::factory(5)->create();
 //         \App\Models\CustomerType::factory(3)->create();
 //         \App\Models\Customer::factory(3)->create();
+//         \App\Models\TypeReservation::factory(3)->create();
+//         \App\Models\Email::factory(3)->create();
+//         \App\Models\Phone::factory(3)->create();
+//         \App\Models\TypeReservation::factory(3)->create();
     }
 }
