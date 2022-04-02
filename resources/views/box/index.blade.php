@@ -12,7 +12,6 @@
 @stop
 
 @section('content')
-
     <div class="row row-cols-1 row-cols-md-3">
 
         <!-- Card -->
@@ -25,40 +24,33 @@
                     <div class="card-header">
                         <h5 class="card-title">
                             <i class="fas fa-chair"></i>
-                            <!-- Numero de mesa -->
                             Caja #{{ $box->id }}
                         </h5>
                     </div>
 
-                    @foreach($boxesHistory as $boxHistory)
+                    <div class="card-body">
 
-                        <div class="card-body">
+                        <ul class="list-group list-group-flush">
 
-                            <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <strong>
+                                    <i class="fas fa-archway"></i>
+                                    Usuario:
+                                </strong>
+                                {{ $box->name }}
+                            </li>
 
-                                <li class="list-group-item">
-                                    <strong>
-                                        <i class="fas fa-male"></i>
-                                        Hora de inicio:
-                                    </strong>
-                                    <!-- Capacidad de personas -->
-                                    {{ $boxHistory->start_time }}
-                                </li>
+                            <li class="list-group-item">
+                                <strong>
+                                    <i class="fas fa-male"></i>
+                                    Dispositivo usado:
+                                </strong>
+                                {{ $box->device_use }}
+                            </li>
 
-                                <li class="list-group-item">
-                                    <strong>
-                                        <i class="fas fa-file-alt"></i>
-                                        Hora de cierre:
-                                    </strong>
-                                    <!-- Descripcion -->
-                                    {{ $boxHistory->end_time }}
-                                </li>
+                        </ul>
 
-                            </ul>
-
-                        </div>
-
-                    @endforeach
+                    </div>
 
                     <div class="card-footer text-center">
 
@@ -94,10 +86,8 @@
             </div>
 
     @endforeach
-        <!-- /Card -->
-
+    <!-- /Card -->
     </div>
-
 @stop
 
 @section('css')

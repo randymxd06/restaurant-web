@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Box;
 use App\Models\BoxHistory;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -24,7 +25,10 @@ class BoxController extends Controller
             'end_time.date_format:H:i' => 'La hora de cierre debe ser tipo 00:00.',
 
             'device_use.required' => 'El dispositivo es requerido.',
-            'device_use.string' => 'El dispositivo seleccionado debe ser tipo string',
+            'device_use.string' => 'debe seleccionar un dispositivo',
+
+            'user_id.required' => 'El usuario es requerido',
+            'user_id.string' => 'Debe seleccionar un usuario'
 
         ];
     }
@@ -32,11 +36,16 @@ class BoxController extends Controller
     /*----------
         INDEX
     ------------*/
-    public function index(Request $request)
+    public function index()
     {
-        $boxes = Box::all();
-        $boxesHistory = BoxHistory::all();
-        return view('box.index', compact('boxes', 'boxesHistory'));
+
+        $boxes = DB::table('boxes')
+            ->join('users', 'boxes.user_id', '=', 'users.id')
+            ->select('users.name', 'boxes.id', 'boxes.device_use', 'boxes.status')
+            ->get();
+
+        return view('box.index', compact('boxes'));
+
     }
 
     /*-----------
@@ -44,7 +53,11 @@ class BoxController extends Controller
     -------------*/
     public function create(Request $request)
     {
-        return view('box.create');
+
+        $users = User::all();
+
+        return view('box.create', compact('users'));
+
     }
 
     /*----------
@@ -60,6 +73,7 @@ class BoxController extends Controller
                 'start_time' => 'required|date_format:H:i',
                 'end_time' => 'required|date_format:H:i',
                 'device_use' => 'required|string',
+                'user_id' => 'required|integer',
                 'status' => 'boolean'
             ];
 
@@ -77,7 +91,7 @@ class BoxController extends Controller
             $boxes = new Box();
 
             // PREPARO LA DATA //
-            $boxes->user_id = $request->user()->id;
+            $boxes->user_id = $request['user_id'];
             $boxes->device_use = $request['device_use'];
             $boxes->status = $request['status'];
             $boxes->created_at = Carbon::now();
@@ -121,9 +135,10 @@ class BoxController extends Controller
     -----------*/
     public function edit($id)
     {
+        $users = User::all();
         $box = Box::findOrFail($id);
         $boxesHistory = BoxHistory::where('box_id', '=', $box->id)->first();
-        return view('box.edit', compact('box', 'boxesHistory'));
+        return view('box.edit', compact(['box', 'boxesHistory', 'users']));
     }
 
     /*-----------
@@ -137,6 +152,8 @@ class BoxController extends Controller
             $validate = [
                 'start_time' => 'required|date_format:H:i',
                 'end_time' => 'required|date_format:H:i',
+                'device_use' => 'required|string',
+                'user_id' => 'required|integer',
                 'status' => 'boolean'
             ];
 
@@ -152,15 +169,15 @@ class BoxController extends Controller
                 NOTA PARA DAURY: DB ES UNA LIBRERIA PARA HACER QUERIES,
                 SIN NECESIDAD DE USAR EL MODELO
             --------------------------------------------------------------*/
-            DB::table('boxes')->update([
-                'user_id' => $request->user()->id,
+            DB::table('boxes')->where('id', '=', $id)->update([
+                'user_id' => $request['user_id'],
                 'device_use' => $request['device_use'],
                 'status' => $request['status'],
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
 
-            DB::table('boxes_history')->update([
+            DB::table('boxes_history')->where('box_id', '=', $id)->update([
                 'box_id' => (int) $id,
                 'start_time' => $request['start_time'],
                 'end_time' => $request['end_time'],
