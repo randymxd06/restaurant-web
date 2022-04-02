@@ -142,5 +142,5 @@
 @stop
 
 @section('js')
-
+    @include('sweetalert::alert')
 @stop

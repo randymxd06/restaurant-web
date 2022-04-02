@@ -58,8 +58,8 @@ class ProductCategoryController extends Controller
                     'unique:product_categories,name'
                 ],
                 'description' => [
-                    'required',
-                    'string'
+                    // 'required',
+                    // 'string'
                 ]
             ];
             
@@ -68,7 +68,8 @@ class ProductCategoryController extends Controller
             
             // Validar el estado, para enviar como true o false
             ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;
-            
+            (empty($request['description'])) ? $request['description'] = $request['name'] : null;
+
             // Objeto con la informacion que es guardara, exceptuando el TOKEN
             $data = request()->except('_token');
             $data['name'] = ucfirst(strtolower($data['name']));
@@ -133,7 +134,8 @@ class ProductCategoryController extends Controller
             
             // Validar el estado, para enviar como true o false
             ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;
-            
+            (empty($request['description'])) ? $request['name'] = "" : null;
+
             // Objeto con la informacion que es guardara, exceptuando el TOKEN
             $data = request()->except('_token', '_method');
             $data['name'] = ucfirst(strtolower($data['name']));

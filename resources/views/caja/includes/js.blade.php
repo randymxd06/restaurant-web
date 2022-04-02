@@ -50,7 +50,7 @@
             let importe = Math.round((parseFloat(pro.qty*pro.price).toFixed(2))*100)/100;
             total = Math.round((total+importe)*100)/100;
             listProductsHTML += '<tr>'+
-                                    '<td style="width: 170px;">'+pro.name+'</td>'+
+                                    '<td>'+pro.name+'</td>'+
                                     '<td>'+pro.qty+'</td>'+
                                     '<td>RD$'+importe+'</td>'+
                                     '<td><button onclick="reduceProduct('+ pro.id +')"><i class="far fa-trash-alt"></i></button></td>'+

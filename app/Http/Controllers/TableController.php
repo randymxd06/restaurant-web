@@ -9,7 +9,7 @@ use App\Models\LivingRoom;
 use Dotenv\Validator;
 use Illuminate\Http\Request;
 use mysql_xdevapi\Exception;
-
+use Carbon\Carbon;
 /*---------------------
     TABLE CONTROLLER
 -----------------------*/
@@ -75,13 +75,15 @@ class TableController extends Controller
 
             // HAGO LA VALIDACION DEL STATUS, PARA ENVIARLA COMO TRUE O FALSE //
             ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;
+            (empty($request['description'])) ? $request['description'] = "Mesa para ".$request['people_capacity']." personas": null;
 
             // ESTE ES EL OBJETO CON LA INFORMACION QUE SE VA A GUARDAR //
             $json = [
                 'people_capacity' => (int) $request['people_capacity'],
                 'living_room_id' => (int) $request['living_room_id'],
                 'description' => ucfirst(strtolower($request['description'])),
-                'status' => $request['status']
+                'status' => $request['status'],
+                'created_at' => Carbon::now()
             ];
 
             // CREO LA MESA //
@@ -124,13 +126,15 @@ class TableController extends Controller
         $table = $request->except(['_token', '_method']);
         // HAGO LA VALIDACION DEL STATUS, PARA ENVIARLA COMO TRUE O FALSE //
         (isset($table['status'])) ? $table['status'] = 1 : $table['status'] = 0;
+        (empty($request['description'])) ? $request['description'] = "Mesa para ".$request['people_capacity']." personas": null;
 
         // ESTE ES EL OBJETO CON LA INFORMACION QUE SE VA A GUARDAR //
         $json = [
             'people_capacity' => (int) $table['people_capacity'],
             'living_room_id' => (int) $table['living_room_id'],
             'description' => ucfirst(strtolower($request['description'])),
-            'status' => $table['status']
+            'status' => $table['status'],
+            'updated_at' => Carbon::now()
         ];
 
         Table::where('id','=',$id)->update($json);

@@ -16,7 +16,7 @@
 <div class="row row-cols-2 row-cols-md-3 g-3 mb-4">
     <!-- Card Producto -->
     @foreach( $products as $p )
-    <div class="col">
+    <div class="col mt-3">
         <div class="card h-100 card-outline {{($p->status == true || $p->status == 1) ? 'card-success' : 'card-danger'}}">
             @if (!empty($p->image)) 
                 <img src="{{ asset('storage').'/'.$p->image }}" class="card-img-top" alt="...">
@@ -125,6 +125,7 @@
 @stop
 
 @section('js')
+@include('sweetalert::alert')
     <script>
         Console.log('HOLA');
     </script>
