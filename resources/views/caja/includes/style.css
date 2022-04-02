@@ -7,9 +7,14 @@
 .order-products-head{
     margin-bottom: 0 !important
 }
+.order-products-head thead td, .order-products-head thead th, .order-details th, .order-details td {
+    padding-bottom: 1px;
+    padding-top: 1px;
+} 
+
 .layout-fixed .control-sidebar.order-sidebar{
     display: block;
-    max-width: 350px;
+    max-width: 360px;
     width: 100%;
     float: right !important;
     right: 0;
@@ -75,7 +80,7 @@
     color: #495057;
 }
 .layout-navbar-fixed.layout-fixed .wrapper .control-sidebar {
-    top: calc(3.5rem + 50px);
+    top: calc(3.5rem + 0px);
 }
 
 @media screen and (max-width: 768px) {
@@ -114,3 +119,9 @@
         padding: 1rem;
     }
 }
+.tableFixHead          { overflow: auto; height: 68%; }
+.tableFixHead thead{ position: sticky; top: 0; z-index: 1; background-color: #fff; }
+
+/* Just common table stuff. Really. */
+table  { border-collapse: collapse; width: 100%; }
+th, td { padding: 8px 16px; }

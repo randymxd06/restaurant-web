@@ -11,6 +11,8 @@ use mysql_xdevapi\Exception;
 use function MongoDB\BSON\toJSON;
 use Illuminate\Support\Facades\Storage;
 
+use Alert;
+
 class ProductController extends Controller
 {
     
@@ -35,6 +37,7 @@ class ProductController extends Controller
     
     public function index()
     {
+        
         $products = Product::all();
         $ProductCategories = ProductCategory::all()->where('status', '=', 1);
         return view('product.index', compact('products'))->with('ProductCategories', $ProductCategories);
@@ -57,8 +60,8 @@ class ProductController extends Controller
                     'unique:products,name'
                 ],
                 'description' => [
-                    'required',
-                    'string'
+                    // 'required',
+                    // 'string'
                 ],
                 'products_categories_id' => [
                     'required',
@@ -75,7 +78,8 @@ class ProductController extends Controller
 
             // Validar el estado, para enviar como true o false
             ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;
-            
+            (empty($request['description'])) ? $request['description'] = $request['name'] : null;
+
             // Objeto con la informacion que es guardara, exceptuando el TOKEN
             $data = request()->except('_token');
             $data['name'] = ucfirst(strtolower($data['name']));
@@ -92,6 +96,7 @@ class ProductController extends Controller
 
             // Agregar producto 
             Product::insert($data);
+            Alert::toast('Producto agregador correctamente', 'success');
             return redirect('products');
         }catch(Exception $ex){
             throw new Exception($ex);
@@ -106,14 +111,12 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::findOrFail($id);
-        $ProductCategories = ProductCategory::all()->where('status', '=', 1);
+        $ProductCategories = ProductCategory::all();
         return view('product.edit', compact('product'))->with('ProductCategories', $ProductCategories);
     }
 
     public function update(Request $request, $id)
     {
-        
-
         try{
             $validate = [
                 'name' =>[
@@ -122,8 +125,8 @@ class ProductController extends Controller
                     'unique:products,name,'.$id
                 ],
                 'description' => [
-                    'required',
-                    'string'
+                    // 'required',
+                    // 'string'
                 ],
                 'products_categories_id' => [
                     'required',
@@ -140,14 +143,15 @@ class ProductController extends Controller
 
             // Validar el estado, para enviar como true o false
             ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;
-            
+            (empty($request['description'])) ? $request['description'] = $request['name'] : null;
+
             // Objeto con la informacion que es guardara, exceptuando el TOKEN
             $data = request()->except('_token', '_method');
             $data['name'] = ucfirst(strtolower($data['name']));
             $data['price'] = (double) $data['price'];
             $data['products_categories_id'] = (int) $data['products_categories_id'];
             $data['description'] = ucfirst(strtolower($data['description']));
-            $data['created_at'] = Carbon::now();
+            $data['updated_at'] = Carbon::now();
 
             if($request->hasFile('image')){
                 $product = Product::findOrFail($id);
@@ -160,6 +164,8 @@ class ProductController extends Controller
 
             // Actualizar datos cuando el id coincida
             Product::where('id','=',$id)->update($data);
+            Alert::toast('Producto editado correctamente', 'success');
+
             return redirect('products');
 
         }catch(Exception $ex){

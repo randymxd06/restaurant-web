@@ -108,7 +108,7 @@
         @foreach( $productCategories as $productCategory )
         <li class="nav-item">
             <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
+                <i class="nav-icon fas fa-tag"></i>
                 <p>
                     {{ $productCategory->name }}
                 </p>
@@ -143,135 +143,133 @@
 @section('content')
 
 <div class="tab-content" id="myTabContent">
-
     <!-- Productos -->
     <div class="tab-pane fade show active" id="Products" role="tabpanel" aria-labelledby="Products-tab">
         <div class="row row-cols-2 row-cols-md-4 g-4">
-
             <!-- Card -->
             @foreach($products as $p)
-            <button onclick="addProduct({{$p}})" class="col">
-                <div class="card h-100">
-                    @if (!empty($p->image)) 
+                <button onclick="addProduct({{$p}})" class="col mb-3">
+                    <div class="card h-100">
+                        @if (!empty($p->image)) 
                         <img src="{{ asset('storage').'/'.$p->image }}" class="card-img-top" alt="...">
-                    @else
+                        @else
                         <img src="{{URL::asset('images/daraguma-icon.png')}}" class="card-img-top" alt="...">
-                    @endif
-                    <div class="card-body">
-                        <p class="card-text"> {{ $p -> name }} </p>
-                        <span class="badge bg-light text-dark">RD$ {{ number_format($p->price, 2, '.', ','); }}</span>
+                        @endif
+                        <div class="card-body">
+                            <p class="card-text"> {{ $p -> name }} </p>
+                            <span class="badge bg-light text-dark">RD$ {{ number_format($p->price, 2, '.', ','); }}</span>
+                        </div>
                     </div>
-                </div>
-            </button>
+                </button>
             @endforeach
             <!-- /Card -->         
         </div>
     </div>
     <!-- /Productos-->
+
+    <!-- Informacion de la orden -->
     <div class="tab-pane fade " id="invoice" role="tabpanel" aria-labelledby="invoice-tab">
-    <aside class="control-sidebar control-sidebar-light order-sidebar">
-            
+        <aside class="control-sidebar control-sidebar-light order-sidebar">    
             <!-- Ordenes -->
-            <div class="order-header">
-                <table class="table-order">
-                    <tr>
-                        <th>Empleado: </th>
-                        <td>{{{ Auth::user()->name }}}</td>
-                    </tr>
-                    <tr>
-                        <th>Caja: </th>
-                        <td>#02</td>
-                        <th>Mesa: </th>
-                        <td class="id-mesa" id="id-mesa">Sin mesa</td>
-                    </tr>
-                    <tr>
-                        <th>Cliente: </th>
-                        <td class="customer-id" id="customer-id">
-                            Sin Cliente
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <!-- Productos Ordenados -->
-            <table class="order-products-head table table-striped">
-                <thead>
-                    <tr>
-                        <th style="width: 170px;">Nombre</th>
-                        <th>Qty.</th>
-                        <th>Precio</th>
-                        <th>
-                            <!-- <i class="far fa-trash-alt"></i> -->
-                        </th>
-                    </tr>
-                </thead>
-            </table>
-            <div class="order-products-body sidebar table-responsive">
-                <table class="table table-striped" id="add-products">
-                
-                </table>
-            </div>
-            <!-- /Productos Ordenados -->
-            <!-- Ordenes Footer -->
-            <div class="order-footer">
-                <div class="order-btn btnd-grid gap-2">
-                    <!-- Formulario -->
-                    <form method="post" action="{{ url('/caja/store') }}">
-                        <!-- TOKEN -->
-                        @csrf
-                        <input hidden type="number" name="user_id" id="user_id" value="{{{ Auth::user()->id }}}">
-                        <input hidden type="number" name="box_id" id="box_id" value="1">
-                        <input hidden type="number" name="customer_id" id="customer_id" value="">
-                        <input hidden type="number" name="table_id" id="table_id" value="">
-                        <input hidden type="text" name="total_order" id="total_order" value="0">
+            <div class="order-header tableFixHead">
+                <table class="order-products-head table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Empleado: </th>
+                            <td colspan="3">{{{ Auth::user()->name }}}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Caja:</strong>  <span>#02</span>
+                            </td>
+                            <th>Mesa:</th>
+                            <td class="id-mesa" id="id-mesa" colspan="2">Sin mesa</td>
+                        </tr>
+                        <tr>
+                            <th>Cliente: </th>
+                            <td class="customer-id" id="customer-id" colspan="3">
+                                Sin Cliente
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Qty.</th>
+                            <th>Precio</th>
+                            <th>
+                                <i class="far fa-trash-alt"></i>
+                            </th>
+                        </tr>
+                    </thead>
+                    <!-- Detalles -->
+                    <tbody id="add-products">
                         
-                        <input hidden type="text" name="products" id="products" value="">
-                        <!-- button -->
-                        <button class="btn btn-success btn-block">
-                            <i class="fas fa-receipt"></i>
-                            Enviar
-                        </button>
-                        <!-- /button -->
-                    </form>
-                    <!-- /Formulario -->
-                </div>
-                <!-- Detalles -->
-                <table class="order-details table">
-                    <tbody>
+                    </tbody>
+                </table>
+                <div class="order-footer">
+                    <table class="order-details table table-borderless">
+                        <tr>
+                            <td colspan="4">
+                                <!-- Formulario -->
+                                <form method="post" action="{{ url('/caja/store') }}">
+                                    <!-- TOKEN -->
+                                    @csrf
+                                    <input hidden type="number" name="user_id" id="user_id" value="{{{ Auth::user()->id }}}">
+                                    <input hidden type="number" name="box_id" id="box_id" value="1">
+                                    <input hidden type="number" name="customer_id" id="customer_id" value="">
+                                    <input hidden type="number" name="table_id" id="table_id" value="">
+                                    <input hidden type="text" name="total_order" id="total_order" value="0">
+                                    
+                                    <input hidden type="text" name="products" id="products" value="">
+                                    <!-- button -->
+                                    <button class="btn btn-success btn-block">
+                                        <i class="fas fa-receipt"></i>
+                                        Enviar
+                                    </button>
+                                    <!-- /button -->
+                                </form>
+                                <!-- /Formulario -->
+                            </td>
+                        </tr>
                         <tr>
                             <th>Subtotal</th>
-                            <td style="width: 20px">RD$</td>
-                            <td style="width: 40px" name="order-subtotal" id="order-subtotal">0.00</td>
+                            <td>RD$</td>
+                            <td colspan="2" name="order-subtotal" id="order-subtotal">0.00</td>
                         </tr>
                         <tr>
                             <th>Descuento</th>
-                            <td style="width: 20px">%</td>
-                            <td style="width: 40px" name="order-descuento" id="order-descuento">00</td>
+                            <td>%</td>
+                            <td colspan="2" name="order-descuento" id="order-descuento">00</td>
                         </tr>
                         <tr>
                             <th>Total</th>
-                            <td style="width: 20px">RD$</td>
-                            <td style="width: 40px" name="order-total" id="order-total">0.00</td>
+                            <td>RD$</td>
+                            <td colspan="2" name="order-total" id="order-total">0.00</td>
                         </tr>
-                    </tbody>
-                </table>
-                <!-- /Detalles -->
-                <div class="order-btn d-grid gap-2 d-flex justify-content-end">
-                        <!-- button -->
-                        <button class="btn btn-dark">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                        <!-- /button -->
-                    <button class="btn btn-success btn-lg" disabled>
-                        <i class="fas fa-cash-register"></i>
-                        Facturar
-                    </button>
+                        <tr>
+                            <td colspan="4">
+                                <div class="order-btn d-grid gap-2 d-flex justify-content-end">
+                                    <!-- button -->
+                                    <!-- <button class="btn btn-dark">
+                                        <i class="fas fa-trash"></i>
+                                    </button> -->
+                                    <a class="btn btn-dark d-flex align-items-center" href="{{url('/caja/create')}}">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                    <!-- /button -->
+                                    <button class="btn btn-success btn-lg" disabled>
+                                        <i class="fas fa-cash-register"></i>
+                                        Facturar
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
-            <!--/ Odenes Footer -->
-        <!-- /Ordenes -->
-        
-    </aside>
+            <!-- /Ordenes -->
+        </aside>
     </div>
+    <!--  -->
 </div>
 
 <!-- Notificaciones de Error -->
@@ -303,12 +301,11 @@
 @stop
 
 @section('js')
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-
-@include('caja.includes.caja_js');
-<script>
-</script>
-
+    @include('sweetalert::alert')
+    @include('caja.includes.js');
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <script>
+    </script>
 @stop

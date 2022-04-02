@@ -1,7 +1,20 @@
-{{--
-    @extends('layouts.app')
+@extends('adminlte::page')
 
-    @section('content')
-        caja.index template
-    @endsection
---}}
+@section('title', 'Caja Inicio')
+
+@section('content_header')
+    <h1>Caja Inicio</h1>
+@stop
+
+@section('content')
+
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+    <link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}">
+@stop
+
+@section('js')
+    <script>Console.log('HOLA');</script>
+@stop

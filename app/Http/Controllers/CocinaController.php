@@ -10,6 +10,7 @@ use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\Product;
 use Carbon\Carbon;
+use Alert;
 
 class CocinaController extends Controller
 {
@@ -19,6 +20,8 @@ class CocinaController extends Controller
         $orders = Order::all()->where('status', '<>', 0);
         $order_products = OrderProduct::all();
         $products = Product::all();
+        Alert::toast('Toast Message', 'Toast Type');
+        Alert::success('Success Title', 'Success Message');
         return view('cocina.index', compact('orders', 'order_products', 'products'));
     }
 

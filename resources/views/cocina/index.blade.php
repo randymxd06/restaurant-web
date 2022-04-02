@@ -124,8 +124,8 @@
     @include('cocina.includes.style');
 </style>
 @stop
-
 @section('js')
+    @include('sweetalert::alert')
     <script>
         let time = 10; // Segundos
         // let orderTimer;
