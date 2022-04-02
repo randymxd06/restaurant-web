@@ -20,12 +20,12 @@
 
             <div class="col mb-4">
 
-                <div class="card card-outline h-100 {{(($customer->status == 1) ? 'card-success' : (($customer->status == 2) ? 'card-warning' : 'card-danger'))}}">
+                <div class="card card-outline h-100 {{(($customer->customer_status == 1) ? 'card-success' : (($customer->customer_status == 2) ? 'card-warning' : 'card-danger'))}}">
 
                     <div class="card-header">
                         <h5 class="card-title">
                             <i class="fas fa-chair"></i>
-                            Cliente #{{ $customer->id }}
+                            Cliente #{{ $customer->customer_id }}
                         </h5>
                     </div>
 
@@ -33,14 +33,7 @@
 
                         <ul class="list-group list-group-flush">
 
-                            <li class="list-group-item">
-                                <strong>
-                                    <i class="fas fa-male"></i>
-                                    Nombre del cliente:
-                                </strong>
-                                {{ $customer->first_name }}
-                            </li>
-
+                            {{-- TIPO DE CLIENTE --}}
                             <li class="list-group-item">
                                 <strong>
                                     <i class="fas fa-file-alt"></i>
@@ -49,12 +42,58 @@
                                 {{ $customer->name }}
                             </li>
 
+                            {{-- NOMBRE Y APELLIDO DEL CLIENTE --}}
+                            <li class="list-group-item">
+                                <strong>
+                                    <i class="fas fa-male"></i>
+                                    Nombre:
+                                </strong>
+                                {{ $customer->first_name.' '.$customer->last_name }}
+                            </li>
+
+                            {{-- CEDULA DEL CLIENTE --}}
                             <li class="list-group-item">
                                 <strong>
                                     <i class="fas fa-file-alt"></i>
                                     Cédula:
                                 </strong>
                                 {{ $customer->identification }}
+                            </li>
+
+                            {{-- SEXO DEL CLIENTE --}}
+                            <li class="list-group-item">
+                                <strong>
+                                    <i class="fas fa-file-alt"></i>
+                                    Sexo:
+                                </strong>
+                                {{ $customer->sex_name }}
+                            </li>
+
+                            {{-- ESTADO CIVIL DEL CLIENTE --}}
+                            <li class="list-group-item">
+                                <strong>
+                                    <i class="fas fa-file-alt"></i>
+                                    Estado civil:
+                                </strong>
+                                {{ $customer->civil_status_name }}
+                            </li>
+
+                            {{-- NACIONALIDAD DEL CLIENTE --}}
+                            <li class="list-group-item">
+                                <strong>
+                                    <i class="fas fa-file-alt"></i>
+                                    Nacionalidad:
+                                </strong>
+                                {{ $customer->nationality_name }}
+                            </li>
+
+                            {{-- FECHA DE NACIMIENTO DEL CLIENTE --}}
+                            <li class="list-group-item">
+                                <strong>
+                                    <i class="fas fa-file-alt"></i>
+                                    Fecha de nacimiento:
+                                </strong>
+                                {{ $customer->birth_date }}
                             </li>
 
                         </ul>
@@ -66,18 +105,18 @@
                         <!-- The footer of the card -->
                         <div class="btn-group">
 
-                            <a href="{{url('/customer/edit/'.$customer->id)}}" class="btn btn-warning">
+                            <a href="{{url('/customer/edit/'.$customer->customer_id)}}" class="btn btn-warning">
                                 <i class="fas fa-edit"></i>
                                 Editar
                             </a>
 
-                            <form action="{{url('/customer/delete/'.$customer->id)}}" method="post">
+                            <form action="{{url('/customer/delete/'.$customer->customer_id)}}" method="post">
 
                                 @csrf
 
                                 {{method_field('DELETE')}}
 
-                                <button type="submit" onclick="return confirm('Deseas eliminar esta mesa?')" class="btn btn-danger" value="borrar">
+                                <button type="submit" onclick="return confirm('Deseas eliminar este cliente?')" class="btn btn-danger" value="borrar">
                                     <i class="fas fa-trash"></i>
                                     Eliminar
                                 </button>

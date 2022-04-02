@@ -58,17 +58,27 @@ class CustomerController extends Controller
         ];
     }
 
+    /*----------
+        INDEX
+    ------------*/
     public function index()
     {
         $customers = DB::table('customers')
             ->join('entities', 'customers.entity_id', '=', 'entities.id')
+            ->join('sexs', 'entities.sex_id', '=', 'sexs.id')
+            ->join('civil_status', 'entities.civil_status_id', '=', 'civil_status.id')
+            ->join('nationalities', 'entities.nationality_id', '=', 'nationalities.id')
             ->join('customer_types', 'customers.customer_type_id', '=', 'customer_types.id')
-            ->select('customers.*', 'entities.first_name', 'entities.status', 'entities.identification', 'customer_types.name')
+            ->select('customers.id as customer_id', 'entities.first_name', 'entities.last_name', 'entities.identification', 'entities.status as customer_status', 'entities.birth_date', 'customer_types.*', 'sexs.name as sex_name', 'civil_status.description as civil_status_name', 'nationalities.name as nationality_name')
+            ->where('customers.deleted_at', '=', null)
             ->get();
 
         return view('customer.index', compact(['customers']));
     }
 
+    /*-----------
+        CREATE
+    -------------*/
     public function create()
     {
         $sexs = Sex::all();
@@ -78,6 +88,9 @@ class CustomerController extends Controller
         return view('customer.create', compact(['sexs', 'civilStatus', 'nationalities', 'customerTypes']));
     }
 
+    /*----------
+        STORE
+    ------------*/
     public function store(Request $request)
     {
 
@@ -141,22 +154,109 @@ class CustomerController extends Controller
         return view('customer.show', compact('customer'));
     }
 
-    public function edit(Request $request, Customer $customer)
+    /*---------
+        EDIT
+    -----------*/
+    public function edit($id)
     {
-        return view('customer.edit', compact('customer'));
+
+        $customers = DB::table('customers')
+            ->join('entities', 'customers.entity_id', '=', 'entities.id')
+            ->join('emails', 'entities.id', '=', 'emails.entity_id')
+            ->join('phones', 'entities.id', '=', 'phones.entity_id')
+            ->join('sexs', 'entities.sex_id', '=', 'sexs.id')
+            ->join('civil_status', 'entities.civil_status_id', '=', 'civil_status.id')
+            ->join('nationalities', 'entities.nationality_id', '=', 'nationalities.id')
+            ->join('customer_types', 'customers.customer_type_id', '=', 'customer_types.id')
+            ->select('customers.id as customer_id', 'entities.id as entity_id', 'entities.first_name', 'entities.last_name', 'entities.identification', 'entities.status as customer_status', 'entities.birth_date', 'customer_types.name', 'customer_types.id as customer_types_id', 'sexs.name as sex_name', 'sexs.id as sex_id', 'civil_status.description as civil_status_name', 'civil_status.id as civil_status_id', 'nationalities.name as nationality_name', 'nationalities.id as nationality_id', 'emails.email', 'phones.phone')
+            ->where('customers.deleted_at', '=', null)
+            ->where('customers.id', '=', $id)
+            ->first();
+
+        $sexs = Sex::all();
+        $civilStatus = CivilStatus::all();
+        $nationalities = Nationality::all();
+        $customerTypes = CustomerType::all();
+
+        return view('customer.edit', compact(['customers', 'sexs', 'civilStatus', 'nationalities', 'customerTypes']));
+
     }
 
-    public function update(CustomerUpdateRequest $request, Customer $customer)
+    /*-----------
+        UPDATE
+    -------------*/
+    public function update(Request $request, $id)
     {
-        $customer->update($request->validated());
-        $request->session()->flash('customer.id', $customer->id);
-        return redirect()->route('customer.index');
+
+        $validate = [
+            "first_name" => 'required|string',
+            "last_name" => 'required|string',
+            "identification" => 'required|string',
+            "sex_id" => "required|integer",
+            "civil_status_id" => "required|integer",
+            "nationality_id" => "required|integer",
+            "customer_type_id" => "required|integer",
+            "email" => 'required|string',
+            "phone" => 'required|string',
+            "birth_date" => 'required|date'
+        ];
+
+        $this -> validate($request, $validate, $this->messageProduct());
+
+        $request->except('_token');
+
+        Entity::where('id', '=', $id)->update([
+            'first_name' => $request['first_name'],
+            'last_name' => $request['last_name'],
+            'identification' => $request['identification'],
+            'sex_id' => $request['sex_id'],
+            'civil_status_id' => $request['civil_status_id'],
+            'nationality_id' => $request['nationality_id'],
+            'status' => true,
+            'birth_date' => $request['birth_date'],
+        ]);
+
+        Email::where('id', '=', $id)->update([
+            'entity_id' => $id,
+            'status' => true,
+            'email' => $request['email'],
+        ]);
+
+        Phone::where('id', '=', $id)->update([
+            'entity_id' => $id,
+            'status' => true,
+            'phone' => $request['phone'],
+        ]);
+
+        Customer::where('id', '=', $id)->update([
+            'entity_id' => $id,
+            'customer_type_id' => $request['customer_type_id'],
+        ]);
+
+        return redirect('customer');
+
     }
 
-    public function destroy(Request $request, Customer $customer)
+    /*------------
+        DESTROY
+    --------------*/
+    public function destroy($id)
     {
-        $customer->delete();
-        return redirect()->route('customer.index');
+
+        try{
+
+            $customer = Customer::findOrFail($id);
+
+            $customer->delete();
+
+            return redirect('customer');
+
+        }catch (\Exception $e){
+
+            throwException($e);
+
+        }
+
     }
 
 }

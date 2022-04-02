@@ -56,9 +56,19 @@
                     </select>
                 </div>
 
+                <div class="form-group col-sm-12 col-md-4">
+                    <label for="user_id">Usuario</label>
+                    <select class="custom-select mr-sm-2" id="user_id" name="user_id">
+                        <option selected disabled>Selecciona un usuario...</option>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->id }}" {{( old('user_id') == $user->id) ? 'selected' : ''}}>{{$user->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+
             </div>
 
-            <div class="form-group">
+            <div class="form-group mt-4">
                 <div class="custom-control custom-switch">
                     <input type="checkbox" class="custom-control-input" id="status" name="status">
                     <label class="custom-control-label" for="status">Estado</label>

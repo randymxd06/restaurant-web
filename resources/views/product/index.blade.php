@@ -18,7 +18,7 @@
     @foreach( $products as $p )
     <div class="col mt-3">
         <div class="card h-100 card-outline {{($p->status == true || $p->status == 1) ? 'card-success' : 'card-danger'}}">
-            @if (!empty($p->image)) 
+            @if (!empty($p->image))
                 <img src="{{ asset('storage').'/'.$p->image }}" class="card-img-top" alt="...">
             @else
                 <img src="{{URL::asset('images/daraguma-icon.png')}}" class="card-img-top" alt="...">
@@ -30,7 +30,7 @@
                         <li class="list-group-item">
                             <strong>
                                 <i class="fas fa-file-alt"></i>
-                                Descripción: 
+                                Descripción:
                             </strong>
                             <!-- Descripcion -->
                             {{ $p -> description }}
@@ -38,7 +38,7 @@
                         <li class="list-group-item">
                             <strong>
                                 <i class="fas fa-tag"></i>
-                                Categoria: 
+                                Categoria:
                             </strong>
                             <!-- Categoria -->
                             @foreach($ProductCategories as $category)
@@ -48,7 +48,7 @@
                         <li class="list-group-item">
                             <strong>
                                 <i class="fas fa-money-bill-wave"></i>
-                                Precio: 
+                                Precio:
                             </strong>
                             <!-- Precio -->
                             <span class="badge bg-light text-dark">RD$ {{ number_format($p->price, 2, '.', ','); }}</span>
@@ -67,7 +67,7 @@
                     <form action="{{ url('/products/delete/'.$p->id) }}" method="post">
                         @csrf
                         {{method_field('DELETE')}}
-                        <button type="submit" onclick="return confirm('¿Deseas eliminar esta categoria?')" class="btn btn-danger" value="borrar">
+                        <button type="submit" onclick="return confirm('¿Deseas eliminar este producto?')" class="btn btn-danger" value="borrar">
                             <i class="fas fa-trash"></i>
                             Eliminar
                         </button>
@@ -109,7 +109,7 @@
                 </div>
             </div>
         </div> -->
-    
+
 </div>
 @stop
 
