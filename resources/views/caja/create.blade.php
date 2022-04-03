@@ -28,22 +28,22 @@
                 <span class="dropdown-item dropdown-header">Configuración</span>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" data-toggle="modal" data-target="#tableModal">
-                    <i class="fas fa-chair mr-2"></i> Seleccionar Mesa
+                    <i class="fas fa-chair mr-2"></i> Seleccionar mesa
                     <!-- <span class="float-right text-muted text-sm">3 mins</span> -->
                 </a>
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item" data-toggle="modal" data-target="#customersModal">
-                    <i class="far fa-user mr-2"></i> Seleccionar Cliente
+                    <i class="far fa-user mr-2"></i> Seleccionar cliente
                     <!-- <span class="float-right text-muted text-sm">12 hours</span> -->
                 </a>
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item">
-                    <i class="fas fa-percent mr-2"></i> Aplicar Descuento
+                    <i class="fas fa-percent mr-2"></i> Aplicar descuento
                     <!-- <span class="float-right text-muted text-sm">12 hours</span> -->
                 </a>
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item">
-                    <i class="fas fa-user mr-2"></i> Cambiar Usuario
+                    <i class="fas fa-user mr-2"></i>Reasignar empleado
                     <!-- <span class="float-right text-muted text-sm">12 hours</span> -->
                 </a>
                 <!-- <div class="dropdown-divider"></div>
@@ -141,7 +141,6 @@
 @stop
 
 @section('content')
-
 <div class="tab-content" id="myTabContent">
     <!-- Productos -->
     <div class="tab-pane fade show active" id="Products" role="tabpanel" aria-labelledby="Products-tab">
@@ -180,7 +179,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <strong>Caja:</strong>  <span>#02</span>
+                                <strong>Caja:</strong>  <span>#{{ $box->id }}</span>
                             </td>
                             <th>Mesa:</th>
                             <td class="id-mesa" id="id-mesa" colspan="2">Sin mesa</td>
@@ -272,40 +271,45 @@
     <!--  -->
 </div>
 
-<!-- Notificaciones de Error -->
-@if(count($errors)>0)
-    <div class="alert alert-danger alert-dismissible">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <ul>
-            @foreach($errors->all() as $error)
-                <li>
-                    <i class="icon fas fa-exclamation-triangle"></i>{{$error}}
-                </li>
-                <hr>
-            @endforeach
-        </ul>
-    </div>
-@endif
-<!-- / -->
 <!-- Modals -->
 @include('caja.includes.modals')
 
 @stop
 
 @section('css')
-<link rel="stylesheet" href="/css/admin_custom.css">
-<link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}">
-<style>
-    @include('caja.includes.style');
-</style>
+    <link rel="stylesheet" href="/css/admin_custom.css">
+    <link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}">
+    <style>
+        @include('caja.includes.style');
+    </style>
 @stop
 
 @section('js')
-    @include('sweetalert::alert')
-    @include('caja.includes.js');
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    @include('caja.includes.js');
     <script>
+        
     </script>
+
+    <!-- Notificaciones de Error -->
+    @if(count($errors)>0)
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                html:
+                '<div class="alert alert-danger alert-dismissible"><ul>'+
+                @foreach($errors->all() as $error)
+                    '<li><i class="icon fas fa-exclamation-triangle"></i>{{$error}}</li>'+
+                @endforeach
+                '</ul></div>',
+                title: 'Error al realizar la orden',
+                showConfirmButton: true,
+                confirmButtonText: 'Cerrar'  
+            })
+        </script>
+    @endif
+    <!-- / -->
 @stop

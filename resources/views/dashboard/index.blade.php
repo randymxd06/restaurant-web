@@ -71,4 +71,17 @@
 
 @section('js')
     <script>Console.log('HOLA');</script>
+
+    @if(session('error-box')=='ok')
+    <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'Error al acceder a Venta!',
+                text: 'Tu usuario no esta realacionado a una terminal de uso',
+                showConfirmButton: true,
+                confirmButtonText: 'Cerrar'  
+            })
+        </script>
+    @endif
 @stop

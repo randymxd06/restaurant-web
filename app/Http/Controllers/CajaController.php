@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Caja;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\CajaStoreRequest;
 use App\Http\Requests\CajaUpdateRequest;
 use App\Models\Order;
@@ -14,7 +16,9 @@ use App\Models\Table;
 use App\Models\LivingRoom;
 use App\Models\Entity;
 use App\Models\Customer;
+use App\Models\Box;
 use Carbon\Carbon;
+use Alert;
 
 class CajaController extends Controller
 {
@@ -49,20 +53,28 @@ class CajaController extends Controller
 
     public function create(Request $request)
     {
+        $currentuserid = Auth::user()->id; 
+
+        $box = Box::where('user_id', '=', $currentuserid)->first();
+        if ($box === null) {
+        //    El usuario registrado no tiene una caja
+            return redirect('dashboard')->with('error-box','ok');
+        }
+
         $productCategories = ProductCategory::all()->where('status', '=', 1);
         $products = Product::all()->where('status', '=', 1);
         $tables = Table::all()->where('status', '<>', 0);
         $livingRooms = LivingRoom::all()->where('status', '=', 1);
         $customers = Customer::all();
         $entities = Entity::all();
-        return view('caja.create', compact('productCategories', 'products', 'tables', 'livingRooms', 'customers', 'entities'));
+        
+        return view('caja.create', compact('productCategories', 'products', 'tables', 'livingRooms', 'customers', 'entities', 'box'));
     }
 
     public function store(Request $request)
     {
 
         try {
-
             $validate = [
                 'user_id' => 'required|int',
                 'box_id' => 'required|int',
@@ -71,8 +83,8 @@ class CajaController extends Controller
                 'total_order' => 'required|numeric',
                 'products' => 'required'
             ];
-//            $this -> validate($request, $validate, $this->messageProduct());
-
+            $this -> validate($request, $validate, $this->messageProduct());
+            
             $request['products'] = json_decode($request['products']);
 
             $order = [
@@ -101,7 +113,7 @@ class CajaController extends Controller
                 ];
                 OrderProduct::insert($product);
             }
-            
+            Alert::toast('Orden realizada correctamente', 'success');
             return redirect('caja/create');
         }catch (Exception $e){
 
