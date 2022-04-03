@@ -15,7 +15,7 @@ class CreatePhonesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('entity_id');
             $table->foreign('entity_id')->references('id')->on('entities')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('phone');
+            $table->string('phone')->unique();
             $table->boolean('status')->default(true);
             $table->timestamps();
             $table->softDeletes()->nullable();

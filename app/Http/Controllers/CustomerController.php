@@ -149,6 +149,9 @@ class CustomerController extends Controller
 
     }
 
+    /*---------
+        SHOW
+    -----------*/
     public function show(Request $request, Customer $customer)
     {
         return view('customer.show', compact('customer'));
