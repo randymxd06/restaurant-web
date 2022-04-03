@@ -19,7 +19,7 @@ class CreateEntitiesTable extends Migration
             $table->bigIncrements('id');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('identification');
+            $table->string('identification')->unique();
             $table->unsignedBigInteger('sex_id');
             $table->foreign('sex_id')->references('id')->on('sexs')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('civil_status_id');
