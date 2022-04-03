@@ -64,10 +64,10 @@
                         Editar
                     </a>
                     <!-- Boton Eliminar -->
-                    <form action="{{ url('/products/delete/'.$p->id) }}" method="post">
+                    <form action="{{ url('/products/delete/'.$p->id) }}" method="post" class="form-delete">
                         @csrf
                         {{method_field('DELETE')}}
-                        <button type="submit" onclick="return confirm('¿Deseas eliminar este producto?')" class="btn btn-danger" value="borrar">
+                        <button type="submit" class="btn btn-danger" value="borrar">
                             <i class="fas fa-trash"></i>
                             Eliminar
                         </button>
@@ -77,39 +77,6 @@
         </div>
     </div>
     @endforeach
-    <!-- /Card Producto -->
-
-
-        <!-- <div class="col">
-            <div class="card card-outline card-warning h-100" style="min-height: 100%;">
-                <div class="">
-                    <img src="" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">name</p>
-                        <span class="badge bg-light text-dark">RD$precio</span>
-                    </div>
-                </div>
-                <div class=" text-center">
-                    The footer of the card
-                    <div class="btn-group">
-                        Boton Editar
-                        <a href="" class="btn btn-warning">
-                            <i class="fas fa-edit"></i>
-                            Editar
-                        </a>
-                        Boton Eliminar
-                        <form action="" method="post">
-                            @csrf
-                            <button type="submit" class="btn btn-danger" value="borrar">
-                                <i class="fas fa-trash"></i>
-                                Eliminar
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
 </div>
 @stop
 
@@ -125,8 +92,23 @@
 @stop
 
 @section('js')
-@include('sweetalert::alert')
     <script>
-        Console.log('HOLA');
+        $('.form-delete').submit(function(e){
+            e.preventDefault();
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "Este producto sera eliminara!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, eliminar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.submit();
+                }
+            })
+        });
     </script>
 @stop

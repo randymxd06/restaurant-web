@@ -143,7 +143,7 @@ class CustomerController extends Controller
 
             return redirect('customer');
 
-        }catch (\Exception $e){
+        }catch (Exception $e){
             throwException($e);
         }
 

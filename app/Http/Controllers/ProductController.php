@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use mysql_xdevapi\Exception;
 use function MongoDB\BSON\toJSON;
 use Illuminate\Support\Facades\Storage;
-
 use Alert;
 
 class ProductController extends Controller
@@ -96,7 +95,8 @@ class ProductController extends Controller
 
             // Agregar producto 
             Product::insert($data);
-            Alert::toast('Producto agregador correctamente', 'success');
+            // Alerta al registrar el producto
+            Alert::toast('Producto registrado correctamente', 'success');
             return redirect('products');
         }catch(Exception $ex){
             throw new Exception($ex);
@@ -147,12 +147,14 @@ class ProductController extends Controller
 
             // Objeto con la informacion que es guardara, exceptuando el TOKEN
             $data = request()->except('_token', '_method');
+            // Formatando la información
             $data['name'] = ucfirst(strtolower($data['name']));
             $data['price'] = (double) $data['price'];
             $data['products_categories_id'] = (int) $data['products_categories_id'];
             $data['description'] = ucfirst(strtolower($data['description']));
             $data['updated_at'] = Carbon::now();
 
+            // Comprobar si conteiene una imagen para eliminarla del storage
             if($request->hasFile('image')){
                 $product = Product::findOrFail($id);
                 Storage::delete('public/'.$product->image);
@@ -164,6 +166,7 @@ class ProductController extends Controller
 
             // Actualizar datos cuando el id coincida
             Product::where('id','=',$id)->update($data);
+            // Alerta al editar
             Alert::toast('Producto editado correctamente', 'success');
 
             return redirect('products');
@@ -178,6 +181,8 @@ class ProductController extends Controller
         try{
             $product = Product::findOrFail($id);
             $product->delete();
+            // Alerta al eliminar
+            Alert::toast('Producto eliminado correctamente', 'success');
             return redirect('products');
         }catch(Exception $ex){
             throw new Exception($ex);
