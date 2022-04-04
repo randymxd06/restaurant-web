@@ -33,26 +33,28 @@ class CustomerController extends Controller
 
             'identification.required' => 'La cédula es requerida.',
             'identification.string' => 'La cédula debe ser un texto',
+            'identification.unique:entities,identification' => 'La cédula ya existe',
 
             'sex_id.required' => 'El sexo es requerido.',
-            'sex_id.integer' => 'Debe elegir un sexo',
+            'sex_id.integer' => 'Debe elegir un sexo.',
 
             'civil_status_id.required' => 'El estado civil es requerido.',
-            'civil_status_id.integer' => 'Debe elegir un estado civil',
+            'civil_status_id.integer' => 'Debe elegir un estado civil.',
 
             'nationality_id.required' => 'La nacionalidad es requerida.',
-            'nationality_id.integer' => 'Debe elegir una nacionalidad',
+            'nationality_id.integer' => 'Debe elegir una nacionalidad.',
 
             'customer_type_id.required' => 'El tipo de cliente es requerido.',
-            'customer_type_id.integer' => 'Debe elegir un tipo de cliente',
+            'customer_type_id.integer' => 'Debe elegir un tipo de cliente.',
 
             'email.required' => 'El correo electrónico es requerido.',
-            'email.string' => 'El correo electrónico debe ser un texto',
+            'email.string' => 'El correo electrónico debe ser un texto.',
+            'email.unique:emails,email' => 'El correo electrónico ya existe.',
 
             'phone.required' => 'El teléfono es requerido.',
-            'phone.string' => 'El teléfono debe ser un texto',
+            'phone.string' => 'El teléfono debe ser un texto.',
+            'phone.unique:phones,phone' => 'El teléfono ya existe.',
 
-            'birth_date.required' => 'la fecha es requerida.',
             'birth_date.date' => 'la fecha debe ser una fecha',
 
         ];
@@ -99,14 +101,14 @@ class CustomerController extends Controller
             $validate = [
                 "first_name" => 'required|string',
                 "last_name" => 'required|string',
-                "identification" => 'required|string',
+                "identification" => 'required|string|unique:entities,identification',
                 "sex_id" => "required|integer",
                 "civil_status_id" => "required|integer",
                 "nationality_id" => "required|integer",
                 "customer_type_id" => "required|integer",
-                "email" => 'required|string',
-                "phone" => 'required|string',
-                "birth_date" => 'required|date'
+                "email" => 'required|string|unique:emails,email',
+                "phone" => 'required|string|unique:phones,phone',
+                "birth_date" => 'date'
             ];
 
             $this -> validate($request, $validate, $this->messageProduct());
@@ -194,14 +196,14 @@ class CustomerController extends Controller
         $validate = [
             "first_name" => 'required|string',
             "last_name" => 'required|string',
-            "identification" => 'required|string',
+            "identification" => 'required|string|unique:entities,identification',
             "sex_id" => "required|integer",
             "civil_status_id" => "required|integer",
             "nationality_id" => "required|integer",
             "customer_type_id" => "required|integer",
-            "email" => 'required|string',
-            "phone" => 'required|string',
-            "birth_date" => 'required|date'
+            "email" => 'required|string|unique:emails,email',
+            "phone" => 'required|string|unique:phones,phone',
+            "birth_date" => 'date'
         ];
 
         $this -> validate($request, $validate, $this->messageProduct());

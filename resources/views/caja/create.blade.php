@@ -156,7 +156,7 @@
                         @endif
                         <div class="card-body">
                             <p class="card-text"> {{ $p -> name }} </p>
-                            <span class="badge bg-light text-dark">RD$ {{ number_format($p->price, 2, '.', ','); }}</span>
+                            <span class="badge bg-light text-dark">RD$ {{ number_format($p->price, 2, '.', ',') }}</span>
                         </div>
                     </div>
                 </button>
@@ -290,7 +290,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     @include('caja.includes.js');
     <script>
-<<<<<<< HEAD
+
 
         let array = [1,2,3,4,5,6,7,8];
         let array2 = [];
@@ -309,8 +309,9 @@
 
     </script>
 @stop
-=======
-        
+
+@section('js')
+
     </script>
 
     <!-- Notificaciones de Error -->
@@ -327,10 +328,9 @@
                 '</ul></div>',
                 title: 'Error al realizar la orden',
                 showConfirmButton: true,
-                confirmButtonText: 'Cerrar'  
+                confirmButtonText: 'Cerrar'
             })
         </script>
     @endif
     <!-- / -->
 @stop
->>>>>>> 3a8ccc5ae8ba204bfbb78c696dae041d0544d353

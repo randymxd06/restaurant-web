@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Mesas')
+@section('title', 'Caja')
 
 @section('content_header')
     <h1 class="mb-4">Editar Caja | #{{$box->id}}</h1>
