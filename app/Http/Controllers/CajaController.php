@@ -53,7 +53,7 @@ class CajaController extends Controller
 
     public function create(Request $request)
     {
-        $currentuserid = Auth::user()->id; 
+        $currentuserid = Auth::user()->id;
 
         $box = Box::where('user_id', '=', $currentuserid)->first();
         if ($box === null) {
@@ -67,7 +67,7 @@ class CajaController extends Controller
         $livingRooms = LivingRoom::all()->where('status', '=', 1);
         $customers = Customer::all();
         $entities = Entity::all();
-        
+
         return view('caja.create', compact('productCategories', 'products', 'tables', 'livingRooms', 'customers', 'entities', 'box'));
     }
 
@@ -84,7 +84,7 @@ class CajaController extends Controller
                 'products' => 'required'
             ];
             $this -> validate($request, $validate, $this->messageProduct());
-            
+
             $request['products'] = json_decode($request['products']);
 
             $order = [
@@ -113,12 +113,11 @@ class CajaController extends Controller
                 ];
                 OrderProduct::insert($product);
             }
-<<<<<<< HEAD
 
-=======
             Alert::toast('Orden realizada correctamente', 'success');
->>>>>>> 3a8ccc5ae8ba204bfbb78c696dae041d0544d353
+
             return redirect('caja/create');
+
         }catch (Exception $e){
 
             throw new Exception($e);
