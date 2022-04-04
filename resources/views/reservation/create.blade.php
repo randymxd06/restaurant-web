@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Mesas')
+@section('title', 'Reservaciones')
 
 @section('content_header')
     <h1>Realizar Reservación</h1>

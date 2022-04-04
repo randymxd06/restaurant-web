@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Mesas')
+@section('title', 'Clientes')
 
 @section('content_header')
     <h1>Editar Cliente | {{$customers->customer_id}}</h1>
