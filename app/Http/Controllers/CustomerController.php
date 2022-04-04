@@ -15,6 +15,7 @@ use App\Models\Sex;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use function PHPUnit\Framework\throwException;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CustomerController extends Controller
 {
@@ -55,8 +56,6 @@ class CustomerController extends Controller
             'phone.string' => 'El teléfono debe ser un texto.',
             'phone.unique:phones,phone' => 'El teléfono ya existe.',
 
-            'birth_date.date' => 'la fecha debe ser una fecha',
-
         ];
     }
 
@@ -65,6 +64,7 @@ class CustomerController extends Controller
     ------------*/
     public function index()
     {
+
         $customers = DB::table('customers')
             ->join('entities', 'customers.entity_id', '=', 'entities.id')
             ->join('sexs', 'entities.sex_id', '=', 'sexs.id')
@@ -76,6 +76,7 @@ class CustomerController extends Controller
             ->get();
 
         return view('customer.index', compact(['customers']));
+
     }
 
     /*-----------
@@ -108,7 +109,6 @@ class CustomerController extends Controller
                 "customer_type_id" => "required|integer",
                 "email" => 'required|string|unique:emails,email',
                 "phone" => 'required|string|unique:phones,phone',
-                "birth_date" => 'date'
             ];
 
             $this -> validate($request, $validate, $this->messageProduct());
@@ -142,6 +142,8 @@ class CustomerController extends Controller
             $customer->entity_id = $entity->id;
             $customer->customer_type_id = $request['customer_type_id'];
             $customer->save();
+
+            Alert::toast('El cliente fue registrado correctamente', 'success');
 
             return redirect('customer');
 
@@ -196,14 +198,13 @@ class CustomerController extends Controller
         $validate = [
             "first_name" => 'required|string',
             "last_name" => 'required|string',
-            "identification" => 'required|string|unique:entities,identification',
+            "identification" => 'required|string',
             "sex_id" => "required|integer",
             "civil_status_id" => "required|integer",
             "nationality_id" => "required|integer",
             "customer_type_id" => "required|integer",
-            "email" => 'required|string|unique:emails,email',
-            "phone" => 'required|string|unique:phones,phone',
-            "birth_date" => 'date'
+            "email" => 'required|string',
+            "phone" => 'required|string',
         ];
 
         $this -> validate($request, $validate, $this->messageProduct());
@@ -237,6 +238,8 @@ class CustomerController extends Controller
             'entity_id' => $id,
             'customer_type_id' => $request['customer_type_id'],
         ]);
+
+        Alert::success('Los datos del cliente fueron actualizados correctamente', 'success');
 
         return redirect('customer');
 

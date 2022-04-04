@@ -110,13 +110,13 @@
                                 Editar
                             </a>
 
-                            <form action="{{url('/customer/delete/'.$customer->customer_id)}}" method="post">
+                            <form action="{{url('/customer/delete/'.$customer->customer_id)}}" method="post" class="form-delete">
 
                                 @csrf
 
                                 {{method_field('DELETE')}}
 
-                                <button type="submit" onclick="return confirm('Deseas eliminar este cliente?')" class="btn btn-danger" value="borrar">
+                                <button type="submit" class="btn btn-danger" value="borrar">
                                     <i class="fas fa-trash"></i>
                                     Eliminar
                                 </button>
@@ -149,7 +149,24 @@
 @stop
 
 @section('js')
+    @include('sweetalert::alert')
     <script>
-        Console.log('HOLA');
+        $('.form-delete').submit(e => {
+            e.preventDefault()
+            Swal.fire({
+                title: 'Deseas eliminar este cliente?',
+                text: 'Una vez eliminado este cliente no se podra volver a obtener la informacion de este.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, eliminar!',
+                cancelButtonText: 'Cancelar'
+            }).then(res => {
+                if(res.isComfirmed){
+                    this.submit()
+                }
+            })
+        })
     </script>
 @stop
