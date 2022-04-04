@@ -10,7 +10,7 @@ class AlterTableEntitiesToAddBirthDateColumns extends Migration
     public function up()
     {
         Schema::table('entities', function (Blueprint $table) {
-            $table->date('birth_date');
+            $table->date('birth_date')->nullable();
         });
     }
 

@@ -150,7 +150,7 @@
             @foreach($products as $p)
                 <button onclick="addProduct({{$p}})" class="col mb-3">
                     <div class="card h-100">
-                        @if (!empty($p->image)) 
+                        @if (!empty($p->image))
                         <img src="{{ asset('storage').'/'.$p->image }}" class="card-img-top" alt="...">
                         @else
                         <img src="{{URL::asset('images/daraguma-icon.png')}}" class="card-img-top" alt="...">
@@ -162,14 +162,14 @@
                     </div>
                 </button>
             @endforeach
-            <!-- /Card -->         
+            <!-- /Card -->
         </div>
     </div>
     <!-- /Productos-->
 
     <!-- Informacion de la orden -->
     <div class="tab-pane fade " id="invoice" role="tabpanel" aria-labelledby="invoice-tab">
-        <aside class="control-sidebar control-sidebar-light order-sidebar">    
+        <aside class="control-sidebar control-sidebar-light order-sidebar">
             <!-- Ordenes -->
             <div class="order-header tableFixHead">
                 <table class="order-products-head table table-striped">
@@ -202,7 +202,7 @@
                     </thead>
                     <!-- Detalles -->
                     <tbody id="add-products">
-                        
+
                     </tbody>
                 </table>
                 <div class="order-footer">
@@ -218,7 +218,7 @@
                                     <input hidden type="number" name="customer_id" id="customer_id" value="">
                                     <input hidden type="number" name="table_id" id="table_id" value="">
                                     <input hidden type="text" name="total_order" id="total_order" value="0">
-                                    
+
                                     <input hidden type="text" name="products" id="products" value="">
                                     <!-- button -->
                                     <button class="btn btn-success btn-block">
@@ -307,5 +307,21 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     <script>
+
+        let array = [1,2,3,4,5,6,7,8];
+        let array2 = [];
+
+        array.filter(obj => {
+
+            if(obj % 2 == 0){
+
+                array2.push(obj);
+
+            }
+
+        })
+
+        console.log(array2);
+
     </script>
 @stop

@@ -101,7 +101,7 @@ class CajaController extends Controller
                 ];
                 OrderProduct::insert($product);
             }
-            
+
             return redirect('caja/create');
         }catch (Exception $e){
 
