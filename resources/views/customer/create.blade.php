@@ -34,76 +34,139 @@
         <!-- TOKEN -->
         @csrf
 
-        <div class="row">
+        <div class="form-row">
 
-            <div class="form-group col-sm-12 col-md-4">
-                <label class="form-label" for="first_name">Nombre</label>
-                <input class="form-control" type="text" name="first_name" id="first_name" placeholder="Escribe tu nombre">
+            <div class="form-group col-sm-12 col-md-6">
+                <label class="form-label" for="first_name">Nombre:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-user"></i>
+                        </span>
+                    </div>
+                    <input class="form-control" type="text" name="first_name" id="first_name" placeholder="Escribe tu nombre">
+                </div>
             </div>
 
-            <div class="form-group col-sm-12 col-md-4">
-                <label class="form-label" for="last_name">Apellido</label>
+            <div class="form-group col-sm-12 col-md-6">
+                <label class="form-label" for="last_name">Apellido:</label>
                 <input class="form-control" type="text" name="last_name" id="last_name" placeholder="Escribe tus apellidos">
             </div>
 
             <div class="form-group col-sm-12 col-md-4">
-                <label class="form-label" for="identification">Cédula</label>
-                <input class="form-control" type="text" name="identification" id="identification" placeholder="Escribe tu cédula">
-            </div>
-
-            <div class="form-group col-sm-12 col-md-3">
-                <label for="sex_id">Sexo</label>
-                <select class="custom-select mr-sm-2" id="sex_id" name="sex_id">
-                    <option selected disabled>Selecciona un sexo...</option>
-                    @foreach ($sexs as $sex)
-                        <option value="{{ $sex->id }}" {{( old('$sex') == $sex->id) ? 'selected' : ''}}>{{$sex->name}}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="form-group col-sm-12 col-md-3">
-                <label for="civil_status_id">Estado Civil</label>
-                <select class="custom-select mr-sm-2" id="civil_status_id" name="civil_status_id">
-                    <option selected disabled>Selecciona un estado civil...</option>
-                    @foreach ($civilStatus as $civilStatu)
-                        <option value="{{ $civilStatu->id }}" {{( old('civil_status_id') == $civilStatu->id) ? 'selected' : ''}}>{{$civilStatu->description}}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="form-group col-sm-12 col-md-3">
-                <label for="nationality_id">Nacionalidad</label>
-                <select class="custom-select mr-sm-2" id="nationality_id" name="nationality_id">
-                    <option selected disabled>Selecciona una nacionalidad...</option>
-                    @foreach ($nationalities as $nationality)
-                        <option value="{{ $nationality->id }}" {{( old('nationality_id') == $nationality->id) ? 'selected' : ''}}>{{$nationality->name}}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="form-group col-sm-12 col-md-3">
-                <label for="customer_type_id">Tipo de cliente</label>
-                <select class="custom-select mr-sm-2" id="customer_type_id" name="customer_type_id">
-                    <option selected disabled>Selecciona un tipo de cliente...</option>
-                    @foreach ($customerTypes as $customerType)
-                        <option value="{{ $customerType->id }}" {{( old('customer_type_id') == $customerType->id) ? 'selected' : ''}}>{{$customerType->name}}</option>
-                    @endforeach
-                </select>
+                <label class="form-label" for="identification">Cédula:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-id-card"></i>
+                        </span>
+                    </div>
+                    <input class="form-control" type="text" name="identification" id="identification" placeholder="Escribe tu cédula">
+                </div>
             </div>
 
             <div class="form-group col-sm-12 col-md-4">
-                <label class="form-label" for="email">Correo Electrónico</label>
-                <input class="form-control" type="email" name="email" id="email" placeholder="Escribe tu correo electrónico">
+                <label for="civil_status_id">Estado Civil:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-ring"></i>
+                        </span>
+                    </div>
+                    <select class="custom-select mr-sm-2" id="civil_status_id" name="civil_status_id">
+                        <option selected disabled>Selecciona un estado civil...</option>
+                        @foreach ($civilStatus as $civilStatu)
+                            <option value="{{ $civilStatu->id }}" {{( old('civil_status_id') == $civilStatu->id) ? 'selected' : ''}}>{{$civilStatu->description}}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
 
             <div class="form-group col-sm-12 col-md-4">
-                <label class="form-label" for="phone">Teléfono</label>
-                <input class="form-control" type="text" name="phone" id="phone" placeholder="Escribe un número de teléfono">
+                <label for="customer_type_id">Tipo de cliente:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-user-tag"></i>
+                        </span>
+                    </div>
+                    <select class="custom-select mr-sm-2" id="customer_type_id" name="customer_type_id">
+                        <option selected disabled>Selecciona un tipo de cliente...</option>
+                        @foreach ($customerTypes as $customerType)
+                            <option value="{{ $customerType->id }}" {{( old('customer_type_id') == $customerType->id) ? 'selected' : ''}}>{{$customerType->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
 
             <div class="form-group col-sm-12 col-md-4">
-                <label class="form-label" for="birth_date">Fecha de nacimiento</label>
-                <input class="form-control" type="date" name="birth_date" id="birth_date" placeholder="Escribe la fecha en que naciste">
+                <label for="sex_id">Sexo:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-venus-mars"></i>
+                        </span>
+                    </div>
+                    <select class="custom-select mr-sm-2" id="sex_id" name="sex_id">
+                        <option selected disabled>Selecciona un sexo...</option>
+                        @foreach ($sexs as $sex)
+                            <option value="{{ $sex->id }}" {{( old('$sex') == $sex->id) ? 'selected' : ''}}>{{$sex->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group col-sm-12 col-md-4">
+                <label for="nationality_id">Nacionalidad:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-flag"></i>
+                        </span>
+                    </div>
+                    <select class="custom-select mr-sm-2" id="nationality_id" name="nationality_id">
+                        <option selected disabled>Selecciona una nacionalidad...</option>
+                        @foreach ($nationalities as $nationality)
+                            <option value="{{ $nationality->id }}" {{( old('nationality_id') == $nationality->id) ? 'selected' : ''}}>{{$nationality->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group col-sm-12 col-md-4">
+                <label class="form-label" for="birth_date">Fecha de nacimiento:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-birthday-cake"></i>
+                        </span>
+                    </div>
+                    <input class="form-control" type="date" name="birth_date" id="birth_date" placeholder="Escribe la fecha en que naciste">
+                </div>
+            </div>
+
+            <div class="form-group col-sm-12 col-md-6">
+                <label class="form-label" for="email">Correo Electrónico:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-at"></i>
+                        </span>
+                    </div>
+                    <input class="form-control" type="email" name="email" id="email" placeholder="Escribe tu correo electrónico">
+                </div>
+            </div>
+
+            <div class="form-group col-sm-12 col-md-6">
+                <label class="form-label" for="phone">Teléfono:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-phone-alt"></i>
+                        </span>
+                    </div>
+                    <input class="form-control" type="text" name="phone" id="phone" placeholder="Escribe un número de teléfono">
+                </div>
             </div>
 
         </div>
