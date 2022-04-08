@@ -16,5 +16,6 @@
 @stop
 
 @section('js')
+    @include('sweetalert::alert')
     <script>Console.log('HOLA');</script>
 @stop

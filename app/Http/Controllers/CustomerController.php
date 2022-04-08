@@ -67,11 +67,13 @@ class CustomerController extends Controller
 
         $customers = DB::table('customers')
             ->join('entities', 'customers.entity_id', '=', 'entities.id')
+            ->join('emails', 'entities.id', '=', 'emails.entity_id')
+            ->join('phones', 'entities.id', '=', 'phones.entity_id')
             ->join('sexs', 'entities.sex_id', '=', 'sexs.id')
             ->join('civil_status', 'entities.civil_status_id', '=', 'civil_status.id')
             ->join('nationalities', 'entities.nationality_id', '=', 'nationalities.id')
             ->join('customer_types', 'customers.customer_type_id', '=', 'customer_types.id')
-            ->select('customers.id as customer_id', 'entities.first_name', 'entities.last_name', 'entities.identification', 'entities.status as customer_status', 'entities.birth_date', 'customer_types.*', 'sexs.name as sex_name', 'civil_status.description as civil_status_name', 'nationalities.name as nationality_name')
+            ->select('customers.id as customer_id', 'entities.first_name', 'entities.last_name', 'entities.identification', 'entities.status as customer_status', 'entities.birth_date', 'customer_types.*', 'sexs.name as sex_name', 'civil_status.description as civil_status_name', 'nationalities.name as nationality_name', 'emails.email as entity_email', 'phones.phone as entity_phone')
             ->where('customers.deleted_at', '=', null)
             ->get();
         return view('customer.index', compact(['customers']));
@@ -147,7 +149,9 @@ class CustomerController extends Controller
             return redirect('customer');
 
         }catch (Exception $e){
+
             throwException($e);
+
         }
 
     }

@@ -50,7 +50,7 @@
                             <i class="fas fa-user"></i>
                         </span>
                     </div>
-                    <input disabled name="first_name" id="first_name" type="text" class="form-control" placeholder="Nombre del cliente" value="prueba">
+                    <input disabled name="first_name" id="first_name" type="text" class="form-control" placeholder="Nombre del cliente" value="">
                 </div>
             </div>
         </div>
@@ -66,7 +66,7 @@
                             <i class="fas fa-dollar-sign"></i>
                         </span>
                     </div> -->
-                    <input disabled name="last_name" id="last_name" type="text" class="form-control" placeholder="Apellido del cliente" value="prueba">
+                    <input disabled name="last_name" id="last_name" type="text" class="form-control" placeholder="Apellido del cliente" value="">
                 </div>
             </div>
         </div>
@@ -80,7 +80,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-phone"></i></span>
                     </div>
-                    <input disabled name="phone" id="phone" type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999&quot;" data-mask="" inputmode="text" placeholder="Teléfono del cliente" value="809-145-9874">
+                    <input disabled name="phone" id="phone" type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999&quot;" data-mask="" inputmode="text" placeholder="Teléfono del cliente" value="">
                 </div>
             </div>
         </div>
@@ -94,7 +94,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                     </div>
-                    <input disabled name="email" id="email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Correo electrónico del cliente" value="prueba03@gmail.com">
+                    <input disabled name="email" id="email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Correo electrónico del cliente" value="">
                 </div>
             </div>
         </div>
@@ -182,6 +182,8 @@
         </div>
         <!-- / -->
 
+        <input hidden type="text" name="customer_id" id="customer_id" value="">
+
     </div>
 
     <!-- NOTA: Al momento de crear la reserva el estado sera activo -->
@@ -224,19 +226,20 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="form-inline row justify-content-center">
-                    <input class="form-control col-md-8" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-                <br>
+{{--                <form class="form-inline row justify-content-center">--}}
+{{--                    <input class="form-control col-md-8" type="search" placeholder="Search" aria-label="Search">--}}
+{{--                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>--}}
+{{--                </form>--}}
+{{--                <br>--}}
                 <div class="row">
                     <table class="table">
                         <thead>
                             <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Telefono</th>
-                            <th scope="col">Correo</th>
+                                <th scope="col">#</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Telefono</th>
+                                <th scope="col">Correo</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -246,6 +249,11 @@
                                     <td>{{$customer->first_name.' '.$customer->last_name}}</td>
                                     <td>{{$customer->phone}}</td>
                                     <td>{{$customer->email}}</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-xs" data-dismiss="modal" onclick="selectCustomer('{{$customer->id}}', '{{$customer->first_name}}', '{{$customer->last_name}}', '{{$customer->phone}}', '{{$customer->email}}')">
+                                            <i class="fas fa-hand-pointer"></i>
+                                        </button>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -254,7 +262,6 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Seleccionar</button>
             </div>
         </div>
     </div>
@@ -269,6 +276,18 @@
 @stop
 
 @section('js')
+    @include('sweetalert::alert')
+    <script>
+
+        function selectCustomer(id, first_name, last_name, phone, email){
+            document.getElementById('customer_id').value = id;
+            document.getElementById('first_name').value = first_name;
+            document.getElementById('last_name').value = last_name;
+            document.getElementById('phone').value = phone;
+            document.getElementById('email').value = email;
+        }
+
+    </script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js" integrity="sha512-k6/Bkb8Fxf/c1Tkyl39yJwcOZ1P4cRrJu77p83zJjN2Z55prbFHxPs9vN7q3l3+tSMGPDdoH51AEU8Vgo1cgAA==" crossorigin="anonymous"></script>
