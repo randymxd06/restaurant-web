@@ -182,6 +182,8 @@
         </div>
         <!-- / -->
 
+        <input hidden type="text" name="customer_id" id="customer_id" value="">
+
     </div>
 
     <!-- NOTA: Al momento de crear la reserva el estado sera activo -->
@@ -248,7 +250,7 @@
                                     <td>{{$customer->phone}}</td>
                                     <td>{{$customer->email}}</td>
                                     <td>
-                                        <button class="btn btn-primary btn-xs" data-dismiss="modal" onclick="selectCustomer('{{$customer->first_name}}', '{{$customer->last_name}}', '{{$customer->phone}}', '{{$customer->email}}')">
+                                        <button class="btn btn-primary btn-xs" data-dismiss="modal" onclick="selectCustomer('{{$customer->id}}', '{{$customer->first_name}}', '{{$customer->last_name}}', '{{$customer->phone}}', '{{$customer->email}}')">
                                             <i class="fas fa-hand-pointer"></i>
                                         </button>
                                     </td>
@@ -274,10 +276,11 @@
 @stop
 
 @section('js')
+    @include('sweetalert::alert')
     <script>
 
-        function selectCustomer(first_name, last_name, phone, email){
-            // console.log(first_name, last_name, phone, email)
+        function selectCustomer(id, first_name, last_name, phone, email){
+            document.getElementById('customer_id').value = id;
             document.getElementById('first_name').value = first_name;
             document.getElementById('last_name').value = last_name;
             document.getElementById('phone').value = phone;

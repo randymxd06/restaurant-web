@@ -96,6 +96,24 @@
                                 {{ $customer->birth_date }}
                             </li>
 
+                            {{-- EMAIL --}}
+                            <li class="list-group-item">
+                                <strong>
+                                    <i class="fas fa-file-alt"></i>
+                                    Correo electrónico:
+                                </strong>
+                                {{ $customer->entity_email }}
+                            </li>
+
+                            {{-- PHONE --}}
+                            <li class="list-group-item">
+                                <strong>
+                                    <i class="fas fa-file-alt"></i>
+                                    Teléfono:
+                                </strong>
+                                {{ $customer->entity_phone }}
+                            </li>
+
                         </ul>
 
                     </div>

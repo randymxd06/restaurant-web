@@ -11,6 +11,8 @@ use App\Models\TypeReservation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Alert;
+use function PHPUnit\Framework\throwException;
 
 class ReservationController extends Controller
 {
@@ -41,6 +43,9 @@ class ReservationController extends Controller
         ];
     }
 
+    /*----------
+        INDEX
+    ------------*/
     public function index()
     {
 
@@ -70,48 +75,58 @@ class ReservationController extends Controller
 
     }
 
+    /*----------
+        STORE
+    ------------*/
     public function store(Request $request)
     {
 
-        // ARRAY CON VALIDACIONES //
-//        $validate = [
-//            'customer_id' => 'required|integer',
-//            'type_reservations_id' => 'required|integer',
-//            'living_room_id' => 'required|integer',
-//            'date_time' => 'required',
-//            'number_people' => 'required|string',
-//            'description' => 'required|string',
-//        ];
+        DB::beginTransaction();
 
-        // VALIDO LOS CAMPOS //
-//        $this -> validate($request, $validate, $this->messageProduct());
+        try {
 
-        dd($request->all());
+            // ARRAY CON VALIDACIONES //
+            $validate = [
+                'customer_id' => 'required|integer',
+                'type_reservations_id' => 'required|integer',
+                'living_room_id' => 'required|integer',
+                'date_time' => 'required',
+                'number_people' => 'required|string',
+                'description' => 'required|string',
+            ];
 
-        // ESTE JSON ES DE PRUEBA HAY QUE BORRARLO //
-//        $jsonReservation = [
-//            'customer_id' => 1,
-//            'type_reservations_id' => 1,
-//            'living_room_id' => 1,
-//            'date_time' => '2020-01-01 10:10:10',
-//            'number_people' => 10,
-//            'description' => 'Esta es una prueba.',
-//            'status' => true,
-//            'created_at' => Carbon::now(),
-//            'updated_at' => Carbon::now(),
-//        ];
+            // VALIDO LOS CAMPOS //
+            $this -> validate($request, $validate, $this->messageProduct());
 
-//        Reservation::insert([
-//            'customers_id' => $request['customers_id'],
-//            'type_reservations_id' => $request['type_reservations_id'],
-//            'living_room_id' => $request['living_room_id'],
-//            'date_time' => $request['date_time'],
-//            'number_people' => $request['number_people'],
-//            'description' => $request['description'],
-//            'status' => true
-//        ]);
+            DB::commit();
 
-        return redirect('reservation');
+//            $reservationExists = Reservation::where('living_room_id', $request['living_room_id'])
+////                ->where('date_time', $request['date_time'])
+//                ->first();
+
+            Reservation::insert([
+                'customer_id' => $request['customer_id'],
+                'type_reservations_id' => $request['type_reservations_id'],
+                'living_room_id' => $request['living_room_id'],
+                'date_time' => $request['date_time'],
+                'number_people' => $request['number_people'],
+                'description' => $request['description'],
+                'status' => true,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]);
+
+            Alert::success('La reservacion fue creada exitosamente', 'success');
+
+            return redirect('reservation');
+
+        }catch (\Exception $e){
+
+            DB::rollBack();
+
+            throwException($e);
+
+        }
 
     }
 
@@ -134,11 +149,18 @@ class ReservationController extends Controller
         return redirect()->route('reservation.index');
     }
 
-    public function destroy(Request $request, Reservation $reservation)
+    /*------------
+        DESTROY
+    --------------*/
+    public function destroy($id)
     {
+
+        $reservation = Reservation::findOrFail($id);
+
         $reservation->delete();
 
-        return redirect()->route('reservation.index');
+        return redirect('reservation');
+
     }
 
 }
