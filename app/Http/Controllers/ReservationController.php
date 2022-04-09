@@ -136,7 +136,7 @@ class ReservationController extends Controller
                 'updated_at' => Carbon::now()
             ]);
 
-            Alert::success('La reservacion fue creada exitosamente', 'success');
+            Alert::success('La reservacion fue creada exitosamente');
 
             return redirect('reservation');
 
@@ -233,7 +233,7 @@ class ReservationController extends Controller
                 'updated_at' => Carbon::now()
             ]);
 
-            Alert::success('Los datos de la reservacion fueron actualizados exitosamente', 'success');
+            Alert::success('Los datos de la reservacion fueron actualizados exitosamente');
 
             return redirect('reservation');
 

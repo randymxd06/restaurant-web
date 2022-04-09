@@ -7,12 +7,13 @@
 @stop
 
 @section('content')
-    <div class="row row-cols-1 row-cols-md-3">
+
+    <div class="row row-cols-1 row-cols-md-3 my-3">
 
         <!-- Card -->
         @foreach ($reservations as $reservation)
 
-            <div class="col mb-4">
+            <div class="col-sm-12 col-md-5 mb-4">
 
                 <div class="card card-outline h-100 {{(($reservation->status == 1) ? 'card-success' : (($reservation->status == 2) ? 'card-warning' : 'card-danger'))}}">
 
@@ -91,27 +92,33 @@
                     <div class="card-footer text-center">
 
                         <!-- The footer of the card -->
-                        <div class="btn-group">
+                        <div class="row">
 
                             {{-- BOTON EDITAR --}}
-                            <a href="{{url('/reservation/edit/'.$reservation->id)}}" class="btn btn-warning">
-                                <i class="fas fa-edit"></i>
-                                Editar
-                            </a>
+                            <div class="col-sm-12 col-md-6">
+                                <a href="{{url('/reservation/edit/'.$reservation->id)}}" class="btn btn-warning col-sm-12 my-1">
+                                    <i class="fas fa-edit"></i>
+                                    Editar
+                                </a>
+                            </div>
 
                             {{-- BOTON ELIMINAR --}}
-                            <form action="{{url('/reservation/delete/'.$reservation->id)}}" method="post">
+                            <div class="col-sm-12 col-md-6">
 
-                                @csrf
+                                <form action="{{url('/reservation/delete/'.$reservation->id)}}" method="post" class="form-delete">
 
-                                {{method_field('DELETE')}}
+                                    @csrf
 
-                                <button type="submit" onclick="return confirm('Deseas eliminar esta reservación?')" class="btn btn-danger" value="borrar">
-                                    <i class="fas fa-trash"></i>
-                                    Eliminar
-                                </button>
+                                    {{method_field('DELETE')}}
 
-                            </form>
+                                    <button type="submit" class="btn btn-danger col-sm-12 my-1" value="borrar">
+                                        <i class="fas fa-trash"></i>
+                                        Eliminar
+                                    </button>
+
+                                </form>
+
+                            </div>
 
                         </div>
 
@@ -133,5 +140,23 @@
 
 @section('js')
     @include('sweetalert::alert')
-    <script>Console.log('HOLA');</script>
+    <script>
+        $('.form-delete').submit(e => {
+            e.preventDefault()
+            Swal.fire({
+                title: 'Deseas eliminar esta reservacion?',
+                text: 'Una vez eliminada la reservacion no se podra volver a obtener la informacion de esta.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, eliminar!',
+                cancelButtonText: 'Cancelar'
+            }).then(res => {
+                if(res.isComfirmed){
+                    this.submit()
+                }
+            })
+        })
+    </script>
 @stop
