@@ -28,7 +28,7 @@
         <i class="fab fa-discord"></i>
 @stop        
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+    
     <link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}">
     @stop
 

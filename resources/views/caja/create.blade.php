@@ -20,6 +20,11 @@
     </ul>
 
     <ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+            <a class="nav-link" href="#" role="button">
+                <i class="fas fa-receipt"></i>
+            </a>
+        </li>
         <li class="nav-item dropdown show">
             <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
                     <i class="fas fa-ellipsis-v"></i>
@@ -214,11 +219,11 @@
                                     @csrf
                                     <input hidden type="number" name="user_id" id="user_id" value="{{{ Auth::user()->id }}}">
                                     <input hidden type="number" name="box_id" id="box_id" value="1">
-                                    <input hidden type="number" name="customer_id" id="customer_id" value="">
-                                    <input hidden type="number" name="table_id" id="table_id" value="">
-                                    <input hidden type="text" name="total_order" id="total_order" value="0">
+                                    <input hidden type="number" name="customer_id" id="customer_id" value="{{old('customer_id')}}">
+                                    <input hidden type="number" name="table_id" id="table_id" value="{{old('table_id')}}">
+                                    <input hidden type="text" name="total_order" id="total_order" value="{{old('total_order')}}">
 
-                                    <input hidden type="text" name="products" id="products" value="">
+                                    <input hidden type="text" name="products" id="products" value="{{old('products')}}">
                                     <!-- button -->
                                     <button class="btn btn-success btn-block">
                                         <i class="fas fa-receipt"></i>
@@ -277,7 +282,7 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+    
     <link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}">
     <style>
         @include('caja.includes.style');
@@ -285,34 +290,11 @@
 @stop
 
 @section('js')
+    @include('sweetalert::alert')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     @include('caja.includes.js');
-    <script>
-
-
-        let array = [1,2,3,4,5,6,7,8];
-        let array2 = [];
-
-        array.filter(obj => {
-
-            if(obj % 2 == 0){
-
-                array2.push(obj);
-
-            }
-
-        })
-
-        console.log(array2);
-
-    </script>
-@stop
-
-@section('js')
-
-    </script>
 
     <!-- Notificaciones de Error -->
     @if(count($errors)>0)

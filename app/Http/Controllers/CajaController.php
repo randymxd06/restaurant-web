@@ -115,11 +115,10 @@ class CajaController extends Controller
             }
 
             Alert::toast('Orden realizada correctamente', 'success');
-
             return redirect('caja/create');
-
+            
         }catch (Exception $e){
-
+            Alert::toast('Error al realizar la orden', 'danger');
             throw new Exception($e);
 
         }

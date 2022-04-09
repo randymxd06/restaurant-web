@@ -316,7 +316,7 @@
 @section('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bs-stepper/dist/css/bs-stepper.min.css">
 
-    <link rel="stylesheet" href="/css/admin_custom.css">
+    
     <link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}">
     
     <style>

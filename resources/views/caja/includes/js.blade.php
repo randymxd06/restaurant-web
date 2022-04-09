@@ -2,6 +2,7 @@
     // Objeto con los Productos Seleccionados
     let products = []; 
     let subTotal = 0, total = 0;
+    
     // Funcion para Agregar Productos
     function addProduct(p){
         let e = false;
@@ -75,5 +76,9 @@
         document.getElementById('customer_id').value = id;
     }
     
+    if((document.getElementById('products').value.trim().length>0)){
+        products = JSON.parse(document.getElementById('products').value);
+        refreshProduct();
+    }
   //   
 </script>
