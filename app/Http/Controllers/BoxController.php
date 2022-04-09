@@ -8,6 +8,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class BoxController extends Controller
 {
@@ -113,6 +114,8 @@ class BoxController extends Controller
             // INSERTO LOS DATOS EN LA BASE DE DATOS //
             $boxesHistory->save();
 
+            Alert::success('La caja fue creada correctamente!');
+
             // RETORNO LA VISTA //
             return redirect('box');
 
@@ -184,6 +187,8 @@ class BoxController extends Controller
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
+
+            Alert::success('Los datos de la caja fueron actualizados correctamente!');
 
             return redirect('box');
 
