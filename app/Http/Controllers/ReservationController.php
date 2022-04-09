@@ -9,9 +9,11 @@ use App\Models\LivingRoom;
 use App\Models\Reservation;
 use App\Models\TypeReservation;
 use Carbon\Carbon;
+use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Alert;
+use Nette\Utils\DateTime;
 use function PHPUnit\Framework\throwException;
 
 class ReservationController extends Controller
@@ -49,7 +51,25 @@ class ReservationController extends Controller
     public function index()
     {
 
-        $reservations = Reservation::all();
+        $reservations = DB::table('reservations')
+            ->join('customers', 'reservations.customer_id', '=', 'customers.id')
+            ->join('entities', 'customers.entity_id', '=', 'entities.id')
+            ->join('type_reservations', 'reservations.type_reservations_id', '=', 'type_reservations.id')
+            ->join('living_rooms', 'reservations.living_room_id', '=', 'living_rooms.id')
+            ->select(
+                'entities.first_name',
+                'entities.last_name',
+                'entities.identification',
+                'reservations.status',
+                'reservations.id',
+                'type_reservations.name as reservation_type',
+                'living_rooms.name as reservation_living_room',
+                'reservations.date_time',
+                'reservations.number_people',
+                'reservations.description'
+            )
+            ->where('reservations.deleted_at', '=', null)
+            ->get();
 
         return view('reservation.index', compact(['reservations']));
 
@@ -135,18 +155,92 @@ class ReservationController extends Controller
         return view('reservation.show', compact('reservation'));
     }
 
-    public function edit(Request $request, Reservation $reservation)
+    /*---------
+        EDIT
+    -----------*/
+    public function edit($id)
     {
-        return view('reservation.edit', compact('reservation'));
+
+        // ESTE ES PARA SELECCIONAR UN CLIENTE //
+        $customers = DB::table('customers')
+            ->join('entities', 'customers.entity_id', '=', 'entities.id')
+            ->join('emails', 'entities.id', '=', 'emails.entity_id')
+            ->join('phones', 'entities.id', '=', 'phones.entity_id')
+            ->select('entities.id', 'entities.first_name', 'entities.last_name', 'emails.email', 'phones.phone')
+            ->get();
+
+        // ESTE ME TRAE LA INFORMACION DEL CLIENTE QUE HIZO LA RESERVACION QUE SE ESTA EDITANDO //
+        $dbCustomer = DB::table('reservations')
+            ->join('customers', 'reservations.customer_id', '=', 'customers.id')
+            ->join('entities', 'customers.entity_id', '=', 'entities.id')
+            ->join('emails', 'entities.id', '=', 'emails.entity_id')
+            ->join('phones', 'entities.id', '=', 'phones.entity_id')
+            ->select(
+                'entities.first_name',
+                'entities.last_name',
+                'emails.email',
+                'phones.phone',
+                'reservations.customer_id',
+                'reservations.type_reservations_id',
+                'reservations.living_room_id',
+                'reservations.date_time',
+                'reservations.number_people',
+                'reservations.description',
+            )
+            ->where('reservations.id', '=', $id)
+            ->first();
+
+        // PARA MOSTRAR LA FECHA DE LA RESERVACION EN UN FORMATO CORRECTO PARA MOSTRARLO EN EL INPUT //
+        $date = date('Y-m-d', strtotime($dbCustomer->date_time));
+        $time = date('H:i', strtotime($dbCustomer->date_time));
+        $date_time = $date.'T'.$time;
+
+        $livingRooms = LivingRoom::all();
+        $typeReservations = TypeReservation::all();
+
+        return view('reservation.edit', compact(['date_time', 'dbCustomer', 'id', 'customers', 'livingRooms', 'typeReservations']));
+
     }
 
-    public function update(ReservationUpdateRequest $request, Reservation $reservation)
+    public function update(Request $request, $id)
     {
-        $reservation->update($request->validated());
 
-        $request->session()->flash('reservation.id', $reservation->id);
+        try {
 
-        return redirect()->route('reservation.index');
+            // ARRAY CON VALIDACIONES //
+            $validate = [
+                'customer_id' => 'required|integer',
+                'type_reservations_id' => 'required|integer',
+                'living_room_id' => 'required|integer',
+                'date_time' => 'required',
+                'number_people' => 'required|string',
+                'description' => 'required|string',
+            ];
+
+            $this -> validate($request, $validate, $this->messageProduct());
+
+            $request->except('_token');
+
+            Reservation::where('id', '=', $id)->update([
+                'customer_id' => $request['customer_id'],
+                'type_reservations_id' => $request['type_reservations_id'],
+                'living_room_id' => $request['living_room_id'],
+                'date_time' => $request['date_time'],
+                'number_people' => $request['number_people'],
+                'description' => $request['description'],
+                'status' => true,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]);
+
+            Alert::success('Los datos de la reservacion fueron actualizados exitosamente', 'success');
+
+            return redirect('reservation');
+
+        }catch (\Exception $e){
+            throwException($e);
+        }
+
     }
 
     /*------------
