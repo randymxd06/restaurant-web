@@ -13,7 +13,7 @@
 
 @section('content')
 
-<div class="row row-cols-1 row-cols-md-3 my-3">
+<div class="row row-cols-1 row-cols-md-3">
 
     <!-- Card -->
     @foreach ($customers as $customer)
@@ -103,16 +103,12 @@
                             <div class="col-sm-12 col-md-6">
 
                                 <form action="{{url('/customer/delete/'.$customer->customer_id)}}" method="post" class="form-delete">
-
                                     @csrf
-
                                     {{method_field('DELETE')}}
-
                                     <button type="submit" class="btn btn-danger col-sm-12 my-1" value="borrar">
                                         <i class="fas fa-trash"></i>
                                         Eliminar
                                     </button>
-
                                 </form>
 
                             </div>
@@ -152,7 +148,7 @@
 @section('js')
     @include('sweetalert::alert')
     <script>
-        $('.form-delete').submit(e => {
+        $('.form-delete').submit(function(e){
             e.preventDefault()
             Swal.fire({
                 title: 'Deseas eliminar este cliente?',
@@ -164,8 +160,15 @@
                 confirmButtonText: 'Si, eliminar!',
                 cancelButtonText: 'Cancelar'
             }).then(res => {
-                if(res.isComfirmed){
-                    this.submit()
+                if(res.isConfirmed){
+                    Swal.fire({
+                        title: 'Cliente eliminado correctamente!',
+                        icon: 'success',
+                        showCancelButton: false,
+                    })
+                    setTimeout(() => {
+                        this.submit();
+                    }, 1000)
                 }
             })
         })

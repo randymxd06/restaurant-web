@@ -56,28 +56,43 @@
                     </ul>
                 </div>
             </div>
-            <div class="card-footer d-flex justify-content-center">
-                <div class="btn-group">
+
+            <div class="card-footer justify-content-center">
+
+                <div class="row">
+
                     <!-- Boton Editar -->
-                    <a href="{{url('/products/edit/'.$p->id)}}" class="btn btn-warning">
-                        <i class="fas fa-edit"></i>
-                        Editar
-                    </a>
+                    <div class="col-sm-12 col-md-6">
+                        <a href="{{url('/products/edit/'.$p->id)}}" class="btn btn-warning col-sm-12 my-1">
+                            <i class="fas fa-edit"></i>
+                            Editar
+                        </a>
+                    </div>
                     <!-- Boton Eliminar -->
-                    <form action="{{ url('/products/delete/'.$p->id) }}" method="post" class="form-delete">
-                        @csrf
-                        {{method_field('DELETE')}}
-                        <button type="submit" class="btn btn-danger" value="borrar">
-                            <i class="fas fa-trash"></i>
-                            Eliminar
-                        </button>
-                    </form>
+
+                    <div class="col-sm-12 col-md-6">
+                        <form action="{{ url('/products/delete/'.$p->id) }}" method="post" class="form-delete">
+                            @csrf
+                            {{method_field('DELETE')}}
+                            <button type="submit" class="btn btn-danger col-sm-12 my-1" value="borrar">
+                                <i class="fas fa-trash"></i>
+                                Eliminar
+                            </button>
+                        </form>
+                    </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
+
     @endforeach
+
 </div>
+
 @stop
 
 @section('css')
@@ -92,23 +107,36 @@
 @stop
 
 @section('js')
+    @include('sweetalert::alert')
     <script>
         $('.form-delete').submit(function(e){
-            e.preventDefault();
+            e.preventDefault()
             Swal.fire({
-                title: '¿Estás seguro?',
-                text: "Este producto sera eliminara!",
+                title: 'Deseas eliminar este producto?',
+                text: 'Una vez eliminado este producto no se podra volver a obtener la informacion de este.',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Si, eliminar!',
                 cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    this.submit();
+            }).then(res => {
+
+                if(res.isConfirmed){
+
+                    Swal.fire({
+                        title: 'Producto eliminado correctamente!',
+                        icon: 'success',
+                        showCancelButton: false,
+                    })
+
+                    setTimeout(() => {
+                        this.submit();
+                    }, 1000)
+
                 }
+
             })
-        });
+        })
     </script>
 @stop

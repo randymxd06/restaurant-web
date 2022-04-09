@@ -141,11 +141,11 @@
 @section('js')
     @include('sweetalert::alert')
     <script>
-        $('.form-delete').submit(e => {
+        $('.form-delete').submit(function(e){
             e.preventDefault()
             Swal.fire({
                 title: 'Deseas eliminar esta reservacion?',
-                text: 'Una vez eliminada la reservacion no se podra volver a obtener la informacion de esta.',
+                text: 'Una vez eliminado esta reservacion no se podra volver a obtener la informacion de este.',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -153,8 +153,15 @@
                 confirmButtonText: 'Si, eliminar!',
                 cancelButtonText: 'Cancelar'
             }).then(res => {
-                if(res.isComfirmed){
-                    this.submit()
+                if(res.isConfirmed){
+                    Swal.fire({
+                        title: 'La reservacion fue eliminada correctamente!',
+                        icon: 'success',
+                        showCancelButton: false,
+                    })
+                    setTimeout(() => {
+                        this.submit();
+                    }, 1000)
                 }
             })
         })

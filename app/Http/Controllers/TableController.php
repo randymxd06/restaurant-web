@@ -10,6 +10,8 @@ use Dotenv\Validator;
 use Illuminate\Http\Request;
 use mysql_xdevapi\Exception;
 use Carbon\Carbon;
+use RealRashid\SweetAlert\Facades\Alert;
+
 /*---------------------
     TABLE CONTROLLER
 -----------------------*/
@@ -89,6 +91,8 @@ class TableController extends Controller
             // CREO LA MESA //
             $tables = Table::insert($json);
 
+            Alert::success('La mesa fue creada correctamente!');
+
             // UNA VEZ CREADA LA MESA, ME REDIRECCIONO A LA PAGINA PRINCIPAL //
             return redirect('tables');
 
@@ -138,6 +142,8 @@ class TableController extends Controller
         ];
 
         Table::where('id','=',$id)->update($json);
+
+        Alert::success('Los datos de la mesa fueron actualizados correctamente');
 
         return redirect('tables');
 

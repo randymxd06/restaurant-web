@@ -12,7 +12,7 @@ use Carbon\Carbon;
 use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Alert;
+use RealRashid\SweetAlert\Facades\Alert;
 use Nette\Utils\DateTime;
 use function PHPUnit\Framework\throwException;
 

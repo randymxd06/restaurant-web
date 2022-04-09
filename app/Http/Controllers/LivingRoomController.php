@@ -7,6 +7,7 @@ use App\Http\Requests\LivingRoomUpdateRequest;
 use App\Models\LivingRoom;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use \RealRashid\SweetAlert\Facades\Alert;
 
 class LivingRoomController extends Controller
 {
@@ -20,11 +21,7 @@ class LivingRoomController extends Controller
             'tables_capacity.numeric' => 'La capacidad de mesas debe ser un número.'
         ];
     }
-    
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $livingRooms = LivingRoom::all();
@@ -32,22 +29,15 @@ class LivingRoomController extends Controller
         return view('livingRoom.index', compact('livingRooms'));
     }
 
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('livingRoom.create');
     }
 
-    /**
-     * @param \App\Http\Requests\LivingRoomStoreRequest $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         try{
+
             // Validacion del formulario
             $validate = [
                 'name' => [
@@ -58,7 +48,7 @@ class LivingRoomController extends Controller
                 'tables_capacity' => 'required|numeric',
             ];
 
-            // Realizar validacion de los datos 
+            // Realizar validacion de los datos
             $this -> validate($request, $validate, $this->messageProduct());
 
             // Validar el estado, para enviar como true o false
@@ -70,43 +60,30 @@ class LivingRoomController extends Controller
             $data['name'] = ucfirst(strtolower($data['name']));
             $data['description'] = ucfirst(strtolower($data['description']));
             $data['created_at'] = Carbon::now();
-            // Comprobar datos recibidos
-            // return response()->json($data);
-            
+
             // Inserto el registro en la tabla
             $livingRooms = LivingRoom::insert($data);
+
+            Alert::success('El salon fue creado correctamente');
+
             return redirect('livingrooms');
+
         }catch(Exception $e){
             throw new Exception($e);
         }
     }
 
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\LivingRoom $livingRoom
-     * @return \Illuminate\Http\Response
-     */
     public function show(Request $request, LivingRoom $livingRoom)
     {
         return view('livingRoom.show', compact('livingRoom'));
     }
 
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\LivingRoom $livingRoom
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $livingRoom = LivingRoom::findOrFail($id);
         return view('livingRoom.edit', compact('livingRoom'));
     }
 
-    /**
-     * @param \App\Http\Requests\LivingRoomUpdateRequest $request
-     * @param \App\Models\LivingRoom $livingRoom
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         // Validacion del formulario
@@ -119,28 +96,28 @@ class LivingRoomController extends Controller
             'tables_capacity' => 'required|numeric',
         ];
 
-        // Realizar validacion de los datos 
+        // Realizar validacion de los datos
         $this -> validate($request, $validate, $this->messageProduct());
 
         // Validar el estado, para enviar como true o false
         ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;
         (empty($request['description'])) ? $request['name'] = "" : null;
-        
+
         // Objeto con la informacion que es guardara, exceptuando el TOKEN
         $data = request()->except('_token','_method');
         $data['name'] = ucfirst(strtolower($data['name']));
         $data['description'] = ucfirst(strtolower($data['description']));
         $data['updated_at'] = Carbon::now();
+
         // Actualizar datos cuando el id coincida
         LivingRoom::where('id','=',$id)->update($data);
+
+        Alert::success('Los datos del salon fueron actualizados correctamente');
+
         return redirect('livingrooms');
+
     }
 
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\LivingRoom $livingRoom
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         try{
@@ -151,4 +128,5 @@ class LivingRoomController extends Controller
             throw new Exception($e);
         }
     }
+
 }
