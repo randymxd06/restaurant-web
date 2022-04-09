@@ -14,21 +14,29 @@
 @section('content')
 
 <div class="row row-cols-1 row-cols-md-3">
+
     <!-- Card -->
     @foreach ($customers as $customer)
-    <div class="col-md-6">
+
+        <div class="col-md-6">
+
         <div class="card mb-3 card-outline h-100 {{(($customer->customer_status == 1) ? 'card-success' : (($customer->customer_status == 2) ? 'card-warning' : 'card-danger'))}}">
+
             <div class="row g-0">
+
                 <div class="col-md-4 d-flex">
                     <img src="{{URL::asset('images/daraguma-icon.png')}}" class="img-fluid rounded-start" alt="...">
                 </div>
+
                 <div class="col-md-8">
+
                     <div class="card-header">
                         <h5 class="card-title">
                             <i class="fas fa-user"></i>
                             Cliente #{{ $customer->customer_id }}
                         </h5>
                     </div>
+
                     <div class="card-body">
                         <h5 class="card-title">{{ $customer->first_name.' '.$customer->last_name }}</h5>
                         <p class="card-text">
@@ -78,32 +86,48 @@
                             </ul>
                         </p>
                     </div>
+
                     <div class="text-center">
+
                         <!-- The footer of the card -->
-                        <div class="btn-group">
-                            <a href="{{url('/customer/edit/'.$customer->customer_id)}}" class="btn btn-warning">
-                                <i class="fas fa-edit"></i>
-                                Editar
-                            </a>
-                            <form action="{{url('/customer/delete/'.$customer->customer_id)}}" method="post" class="form-delete">
+                        <div class="row">
 
-                                @csrf
+                            {{-- BOTON EDITAR --}}
+                            <div class="col-sm-12 col-md-6">
+                                <a href="{{url('/customer/edit/'.$customer->customer_id)}}" class="btn btn-warning col-sm-12 my-1">
+                                    <i class="fas fa-edit"></i>
+                                    Editar
+                                </a>
+                            </div>
 
-                                {{method_field('DELETE')}}
+                            <div class="col-sm-12 col-md-6">
 
-                                <button type="submit" class="btn btn-danger" value="borrar">
-                                    <i class="fas fa-trash"></i>
-                                    Eliminar
-                                </button>
-                            </form>
+                                <form action="{{url('/customer/delete/'.$customer->customer_id)}}" method="post" class="form-delete">
+                                    @csrf
+                                    {{method_field('DELETE')}}
+                                    <button type="submit" class="btn btn-danger col-sm-12 my-1" value="borrar">
+                                        <i class="fas fa-trash"></i>
+                                        Eliminar
+                                    </button>
+                                </form>
+
+                            </div>
+
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
+
     @endforeach
     <!-- /Card -->
+
 </div>
 
 @stop
@@ -124,7 +148,7 @@
 @section('js')
     @include('sweetalert::alert')
     <script>
-        $('.form-delete').submit(e => {
+        $('.form-delete').submit(function(e){
             e.preventDefault()
             Swal.fire({
                 title: 'Deseas eliminar este cliente?',
@@ -136,8 +160,15 @@
                 confirmButtonText: 'Si, eliminar!',
                 cancelButtonText: 'Cancelar'
             }).then(res => {
-                if(res.isComfirmed){
-                    this.submit()
+                if(res.isConfirmed){
+                    Swal.fire({
+                        title: 'Cliente eliminado correctamente!',
+                        icon: 'success',
+                        showCancelButton: false,
+                    })
+                    setTimeout(() => {
+                        this.submit();
+                    }, 1000)
                 }
             })
         })

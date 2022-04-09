@@ -10,11 +10,11 @@ use Illuminate\Http\Request;
 use mysql_xdevapi\Exception;
 use function MongoDB\BSON\toJSON;
 use Illuminate\Support\Facades\Storage;
-use Alert;
+use \RealRashid\SweetAlert\Facades\Alert;
 
 class ProductController extends Controller
 {
-    
+
 
     // Mensaje de error al mostrar
     public function messageProduct(){
@@ -22,21 +22,21 @@ class ProductController extends Controller
             'name.required' => 'El nombre del producto es requerido.',
             'name.string' => 'El nombre del producto debe ser un texto.',
             'name.unique' => 'Este nombre del producto ya existe.',
-            // 
+            //
             'products_categories_id.required' => 'Seleccione una categoria para el producto.',
-            'products_categories_id.numeric' => 'Error en la categoria del producto.',                
-            // 
+            'products_categories_id.numeric' => 'Error en la categoria del producto.',
+            //
             'price.required' => 'El precio es requerido.',
             'price.numeric' => 'El precio debe ser un número.',
-            // 
+            //
             'description.string' => 'La descripción debe ser un texto.',
             'description.required' => 'La descripción es requerido.'
         ];
     }
-    
+
     public function index()
     {
-        
+
         $products = Product::all();
         $ProductCategories = ProductCategory::all()->where('status', '=', 1);
         return view('product.index', compact('products'))->with('ProductCategories', $ProductCategories);
@@ -51,7 +51,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         try{
-            // Validacion del formulario 
+            // Validacion del formulario
             $validate = [
                 'name' =>[
                     'required',
@@ -71,7 +71,7 @@ class ProductController extends Controller
                     'numeric'
                 ]
             ];
-            
+
             // Realizar validacion de los datos
             $this -> validate($request, $validate, $this->messageProduct());
 
@@ -86,21 +86,24 @@ class ProductController extends Controller
             $data['products_categories_id'] = (int) $data['products_categories_id'];
             $data['description'] = ucfirst(strtolower($data['description']));
             $data['created_at'] = Carbon::now();
-            
+
             if($request->hasFile('image')){
                 $data['image'] = $request->file('image')->store('uploads', 'public');
             }
 
             // return response()->json($data);
 
-            // Agregar producto 
+            // Agregar producto
             Product::insert($data);
+
             // Alerta al registrar el producto
-            Alert::toast('Producto registrado correctamente', 'success');
+            Alert::success('Producto registrado correctamente');
+
             return redirect('products');
+
         }catch(Exception $ex){
             throw new Exception($ex);
-        }        
+        }
     }
 
     public function show(Request $request, Product $product)
@@ -161,13 +164,13 @@ class ProductController extends Controller
                 $data['image'] = $request->file('image')->store('uploads', 'public');
             }
 
-            // Comprobar datos recibidos 
+            // Comprobar datos recibidos
             // return response()->json($data);
 
             // Actualizar datos cuando el id coincida
             Product::where('id','=',$id)->update($data);
             // Alerta al editar
-            Alert::toast('Producto editado correctamente', 'success');
+            Alert::success('Producto editado correctamente');
 
             return redirect('products');
 
@@ -181,8 +184,6 @@ class ProductController extends Controller
         try{
             $product = Product::findOrFail($id);
             $product->delete();
-            // Alerta al eliminar
-            Alert::toast('Producto eliminado correctamente', 'success');
             return redirect('products');
         }catch(Exception $ex){
             throw new Exception($ex);

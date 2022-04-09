@@ -242,7 +242,7 @@ class CustomerController extends Controller
             'customer_type_id' => $request['customer_type_id'],
         ]);
 
-        Alert::success('Los datos del cliente fueron actualizados correctamente', 'success');
+        Alert::success('Los datos del cliente fueron actualizados correctamente');
 
         return redirect('customer');
 

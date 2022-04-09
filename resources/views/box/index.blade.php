@@ -55,27 +55,27 @@
                     <div class="card-footer text-center">
 
                         <!-- The footer of the card -->
-                        <div class="btn-group">
+                        <div class="row">
 
                             {{-- BOTON EDITAR --}}
-                            <a href="{{url('/box/edit/'.$box->id)}}" class="btn btn-warning">
-                                <i class="fas fa-edit"></i>
-                                Editar
-                            </a>
+                            <div class="col-sm-12 col-md-6">
+                                <a href="{{url('/box/edit/'.$box->id)}}" class="btn btn-warning col-sm-12 my-1">
+                                    <i class="fas fa-edit"></i>
+                                    Editar
+                                </a>
+                            </div>
 
                             {{-- BOTON ELIMINAR --}}
-                            <form action="{{url('/box/delete/'.$box->id)}}" method="post">
-
-                                @csrf
-
-                                {{method_field('DELETE')}}
-
-                                <button type="submit" onclick="return confirm('Deseas eliminar esta caja?')" class="btn btn-danger" value="borrar">
-                                    <i class="fas fa-trash"></i>
-                                    Eliminar
-                                </button>
-
-                            </form>
+                            <div class="col-sm-12 col-md-6">
+                                <form action="{{url('/box/delete/'.$box->id)}}" method="post" class="form-delete">
+                                    @csrf
+                                    {{method_field('DELETE')}}
+                                    <button type="submit" class="btn btn-danger col-sm-12 my-1" value="borrar">
+                                        <i class="fas fa-trash"></i>
+                                        Eliminar
+                                    </button>
+                                </form>
+                            </div>
 
                         </div>
 
@@ -101,7 +101,31 @@
 @stop
 
 @section('js')
+    @include('sweetalert::alert')
     <script>
-        Console.log('HOLA');
+        $('.form-delete').submit(function(e){
+            e.preventDefault()
+            Swal.fire({
+                title: 'Deseas eliminar esta caja?',
+                text: 'Una vez eliminado esta caja no se podra volver a obtener la informacion de este.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, eliminar!',
+                cancelButtonText: 'Cancelar'
+            }).then(res => {
+                if(res.isConfirmed){
+                    Swal.fire({
+                        title: 'Caja eliminada correctamente!',
+                        icon: 'success',
+                        showCancelButton: false,
+                    })
+                    setTimeout(() => {
+                        this.submit();
+                    }, 1000)
+                }
+            })
+        })
     </script>
 @stop
