@@ -20,7 +20,8 @@ class CreateReservationsTable extends Migration
             $table->foreign('type_reservations_id')->references('id')->on('type_reservations')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('living_room_id');
             $table->foreign('living_room_id')->references('id')->on('living_rooms')->onDelete('cascade')->onUpdate('cascade');
-            $table->timestamp('date_time');
+            $table->date('reservation_date');
+            $table->time('reservation_time');
             $table->unsignedBigInteger('number_people');
             $table->text('description');
             $table->boolean('status')->default(true);

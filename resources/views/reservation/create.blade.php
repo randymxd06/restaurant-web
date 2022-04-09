@@ -4,7 +4,10 @@
 
 @section('content_header')
     <h1>Realizar Reservación</h1>
-
+    <a class="btn btn-primary mt-1" href="{{url('/reservation')}}">
+        <i class="fas fa-arrow-left"></i>
+        Volver
+    </a>
     <hr class="mt-2">
     <!-- Mensaje de error -->
     @if(count($errors)>0)
@@ -144,23 +147,30 @@
         </div>
         <!-- / -->
 
-        <!-- FECHA Y HORA -->
-        <div class="col-sm-6 mb-2">
+        <!-- FECHA -->
+        <div class="col-sm-4 mb-2">
             <div class="form-group">
-                <label class="form-label">Fecha & Hora:</label>
-                <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                    <input name="date_time" id="date_time" type="datetime-local" class="form-control"/>
-{{--                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>--}}
-{{--                    <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">--}}
-{{--                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>--}}
-{{--                    </div>--}}
+                <label class="form-label">Fecha de la reservación:</label>
+                <div class="input-group date">
+                    <input name="reservation_date" id="reservation_date" type="date" class="form-control"/>
+                </div>
+            </div>
+        </div>
+        <!-- / -->
+
+        <!-- HORA -->
+        <div class="col-sm-4 mb-2">
+            <div class="form-group">
+                <label class="form-label">Hora de la reservación:</label>
+                <div class="input-group date">
+                    <input name="reservation_time" id="reservation_time" type="time" class="form-control"/>
                 </div>
             </div>
         </div>
         <!-- / -->
 
         <!-- NUMERO DE PERSONAS -->
-        <div class="col-sm-6 mb-2">
+        <div class="col-sm-4 mb-2">
             <div class="form-group">
                 <label class="form-label">Número de Personas:</label>
                 <div class="input-group">

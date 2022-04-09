@@ -34,7 +34,8 @@ class ReservationController extends Controller
             'living_room_id.required' => 'El salon es requerido',
             'living_room_id.integer' => 'Debe seleccionar un salon',
 
-            'date_time.required' => 'La fecha es requerida',
+            'reservation_date.required' => 'La fecha de la reservacion es requerida',
+            'reservation_time.required' => 'La hora de la reservacion es requerida',
 
             'number_people.required' => 'El numero de personas es requerido',
             'number_people.string' => 'Debe escribir la cantidad de personas',
@@ -64,11 +65,12 @@ class ReservationController extends Controller
                 'reservations.id',
                 'type_reservations.name as reservation_type',
                 'living_rooms.name as reservation_living_room',
-                'reservations.date_time',
+                'reservations.reservation_date',
+                'reservations.reservation_time',
                 'reservations.number_people',
                 'reservations.description'
             )
-            ->where('reservations.deleted_at', '=', null)
+//            ->where('reservations.deleted_at', '=', null)
             ->get();
 
         return view('reservation.index', compact(['reservations']));
@@ -110,7 +112,8 @@ class ReservationController extends Controller
                 'customer_id' => 'required|integer',
                 'type_reservations_id' => 'required|integer',
                 'living_room_id' => 'required|integer',
-                'date_time' => 'required',
+                'reservation_date' => 'required',
+                'reservation_time' => 'required',
                 'number_people' => 'required|string',
                 'description' => 'required|string',
             ];
@@ -128,7 +131,8 @@ class ReservationController extends Controller
                 'customer_id' => $request['customer_id'],
                 'type_reservations_id' => $request['type_reservations_id'],
                 'living_room_id' => $request['living_room_id'],
-                'date_time' => $request['date_time'],
+                'reservation_date' => $request['reservation_date'],
+                'reservation_time' => $request['reservation_time'],
                 'number_people' => $request['number_people'],
                 'description' => $request['description'],
                 'status' => true,
@@ -183,25 +187,27 @@ class ReservationController extends Controller
                 'reservations.customer_id',
                 'reservations.type_reservations_id',
                 'reservations.living_room_id',
-                'reservations.date_time',
+                'reservations.reservation_date',
+                'reservations.reservation_time',
                 'reservations.number_people',
                 'reservations.description',
             )
             ->where('reservations.id', '=', $id)
             ->first();
 
-        // PARA MOSTRAR LA FECHA DE LA RESERVACION EN UN FORMATO CORRECTO PARA MOSTRARLO EN EL INPUT //
-        $date = date('Y-m-d', strtotime($dbCustomer->date_time));
-        $time = date('H:i', strtotime($dbCustomer->date_time));
-        $date_time = $date.'T'.$time;
+        $date = date('Y-m-d', strtotime($dbCustomer->reservation_date));
+        $time = date('H:i', strtotime($dbCustomer->reservation_time));
 
         $livingRooms = LivingRoom::all();
         $typeReservations = TypeReservation::all();
 
-        return view('reservation.edit', compact(['date_time', 'dbCustomer', 'id', 'customers', 'livingRooms', 'typeReservations']));
+        return view('reservation.edit', compact(['date', 'time', 'dbCustomer', 'id', 'customers', 'livingRooms', 'typeReservations']));
 
     }
 
+    /*-----------
+        UPDATE
+    -------------*/
     public function update(Request $request, $id)
     {
 
@@ -212,7 +218,8 @@ class ReservationController extends Controller
                 'customer_id' => 'required|integer',
                 'type_reservations_id' => 'required|integer',
                 'living_room_id' => 'required|integer',
-                'date_time' => 'required',
+                'reservation_date' => 'required',
+                'reservation_time' => 'required',
                 'number_people' => 'required|string',
                 'description' => 'required|string',
             ];
@@ -225,7 +232,8 @@ class ReservationController extends Controller
                 'customer_id' => $request['customer_id'],
                 'type_reservations_id' => $request['type_reservations_id'],
                 'living_room_id' => $request['living_room_id'],
-                'date_time' => $request['date_time'],
+                'reservation_date' => $request['reservation_date'],
+                'reservation_time' => $request['reservation_time'],
                 'number_people' => $request['number_people'],
                 'description' => $request['description'],
                 'status' => true,

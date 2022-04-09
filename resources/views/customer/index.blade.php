@@ -5,7 +5,7 @@
 @section('content_header')
     <h1>Clientes</h1>
     <a class="btn btn-success mt-1" href="{{url('/customer/create')}}">
-        <i class="fas fa-chair"></i>
+        <i class="fas fa-users"></i>
         Agregar
     </a>
     <hr class="mt-2">
