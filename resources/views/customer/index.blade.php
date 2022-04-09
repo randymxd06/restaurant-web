@@ -13,121 +13,78 @@
 
 @section('content')
 
-    <div class="row row-cols-1 row-cols-md-3">
-
-        <!-- Card -->
-        @foreach ($customers as $customer)
-
-            <div class="col mb-4">
-
-                <div class="card card-outline h-100 {{(($customer->customer_status == 1) ? 'card-success' : (($customer->customer_status == 2) ? 'card-warning' : 'card-danger'))}}">
-
+<div class="row row-cols-1 row-cols-md-3">
+    <!-- Card -->
+    @foreach ($customers as $customer)
+    <div class="col-md-6">
+        <div class="card mb-3 card-outline h-100 {{(($customer->customer_status == 1) ? 'card-success' : (($customer->customer_status == 2) ? 'card-warning' : 'card-danger'))}}">
+            <div class="row g-0">
+                <div class="col-md-4 d-flex">
+                    <img src="{{URL::asset('images/daraguma-icon.png')}}" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
                     <div class="card-header">
                         <h5 class="card-title">
-                            <i class="fas fa-chair"></i>
+                            <i class="fas fa-user"></i>
                             Cliente #{{ $customer->customer_id }}
                         </h5>
                     </div>
-
                     <div class="card-body">
-
-                        <ul class="list-group list-group-flush">
-
-                            {{-- TIPO DE CLIENTE --}}
-                            <li class="list-group-item">
-                                <strong>
-                                    <i class="fas fa-file-alt"></i>
-                                    Tipo de cliente:
-                                </strong>
-                                {{ $customer->name }}
-                            </li>
-
-                            {{-- NOMBRE Y APELLIDO DEL CLIENTE --}}
-                            <li class="list-group-item">
-                                <strong>
-                                    <i class="fas fa-male"></i>
-                                    Nombre:
-                                </strong>
-                                {{ $customer->first_name.' '.$customer->last_name }}
-                            </li>
-
-                            {{-- CEDULA DEL CLIENTE --}}
-                            <li class="list-group-item">
-                                <strong>
-                                    <i class="fas fa-file-alt"></i>
-                                    Cédula:
-                                </strong>
-                                {{ $customer->identification }}
-                            </li>
-
-                            {{-- SEXO DEL CLIENTE --}}
-                            <li class="list-group-item">
-                                <strong>
-                                    <i class="fas fa-file-alt"></i>
-                                    Sexo:
-                                </strong>
-                                {{ $customer->sex_name }}
-                            </li>
-
-                            {{-- ESTADO CIVIL DEL CLIENTE --}}
-                            <li class="list-group-item">
-                                <strong>
-                                    <i class="fas fa-file-alt"></i>
-                                    Estado civil:
-                                </strong>
-                                {{ $customer->civil_status_name }}
-                            </li>
-
-                            {{-- NACIONALIDAD DEL CLIENTE --}}
-                            <li class="list-group-item">
-                                <strong>
-                                    <i class="fas fa-file-alt"></i>
-                                    Nacionalidad:
-                                </strong>
-                                {{ $customer->nationality_name }}
-                            </li>
-
-                            {{-- FECHA DE NACIMIENTO DEL CLIENTE --}}
-                            <li class="list-group-item">
-                                <strong>
-                                    <i class="fas fa-file-alt"></i>
-                                    Fecha de nacimiento:
-                                </strong>
-                                {{ $customer->birth_date }}
-                            </li>
-
-                            {{-- EMAIL --}}
-                            <li class="list-group-item">
-                                <strong>
-                                    <i class="fas fa-file-alt"></i>
-                                    Correo electrónico:
-                                </strong>
-                                {{ $customer->entity_email }}
-                            </li>
-
-                            {{-- PHONE --}}
-                            <li class="list-group-item">
-                                <strong>
-                                    <i class="fas fa-file-alt"></i>
-                                    Teléfono:
-                                </strong>
-                                {{ $customer->entity_phone }}
-                            </li>
-
-                        </ul>
-
+                        <h5 class="card-title">{{ $customer->first_name.' '.$customer->last_name }}</h5>
+                        <p class="card-text">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <strong>
+                                        <i class="fas fa-user-tag"></i>
+                                        Tipo de cliente:
+                                    </strong>
+                                    {{ $customer->name }}
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>
+                                        <i class="fas fa-id-card"></i>
+                                        Cédula:
+                                    </strong>
+                                    {{ $customer->identification }}
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>
+                                        <i class="fas fa-venus-mars"></i>
+                                        Sexo:
+                                    </strong>
+                                    {{ $customer->sex_name }}
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>
+                                        <i class="fas fa-ring"></i>
+                                        Estado civil:
+                                    </strong>
+                                    {{ $customer->civil_status_name }}
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>
+                                        <i class="fas fa-flag"></i>
+                                        Nacionalidad:
+                                    </strong>
+                                    {{ $customer->nationality_name }}
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>
+                                        <i class="fas fa-birthday-cake"></i>
+                                        Fecha de nacimiento:
+                                    </strong>
+                                    {{ $customer->birth_date }}
+                                </li>
+                            </ul>
+                        </p>
                     </div>
-
-                    <div class="card-footer text-center">
-
+                    <div class="text-center">
                         <!-- The footer of the card -->
                         <div class="btn-group">
-
                             <a href="{{url('/customer/edit/'.$customer->customer_id)}}" class="btn btn-warning">
                                 <i class="fas fa-edit"></i>
                                 Editar
                             </a>
-
                             <form action="{{url('/customer/delete/'.$customer->customer_id)}}" method="post" class="form-delete">
 
                                 @csrf
@@ -138,21 +95,16 @@
                                     <i class="fas fa-trash"></i>
                                     Eliminar
                                 </button>
-
                             </form>
-
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
-    @endforeach
-        <!-- /Card -->
-
+        </div>
     </div>
+    @endforeach
+    <!-- /Card -->
+</div>
 
 @stop
 
@@ -162,6 +114,9 @@
     <style>
         .card-title{
             font-weight: bold !important
+        }
+        .img-fluid{
+            object-fit: cover;
         }
     </style>
 @stop

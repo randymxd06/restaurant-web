@@ -76,7 +76,6 @@ class CustomerController extends Controller
             ->select('customers.id as customer_id', 'entities.first_name', 'entities.last_name', 'entities.identification', 'entities.status as customer_status', 'entities.birth_date', 'customer_types.*', 'sexs.name as sex_name', 'civil_status.description as civil_status_name', 'nationalities.name as nationality_name', 'emails.email as entity_email', 'phones.phone as entity_phone')
             ->where('customers.deleted_at', '=', null)
             ->get();
-
         return view('customer.index', compact(['customers']));
 
     }
