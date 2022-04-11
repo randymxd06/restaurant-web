@@ -149,19 +149,30 @@
             </div>
             <!-- / -->
 
-            <!-- FECHA Y HORA -->
-            <div class="col-sm-6 mb-2">
+            <!-- FECHA -->
+            <div class="col-sm-4 mb-2">
                 <div class="form-group">
-                    <label class="form-label">Fecha & Hora:</label>
+                    <label class="form-label">Fecha de la reservación:</label>
+                    <div class="input-group date">
+                        <input name="reservation_date" id="reservation_date" type="date" class="form-control" value="{{$date}}"/>
+                    </div>
+                </div>
+            </div>
+            <!-- / -->
 
-                        <input name="date_time" id="date_time" type="datetime-local" class="form-control" value="{{$date_time}}"/>
-
+            <!-- HORA -->
+            <div class="col-sm-4 mb-2">
+                <div class="form-group">
+                    <label class="form-label">Hora de la reservación:</label>
+                    <div class="input-group date">
+                        <input name="reservation_time" id="reservation_time" type="time" class="form-control" value="{{$time}}"/>
+                    </div>
                 </div>
             </div>
             <!-- / -->
 
             <!-- NUMERO DE PERSONAS -->
-            <div class="col-sm-6 mb-2">
+            <div class="col-sm-4 mb-2">
                 <div class="form-group">
                     <label class="form-label">Número de Personas:</label>
                     <div class="input-group">

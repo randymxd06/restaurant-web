@@ -3,7 +3,12 @@
 @section('title', 'Reservaciones')
 
 @section('content_header')
-    <h1>Reservaciones</h1
+    <h1>Reservaciones</h1>
+    <a class="btn btn-success mt-1" href="{{url('/reservation/create')}}">
+        <i class="fas fa-calendar-day"></i>
+        Agregar
+    </a>
+    <hr class="mt-2">
 @stop
 
 @section('content')
@@ -66,7 +71,15 @@
                                     <i class="fas fa-archway"></i>
                                     Fecha de la reservación:
                                 </strong>
-                                {{ $reservation->date_time }}
+                                {{ $reservation->reservation_date }}
+                            </li>
+
+                            <li class="list-group-item">
+                                <strong>
+                                    <i class="fas fa-archway"></i>
+                                    Hora de la reservación:
+                                </strong>
+                                {{ $reservation->reservation_time }}
                             </li>
 
                             <li class="list-group-item">

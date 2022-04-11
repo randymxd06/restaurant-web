@@ -302,7 +302,7 @@ return [
                 [
                     'text' => 'Recepción',
                     'icon'    => 'fas fa-fw fa-concierge-bell',
-                    'url'  => '#',
+                    'url'  => 'recepcion',
                 ],
                 [
                     'text' => 'Reservaciones',

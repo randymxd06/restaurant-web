@@ -144,7 +144,7 @@ class CustomerController extends Controller
             $customer->customer_type_id = $request['customer_type_id'];
             $customer->save();
 
-            Alert::toast('El cliente fue registrado correctamente', 'success');
+            Alert::success('El cliente fue registrado correctamente');
 
             return redirect('customer');
 
