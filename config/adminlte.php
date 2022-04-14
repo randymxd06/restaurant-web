@@ -434,14 +434,47 @@ return [
             'icon' => 'fas fa-fw fa-warehouse',
             'submenu' => [
                 [
-                    'text' => 'Gestionar Inventario',
-                    'url'  => 'inventario',
-                    'icon' => 'fas fa-dolly-flatbed'
+                    'text' => 'Gestionar Ingredientes',
+                    'icon' => 'fas fa-dolly-flatbed',
+                    'submenu' => [
+                        [
+                            'text' => 'Ingredientes',
+                            'url'  => 'ingredients/',
+                            'icon' => 'fas fa-pallet'
+                        ],
+                        [
+                            'text' => 'Agregar Ingrediente',
+                            'url'  => 'ingredients/create',
+                            'icon' => 'fas fa-pallet'
+                        ]
+                    ]
                 ],
                 [
-                    'text' => 'Agregar Inventario',
-                    'url'  => 'inventario/create',
-                    'icon' => 'fas fa-pallet'
+                    'text' => 'Gestionar Recetas',
+                    'icon' => 'fas fa-dolly-flatbed',
+                    'submenu' => [
+                        [
+                            'text' => 'Recetas',
+                            'url'  => 'recipes/',
+                            'icon' => 'fas fa-pallet'
+                        ],
+                        [
+                            'text' => 'Agregar Receta',
+                            'url'  => 'recipes/create',
+                            'icon' => 'fas fa-pallet'
+                        ]
+                    ]
+                ],
+                [
+                    'text' => 'Gestionar Almacenes',
+                    'icon' => 'fas fa-dolly-flatbed',
+                    'submenu' => [
+                        [
+                            'text' => 'Almacenes',
+                            'url'  => 'warehouse/',
+                            'icon' => 'fas fa-pallet'
+                        ]
+                    ]
                 ]
             ]
         ],

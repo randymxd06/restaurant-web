@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Caja;
 use Illuminate\Support\Facades\DB;
+use function PHPUnit\Framework\throwException;
 use App\Http\Requests\CajaStoreRequest;
 use App\Http\Requests\CajaUpdateRequest;
 use App\Models\Order;
@@ -115,7 +116,7 @@ class CajaController extends Controller
             }
 
             Alert::toast('Orden realizada correctamente', 'success');
-            return redirect('caja/create');
+            return redirect('caja/edit/'.$order_id);
             
         }catch (Exception $e){
             Alert::toast('Error al realizar la orden', 'danger');
@@ -130,9 +131,36 @@ class CajaController extends Controller
         return view('caja.show', compact('caja'));
     }
 
-    public function edit(Request $request, Caja $caja)
+    public function edit($id)
     {
-        return view('caja.edit', compact('caja'));
+        // Obtener datos de la orden
+        $order = DB::table('orders')
+            ->select('entities.first_name as c_first_name', 'entities.last_name as c_last_name', 'tables.id as table_id' )
+            ->join('tables', 'orders.table_id', '=', 'tables.id')
+            ->join('customers', 'orders.customer_id', '=', 'customers.id')
+            ->join('entities', 'customers.entity_id', '=', 'entities.id')
+            ->where('orders.id', '=', $id)
+            ->first();
+        $orderProducts = DB::table('order_products')
+            ->join('products', 'order_products.product_id', '=', 'products.id')
+            ->where('order_products.order_id', '=', $id);
+        
+        $currentuserid = Auth::user()->id;
+        
+        $box = Box::where('user_id', '=', $currentuserid)->first();
+        if ($box === null) {
+        //    El usuario registrado no tiene una caja
+            return redirect('dashboard')->with('error-box','ok');
+        }
+
+        $productCategories = ProductCategory::all()->where('status', '=', 1);
+        $products = Product::all()->where('status', '=', 1);
+        $tables = Table::all()->where('status', '<>', 0);
+        $livingRooms = LivingRoom::all()->where('status', '=', 1);
+        $customers = Customer::all();
+        $entities = Entity::all();
+
+        return view('caja.edit', compact('order','productCategories', 'products', 'tables', 'livingRooms', 'customers', 'entities', 'box'));
     }
 
     public function update(Request $request, $id)

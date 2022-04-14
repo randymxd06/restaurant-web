@@ -6,6 +6,7 @@ use App\Http\Requests\PedidosRapidosStoreRequest;
 use App\Http\Requests\PedidosRapidosUpdateRequest;
 use App\PedidosRapido;
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class PedidosRapidosController extends Controller
 {
@@ -17,7 +18,8 @@ class PedidosRapidosController extends Controller
 
     public function create(Request $request)
     {
-        return view('pedidosRapido.create');
+        $products = Product::all()->where('status', '=', 1);
+        return view('pedidosRapido.create', compact('products'));
     }
 
     public function store(PedidosRapidosStoreRequest $request)

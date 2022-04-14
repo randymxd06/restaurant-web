@@ -53,10 +53,15 @@
                 <div class="row row-cols-1 row-cols-md-4 g-4">
 
                     <!-- Card -->
+                    @foreach($products as $p)
                     <div class="col">
                         <div class="card h-100">
-                            <img src="https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvYTAxOS1qYWt1YmstMDc1MS1zdXNoaS15YW0tbWFraS1yb2xsczIuanBn.jpg?s=vfs8-70mdtj139nl2sZkPbta0YANGjNJWGPHSXgRYYc"
-                                class="card-img-top" alt="...">
+                            
+                            @if (!empty($p->image))
+                            <img src="{{ asset('storage').'/'.$p->image }}" class="card-img-top" alt="...">
+                            @else
+                            <img src="{{URL::asset('images/daraguma-icon.png')}}" class="card-img-top" alt="...">
+                            @endif
                             <div class="card-body">
                                 <p class="card-text">Sushi</p>
                                 <span class="badge bg-light text-dark">RD$ 100.00</span>
@@ -74,73 +79,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- /Card -->
-
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="https://www.stockvault.net/data/2013/09/28/148242/preview16.jpg" class="card-img-top"
-                                alt="...">
-                            <div class="card-body">
-                                <p class="card-text">Pizza</p>
-                                <span class="badge bg-light text-dark">RD$ 100.00</span>
-                                <div class="d-flex justify-content-center mt-1">
-                                    <button class="btn btn-outline-dark">
-                                        <i class="fas fa-minus-circle"></i>
-                                    </button>
-                                    <div class="input-group input-group-lg">
-                                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" value="0" style="text-align:center;" disable>
-                                    </div>
-                                    <button class="btn btn-outline-dark">
-                                        <i class="fas fa-plus-circle"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="https://img.freepik.com/foto-gratis/vista-lateral-doble-hamburguesa-queso-empanadas-carne-parrilla-queso-hojas-lechuga-bollos_141793-4883.jpg?w=740"
-                                class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <p class="card-text">Hamburguesa</p>
-                                <span class="badge bg-light text-dark">RD$ 100.00</span>
-                                <div class="d-flex justify-content-center mt-1">
-                                    <button class="btn btn-outline-dark">
-                                        <i class="fas fa-minus-circle"></i>
-                                    </button>
-                                    <div class="input-group input-group-lg">
-                                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" value="0" style="text-align:center;" disable>
-                                    </div>
-                                    <button class="btn btn-outline-dark">
-                                        <i class="fas fa-plus-circle"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="https://img.freepik.com/foto-gratis/tazon-ramen-abulon-japones_1205-10107.jpg?w=740"
-                                class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <p class="card-text">Ramen</p>
-                                <span class="badge bg-light text-dark">RD$ 100.00</span>
-                                <div class="d-flex justify-content-center mt-1">
-                                    <button class="btn btn-outline-dark">
-                                        <i class="fas fa-minus-circle"></i>
-                                    </button>
-                                    <div class="input-group input-group-lg">
-                                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" value="0" style="text-align:center;" disable>
-                                    </div>
-                                    <button class="btn btn-outline-dark">
-                                        <i class="fas fa-plus-circle"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                     <!-- /Card -->
                 </div>
             </div>
@@ -320,6 +259,10 @@
     <link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}">
     
     <style>
+        .card-img-top {
+            height: 180px;
+            object-fit: cover;
+        }
         .layout-navbar-fixed .wrapper .main-header, .layout-fixed .main-sidebar{
             display: none;
         }

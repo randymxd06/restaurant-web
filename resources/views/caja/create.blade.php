@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Caja')
+@section('title', 'Venta | Toma de pedido')
 
 @section('content_header')
 <nav class="main-header navbar-category navbar navbar-expand navbar-white navbar-light">

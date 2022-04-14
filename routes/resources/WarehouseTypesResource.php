@@ -8,7 +8,7 @@ use App\Http\Controllers\WarehouseTypeController;
     DESCRIPCION: ESTAS SON LAS RUTAS PARA MANEJAR LOS TIPOS DE ALMACENES.
 ----------------------------------------------------------------------------*/
 Route::group([
-    'prefix' => 'warehouse-type',
+    'prefix' => 'warehouse',
 ], function () {
     Route::middleware(['auth:sanctum', 'verified'])->get('/', [WarehouseTypeController::class, 'index']);
     Route::middleware(['auth:sanctum', 'verified'])->get('/show/{id}', [WarehouseTypeController::class, 'show']);
