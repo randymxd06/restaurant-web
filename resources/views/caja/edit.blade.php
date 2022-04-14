@@ -17,6 +17,11 @@
                 <span class="sr-only">Toggle navigation</span>
             </a>
         </li>
+        <li class="nav-item">
+            <p class="nav-link">
+                <strong>Orden #</strong> {{ $order->id }}
+            </p>
+        </li>
     </ul>
 
     <ul class="navbar-nav ml-auto">
@@ -215,9 +220,10 @@
                         <tr>
                             <td colspan="4">
                                 <!-- Formulario -->
-                                <form method="post" action="{{ url('/caja/store') }}">
+                                <form method="post" action="{{ url('/caja/update/'.$order->id) }}">
                                     <!-- TOKEN -->
                                     @csrf
+                                    {{method_field('PUT')}}
                                     <input hidden type="number" name="user_id" id="user_id" value="{{{ Auth::user()->id }}}">
                                     <input hidden type="number" name="box_id" id="box_id" value="1">
                                     <input hidden type="number" name="customer_id" id="customer_id" value="{{ isset($order->customer_id)?$order->customer_id: old('customer_id')}}">
@@ -315,4 +321,13 @@
         </script>
     @endif
     <!-- / -->
+
+    <script>
+        @if($orderProducts)
+            products = @json($orderProducts);        
+            document.getElementById('products').value = JSON.stringify(products, null, 3);
+            refreshProduct();
+        @endif
+    
+    </script>
 @stop

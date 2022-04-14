@@ -6,18 +6,18 @@
     // Funcion para Agregar Productos
     function addProduct(p){
         let e = false;
-        p.qty = 0;
+        p.quantity = 0;
         
         for(let i of products){
             if(i.name == p.name){
                 e = true;
-                i.qty+=1;
+                i.quantity+=1;
                 break;
             }
         }
         
         if(!e){
-            p.qty+=1;
+            p.quantity+=1;
             products.push(p);
         }
 
@@ -26,16 +26,16 @@
 
     // Funcion Para reducir productos
     function reduceProduct(id){
-        //  Recorerr los productos agregadors
         
+        //  Recorerr los productos agregadors        
         for (let p = 0; p < products.length; p++){
             // If para verificar si el producto a eliminar existe en la lista
             if(products[p].id === id){
                 // If para eliminar si la cantidad es igual a 1, de lo contrario reducir 1
-                if(products[p].qty == 1){
+                if(products[p].quantity == 1){
                     products.splice(p, 1);
                 }else{
-                    products[p].qty-=1;
+                    products[p].quantity-=1;
                 }
                 refreshProduct();
                 return
@@ -48,11 +48,11 @@
         let listProductsHTML = "";
         total = 0;
         products.forEach(pro => {    
-            let importe = Math.round((parseFloat(pro.qty*pro.price).toFixed(2))*100)/100;
+            let importe = Math.round((parseFloat(pro.quantity*pro.price).toFixed(2))*100)/100;
             total = Math.round((total+importe)*100)/100;
             listProductsHTML += '<tr>'+
                                     '<td>'+pro.name+'</td>'+
-                                    '<td>'+pro.qty+'</td>'+
+                                    '<td>'+pro.quantity+'</td>'+
                                     '<td>RD$'+importe+'</td>'+
                                     '<td><button onclick="reduceProduct('+ pro.id +')"><i class="far fa-trash-alt"></i></button></td>'+
                                 '</tr>';
@@ -75,10 +75,6 @@
         document.getElementById("customer-id").innerHTML = '' + name;
         document.getElementById('customer_id').value = id;
     }
+
     
-    if((document.getElementById('products').value.trim().length>0)){
-        products = JSON.parse(document.getElementById('products').value);
-        refreshProduct();
-    }
-  //   
 </script>

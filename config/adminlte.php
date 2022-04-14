@@ -479,21 +479,21 @@ return [
             ]
         ],
 
-        // Productos
+        // Terminales
         [
-            'text' => 'Cajas',
+            'text' => 'Terminales',
             // 'url'  => '#',
-            'icon' => 'fas fa-fw fa-cash-register',
+            'icon' => 'fas fa-fw fa-network-wired',
             'submenu' => [
                 [
-                    'text' => 'Gestionar Cajas',
+                    'text' => 'Gestionar Terminales',
                     'url'  => 'box',
-                    'icon' => 'fas fa-boxes'
+                    'icon' => 'fas fa-laptop-house'
                 ],
                 [
-                    'text' => 'Agregar Cajas',
+                    'text' => 'Agregar Terminal',
                     'url'  => 'box/create',
-                    'icon' => 'fas fa-box'
+                    'icon' => 'fas fa-laptop-medical'
                 ]
             ]
         ],

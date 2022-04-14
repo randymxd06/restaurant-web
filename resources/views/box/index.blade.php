@@ -1,11 +1,11 @@
 @extends('adminlte::page')
 
-@section('title', 'Caja')
+@section('title', 'Terminales')
 
 @section('content_header')
-    <h1>Cajas</h1>
+    <h1>Terminales</h1>
     <a class="btn btn-success mt-1" href="{{url('/box/create')}}">
-        <i class="fas fa-chair"></i>
+        <i class="fas fa-laptop-medical"></i>
         Agregar
     </a>
     <hr class="mt-2">
@@ -16,15 +16,12 @@
 
         <!-- Card -->
         @foreach ($boxes as $box)
-
             <div class="col mb-4">
-
                 <div class="card card-outline h-100 {{(($box->status == 1) ? 'card-success' : (($box->status == 2) ? 'card-warning' : 'card-danger'))}}">
-
                     <div class="card-header">
                         <h5 class="card-title">
-                            <i class="fas fa-chair"></i>
-                            Caja #{{ $box->id }}
+                            <i class="fas fa-desktop"></i>
+                            Terminal #{{ $box->id }}
                         </h5>
                     </div>
 
@@ -106,8 +103,8 @@
         $('.form-delete').submit(function(e){
             e.preventDefault()
             Swal.fire({
-                title: 'Deseas eliminar esta caja?',
-                text: 'Una vez eliminado esta caja no se podra volver a obtener la informacion de este.',
+                title: 'Deseas eliminar esta terminal?',
+                text: 'Una vez eliminado esta terminal no se podra volver a obtener la informacion de este.',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -117,7 +114,7 @@
             }).then(res => {
                 if(res.isConfirmed){
                     Swal.fire({
-                        title: 'Caja eliminada correctamente!',
+                        title: 'Terminal eliminada correctamente!',
                         icon: 'success',
                         showCancelButton: false,
                     })

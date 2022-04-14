@@ -82,7 +82,10 @@
 .layout-navbar-fixed.layout-fixed .wrapper .control-sidebar {
     top: calc(3.5rem + 0px);
 }
-
+.brand-link{
+    max-height: 56px !important; 
+    height: 100%;
+}
 @media screen and (max-width: 768px) {
 /*   */
 

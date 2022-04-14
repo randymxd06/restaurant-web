@@ -105,10 +105,10 @@ class CajaController extends Controller
                 $product = [
                     'order_id' => (int) $order_id,
                     'product_id' => (int) $p->id,
-                    'quantity' => (int) $p->qty,
+                    'quantity' => (int) $p->quantity,
                     'price' => (double) $p->price,
                     'discount' => 0,
-                    'total' => (double) (($p->qty)*($p->price)),
+                    'total' => (double) (($p->quantity)*($p->price)),
                     'description' => "Nota",
                     'created_at' => Carbon::now()
                 ];
@@ -135,18 +135,19 @@ class CajaController extends Controller
     {
         // Obtener datos de la orden
         $order = DB::table('orders')
-            ->select('entities.first_name as c_first_name', 'entities.last_name as c_last_name', 'tables.id as table_id' )
+            ->select('orders.id as id', 'orders.customer_id', 'orders.customer_id','entities.first_name as c_first_name', 'entities.last_name as c_last_name', 'tables.id as table_id' )
             ->join('tables', 'orders.table_id', '=', 'tables.id')
             ->join('customers', 'orders.customer_id', '=', 'customers.id')
             ->join('entities', 'customers.entity_id', '=', 'entities.id')
             ->where('orders.id', '=', $id)
             ->first();
         $orderProducts = DB::table('order_products')
-            ->join('products', 'order_products.product_id', '=', 'products.id')
-            ->where('order_products.order_id', '=', $id);
+        ->join('products', 'products.id', '=', 'order_products.product_id')
+        ->where('order_products.order_id', '=', $id)
+        ->get(['order_products.*', 'products.id', 'products.name', 'products.price', 'products.image', 'products.products_categories_id']);
+        
         
         $currentuserid = Auth::user()->id;
-        
         $box = Box::where('user_id', '=', $currentuserid)->first();
         if ($box === null) {
         //    El usuario registrado no tiene una caja
@@ -160,7 +161,7 @@ class CajaController extends Controller
         $customers = Customer::all();
         $entities = Entity::all();
 
-        return view('caja.edit', compact('order','productCategories', 'products', 'tables', 'livingRooms', 'customers', 'entities', 'box'));
+        return view('caja.edit', compact('order', 'orderProducts', 'productCategories', 'products', 'tables', 'livingRooms', 'customers', 'entities', 'box'));
     }
 
     public function update(Request $request, $id)
@@ -170,39 +171,45 @@ class CajaController extends Controller
             'user_id' => 'required|int',
             'box_id' => 'required|int',
             'customer_id' => 'required|int',
-            'order_types_id' => 'required|int',
             'table_id' => 'required|int',
-            'total' => 'required|double',
-            'status' => 'boolean',
+            'total_order' => 'required|numeric',
+            'products' => 'required'
         ];
 
         $this -> validate($request, $validate, $this->messageProduct());
 
-        (isset($request['status'])) ? $request['status'] = 1 : $request['status'] = 0;
+        $request['products'] = json_decode($request['products']);
 
         $order = $request->except(['_token', '_method']);
 
-        $jsonOrders = [
-            'user_id' => (int) $order['user_id'],
-            'box_id' => (int) $order['box_id'],
-            'customer_id' => (int) $order['customer_id'],
-            'order_types_id' => (int) $order['order_types_id'],
-            'table_id' => (int) $order['order_types_id'],
-            'total' => (double) $order['total'],
-            'status' => $order['status'],
+        $order = [
+            'user_id' => (int) $request['user_id'],
+            'box_id' => (int) $request['box_id'],
+            'customer_id' => (int) $request['customer_id'],
+            'order_types_id' => 1,
+            'table_id' => (int) $request['table_id'],
+            'total' => (double) $request['total_order'],
+            'status' => 1
         ];
 
-        Order::where('id','=',$id)->update($jsonOrders);
+        Order::where('id','=',$id)->update($order);
 
-        // TODO: AGREGAR EL ACTUALIZAR DE DETALLE DE ORDEN
-        $products = [];
-
-        foreach ($products as $product){
-            OrderProduct::where('id','=',$id)->update($products);
+        foreach ($request['products'] as $p){
+            $product = [
+                'quantity' => (int) $p->quantity,
+                'price' => (double) $p->price,
+                'discount' => 0,
+                'total' => (double) (($p->quantity)*($p->price)),
+                'description' => "Nota",
+                'updated_at' => Carbon::now()
+            ];
+            OrderProduct::where([
+                ['order_id', '=',$id],
+                ['product_id', '=', $p->id]
+            ])->update($product);
         }
-
-        return redirect('caja');
-
+        Alert::toast('La orden #'.$id.' a sido modificada correctamente!', 'success');
+        return redirect('caja/edit/'.$id);
     }
 
     public function destroy($id)

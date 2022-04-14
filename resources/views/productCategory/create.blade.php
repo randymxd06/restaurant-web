@@ -28,7 +28,7 @@
 
 @section('content')
 <!-- Formulario Producto -->
-<form method="post" action="{{ url('/product_category/store') }}">
+<form autocomplete="off" method="post" action="{{ url('/product_category/store') }}">
     <!-- TOKEN -->
     @csrf
     <div class="form-row">

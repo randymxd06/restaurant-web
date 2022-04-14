@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Caja')
+@section('title', 'Terminal')
 
 @section('content_header')
-    <h1 class="mb-4">Editar Caja | #{{$box->id}}</h1>
+    <h1 class="mb-4">Editar Terminal | #{{$box->id}}</h1>
     <a class="btn btn-primary mt-1" href="{{url('/box')}}">
         <i class="fas fa-arrow-left"></i>
         Volver
@@ -38,35 +38,38 @@
         {{method_field('PUT')}}
 
         <div class="row">
-
-            <div class="form-group col-sm-4">
-                <label class="form-label" for="start_time">Hora de inicio</label>
-                <input class="form-control" type="time" name="start_time" id="start_time" value="{{$boxesHistory->start_time}}">
-            </div>
-
-            <div class="form-group col-sm-4">
-                <label class="form-label" for="end_time">Hora de cierre</label>
-                <input class="form-control" type="time" name="end_time" id="end_time" value="{{$boxesHistory->end_time}}">
-            </div>
-
-            <div class="form-group col-sm-12 col-md-4">
+            <div class="form-group col-sm-12 col-md-12">
                 <label class="form-label" for="device_use">Dispositivo</label>
-                <select class="custom-select mr-sm-2" id="device_use" name="device_use">
-                    <option selected disabled>Selecciona un dispositivo...</option>
-                    <option value="Tablet">Tablet</option>
-                    <option value="Celular">Celular</option>
-                    <option value="Computadora">Computadora</option>
-                </select>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-desktop"></i>
+                        </span>
+                    </div>
+                    <select class="custom-select mr-sm-2" id="device_use" name="device_use">
+                        <option selected disabled>Selecciona un dispositivo...</option>
+                        <option value="Tablet" {{( $box->device_use == 'Tablet') ? 'selected' : ''}}>Tablet</option>
+                        <option value="Celular" {{( $box->device_use == 'Celular') ? 'selected' : ''}}>Celular</option>
+                        <option value="Computadora" {{( $box->device_use == 'Computadora') ? 'selected' : ''}}>Computadora</option>
+                    </select>
+                </div>
             </div>
 
-            <div class="form-group col-sm-12 col-md-4">
+            <div class="form-group col-sm-12 col-md-12">
                 <label for="user_id">Usuario</label>
-                <select class="custom-select mr-sm-2" id="user_id" name="user_id">
-                    <option selected disabled>Selecciona un usuario...</option>
-                    @foreach ($users as $user)
-                        <option option value="{{ $user->id }}" {{( $box->user_id == $user->id) ? 'selected' : ''}}>{{$user->name}}</option>
-                    @endforeach
-                </select>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-user"></i>
+                        </span>
+                    </div>
+                    <select class="custom-select mr-sm-2" id="user_id" name="user_id">
+                        <option selected disabled>Selecciona un usuario...</option>
+                        @foreach ($users as $user)
+                            <option option value="{{ $user->id }}" {{( $box->user_id == $user->id) ? 'selected' : ''}}>{{$user->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
 
         </div>

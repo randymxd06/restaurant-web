@@ -18,13 +18,6 @@ class BoxController extends Controller
     -----------------------------*/
     public function messageProduct(){
         return [
-
-            'start_time.required' => 'La hora de inicio es requerida.',
-            'start_time.date_format:H:i' => 'La hora de inicio debe ser tipo 00:00.',
-
-            'end_time.required' => 'La hora de cierre es requerida.',
-            'end_time.date_format:H:i' => 'La hora de cierre debe ser tipo 00:00.',
-
             'device_use.required' => 'El dispositivo es requerido.',
             'device_use.string' => 'debe seleccionar un dispositivo',
 
@@ -71,16 +64,10 @@ class BoxController extends Controller
 
             // ARRAY CON VALIDACIONES //
             $validate = [
-                'start_time' => 'required|date_format:H:i',
-                'end_time' => 'required|date_format:H:i',
                 'device_use' => 'required|string',
                 'user_id' => 'required|integer',
                 'status' => 'boolean'
             ];
-
-            // TRANSFORMO LOS TIPOS DE DATOS TIME DE 00:00:00 A 00:00 //
-            $request['start_time'] = substr($request['start_time'], 0, 5);
-            $request['end_time'] = substr($request['end_time'], 0, 5);
 
             // TRANSFORMO EL STATUS DE ON A TRUE Y DE OFF A FALSE //
             ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;
@@ -101,28 +88,13 @@ class BoxController extends Controller
             // INSERTO LOS DATOS EN LA BASE DE DATOS //
             $boxes->save();
 
-            // INSTANCIO UNA CLASE DEL MODELO BOXHISTORY //
-            $boxesHistory = new BoxHistory();
-
-            // PREPARO LA DATA //
-            $boxesHistory->box_id = $boxes->id;
-            $boxesHistory->start_time = $request['start_time'];
-            $boxesHistory->end_time = $request['end_time'];
-            $boxesHistory->created_at = Carbon::now();
-            $boxesHistory->updated_at = Carbon::now();
-
-            // INSERTO LOS DATOS EN LA BASE DE DATOS //
-            $boxesHistory->save();
-
-            Alert::success('La caja fue creada correctamente!');
-
+            Alert::success('La terminal fue creada correctamente!');
             // RETORNO LA VISTA //
             return redirect('box');
 
         }catch(Exception $e){
             throw new Exception($e);
         }
-
     }
 
     /*---------
@@ -140,8 +112,7 @@ class BoxController extends Controller
     {
         $users = User::all();
         $box = Box::findOrFail($id);
-        $boxesHistory = BoxHistory::where('box_id', '=', $box->id)->first();
-        return view('box.edit', compact(['box', 'boxesHistory', 'users']));
+        return view('box.edit', compact(['box', 'users']));
     }
 
     /*-----------
@@ -149,19 +120,13 @@ class BoxController extends Controller
     -------------*/
     public function update(Request $request, $id)
     {
-
         try{
-
             $validate = [
-                'start_time' => 'required|date_format:H:i',
-                'end_time' => 'required|date_format:H:i',
                 'device_use' => 'required|string',
                 'user_id' => 'required|integer',
                 'status' => 'boolean'
             ];
 
-            $request['start_time'] = substr($request['start_time'], 0, 5);
-            $request['end_time'] = substr($request['end_time'], 0, 5);
             (isset($request['status'])) ? $request['status'] = 1 : $request['status'] = 0;
 
             $this -> validate($request, $validate, $this->messageProduct());
@@ -176,20 +141,9 @@ class BoxController extends Controller
                 'user_id' => $request['user_id'],
                 'device_use' => $request['device_use'],
                 'status' => $request['status'],
-                'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
-
-            DB::table('boxes_history')->where('box_id', '=', $id)->update([
-                'box_id' => (int) $id,
-                'start_time' => $request['start_time'],
-                'end_time' => $request['end_time'],
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ]);
-
-            Alert::success('Los datos de la caja fueron actualizados correctamente!');
-
+            Alert::success('Los datos de la terminal fueron actualizados correctamente!');
             return redirect('box');
 
         }catch(Exception $e){
