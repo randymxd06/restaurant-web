@@ -80,7 +80,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">RD$</span>
                     </div>
-                    <input type="text" class="form-control" id="price" name="price" value="{{ isset($product->price)?$product->price:old('price') }}">
+                    <input class="form-control" type="number" id="price" name="price" value="{{ isset($product->price)?$product->price:old('price') }}">
                     <div class="input-group-append">
                         <span class="input-group-text">.00</span>
                     </div>

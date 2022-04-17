@@ -29,6 +29,5 @@ class DatabaseSeeder extends Seeder
 //         \App\Models\TypeReservation::factory(3)->create();
 //         \App\Models\Email::factory(3)->create();
 //         \App\Models\Phone::factory(3)->create();
-//         \App\Models\TypeReservation::factory(3)->create();
     }
 }

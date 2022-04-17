@@ -50,7 +50,7 @@
 
             <div class="form-group col-sm-12 col-md-4">
                 <label class="form-label" for="identification">Cédula</label>
-                <input class="form-control" type="text" name="identification" id="identification" placeholder="Escribe tu cédula" value="{{$customers->identification}}">
+                <input class="identificationMask form-control" type="text" name="identification" id="identification" placeholder="Escribe tu cédula" value="{{$customers->identification}}">
             </div>
 
             <div class="form-group col-sm-12 col-md-3">
@@ -100,7 +100,7 @@
 
             <div class="form-group col-sm-12 col-md-4">
                 <label class="form-label" for="phone">Teléfono</label>
-                <input class="form-control" type="text" name="phone" id="phone" placeholder="Escribe un número de teléfono" value="{{$customers->phone}}">
+                <input class="phoneMask form-control" type="text" name="phone" id="phone" placeholder="Escribe un número de teléfono" value="{{$customers->phone}}">
             </div>
 
             <div class="form-group col-sm-12 col-md-4">
@@ -129,5 +129,13 @@
 @stop
 
 @section('js')
-
+    <script src="https://cdn.jsdelivr.net/npm/maska@latest/dist/maska.js"></script>
+    <script>
+        var identificationMask = Maska.create('.identificationMask', {
+            mask: '###-#######-#'
+        });
+        var phoneMask = Maska.create('.phoneMask', {
+            mask: '(###) ###-####'
+        });
+    </script>
 @stop
