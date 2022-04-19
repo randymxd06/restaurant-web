@@ -10,18 +10,15 @@ class Recipe extends Model
 {
     use HasFactory, SoftDeletes;
 
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
+    protected $table = 'recipes';
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
+    protected $fillable = [
+        'product_id',
+        'name',
+        'instructions',
+        'status',
+    ];
+
     protected $casts = [
         'id' => 'integer',
         'product_id' => 'integer',
@@ -33,8 +30,4 @@ class Recipe extends Model
         return $this->belongsTo(Product::class);
     }
 
-    public function product()
-    {
-        return $this->belongsTo(Product::class);
-    }
 }

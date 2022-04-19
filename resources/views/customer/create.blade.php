@@ -61,7 +61,7 @@
                             <i class="fas fa-id-card"></i>
                         </span>
                     </div>
-                    <input class="form-control" type="text" name="identification" id="identification" placeholder="Escribe tu cédula">
+                    <input class="identificationMask form-control" type="text" name="identification" id="identification" placeholder="Escribe tu cédula">
                 </div>
             </div>
 
@@ -165,7 +165,7 @@
                             <i class="fas fa-phone-alt"></i>
                         </span>
                     </div>
-                    <input class="form-control" type="text" name="phone" id="phone" placeholder="Escribe un número de teléfono">
+                    <input class="phoneMask form-control" type="text" name="phone" id="phone" placeholder="Escribe un número de teléfono">
                 </div>
             </div>
 
@@ -190,5 +190,13 @@
 @stop
 
 @section('js')
-
+    <script src="https://cdn.jsdelivr.net/npm/maska@latest/dist/maska.js"></script>
+    <script>
+        var identificationMask = Maska.create('.identificationMask', {
+            mask: '###-#######-#'
+        });
+        var phoneMask = Maska.create('.phoneMask', {
+            mask: '(###) ###-####'
+        });
+    </script>
 @stop

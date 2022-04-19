@@ -10,19 +10,17 @@ class WarehouseType extends Model
 {
     use HasFactory, SoftDeletes;
 
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
+    protected $table = 'warehouse_type';
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
+    protected $fillable = [
+        'name',
+        'description',
+        'status',
+    ];
+
     protected $casts = [
         'id' => 'integer',
+        'status' => 'boolean'
     ];
+
 }
