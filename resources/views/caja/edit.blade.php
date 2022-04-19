@@ -266,7 +266,7 @@
                                         <i class="fas fa-trash"></i>
                                     </a>
                                     <!-- /button -->
-                                    <button class="btn btn-success btn-lg" disabled>
+                                    <button class="btn btn-success btn-lg">
                                         <i class="fas fa-cash-register"></i>
                                         Facturar
                                     </button>

@@ -76,5 +76,11 @@
         document.getElementById('customer_id').value = id;
     }
 
+    // Comprobar si hay productos a la hora de recargar la pagina
+    let checkProducts = document.getElementById('products').value
+    if (checkProducts) {
+        products = JSON. parse(checkProducts);
+        refreshProduct();
+    }
     
 </script>
