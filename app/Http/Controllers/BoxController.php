@@ -17,7 +17,9 @@ class BoxController extends Controller
         MENSAJES DE VALIDACION
     -----------------------------*/
     public function messageProduct(){
+
         return [
+
             'device_use.required' => 'El dispositivo es requerido.',
             'device_use.string' => 'debe seleccionar un dispositivo',
 
@@ -25,6 +27,7 @@ class BoxController extends Controller
             'user_id.string' => 'Debe seleccionar un usuario'
 
         ];
+
     }
 
     /*----------
@@ -89,11 +92,14 @@ class BoxController extends Controller
             $boxes->save();
 
             Alert::success('La terminal fue creada correctamente!');
+
             // RETORNO LA VISTA //
             return redirect('box');
 
         }catch(Exception $e){
+
             throw new Exception($e);
+
         }
     }
 
@@ -121,6 +127,7 @@ class BoxController extends Controller
     public function update(Request $request, $id)
     {
         try{
+
             $validate = [
                 'device_use' => 'required|string',
                 'user_id' => 'required|integer',
@@ -143,7 +150,9 @@ class BoxController extends Controller
                 'status' => $request['status'],
                 'updated_at' => Carbon::now(),
             ]);
+
             Alert::success('Los datos de la terminal fueron actualizados correctamente!');
+
             return redirect('box');
 
         }catch(Exception $e){

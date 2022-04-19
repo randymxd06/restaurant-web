@@ -2,89 +2,194 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\RecipeStoreRequest;
 use App\Http\Requests\RecipeUpdateRequest;
+use App\Models\Product;
 use App\Models\Recipe;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use PHPUnit\Util\Exception;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class RecipeController extends Controller
 {
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
+
+    /*---------------------------
+        MENSAJES DE VALIDACION
+    -----------------------------*/
+    public function messageProduct(){
+
+        return [
+
+            'product_id.required' => 'El producto es requerido.',
+            'product_id.integer' => 'Debe seleccionar un producto.',
+
+            'name.required' => 'El nombre de la receta es requerida.',
+            'name.string' => 'Debe escribir el nombre de la receta.',
+
+            'instructions.required' => 'Las instrucciones de la receta es requerida.',
+            'instructions.string' => 'Debe escribir las instrucciones de la receta.',
+
+        ];
+
+    }
+
+    /*----------
+        INDEX
+    ------------*/
+    public function index()
     {
-        $recipes = Recipe::all();
+
+        $recipes = DB::table('recipes')
+            ->join('products', 'recipes.product_id', '=', 'products.id')
+            ->select('recipes.id', 'recipes.name', 'recipes.instructions', 'recipes.status', 'products.name as product_name')
+            ->get();
 
         return view('recipe.index', compact('recipes'));
+
     }
 
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
+    /*-----------
+        CREATE
+    -------------*/
+    public function create()
     {
-        return view('recipe.create');
+
+        $products = Product::all()->where('status', '=', true);
+
+        return view('recipe.create', compact(['products']));
+
     }
 
-    /**
-     * @param \App\Http\Requests\RecipeStoreRequest $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(RecipeStoreRequest $request)
+    /*----------
+        STORE
+    ------------*/
+    public function store(Request $request)
     {
-        $recipe = Recipe::create($request->validated());
 
-        $request->session()->flash('recipe.id', $recipe->id);
+        try {
 
-        return redirect()->route('recipe.index');
+            // ARRAY CON VALIDACIONES //
+            $validate = [
+                'product_id' => 'required|integer',
+                'name' => 'required|string',
+                'instructions' => 'required|string'
+            ];
+
+            // TRANSFORMO EL STATUS DE ON A TRUE Y DE OFF A FALSE //
+            ($request['status'] == 'on') ? $request['status'] = 1 : $request['status'] = 0;
+
+            // VALIDO LOS CAMPOS //
+            $this -> validate($request, $validate, $this->messageProduct());
+
+            Recipe::insert([
+                'product_id' => $request['product_id'],
+                'name' => $request['name'],
+                'instructions' => $request['instructions'],
+                'status' => $request['status'],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+
+            Alert::success('La receta fue creada correctamente!');
+
+            return redirect('recipes');
+
+        }catch (\Exception $e){
+
+            DB::rollBack();
+
+            throw new \Exception($e);
+
+        }
+
     }
 
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Recipe $recipe
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request, Recipe $recipe)
+    public function show($id)
     {
-        return view('recipe.show', compact('recipe'));
+
+        return view('recipe.show');
+
     }
 
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Recipe $recipe
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Request $request, Recipe $recipe)
+    /*---------
+        EDIT
+    -----------*/
+    public function edit($id)
     {
-        return view('recipe.edit', compact('recipe'));
+
+        $recipes = Recipe::findOrFail($id);
+
+        $products = Product::all()->where('status', '=', true);
+
+        return view('recipe.edit', compact(['products', 'recipes']));
+
     }
 
-    /**
-     * @param \App\Http\Requests\RecipeUpdateRequest $request
-     * @param \App\Models\Recipe $recipe
-     * @return \Illuminate\Http\Response
-     */
-    public function update(RecipeUpdateRequest $request, Recipe $recipe)
+    /*-----------
+        UPDATE
+    -------------*/
+    public function update(Request $request, $id)
     {
-        $recipe->update($request->validated());
 
-        $request->session()->flash('recipe.id', $recipe->id);
+        try {
 
-        return redirect()->route('recipe.index');
+            // ARRAY CON VALIDACIONES //
+            $validate = [
+                'product_id' => 'required|integer',
+                'name' => 'required|string',
+                'instructions' => 'required|string'
+            ];
+
+            // TRANSFORMO EL STATUS DE ON A TRUE Y DE OFF A FALSE //
+            ($request['status'] == 'on') ? $request['status'] = 1 : $request['status'] = 0;
+
+            // VALIDO LOS CAMPOS //
+            $this -> validate($request, $validate, $this->messageProduct());
+
+            DB::table('recipes')->where('id', '=', $id)->update([
+                'product_id' => $request['product_id'],
+                'name' => $request['name'],
+                'instructions' => $request['instructions'],
+                'status' => $request['status'],
+                'updated_at' => Carbon::now(),
+            ]);
+
+            Alert::success('Los datos de la receta fueron actualizados correctamente!');
+
+            return redirect('recipes');
+
+        }catch (\Exception $e){
+
+            DB::rollBack();
+
+            throw new Exception($e);
+
+        }
+
     }
 
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Recipe $recipe
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request, Recipe $recipe)
+    /*------------
+        DESTROY
+    --------------*/
+    public function destroy($id)
     {
-        $recipe->delete();
+        try {
 
-        return redirect()->route('recipe.index');
+            $recipe = Recipe::findOrFail($id);
+
+            $recipe->delete();
+
+            return redirect('recipes');
+
+        }catch (\Exception $e){
+
+            DB::rollBack();
+
+            throw new \Exception($e);
+
+        }
+
     }
+
 }

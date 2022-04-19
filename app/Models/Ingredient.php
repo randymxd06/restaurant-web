@@ -10,27 +10,20 @@ class Ingredient extends Model
 {
     use HasFactory, SoftDeletes;
 
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
+    protected $table = 'ingredients';
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
+    protected $fillable = [
+        'name',
+        'description',
+        'warehouse_type_id',
+        'status',
+    ];
+
     protected $casts = [
         'id' => 'integer',
         'warehouse_type_id' => 'integer',
+        'status' => 'boolean',
     ];
-
-    public function warehouseType()
-    {
-        return $this->belongsTo(WarehouseType::class);
-    }
 
     public function warehouseType()
     {
@@ -46,4 +39,5 @@ class Ingredient extends Model
     {
         return $this->hasMany(RecipesVsIngredients::class);
     }
+
 }
