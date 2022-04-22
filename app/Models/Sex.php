@@ -12,6 +12,14 @@ class Sex extends Model
 
     protected $table = 'sexs';
 
+    protected $fillable = [
+        'name',
+        'symbol',
+        'description',
+        'created_at',
+        'updated_at',
+    ];
+
     protected $casts = [
         'id' => 'integer',
     ];
@@ -20,4 +28,5 @@ class Sex extends Model
     {
         return $this->belongsTo(Entity::class);
     }
+
 }

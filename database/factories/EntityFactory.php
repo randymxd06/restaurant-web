@@ -28,7 +28,7 @@ class EntityFactory extends Factory
         return [
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
-            'identification' => $this->faker->word,
+            'identification' => $this->faker->uuid,
             'sex_id' => Sex::factory(),
             'civil_status_id' => CivilStatus::factory(),
             'nationality_id' => Nationality::factory(),
