@@ -76,6 +76,49 @@
 
     </div>
 
+    <div class="card container" style="border-radius: 10px">
+
+        <p class="my-2" style="font-size: 25px">Ordenes Activas</p>
+
+        <table class="my-2 table table-striped table-hover">
+
+            <thead>
+                <tr style="font-weight: bold">
+                    <td>Código Orden</td>
+                    <td>Código Mesa</td>
+                    <td>Cliente</td>
+                    <td>Tipo de Orden</td>
+                    <td>Estado</td>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>43405</td>
+                    <td>1</td>
+                    <td>Randy Garcia</td>
+                    <td>Orden de caja</td>
+                    <td class="text-success">Activa</td>
+                </tr>
+                <tr>
+                    <td>43406</td>
+                    <td>2</td>
+                    <td>Randy Garcia</td>
+                    <td>Orden de caja</td>
+                    <td class="text-success">Activa</td>
+                </tr>
+                <tr>
+                    <td>43407</td>
+                    <td>3</td>
+                    <td>Randy Garcia</td>
+                    <td>Orden de caja</td>
+                    <td class="text-success">Activa</td>
+                </tr>
+            </tbody>
+
+        </table>
+
+    </div>
 
 
 </section>
