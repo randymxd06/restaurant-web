@@ -13,7 +13,7 @@ class SexFactory extends Factory
      *
      * @var string
      */
-    protected $model = Sex::class;
+//    protected $model = Sex::class;
 
     /**
      * Define the model's default state.

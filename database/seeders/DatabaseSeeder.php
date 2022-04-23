@@ -6,29 +6,24 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
+
     public function run()
     {
-//         \App\Models\OrderType::factory(3)->create();
-//         \App\Models\User::factory(3)->create();
-//         \App\Models\Entity::factory(3)->create();
-//         \App\Models\LivingRoom::factory(3)->create();
-//         \App\Models\Table::factory(20)->create();
-//         \App\Models\ProductCategory::factory(3)->create();
-//         \App\Models\BoxHistory::factory(3)->create();
-//         \App\Models\Box::factory(3)->create();
-//         \App\Models\Sex::factory(2)->create();
-//         \App\Models\CivilStatus::factory(4)->create();
-//         \App\Models\Nationality::factory(5)->create();
-//         \App\Models\CustomerType::factory(3)->create();
-//         \App\Models\Customer::factory(3)->create();
-//         \App\Models\TypeReservation::factory(3)->create();
-//         \App\Models\Email::factory(3)->create();
-//         \App\Models\Phone::factory(3)->create();
-//         \App\Models\WarehouseType::factory(3)->create();
+//        $this->call(OrderTypeSeeder::class);
+//        $this->call(UserSeeder::class);
+//        $this->call(EntitySeeder::class);
+//        $this->call(LivinRoomSeeder::class);
+//        $this->call(TableSeeder::class);
+//        $this->call(ProductCategorySeeder::class);
+//        $this->call(BoxSeeder::class);
+//        $this->call(SexSeeder::class);
+//        $this->call(CivilStatusSeeder::class);
+//        $this->call(NationalitySeeder::class);
+//        $this->call(CustomerTypeSeeder::class);
+//        $this->call(CustomerSeeder::class);
+//        $this->call(TypeReservationSeeder::class);
+//        $this->call(EmailSeeder::class);
+//        $this->call(PhoneSeeder::class);
+//        $this->call(WarehouseTypeSeeder::class);
     }
 }
