@@ -18,6 +18,7 @@ use App\Models\LivingRoom;
 use App\Models\Entity;
 use App\Models\Customer;
 use App\Models\Box;
+use App\Models\Invoice;
 use Carbon\Carbon;
 use Alert;
 
@@ -135,7 +136,7 @@ class CajaController extends Controller
     {
         // Obtener datos de la orden
         $order = DB::table('orders')
-            ->select('orders.id as id', 'orders.customer_id', 'orders.customer_id','entities.first_name as c_first_name', 'entities.last_name as c_last_name', 'tables.id as table_id' )
+            ->select('orders.id as id', 'orders.customer_id','orders.status as status', 'entities.first_name as c_first_name', 'entities.last_name as c_last_name', 'tables.id as table_id' )
             ->join('tables', 'orders.table_id', '=', 'tables.id')
             ->join('customers', 'orders.customer_id', '=', 'customers.id')
             ->join('entities', 'customers.entity_id', '=', 'entities.id')
@@ -166,7 +167,7 @@ class CajaController extends Controller
 
     public function update(Request $request, $id)
     {
-
+        
         $validate = [
             'user_id' => 'required|int',
             'box_id' => 'required|int',
@@ -192,6 +193,10 @@ class CajaController extends Controller
             'status' => 1
         ];
 
+        if( Invoice::where('order_id',$id)->first() ){
+            Alert::toast('La orden #'.$id.' esta facturada!', 'info');
+            return redirect('caja/edit/'.$id);
+        }
         Order::where('id','=',$id)->update($order);
 
         foreach ($request['products'] as $p){
@@ -208,19 +213,42 @@ class CajaController extends Controller
                 ['product_id', '=', $p->id]
             ])->update($product);
         }
-        Alert::toast('La orden #'.$id.' a sido modificada correctamente!', 'success');
-        return redirect('caja/edit/'.$id);
+        if($request['status'] == "on") { 
+            $invoice = [
+                'token' => 'inv'.$id,
+                'rnc' => '0',
+                'order_id' => $id,
+                'payment_method_id' => 1,
+                'shipping' => 0,
+                'promo' => 0,
+                'taxes' => 0,
+                'discount' => 0,
+                'total' => (double) $request['total_order'],
+                'status' => 1,
+                'created_at'  => Carbon::now()
+            ];
+            Invoice::insert($invoice);
+            Alert::toast('La orden #'.$id.' facturada correctamente!', 'success');
+            
+        }else{
+            Alert::toast('La orden #'.$id.' a sido modificada!', 'success');         
+        }
     }
 
     public function destroy($id)
     {
         try{
-            $order = Order::findOrFail($id);
-            $order->delete();
-            return redirect('caja');
+            if( Invoice::where('order_id',$id)->first() ){
+
+                $order = Order::findOrFail($id);
+                $order->delete();
+                return redirect('caja');
+            }else {
+                Alert::toast('La orden #'.$id.' ya esta facturada y no puede ser borrada!', 'error');
+                return redirect('caja/edit/'.$id);
+            }
         }catch(Exception $e){
             throw new Exception($e);
         }
     }
-
 }

@@ -57,6 +57,10 @@
                     <i class="fas fa-user mr-2"></i>Reasignar empleado
                     <!-- <span class="float-right text-muted text-sm">12 hours</span> -->
                 </a>
+                <a href="{{url('/caja/create')}}" class="dropdown-item">
+                    <i class="fas fa-receipt mr-2"></i>Nueva orden
+                    <!-- <span class="float-right text-muted text-sm">12 hours</span> -->
+                </a>
                 <!-- <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item">
                     <i class="fas fa-file mr-2"></i> 3 new reports
@@ -231,7 +235,13 @@
                                     <input hidden type="text" name="total_order" id="total_order" value="{{old('total_order')}}">
                                     <input hidden type="text" name="products" id="products" value="{{ old('products')}}">
                                     <!-- button -->
-                                    <button class="btn btn-success btn-block">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" id="status" name="status" {{($order->status == true || $order->status == 1) ? 'checked' : ''}}>
+                                            <label class="custom-control-label" for="status">Facturar</label>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-lg btn-success btn-block">
                                         <i class="fas fa-receipt"></i>
                                         Enviar
                                     </button>
@@ -258,18 +268,19 @@
                         <tr>
                             <td colspan="4">
                                 <div class="order-btn d-grid gap-2 d-flex justify-content-end">
+                                
                                     <!-- button -->
                                     <!-- <button class="btn btn-dark">
                                         <i class="fas fa-trash"></i>
                                     </button> -->
-                                    <a class="btn btn-dark d-flex align-items-center" href="{{url('/caja/create')}}">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                    <!-- /button -->
-                                    <button class="btn btn-success btn-lg">
-                                        <i class="fas fa-cash-register"></i>
-                                        Facturar
-                                    </button>
+                                        <!-- /button -->
+                                    <!-- <form action="{ { url('/caja/delete/'.$order->id) }}" method="post" class="form-delete">
+                                        @csrf
+                                        { {method_field('DELETE')}}
+                                        <button type="submit" class="btn btn-danger btn-lg btn-block" value="borrar">
+                                            <i class="fas fa-trash"></i>                                            
+                                        </button>
+                                    </form>                                 -->
                                 </div>
                             </td>
                         </tr>

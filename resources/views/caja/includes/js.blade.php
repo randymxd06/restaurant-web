@@ -34,11 +34,12 @@
                 // If para eliminar si la cantidad es igual a 1, de lo contrario reducir 1
                 if(products[p].quantity == 1){
                     products.splice(p, 1);
+                    return;
                 }else{
                     products[p].quantity-=1;
+                    return;
                 }
                 refreshProduct();
-                return
             }
         }
     }

@@ -10,7 +10,9 @@
         </a>
         <div class="d-flex">
             <button class="btn btn-outline-light" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" >
-                <span class="badge bg-light">3</span>
+                <span class="badge bg-light" id="qty-products">0
+                    
+                </span>
                 <i class="fas fa-utensils"></i>
             </button>
         </div>
@@ -63,16 +65,16 @@
                             <img src="{{URL::asset('images/daraguma-icon.png')}}" class="card-img-top" alt="...">
                             @endif
                             <div class="card-body">
-                                <p class="card-text">Sushi</p>
-                                <span class="badge bg-light text-dark">RD$ 100.00</span>
+                                <p class="card-text">{{$p -> name}}</p>
+                                <span class="badge bg-light text-dark">RD${{number_format($p->price, 2, '.', ',')}}</span>
                                 <div class="d-flex justify-content-center mt-1">
-                                    <button class="btn btn-outline-dark">
+                                    <button class="btn btn-outline-dark" onclick="ReduceProduct({{$p->id}})">
                                         <i class="fas fa-minus-circle"></i>
                                     </button>
                                     <div class="input-group input-group-lg">
-                                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" value="0" style="text-align:center;" disable>
+                                        <input id="product-{{$p->id}}" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" value="0" style="text-align:center;" disabled>
                                     </div>
-                                    <button class="btn btn-outline-dark">
+                                    <button class="btn btn-outline-dark" onclick="AddProduct({{$p}})">
                                         <i class="fas fa-plus-circle"></i>
                                     </button>
                                 </div>
@@ -87,7 +89,7 @@
             <hr class="mt-4">
             <!-- Botton Siguiente Productos -->
             <div class="mt-1 float-end">
-                <button class="btn btn-outline-primary float-right" onclick="stepper.next()">
+                <button class="btn btn-outline-primary float-right" onclick="confirmarProductos()">
                     Siguiente
                     <i class="fas fa-arrow-right"></i>
                 </button>
@@ -97,68 +99,16 @@
         <!-- Step Confirmacion de Orden -->
         <div id="order-part" class="content" role="tabpanel" aria-labelledby="order-part-trigger">
             <!-- Confirmar Productos -->
-            <div class="row row-cols-1 row-cols-md-3 g-3">
-                <!-- Card -->
-                <div class="col mt-4">
-                    <div class="card h-100 mb-3" style="max-width: 540px;">
-                        <div class="row g-0 h-100">
-                            <div class="col-md-4">
-                                <img src="https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvYTAxOS1qYWt1YmstMDc1MS1zdXNoaS15YW0tbWFraS1yb2xsczIuanBn.jpg?s=vfs8-70mdtj139nl2sZkPbta0YANGjNJWGPHSXgRYYc" class="img-fluid rounded-start" alt="...">
-                            </div>
-                            <div class="col-md-8 d-flex align-items-center">
-                                <div class="card-body">
-                                    <p class="card-text"><strong>Cantidad: </strong>1</p>
-                                    <h5 class="card-title">Sushi</h5>
-                                    <p class="card-text"><small class="text-muted">RD$100.00</small></p>
-                                    <p class="card-text"><strong>Sub Total: </strong>RD$100.00</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col mt-4">
-                    <div class="card h-100 mb-3" style="max-width: 540px;">
-                        <div class="row g-0 h-100">
-                            <div class="col-md-4">
-                                <img src="https://img.freepik.com/foto-gratis/tazon-ramen-abulon-japones_1205-10107.jpg?w=740" class="img-fluid rounded-start" alt="...">
-                            </div>
-                            <div class="col-md-8 d-flex align-items-center">
-                                <div class="card-body">
-                                    <p class="card-text"><strong>Cantidad: </strong>1</p>
-                                    <h5 class="card-title">Ramen</h5>
-                                    <p class="card-text"><small class="text-muted">RD$100.00</small></p>
-                                    <p class="card-text"><strong>Sub Total: </strong>RD$100.00</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col mt-4">
-                    <div class="card h-100 mb-3" style="max-width: 540px;">
-                        <div class="row g-0 h-100">
-                            <div class="col-md-4">
-                                <img src="https://www.stockvault.net/data/2013/09/28/148242/preview16.jpg" class="img-fluid rounded-start" alt="...">
-                            </div>
-                            <div class="col-md-8 d-flex align-items-center">
-                                <div class="card-body">
-                                    <p class="card-text"><strong>Cantidad: </strong>1</p>
-                                    <h5 class="card-title">Ramen</h5>
-                                    <p class="card-text"><small class="text-muted">RD$100.00</small></p>
-                                    <p class="card-text"><strong>Sub Total: </strong>RD$100.00</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div id="confirmar-orden" class="row row-cols-1 row-cols-md-3 g-3">
+                
+                
                 <!-- /Card -->
             </div>
             <!-- /Productos -->
             <hr class="mt-4">
             <div class="mt-1">
                 <div class="float-right">
-                    <h1 class="text-end h1" >Total: RD$300.00</h1>
+                    <h1 class="text-end h1" id="confirmar-total">Total: RD$00.00</h1>
                     <div class="col">
                         <button class="btn btn-outline-primary" onclick="stepper.previous()">Atras</button>
                         <button class="btn btn-outline-primary" onclick="stepper.next()">Confirmar</button>
@@ -182,17 +132,28 @@
             <hr class="mt-4">
             <div class="mt-1">
             <div class="float-right">
-                <button class="btn btn-outline-danger">Cancelar Orden</button>                
-                <button type="button" class="btn btn-success">
-                    <i class="fas fa-save"></i>
-                    Realizar pago
-                </button>
+                <button class="btn btn-outline-danger" onclick="location.reload()">Cancelar Orden</button>  
+                <form method="post" action="{{ url('/order_screen/store') }}">
+                    <!-- TOKEN -->
+                    @csrf
+                    <input hidden type="number" name="user_id" id="user_id" value="{{{ Auth::user()->id }}}">
+                    <input hidden type="number" name="box_id" id="box_id" value="1">
+                    <input hidden type="text" name="total_order" id="total_order" value="{{old('total_order')}}">
+
+                    <input hidden type="text" name="products" id="products" value="{{old('products')}}">
+                    <!-- button -->
+                    <button class="btn btn-success btn-block">
+                        <i class="fas fa-receipt"></i>
+                        Realizar Orden
+                    </button>
+                    <!-- /button -->
+                </form>              
             </div>
         </div>
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal Carrito -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
         <div class="modal-content">
@@ -210,31 +171,8 @@
                             <th scope="col">Precio</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">
-                                <i class="fas fa-hamburger"></i>
-                            </th>
-                            <td>Sushi</td>
-                            <td>1</td>
-                            <td>RD$ 100.00</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                <i class="fas fa-hamburger"></i>
-                            </th>
-                            <td>Ramen</td>
-                            <td>1</td>
-                            <td>RD$ 100.00</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                <i class="fas fa-pizza-slice"></i>
-                            </th>
-                            <td>Pizza</td>
-                            <td>1</td>
-                            <td>RD$ 100.00</td>
-                        </tr>
+                    <tbody id="moda-body">
+                        
                     </tbody>
                 </table>
             </div>
@@ -242,9 +180,9 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     <i class="fas fa-utensils me-1"></i> Volver
                 </button>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                <!-- <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
                     <i class="fas fa-receipt me-2"></i> Terminar Orden
-                </button>
+                </button> -->
             </div>
         </div>
     </div>
@@ -301,6 +239,7 @@
 @stop
 
 @section('js')
+    @include('sweetalert::alert')
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
     <script>
         var stepper = new Stepper(document.querySelector('.bs-stepper'))
@@ -310,4 +249,103 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 
+    <script>
+        let products = [];
+        let subTotal = 0;
+        let total = 0;
+        let QtyProducts = 0;
+
+        function AddProduct(product) {
+            let e = false;
+            products.forEach(p => {
+                if(p.id == product.id) {
+                    e = true;
+                    p.quantity += 1;
+                    document.getElementById('product-'+p.id).value = p.quantity;
+                }
+            });
+            if(!e) {
+                product.quantity = 1;
+                document.getElementById('product-'+product.id).value = product.quantity;
+                products.push(product);
+            }
+            UpdateProduct();
+        }
+
+        function ReduceProduct(id) {
+            for(let p=0; p<products.length; p++) {
+                if(products[p].id === id) {
+                    if(products[p].quantity == 1) {
+                        products.splice(p, 1);
+                        document.getElementById('product-'+id).value = 0;
+                    }else {
+                        products[p].quantity -= 1;
+                        document.getElementById('product-'+id).value = products[p].quantity;
+                    }
+                    UpdateProduct();
+                }
+            }
+        }
+
+        const UpdateProduct = function() {
+            let ModalHTML = "";
+            let ConfirmarHTML = "";
+            total = 0;
+            QtyProducts = 0;
+
+            products.forEach(p => {
+                let importe = Math.round((parseFloat(p.quantity*p.price).toFixed(2))*100)/100;
+                total = Math.round((total+importe)*100)/100;
+                QtyProducts += p.quantity;
+
+                // Modal
+                ModalHTML +=    '<tr>'+
+                                    '<th scope="row">'+
+                                        '<i class="fas fa-hamburger"></i>'+
+                                    '</th>'+
+                                    '<td>'+p.name+'</td>'+
+                                    '<td>'+p.quantity+'</td>'+
+                                    '<td>RD$ '+p.price.toFixed(2)+'</td>'
+                                '</tr>';
+
+                ConfirmarHTML += ''+
+                '<div class="col mt-4">'+
+                '    <div class="card h-100 mb-3" style="max-width: 540px;">'+
+                '        <div class="row g-0 h-100">'+
+                '            <div class="col-md-4">'+
+                '                <img src="http://127.0.0.1:8000/images/daraguma-icon.png" class="img-fluid rounded-start" alt="...">'+
+                '            </div>'+
+                '            <div class="col-md-8 d-flex align-items-center">'+
+                '                <div class="card-body">'+
+                '                    <p class="card-text"><strong>Cantidad: </strong>'+p.quantity+'</p>'+
+                '                    <h5 class="card-title">'+p.name+'</h5>'+
+                '                    <p class="card-text"><small class="text-muted">RD$'+p.price.toFixed(2)+'</small></p>'+
+                '                    <p class="card-text"><strong>Importe: </strong>RD$'+importe+'</p>'+
+                '                </div>'+
+                '            </div>'+
+                '        </div>'+
+                '    </div>'+
+                '</div>'
+            });
+            
+            document.getElementById('confirmar-total').innerHTML = 'RD$'+total.toFixed(2);
+            document.getElementById('confirmar-orden').innerHTML = ConfirmarHTML;
+            document.getElementById('moda-body').innerHTML = ModalHTML;
+            document.getElementById('qty-products').innerHTML = ""+QtyProducts;
+            document.getElementById('products').value = JSON.stringify(products, null, 3);
+            document.getElementById('total_order').value = total;
+        }
+
+        function confirmarProductos() {
+            if(products.length > 0){
+                stepper.next()
+            }else { 
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'No ha seleccionado los productos!',
+                })
+            }
+        }
+    </script>
 @stop

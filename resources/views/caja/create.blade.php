@@ -51,6 +51,10 @@
                     <i class="fas fa-user mr-2"></i>Reasignar empleado
                     <!-- <span class="float-right text-muted text-sm">12 hours</span> -->
                 </a>
+                <a href="{{url('/caja/create')}}" class="dropdown-item">
+                    <i class="fas fa-receipt mr-2"></i>Nueva orden
+                    <!-- <span class="float-right text-muted text-sm">12 hours</span> -->
+                </a>
                 <!-- <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item">
                     <i class="fas fa-file mr-2"></i> 3 new reports
@@ -227,7 +231,7 @@
                                     <!-- button -->
                                     <button class="btn btn-success btn-block">
                                         <i class="fas fa-receipt"></i>
-                                        Enviar
+                                        Realizar Orden
                                     </button>
                                     <!-- /button -->
                                 </form>
@@ -256,14 +260,10 @@
                                     <!-- <button class="btn btn-dark">
                                         <i class="fas fa-trash"></i>
                                     </button> -->
-                                    <a class="btn btn-dark d-flex align-items-center" href="{{url('/caja/create')}}">
+                                    <a class="btn btn-danger btn-lg" href="{{url('/caja/create')}}">
                                         <i class="fas fa-trash"></i>
                                     </a>
-                                    <!-- /button -->
-                                    <button class="btn btn-success btn-lg" disabled>
-                                        <i class="fas fa-cash-register"></i>
-                                        Facturar
-                                    </button>
+                                    <!-- /button -->                                   
                                 </div>
                             </td>
                         </tr>
