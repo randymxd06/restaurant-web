@@ -11,6 +11,7 @@ Route::group([
     'prefix' => 'caja',
 ], function () {
     Route::middleware(['auth:sanctum', 'verified'])->get('/', [CajaController::class, 'index']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/cuadre', [CajaController::class, 'cuadre']);
     Route::middleware(['auth:sanctum', 'verified'])->get('/show/{id}', [CajaController::class, 'show']);
     Route::middleware(['auth:sanctum', 'verified'])->get('/create', [CajaController::class, 'create']);
     Route::middleware(['auth:sanctum', 'verified'])->post('/store', [CajaController::class, 'store']);

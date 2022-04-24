@@ -52,7 +52,13 @@
                                 </strong>
                                 {{ $ingredient->warehouse_type_name }}
                             </li>
-
+                            <li class="list-group-item">
+                                <strong>
+                                    <i class="fas fa-cubes"></i>
+                                    Stock: 
+                                </strong>
+                                {{ $ingredient->quantity }}
+                            </li>
                         </ul>
 
                     </div>

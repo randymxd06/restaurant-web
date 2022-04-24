@@ -53,6 +53,23 @@ class CajaController extends Controller
         return view('caja.index');
     }
 
+    public function cuadre()
+    {
+        $date = date("Y-m-d");
+        $facturas = DB::table('invoices')
+            ->select('invoices.id','orders.total','order_types.name', 'invoices.created_at')
+            ->join('orders', 'invoices.order_id', '=', 'orders.id')
+            ->join('order_types', 'orders.order_types_id', '=', 'order_types.id')
+            ->where('invoices.created_at', '>=' , $date)
+            ->get();
+
+        $total = DB::table('invoices')
+            ->join('orders', 'invoices.order_id', '=', 'orders.id')
+            ->join('order_types', 'orders.order_types_id', '=', 'order_types.id')
+            ->where('invoices.created_at', '>=' , $date)
+            ->sum('orders.total');
+        return view('caja.cuadre', compact('facturas','total'));
+    }
     public function create(Request $request)
     {
         $currentuserid = Auth::user()->id;

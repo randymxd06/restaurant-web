@@ -44,8 +44,4 @@ class RecipesVsIngredients extends Model
         return $this->belongsTo(Ingredient::class);
     }
 
-    public function unitMeasurement()
-    {
-        return $this->belongsTo(UnitsMeasurement::class);
-    }
 }

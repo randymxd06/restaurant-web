@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RecipeUpdateRequest;
 use App\Models\Product;
+use App\Models\Ingredient;
 use App\Models\Recipe;
+use App\Models\RecipesVsIngredients;
+use App\Models\UnitsMeasurement;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -30,6 +33,8 @@ class RecipeController extends Controller
             'instructions.required' => 'Las instrucciones de la receta es requerida.',
             'instructions.string' => 'Debe escribir las instrucciones de la receta.',
 
+            'ingredients.required' => 'Debe seleccionar ingredientes.',
+
         ];
 
     }
@@ -44,8 +49,12 @@ class RecipeController extends Controller
             ->join('products', 'recipes.product_id', '=', 'products.id')
             ->select('recipes.id', 'recipes.name', 'recipes.instructions', 'recipes.status', 'products.name as product_name')
             ->get();
-
-        return view('recipe.index', compact('recipes'));
+        $recipe_ingredients = DB::table('recipes_vs_ingredients')
+            ->join('ingredients', 'recipes_vs_ingredients.ingredients_id', '=', 'ingredients.id')
+            ->join('units_measurements', 'recipes_vs_ingredients.unit_measurement_id', '=', 'units_measurements.id')
+            ->select('recipes_vs_ingredients.id','recipes_vs_ingredients.description', 'ingredients.name', 'recipes_vs_ingredients.quantity', 'units_measurements.symbol')
+            ->get();
+        return view('recipe.index', compact(['recipes','recipe_ingredients']));
 
     }
 
@@ -56,8 +65,9 @@ class RecipeController extends Controller
     {
 
         $products = Product::all()->where('status', '=', true);
-
-        return view('recipe.create', compact(['products']));
+        $ingredients = Ingredient::all()->where('status', '=', true);
+        $unitsMeasurement = UnitsMeasurement::all()->where('status', '=', true);
+        return view('recipe.create', compact(['products', 'ingredients', 'unitsMeasurement']));
 
     }
 
@@ -73,7 +83,8 @@ class RecipeController extends Controller
             $validate = [
                 'product_id' => 'required|integer',
                 'name' => 'required|string',
-                'instructions' => 'required|string'
+                'instructions' => 'required|string',
+                'ingredients' => 'required'
             ];
 
             // TRANSFORMO EL STATUS DE ON A TRUE Y DE OFF A FALSE //
@@ -81,25 +92,37 @@ class RecipeController extends Controller
 
             // VALIDO LOS CAMPOS //
             $this -> validate($request, $validate, $this->messageProduct());
-
-            Recipe::insert([
+            $request['ingredients'] = json_decode($request['ingredients']);
+            $recipe = [
                 'product_id' => $request['product_id'],
                 'name' => $request['name'],
                 'instructions' => $request['instructions'],
                 'status' => $request['status'],
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ]);
+            ];
+
+            $recipe_id = Recipe::create($recipe)->id;
+            foreach ($request['ingredients'] as $ingredient) {
+                $recipe_ingredients = [ 
+                    'id' => $recipe_id,
+                    'ingredients_id' => $ingredient->ingredient->ingredients_id,
+                    'quantity' => $ingredient->quantity,
+                    'unit_measurement_id' => $ingredient->unit_measurement->unit_measurement_id,
+                    'description' => $ingredient->description
+                ];
+                
+                RecipesVsIngredients::insert($recipe_ingredients);
+            }
 
             Alert::success('La receta fue creada correctamente!');
 
             return redirect('recipes');
 
-        }catch (\Exception $e){
+        }catch (Exception $e){
 
             DB::rollBack();
 
-            throw new \Exception($e);
+            throw new Exception($e);
 
         }
 
@@ -176,17 +199,19 @@ class RecipeController extends Controller
     {
         try {
 
+            $recipe_ingredients = RecipesVsIngredients::findOrFail($id);
+            $recipe_ingredients->delete();
+
             $recipe = Recipe::findOrFail($id);
-
             $recipe->delete();
-
+            Alert::success('La receta ha sido eliminada!');
             return redirect('recipes');
 
-        }catch (\Exception $e){
+        }catch (Exception $e){
 
             DB::rollBack();
 
-            throw new \Exception($e);
+            throw new Exception($e);
 
         }
 
