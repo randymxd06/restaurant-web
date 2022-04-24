@@ -6,6 +6,9 @@ use App\Http\Requests\IngredientsStockStoreRequest;
 use App\Http\Requests\IngredientsStockUpdateRequest;
 use App\Models\IngredientsStock;
 use Illuminate\Http\Request;
+use App\Models\Ingredient;
+use App\Models\UnitsMeasurement;
+use \RealRashid\SweetAlert\Facades\Alert;
 
 class IngredientsStockController extends Controller
 {
@@ -16,7 +19,6 @@ class IngredientsStockController extends Controller
     public function index(Request $request)
     {
         $ingredientsStocks = IngredientsStock::all();
-
         return view('ingredientsStock.index', compact('ingredientsStocks'));
     }
 
@@ -26,7 +28,10 @@ class IngredientsStockController extends Controller
      */
     public function create(Request $request)
     {
-        return view('ingredientsStock.create');
+        $ingredients = Ingredient::all()->where('status', '=', 1);
+        $units_measurement = UnitsMeasurement::all();
+
+        return view('ingredientsStock.create', compact('ingredients', 'units_measurement'));
     }
 
     /**
@@ -38,8 +43,8 @@ class IngredientsStockController extends Controller
         $ingredientsStock = IngredientsStock::create($request->validated());
 
         $request->session()->flash('ingredientsStock.id', $ingredientsStock->id);
-
-        return redirect()->route('ingredientsStock.index');
+        Alert::success('Stock de ingrediente registrado correctamente');
+        return redirect('ingredients-stock/create');
     }
 
     /**

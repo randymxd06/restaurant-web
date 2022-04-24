@@ -40,13 +40,5 @@ class IngredientsStock extends Model
         return $this->belongsTo(UnitMeasurement::class);
     }
 
-    public function ingredient()
-    {
-        return $this->belongsTo(Ingredient::class);
-    }
 
-    public function unitMeasurement()
-    {
-        return $this->belongsTo(UnitsMeasurement::class);
-    }
 }

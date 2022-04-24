@@ -446,6 +446,11 @@ return [
                             'text' => 'Agregar Ingrediente',
                             'url'  => 'ingredients/create',
                             'icon' => 'fas fa-pallet'
+                        ],
+                        [
+                            'text' => 'Control de stock',
+                            'url'  => 'ingredients-stock/create',
+                            'icon' => 'fas fa-pallet'
                         ]
                     ]
                 ],
@@ -501,8 +506,19 @@ return [
         // Compras
         [
             'text' => 'Compras',
-            'url'  => 'compras',
             'icon' => 'fas fa-fw fa-shopping-cart',
+            'submenu' => [
+                [
+                    'text' => 'Historial de Compras',
+                    'url'  => 'compras/',
+                    'icon' => 'fas fa-shopping-cart'
+                ],
+                [
+                    'text' => 'Realizar Entrada',
+                    'url'  => 'compras/create',
+                    'icon' => 'fas fa-shopping-cart'
+                ]
+            ]
         ],
 
         // Reportes

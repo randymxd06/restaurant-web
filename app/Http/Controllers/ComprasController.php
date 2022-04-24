@@ -6,6 +6,8 @@ use App\Compra;
 use App\Http\Requests\ComprasStoreRequest;
 use App\Http\Requests\ComprasUpdateRequest;
 use Illuminate\Http\Request;
+use App\Models\Ingredient;
+use App\Models\IngredientsStock;
 
 class ComprasController extends Controller
 {
@@ -17,7 +19,8 @@ class ComprasController extends Controller
 
     public function create(Request $request)
     {
-        return view('compra.create');
+        $ingredients = Ingredient::all()->where('status', '=', 1);
+        return view('compra.create', compact('ingredients'));
     }
 
     public function store(ComprasStoreRequest $request)

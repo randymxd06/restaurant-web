@@ -50,7 +50,7 @@
                     <label class="form-label">Tipo de almacén:</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-person-booth "></i></span>
+                            <span class="input-group-text"><i class="fas fa-warehouse"></i></span>
                         </div>
                         <select class="custom-select mr-sm-2" id="warehouse_type_id" name="warehouse_type_id">
                             <option selected="" disabled="">Selecciona un tipo de almacen</option>
