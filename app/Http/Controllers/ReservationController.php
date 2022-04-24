@@ -123,10 +123,6 @@ class ReservationController extends Controller
 
             DB::commit();
 
-//            $reservationExists = Reservation::where('living_room_id', $request['living_room_id'])
-////                ->where('date_time', $request['date_time'])
-//                ->first();
-
             Reservation::insert([
                 'customer_id' => $request['customer_id'],
                 'type_reservations_id' => $request['type_reservations_id'],
