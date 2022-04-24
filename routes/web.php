@@ -4,7 +4,7 @@
     IMPORTACIONES
 --------------------*/
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +26,25 @@ Route::get('registrarse', function () {
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard.index');
+
+    // ORDENES ACTIVAS //
+    $activeOrders = DB::table('orders')
+        ->join('customers', 'orders.customer_id', '=', 'customers.id')
+        ->join('entities', 'customers.entity_id', '=', 'entities.id')
+        ->join('order_types', 'orders.order_types_id', '=', 'order_types.id')
+        ->select(
+            'orders.id',
+            'orders.table_id',
+            'entities.first_name',
+            'entities.last_name',
+            'order_types.name as order_types_name',
+            'orders.status'
+        )
+        ->where('orders.status', '=', true)
+        ->get();
+
+    return view('dashboard.index', compact(['activeOrders']));
+
 })->name('dashboard');
 
 Route::get('/info', function () {

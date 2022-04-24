@@ -58,15 +58,15 @@
                 </div>
             </div>
 
-            {{-- REPORTES --}}
+            {{-- PEDIDOS RAPIDOS --}}
             <div class="col-lg-3 col-6">
-                <div class="small-box bg-secondary container">
-                    <a href="#" class="small-box-footer py-5">
+                <div class="small-box bg-danger container">
+                    <a href="/order_screen/create" class="small-box-footer py-5">
                         <div class="inner">
-                            <h3 class="text-center">Reportes</h3>
+                            <h3 class="text-center">Pedidos Rapidos</h3>
                         </div>
                         <div class="icon">
-                            <i class="far fa-file-chart-line mt-3"></i>
+                            <i class="fas fa-drumstick-bite mt-3"></i>
                         </div>
                     </a>
                 </div>
@@ -74,6 +74,10 @@
 
         </div>
 
+    </div>
+
+    <div>
+        <canvas id="myChart" width="100" height="30"></canvas>
     </div>
 
     <div class="card container" style="border-radius: 10px">
@@ -93,27 +97,17 @@
             </thead>
 
             <tbody>
-                <tr>
-                    <td>43405</td>
-                    <td>1</td>
-                    <td>Randy Garcia</td>
-                    <td>Orden de caja</td>
-                    <td class="text-success">Activa</td>
-                </tr>
-                <tr>
-                    <td>43406</td>
-                    <td>2</td>
-                    <td>Randy Garcia</td>
-                    <td>Orden de caja</td>
-                    <td class="text-success">Activa</td>
-                </tr>
-                <tr>
-                    <td>43407</td>
-                    <td>3</td>
-                    <td>Randy Garcia</td>
-                    <td>Orden de caja</td>
-                    <td class="text-success">Activa</td>
-                </tr>
+
+                @foreach($activeOrders as $activeOrder)
+                    <tr>
+                        <td>{{$activeOrder->id}}</td>
+                        <td>{{$activeOrder->table_id}}</td>
+                        <td>{{$activeOrder->first_name}} {{$activeOrder->last_name}}</td>
+                        <td>{{$activeOrder->order_types_name}}</td>
+                        <td class="text-success">Activa</td>
+                    </tr>
+                @endforeach
+
             </tbody>
 
         </table>
@@ -131,8 +125,9 @@
 @stop
 
 @section('js')
+
     @if(session('error-box')=='ok')
-    <script>
+        <script>
             Swal.fire({
                 position: 'top-end',
                 icon: 'error',
@@ -143,4 +138,46 @@
             })
         </script>
     @endif
+
+    {{-- SCRIPT DEL GRAFICO --}}
+    <script>
+        $(function () {
+            var ctx = document.getElementById("myChart").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ["Sushi", "Ramen", "Empanadas", "Coca-Cola", "Chivo"],
+                    datasets: [{
+                        label: 'Top 5 productos más vendidos',
+                        data: [12, 19, 3, 5, 2],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            }
+                        }]
+                    }
+                }
+            });
+        });
+    </script>
+
 @stop

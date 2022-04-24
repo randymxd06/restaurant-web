@@ -2,6 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Box;
+use App\Models\CivilStatus;
+use App\Models\CustomerType;
+use App\Models\Nationality;
+use App\Models\Sex;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

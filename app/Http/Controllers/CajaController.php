@@ -118,7 +118,7 @@ class CajaController extends Controller
 
             Alert::toast('Orden realizada correctamente', 'success');
             return redirect('caja/edit/'.$order_id);
-            
+
         }catch (Exception $e){
             Alert::toast('Error al realizar la orden', 'danger');
             throw new Exception($e);
@@ -146,8 +146,8 @@ class CajaController extends Controller
         ->join('products', 'products.id', '=', 'order_products.product_id')
         ->where('order_products.order_id', '=', $id)
         ->get(['order_products.*', 'products.id', 'products.name', 'products.price', 'products.image', 'products.products_categories_id']);
-        
-        
+
+
         $currentuserid = Auth::user()->id;
         $box = Box::where('user_id', '=', $currentuserid)->first();
         if ($box === null) {
@@ -167,7 +167,7 @@ class CajaController extends Controller
 
     public function update(Request $request, $id)
     {
-        
+
         $validate = [
             'user_id' => 'required|int',
             'box_id' => 'required|int',
@@ -213,7 +213,7 @@ class CajaController extends Controller
                 ['product_id', '=', $p->id]
             ])->update($product);
         }
-        if($request['status'] == "on") { 
+        if($request['status'] == "on") {
             $invoice = [
                 'token' => 'inv'.$id,
                 'rnc' => '0',
@@ -229,9 +229,9 @@ class CajaController extends Controller
             ];
             Invoice::insert($invoice);
             Alert::toast('La orden #'.$id.' facturada correctamente!', 'success');
-            
+
         }else{
-            Alert::toast('La orden #'.$id.' a sido modificada!', 'success');         
+            Alert::toast('La orden #'.$id.' a sido modificada!', 'success');
         }
     }
 
