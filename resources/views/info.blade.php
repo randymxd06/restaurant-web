@@ -12,7 +12,6 @@
 @stop
 
 @section('content')
-    
     <ul class="list-group list-group-flush">
         <li class="list-group-item">
             <strong>Lenguaje Principal: </strong>
