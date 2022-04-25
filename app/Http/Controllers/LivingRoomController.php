@@ -98,17 +98,15 @@ class LivingRoomController extends Controller
 
         // Realizar validacion de los datos
         $this -> validate($request, $validate, $this->messageProduct());
-
         // Validar el estado, para enviar como true o false
         ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;
-        (empty($request['description'])) ? $request['name'] = "" : null;
+        (empty($request['description'])) ? $request['description'] = $request['name'] : null;
 
         // Objeto con la informacion que es guardara, exceptuando el TOKEN
         $data = request()->except('_token','_method');
         $data['name'] = ucfirst(strtolower($data['name']));
         $data['description'] = ucfirst(strtolower($data['description']));
         $data['updated_at'] = Carbon::now();
-
         // Actualizar datos cuando el id coincida
         LivingRoom::where('id','=',$id)->update($data);
 
