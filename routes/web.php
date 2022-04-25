@@ -43,7 +43,17 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
         ->where('orders.status', '=', true)
         ->get();
 
-    return view('dashboard.index', compact(['activeOrders']));
+    $chartData = DB::table('order_products')
+        ->join('products', 'order_products.product_id', '=', 'products.id')
+        ->select(DB::raw("
+            products.name,
+            SUM(order_products.quantity) as quantity
+        "))
+        ->groupBy('products.name')
+        ->get()
+        ->take(5);
+
+    return view('dashboard.index', compact(['activeOrders', 'chartData']));
 
 })->name('dashboard');
 

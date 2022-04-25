@@ -114,7 +114,6 @@
 
     </div>
 
-
 </section>
 
 @stop
@@ -141,15 +140,26 @@
 
     {{-- SCRIPT DEL GRAFICO --}}
     <script>
+
+        let chartData = @json($chartData);
+        var namesArray = [];
+        var valueArray = [];
+
+        chartData.forEach(e => {
+            namesArray.push(e.name);
+            valueArray.push(e.quantity);
+        })
+
         $(function () {
-            var ctx = document.getElementById("myChart").getContext('2d');
-            var myChart = new Chart(ctx, {
+
+            let ctx = document.getElementById("myChart").getContext('2d');
+            let myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ["Sushi", "Ramen", "Empanadas", "Coca-Cola", "Chivo"],
+                    labels: namesArray,
                     datasets: [{
                         label: 'Top 5 productos más vendidos',
-                        data: [12, 19, 3, 5, 2],
+                        data: valueArray,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
@@ -178,6 +188,7 @@
                 }
             });
         });
+
     </script>
 
 @stop

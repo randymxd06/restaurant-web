@@ -30,5 +30,6 @@ class DatabaseSeeder extends Seeder
 //        $this->call(EmailSeeder::class);
 //        $this->call(PhoneSeeder::class);
 //        $this->call(WarehouseTypeSeeder::class);
+//        $this->call(ProductSeeder::class);
     }
 }
