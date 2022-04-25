@@ -535,8 +535,19 @@ return [
             'submenu' => [
                 [
                     'text' => 'Adminsitrar usuarios',
-                    'url'  => '#',
-                    'icon' => 'fas fa-users'
+                    'icon' => 'fas fa-users',
+                    'submenu' => [
+                        [
+                            'text' => 'Usuarios',
+                            'url'  => '#',
+                            'icon' => 'fas fa-users'
+                        ],
+                        [
+                            'text' => 'Registrar usuarios',
+                            'url'  => 'registrarse',
+                            'icon' => 'fas fa-user-plus'
+                        ]
+                    ]
                 ]
             ]
         ],
