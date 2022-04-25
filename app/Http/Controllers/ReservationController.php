@@ -140,7 +140,7 @@ class ReservationController extends Controller
 
             return redirect('reservation');
 
-        }catch (\Exception $e){
+        }catch (Exception $e){
 
             DB::rollBack();
 
