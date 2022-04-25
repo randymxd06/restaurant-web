@@ -41,6 +41,7 @@ class RecepcionController extends Controller
                 'reservations.description'
             )
             ->where('reservations.deleted_at', '=', null)
+            ->where('reservations.status', '=', 1)
             ->where('reservations.reservation_date', '=', $todayDate)
             ->get();
 
@@ -71,6 +72,18 @@ class RecepcionController extends Controller
     public function update(Request $request, $id)
     {
         return redirect('recepcion');
+    }
+    public function reservar(Request $request, $id) 
+    {
+        try{
+            DB::table('reservations')
+                ->where('id', $id)
+                ->update(['status' => 0]);
+            Alert::success('Reservación completada!');
+            return redirect('recepcion');
+        }catch(Exception $ex){
+            throw new Exception($ex);
+        }
     }
 
     public function destroy($id)

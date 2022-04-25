@@ -17,4 +17,5 @@ Route::group([
     Route::middleware(['auth:sanctum', 'verified'])->get('/edit/{id}', [RecepcionController::class, 'edit']);
     Route::middleware(['auth:sanctum', 'verified'])->put('/update/{id}', [RecepcionController::class, 'update']);
     Route::middleware(['auth:sanctum', 'verified'])->delete('/delete/{id}', [RecepcionController::class, 'destroy']);
+    Route::middleware(['auth:sanctum', 'verified'])->get('/reservar/{id}', [RecepcionController::class, 'reservar']);
 });

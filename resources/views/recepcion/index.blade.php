@@ -111,31 +111,14 @@
                         <!-- The footer of the card -->
                         <div class="row">
 
-                            {{-- BOTON EDITAR --}}
+                            
                             <div class="col-sm-12 col-md-6">
-                                <a href="{{url('/reservation/edit/'.$reservation->id)}}" class="btn btn-warning col-sm-12 my-1">
-                                    <i class="fas fa-edit"></i>
-                                    Editar
+                                <a href="{{url('/recepcion/reservar/'.$reservation->id)}}" class="btn btn-success col-sm-12 my-1">
+                                    <i class="fas fa-calendar-check"></i>
+                                    Reservar
                                 </a>
                             </div>
 
-                            {{-- BOTON ELIMINAR --}}
-                            <div class="col-sm-12 col-md-6">
-
-                                <form action="{{url('/reservation/delete/'.$reservation->id)}}" method="post" class="form-delete">
-
-                                    @csrf
-
-                                    {{method_field('DELETE')}}
-
-                                    <button type="submit" class="btn btn-danger col-sm-12 my-1" value="borrar">
-                                        <i class="fas fa-trash"></i>
-                                        Eliminar
-                                    </button>
-
-                                </form>
-
-                            </div>
 
                         </div>
 
