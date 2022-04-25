@@ -44,7 +44,7 @@ class RecepcionController extends Controller
             ->where('reservations.reservation_date', '=', $todayDate)
             ->get();
 
-        return view('recepcion.index', compact(['reservations']));
+        return view('recepcion.index', compact(['reservations','todayDate']));
 
     }
 

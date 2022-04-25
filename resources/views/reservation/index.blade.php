@@ -24,7 +24,7 @@
 
                     <div class="card-header">
                         <h5 class="card-title">
-                            <i class="fas fa-chair"></i>
+                            <i class="fas fa-calendar-alt"></i>
                             <!-- Numero de mesa -->
                             Reservación #{{ $reservation->id }}
                         </h5>
@@ -36,7 +36,7 @@
 
                             <li class="list-group-item">
                                 <strong>
-                                    <i class="fas fa-archway"></i>
+                                    <i class="fas fa-user"></i>
                                     Nombre del cliente:
                                 </strong>
                                 {{ $reservation->first_name }} {{ $reservation->last_name }}
@@ -44,7 +44,7 @@
 
                             <li class="list-group-item">
                                 <strong>
-                                    <i class="fas fa-archway"></i>
+                                    <i class="fas fa-id-card"></i>
                                     Cédula del cliente:
                                 </strong>
                                 {{ $reservation->identification }}
@@ -52,7 +52,7 @@
 
                             <li class="list-group-item">
                                 <strong>
-                                    <i class="fas fa-archway"></i>
+                                <i class="fas fa-glass-cheers"></i>
                                     Tipo de reservación:
                                 </strong>
                                 {{ $reservation->reservation_type }}
@@ -68,7 +68,7 @@
 
                             <li class="list-group-item">
                                 <strong>
-                                    <i class="fas fa-archway"></i>
+                                    <i class="fas fa-calendar-day"></i>
                                     Fecha de la reservación:
                                 </strong>
                                 {{ $reservation->reservation_date }}
@@ -76,7 +76,7 @@
 
                             <li class="list-group-item">
                                 <strong>
-                                    <i class="fas fa-archway"></i>
+                                    <i class="fas fa-hourglass-end"></i>
                                     Hora de la reservación:
                                 </strong>
                                 {{ $reservation->reservation_time }}
@@ -84,7 +84,7 @@
 
                             <li class="list-group-item">
                                 <strong>
-                                    <i class="fas fa-archway"></i>
+                                    <i class="fas fa-user-friends"></i>
                                     Número de personas:
                                 </strong>
                                 {{ $reservation->number_people }}
@@ -92,7 +92,7 @@
 
                             <li class="list-group-item">
                                 <strong>
-                                    <i class="fas fa-archway"></i>
+                                    <i class="fas fa-comment-alt"></i>
                                     Descripción:
                                 </strong>
                                 {{ $reservation->description }}
