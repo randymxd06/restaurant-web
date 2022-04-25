@@ -27,12 +27,16 @@
 @stop
 
 @section('content')
+
     <!-- FORMULARIO -->
     <form method="post" action="{{ url('/tables/update/'.$table->id) }}">
+
         <!-- TOKEN -->
         @csrf
         <!-- / -->
+
         {{method_field('PUT')}}
+
         <div class="form-row">
             <!--  SALON  -->
             <div class="col-md-6 mb-2">

@@ -7,6 +7,7 @@ use App\Http\Requests\TypeReservationUpdateRequest;
 use App\Models\TypeReservation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TypeReservationController extends Controller
 {
@@ -49,15 +50,12 @@ class TypeReservationController extends Controller
                 'description' => 'required|string',
             ];
 
-            // HAGO LA VALIDACION DEL STATUS, PARA ENVIARLA COMO TRUE O FALSE //
-            ($request['status'] == 'on') ? $request['status'] = 1 : $request['status'] = 0;
-
             // Realizar la validacion de los datos
             $this -> validate($request, $validate, $this->messageProduct());
 
             // ESTE ES EL OBJETO CON LA INFORMACION QUE SE VA A GUARDAR //
             $jsonTypeReservation = [
-                'name' => (int) $request['people_capacity'],
+                'name' => $request['name'],
                 'description' => ucfirst(strtolower($request['description'])),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
@@ -65,24 +63,30 @@ class TypeReservationController extends Controller
 
             $typereservations = TypeReservation::insert($jsonTypeReservation);
 
-            return redirect('typeReservation');
+            Alert::success('El tipo reservacion fue creado correctamente!');
 
-        }catch(\Exception $e){
+            return redirect('type-reservation');
 
-            throw new \Exception($e);
+        }catch(Exception $e){
+
+            throw new Exception($e);
 
         }
 
     }
 
-    public function show(Request $request, TypeReservation $typeReservation)
+    public function show(Request $request, $id)
     {
         return view('typeReservation.show', compact('typeReservation'));
     }
 
-    public function edit(Request $request, TypeReservation $typeReservation)
+    public function edit(Request $request, $id)
     {
+
+        $typeReservation = TypeReservation::findOrFail($id);
+
         return view('typeReservation.edit', compact('typeReservation'));
+
     }
 
     /*-----------
@@ -100,27 +104,25 @@ class TypeReservationController extends Controller
 
             $request->except(['_token', '_method']);
 
-            // HAGO LA VALIDACION DEL STATUS, PARA ENVIARLA COMO TRUE O FALSE //
-            ($request['status'] == 'on') ? $request['status'] = 1 : $request['status'] = 0;
-
             // Realizar la validacion de los datos
             $this -> validate($request, $validate, $this->messageProduct());
 
             // ESTE ES EL OBJETO CON LA INFORMACION QUE SE VA A GUARDAR //
             $jsonTypeReservation = [
-                'name' => (int) $request['people_capacity'],
+                'name' => $request['name'],
                 'description' => ucfirst(strtolower($request['description'])),
-                'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ];
 
             TypeReservation::where('id', '=', $id)->update($jsonTypeReservation);
 
-            return redirect('typeReservation');
+            Alert::success('Los datos del tipo reservacion fueron actualizados correctamente!');
 
-        }catch(\Exception $e){
+            return redirect('type-reservation');
 
-            throw new \Exception($e);
+        }catch(Exception $e){
+
+            throw new Exception($e);
 
         }
 
@@ -134,7 +136,7 @@ class TypeReservationController extends Controller
         try{
             $typeReservation = TypeReservation::findOrFail($id);
             $typeReservation->delete();
-            return redirect('typeReservation');
+            return redirect('type-reservation');
         }catch(Exception $e){
             throw new Exception($e);
         }

@@ -306,8 +306,24 @@ return [
                 ],
                 [
                     'text' => 'Reservaciones',
-                    'icon'    => 'fas fa-fw fa-calendar-day',
-                    'submenu'  => [
+                    'icon' => 'fas fa-fw fa-calendar-day',
+                    'submenu' => [
+                        [
+                          'text' => 'Tipo reservaciones',
+                          'icon' => 'fas fa-fw fa-calendar-day',
+                          'submenu' => [
+                              [
+                                  'text' => 'Tipo reservaciones',
+                                  'icon' => 'fas fa-fw fa-calendar-day',
+                                  'url' => 'type-reservation/',
+                              ],
+                              [
+                                  'text' => 'Registrar',
+                                  'icon' => 'fas fa-fw fa-clipboard',
+                                  'url' => 'type-reservation/create'
+                              ],
+                          ]
+                        ],
                         [
                             'text' => 'Reservaciones',
                             'url'  => 'reservation',
