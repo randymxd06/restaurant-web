@@ -5,13 +5,13 @@
 @section('content_header')
 <nav class="nav-banner navbar navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{{url('/dashboard')}}">
             <img src="{{URL::asset('images/daraguma-banner.png')}}" alt="" width="100%">
         </a>
         <div class="d-flex">
             <button class="btn btn-outline-light" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" >
                 <span class="badge bg-light" id="qty-products">0
-                    
+
                 </span>
                 <i class="fas fa-utensils"></i>
             </button>
@@ -58,7 +58,7 @@
                     @foreach($products as $p)
                     <div class="col">
                         <div class="card h-100">
-                            
+
                             @if (!empty($p->image))
                             <img src="{{ asset('storage').'/'.$p->image }}" class="card-img-top" alt="...">
                             @else
@@ -100,8 +100,8 @@
         <div id="order-part" class="content" role="tabpanel" aria-labelledby="order-part-trigger">
             <!-- Confirmar Productos -->
             <div id="confirmar-orden" class="row row-cols-1 row-cols-md-3 g-3">
-                
-                
+
+
                 <!-- /Card -->
             </div>
             <!-- /Productos -->
@@ -114,7 +114,7 @@
                         <button class="btn btn-outline-primary" onclick="stepper.next()">Confirmar</button>
                     </div>
                 </div>
-            </div>  
+            </div>
         </div>
 
         <div id="pay-part" class="content" role="tabpanel" aria-labelledby="pay-part-trigger">
@@ -132,7 +132,7 @@
             <hr class="mt-4">
             <div class="mt-1">
             <div class="float-right">
-                <button class="btn btn-outline-danger" onclick="location.reload()">Cancelar Orden</button>  
+                <button class="btn btn-outline-danger" onclick="location.reload()">Cancelar Orden</button>
                 <form method="post" action="{{ url('/order_screen/store') }}">
                     <!-- TOKEN -->
                     @csrf
@@ -147,7 +147,7 @@
                         Realizar Orden
                     </button>
                     <!-- /button -->
-                </form>              
+                </form>
             </div>
         </div>
     </div>
@@ -172,7 +172,7 @@
                         </tr>
                     </thead>
                     <tbody id="moda-body">
-                        
+
                     </tbody>
                 </table>
             </div>
@@ -193,9 +193,9 @@
 @section('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bs-stepper/dist/css/bs-stepper.min.css">
 
-    
+
     <link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}">
-    
+
     <style>
         .card-img-top {
             height: 180px;
@@ -221,7 +221,7 @@
         }
         .nav-banner.navbar{
             height: 80px;
-            
+
         }
         .nav-banner.navbar .navbar-brand img{
             max-height: 54px;
@@ -245,7 +245,7 @@
         var stepper = new Stepper(document.querySelector('.bs-stepper'))
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-        
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 
@@ -327,7 +327,7 @@
                 '    </div>'+
                 '</div>'
             });
-            
+
             document.getElementById('confirmar-total').innerHTML = 'RD$'+total.toFixed(2);
             document.getElementById('confirmar-orden').innerHTML = ConfirmarHTML;
             document.getElementById('moda-body').innerHTML = ModalHTML;
@@ -339,7 +339,7 @@
         function confirmarProductos() {
             if(products.length > 0){
                 stepper.next()
-            }else { 
+            }else {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
