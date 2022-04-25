@@ -233,7 +233,7 @@ class CajaController extends Controller
         if($request['status'] == "on") {
             $invoice = [
                 'token' => 'inv'.$id,
-                'rnc' => '0',
+                'rnc' => 'RNC'.$id,
                 'order_id' => $id,
                 'payment_method_id' => 1,
                 'shipping' => 0,
@@ -246,10 +246,11 @@ class CajaController extends Controller
             ];
             Invoice::insert($invoice);
             Alert::toast('La orden #'.$id.' facturada correctamente!', 'success');
-
+            
         }else{
             Alert::toast('La orden #'.$id.' a sido modificada!', 'success');
         }
+        return redirect('caja/edit/'.$id);
     }
 
     public function destroy($id)
