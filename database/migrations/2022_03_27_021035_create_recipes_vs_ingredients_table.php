@@ -12,7 +12,7 @@ class CreateRecipesVsIngredientsTable extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('recipes_vs_ingredients', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->unsignedBigInteger('id');
             $table->unsignedBigInteger('ingredients_id');
             $table->foreign('ingredients_id')->references('id')->on('ingredients')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('quantity');

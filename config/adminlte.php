@@ -492,7 +492,7 @@ return [
                     'submenu' => [
                         [
                             'text' => 'Almacenes',
-                            'url'  => 'warehouse/',
+                            'url'  => '#',
                             'icon' => 'fas fa-pallet'
                         ]
                     ]

@@ -66,7 +66,7 @@
                             <i class="fas fa-user-friends"></i>
                         </span>
                     </div>
-                    <input type="number" class="form-control" id="people_capacity" name="people_capacity" value="{{ isset($table->people_capacity)?$table->people_capacity:old('people_capacity') }}"/>
+                    <input type="number" class="form-control" id="people_capacity" name="people_capacity" placeholder="Escribe la capacidad de personas" value="{{ isset($table->people_capacity)?$table->people_capacity:old('people_capacity') }}"/>
                 </div>
             </div>
         </div>

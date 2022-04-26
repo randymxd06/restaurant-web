@@ -15,7 +15,7 @@ class CreateIngredientsStocksTable extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('ingredients_stock', function (Blueprint $table) {
+        Schema::create('ingredients_stocks', function (Blueprint $table) {
             $table->unsignedBigInteger('ingredient_id');
             $table->foreign('ingredient_id')->references('id')->on('ingredients')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('quantity');

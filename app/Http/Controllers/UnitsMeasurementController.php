@@ -9,10 +9,7 @@ use Illuminate\Http\Request;
 
 class UnitsMeasurementController extends Controller
 {
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
         $unitsMeasurements = UnitsMeasurement::all();
@@ -20,10 +17,7 @@ class UnitsMeasurementController extends Controller
         return view('unitsMeasurement.index', compact('unitsMeasurements'));
     }
 
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function create(Request $request)
     {
         return view('unitsMeasurement.create');

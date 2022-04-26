@@ -10,7 +10,7 @@ class UnitsMeasurement extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'ingredients_stock';
+    protected $table = 'units_measurement';
 
     protected $casts = [
         'id' => 'integer',

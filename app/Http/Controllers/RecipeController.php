@@ -49,11 +49,13 @@ class RecipeController extends Controller
             ->join('products', 'recipes.product_id', '=', 'products.id')
             ->select('recipes.id', 'recipes.name', 'recipes.instructions', 'recipes.status', 'products.name as product_name')
             ->get();
+
         $recipe_ingredients = DB::table('recipes_vs_ingredients')
             ->join('ingredients', 'recipes_vs_ingredients.ingredients_id', '=', 'ingredients.id')
-            ->join('units_measurements', 'recipes_vs_ingredients.unit_measurement_id', '=', 'units_measurements.id')
-            ->select('recipes_vs_ingredients.id','recipes_vs_ingredients.description', 'ingredients.name', 'recipes_vs_ingredients.quantity', 'units_measurements.symbol')
+            ->join('units_measurement', 'recipes_vs_ingredients.unit_measurement_id', '=', 'units_measurement.id')
+            ->select('recipes_vs_ingredients.id','recipes_vs_ingredients.description', 'ingredients.name', 'recipes_vs_ingredients.quantity', 'units_measurement.symbol')
             ->get();
+
         return view('recipe.index', compact(['recipes','recipe_ingredients']));
 
     }
@@ -92,7 +94,9 @@ class RecipeController extends Controller
 
             // VALIDO LOS CAMPOS //
             $this -> validate($request, $validate, $this->messageProduct());
+
             $request['ingredients'] = json_decode($request['ingredients']);
+
             $recipe = [
                 'product_id' => $request['product_id'],
                 'name' => $request['name'],
@@ -102,16 +106,19 @@ class RecipeController extends Controller
             ];
 
             $recipe_id = Recipe::create($recipe)->id;
+
             foreach ($request['ingredients'] as $ingredient) {
-                $recipe_ingredients = [ 
+
+                $recipe_ingredients = [
                     'id' => $recipe_id,
                     'ingredients_id' => $ingredient->ingredient->ingredients_id,
                     'quantity' => $ingredient->quantity,
                     'unit_measurement_id' => $ingredient->unit_measurement->unit_measurement_id,
                     'description' => $ingredient->description
                 ];
-                
+
                 RecipesVsIngredients::insert($recipe_ingredients);
+
             }
 
             Alert::success('La receta fue creada correctamente!');

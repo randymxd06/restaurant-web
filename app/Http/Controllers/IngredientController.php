@@ -40,14 +40,15 @@ class IngredientController extends Controller
     ------------*/
     public function index()
     {
+
         $ingredients = DB::table('ingredients')
             ->join('warehouse_type', 'ingredients.warehouse_type_id', '=', 'warehouse_type.id')
             ->join('ingredients_stocks', 'ingredients.id', '=', 'ingredients_stocks.ingredient_id')
             ->select('ingredients.id','ingredients_stocks.quantity', 'ingredients.name', 'ingredients.description', 'ingredients.status', 'warehouse_type.name as warehouse_type_name')
             ->get();
-        dd($ingredients);
 
         return view('ingredient.index', compact('ingredients'));
+
     }
 
     /*-----------

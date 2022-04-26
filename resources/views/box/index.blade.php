@@ -88,7 +88,7 @@
 @stop
 
 @section('css')
-    
+
     <link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}">
     <style>
         .card-title{
@@ -98,7 +98,9 @@
 @stop
 
 @section('js')
+
     @include('sweetalert::alert')
+
     <script>
         $('.form-delete').submit(function(e){
             e.preventDefault()
@@ -125,4 +127,5 @@
             })
         })
     </script>
+
 @stop

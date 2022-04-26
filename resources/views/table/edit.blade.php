@@ -55,7 +55,7 @@
             <div class="col-md-6 mb-2">
                 <div class="form-group">
                     <label class="form-label">Capacidad de personas</label>
-                    <input type="number" class="form-control" id="people_capacity" name="people_capacity" value="{{$table->people_capacity}}"/>
+                    <input type="number" class="form-control" id="people_capacity" name="people_capacity" placeholder="Escribe la capacidad de personas" value="{{$table->people_capacity}}"/>
                 </div>
             </div>
         </div>
