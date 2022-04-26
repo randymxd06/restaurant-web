@@ -27,11 +27,15 @@
 @stop
 
 @section('content')
+
 <!-- Formulario Producto -->
 <form autocomplete="off" method="post" action="{{ url('/product_category/store') }}">
+
     <!-- TOKEN -->
     @csrf
+
     <div class="form-row">
+
         <!-- Nombre -->
         <div class="col-md-12 mb-2">
             <div class="form-group">
@@ -42,7 +46,7 @@
                             <i class="fas fa-tag"></i>
                         </span>
                     </div>
-                    <input type="text" class="form-control" id="name" name="name" value="{{ isset($productCategory->name)?$productCategory->name:old('name') }}">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Escribe el nombre de la categoría del producto" value="{{ isset($productCategory->name)?$productCategory->name:old('name') }}">
                 </div>
             </div>
         </div>
@@ -53,7 +57,7 @@
             <div class="form-group">
                 <label class="form-label">Descripción</label>
                 <textarea class="form-control" id="description" name="description" rows="3">{{ isset($productCategory->description)?$productCategory->description:old('description') }}</textarea>
-            </div>  
+            </div>
         </div>
     </div>
     <!-- Estado -->

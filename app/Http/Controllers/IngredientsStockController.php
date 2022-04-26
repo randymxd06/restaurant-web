@@ -54,7 +54,7 @@ class IngredientsStockController extends Controller
 
         $request->session()->flash('ingredientsStock.id', $ingredientsStock->id);
         Alert::success('Stock de ingrediente registrado correctamente');
-        return redirect('ingredients-stock/create');
+        return redirect('ingredients');
     }
 
     /**

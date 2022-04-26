@@ -29,15 +29,19 @@
 @section('content')
 <!-- Formulario Producto -->
 <form method="post" action="{{ url('/products/update/'.$product->id) }}" enctype="multipart/form-data">
+
     <!-- TOKEN -->
     @csrf
+
     {{method_field('PUT')}}
+
     <div class="form-row">
+
         <!-- Nombre -->
         <div class="col-md-6 mb-2">
             <div class="form-group">
                 <label class="form-label">Nombre:</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ isset($product->name)?$product->name:old('name') }}">
+                <input type="text" class="form-control" id="name" name="name" placeholder="Escribe el nombre del producto" value="{{ isset($product->name)?$product->name:old('name') }}">
             </div>
         </div>
 
@@ -64,7 +68,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">RD$</span>
                     </div>
-                    <input type="text" class="form-control" id="price" name="price" value="{{ isset($product->price)?$product->price:old('price') }}">
+                    <input type="text" class="form-control" id="price" name="price" placeholder="Escribe el precio del producto" value="{{ isset($product->price)?$product->price:old('price') }}">
                     <div class="input-group-append">
                         <span class="input-group-text">.00</span>
                     </div>

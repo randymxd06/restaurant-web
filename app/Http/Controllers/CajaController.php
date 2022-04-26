@@ -246,7 +246,7 @@ class CajaController extends Controller
             ];
             Invoice::insert($invoice);
             Alert::toast('La orden #'.$id.' facturada correctamente!', 'success');
-            
+
         }else{
             Alert::toast('La orden #'.$id.' a sido modificada!', 'success');
         }

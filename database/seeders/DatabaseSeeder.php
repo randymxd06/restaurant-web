@@ -7,6 +7,7 @@ use App\Models\CivilStatus;
 use App\Models\CustomerType;
 use App\Models\Nationality;
 use App\Models\Sex;
+use App\Models\UnitsMeasurement;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -31,5 +32,6 @@ class DatabaseSeeder extends Seeder
 //        $this->call(PhoneSeeder::class);
 //        $this->call(WarehouseTypeSeeder::class);
 //        $this->call(ProductSeeder::class);
+//        $this->call(UnitsMeasurementSeeder::class);
     }
 }

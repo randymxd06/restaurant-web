@@ -60,7 +60,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-lemon "></i></span>
                         </div>
-                        <input type="number" class="form-control" id="quantity" name="quantity" value="" >
+                        <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Escribe la cantidad" value="" >
                     </div>
                 </div>
             </div>
