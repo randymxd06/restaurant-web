@@ -10,18 +10,8 @@ class Menu extends Model
 {
     use HasFactory, SoftDeletes;
 
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
+    protected $table = 'menu';
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'id' => 'integer',
     ];
@@ -30,4 +20,5 @@ class Menu extends Model
     {
         return $this->hasMany(MenuVsProduct::class);
     }
+
 }

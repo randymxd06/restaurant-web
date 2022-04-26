@@ -509,7 +509,7 @@ return [
                 [
                     'text' => 'Gestionar Terminales',
                     'url'  => 'box',
-                    'icon' => 'fas fa-laptop-house'
+                    'icon' => 'fas fa-fw fa-network-wired'
                 ],
                 [
                     'text' => 'Agregar Terminal',
@@ -533,6 +533,22 @@ return [
                     'text' => 'Realizar Entrada',
                     'url'  => 'compras/create',
                     'icon' => 'fas fa-shopping-cart'
+                ],
+                [
+                    'text' => 'Suplidores',
+                    'icon' => 'fas fa-shopping-cart',
+                    'submenu' => [
+                        [
+                            'text' => 'Suplidores',
+                            'icon' => 'fas fa-users',
+                            'url' => '#'
+                        ],
+                        [
+                            'text' => 'Agregar suplidor',
+                            'icon' => 'fas fa-user',
+                            'url' => '#'
+                        ],
+                    ]
                 ]
             ]
         ],
