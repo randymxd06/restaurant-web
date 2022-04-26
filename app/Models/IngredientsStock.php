@@ -10,7 +10,7 @@ class IngredientsStock extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'ingredients_stock';
+    protected $table = 'ingredients_stocks';
 
     protected $fillable = [
         'ingredient_id',

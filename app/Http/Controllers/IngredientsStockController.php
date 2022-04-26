@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Ingredient;
 use App\Models\UnitsMeasurement;
 use \RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\DB;
 
 class IngredientsStockController extends Controller
 {
@@ -28,7 +29,16 @@ class IngredientsStockController extends Controller
      */
     public function create(Request $request)
     {
-        $ingredients = Ingredient::all()->where('status', '=', 1);
+        // $ingredients = Ingredient::all()->where('status', '=', 1);
+        $ingredients = DB::table('ingredients')
+            ->select('ingredients.*')
+            ->whereNotExists(function($query)
+            {
+                $query->select(DB::raw(1))
+                    ->from('ingredients_stocks')
+                    ->whereRaw('ingredients.id = ingredients_stocks.ingredient_id');
+            })
+            ->get();
         $units_measurement = UnitsMeasurement::all();
 
         return view('ingredientsStock.create', compact('ingredients', 'units_measurement'));
