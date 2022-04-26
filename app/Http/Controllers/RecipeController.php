@@ -67,7 +67,12 @@ class RecipeController extends Controller
     {
 
         $products = DB::table('products')
-            ->join('recipes','products.id','<>','recipes.product_id')
+            ->whereNotExists(function($query)
+            {
+                $query->select(DB::raw(1))
+                    ->from('recipes')
+                    ->whereRaw('products.id = recipes.product_id');
+            })
             ->select('products.*')
             ->where('products.status', '=', 1)
             ->get();
