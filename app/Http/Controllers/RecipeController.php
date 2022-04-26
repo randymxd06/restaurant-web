@@ -64,7 +64,11 @@ class RecipeController extends Controller
     public function create()
     {
 
-        $products = Product::all()->where('status', '=', true);
+        $products = DB::table('products')
+            ->join('recipes','products.id','<>','recipes.product_id')
+            ->select('products.*')
+            ->where('products.status', '=', 1)
+            ->get();
         $ingredients = Ingredient::all()->where('status', '=', true);
         $unitsMeasurement = UnitsMeasurement::all()->where('status', '=', true);
         return view('recipe.create', compact(['products', 'ingredients', 'unitsMeasurement']));
