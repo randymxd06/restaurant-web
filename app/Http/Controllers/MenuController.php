@@ -9,21 +9,15 @@ use Illuminate\Http\Request;
 
 class MenuController extends Controller
 {
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
+
+    public function index()
     {
         $menus = Menu::all();
 
         return view('menu.index', compact('menus'));
+
     }
 
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function create(Request $request)
     {
         return view('menu.create');
