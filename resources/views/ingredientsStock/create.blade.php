@@ -4,7 +4,7 @@
 
 @section('content_header')
     <h1>Realizar Compra de Ingredientes</h1>
-    <a class="btn btn-primary mt-1" href="{{url('/ingredients-stock')}}">
+    <a class="btn btn-primary mt-1" href="{{url('/ingredients')}}">
         <i class="fas fa-arrow-left"></i>
         Volver
     </a>
