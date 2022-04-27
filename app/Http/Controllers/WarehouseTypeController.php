@@ -158,6 +158,7 @@ class WarehouseTypeController extends Controller
     --------------*/
     public function destroy($id)
     {
+
         try {
 
             $warehouses = WarehouseType::findOrFail($id);

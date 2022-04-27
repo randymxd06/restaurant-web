@@ -33,13 +33,9 @@ class City extends Model
         return $this->belongsTo(Provice::class);
     }
 
-    public function provice()
-    {
-        return $this->belongsTo(Province::class);
-    }
-
     public function sectors()
     {
         return $this->hasMany(Sectors::class);
     }
+
 }

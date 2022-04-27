@@ -515,6 +515,22 @@ return [
                             'text' => 'Control de stock',
                             'url'  => 'ingredients-stock/create',
                             'icon' => 'fas fa-pallet'
+                        ],
+                        [
+                            'text' => 'Unidades de medida',
+                            'icon' => 'fas fa-pallet',
+                            'submenu' => [
+                                [
+                                    'text' => 'Unidades',
+                                    'url' => 'units-measurement',
+                                    'icon' => 'fas fa-pallet'
+                                ],
+                                [
+                                    'text' => 'Agregar',
+                                    'url' => 'units-measurement/create',
+                                    'icon' => 'fas fa-pallet'
+                                ],
+                            ]
                         ]
                     ]
                 ],

@@ -5,80 +5,188 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UnitsMeasurementStoreRequest;
 use App\Http\Requests\UnitsMeasurementUpdateRequest;
 use App\Models\UnitsMeasurement;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
+use function PHPUnit\Framework\throwException;
 
 class UnitsMeasurementController extends Controller
 {
 
-    public function index(Request $request)
+    /*-------------
+        MENSAJES
+    ---------------*/
+    public function message(){
+
+        return [
+
+            'name.required' => 'El nombre de la unidad de medida es requerida.',
+            'name.string' => 'El nombre de la unidad de medida debe ser un texto.',
+
+            'symbol.required' => 'El simbolo de la unidad de medida es requerida.',
+            'symbol.string' => 'El simbolo de la unidad de medida debe ser un texto.',
+
+            'description.required' => 'La descripción es requerida.',
+            'description.string' => 'La descripcion de la unidad de medida debe ser un texto.',
+
+        ];
+
+    }
+
+    /*----------
+        INDEX
+    ------------*/
+    public function index()
     {
         $unitsMeasurements = UnitsMeasurement::all();
-
         return view('unitsMeasurement.index', compact('unitsMeasurements'));
     }
 
-
-    public function create(Request $request)
+    /*-----------
+        CREATE
+    -------------*/
+    public function create()
     {
         return view('unitsMeasurement.create');
     }
 
-    /**
-     * @param \App\Http\Requests\UnitsMeasurementStoreRequest $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(UnitsMeasurementStoreRequest $request)
+    /*----------
+        STORE
+    ------------*/
+    public function store(Request $request)
     {
-        $unitsMeasurement = UnitsMeasurement::create($request->validated());
 
-        $request->session()->flash('unitsMeasurement.id', $unitsMeasurement->id);
+        try {
 
-        return redirect()->route('unitsMeasurement.index');
+            $validate = [
+                'name' =>[
+                    'required',
+                    'string',
+                ],
+                'symbol' => [
+                    'required',
+                    'string'
+                ],
+                'description' => [
+                    'required',
+                    'string'
+                ],
+            ];
+
+            $this -> validate($request, $validate, $this->message());
+
+            ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;
+            (empty($request['description'])) ? $request['description'] = $request['name'] : null;
+
+            $data = request()->except('_token');
+            $data['name'] = ucfirst(strtolower($data['name']));
+            $data['symbol'] = ucfirst(strtolower($data['symbol']));
+            $data['description'] = ucfirst(strtolower($data['description']));
+            $data['created_at'] = Carbon::now();
+
+            UnitsMeasurement::insert($data);
+
+            Alert::success('La unidad de medida fue creada correctamente!');
+
+            return redirect('units-measurement');
+
+        }catch (Exception $e){
+
+            DB::rollBack();
+
+            throwException($e);
+
+        }
+
     }
 
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\UnitsMeasurement $unitsMeasurement
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request, UnitsMeasurement $unitsMeasurement)
+    public function show($id)
     {
-        return view('unitsMeasurement.show', compact('unitsMeasurement'));
+        return view('unitsMeasurement.show');
     }
 
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\UnitsMeasurement $unitsMeasurement
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Request $request, UnitsMeasurement $unitsMeasurement)
+    /*---------
+        EDIT
+    -----------*/
+    public function edit($id)
     {
-        return view('unitsMeasurement.edit', compact('unitsMeasurement'));
+        $unitsMeasurement = UnitsMeasurement::findOrFail($id);
+        return view('unitsMeasurement.edit', compact(['unitsMeasurement']));
     }
 
-    /**
-     * @param \App\Http\Requests\UnitsMeasurementUpdateRequest $request
-     * @param \App\Models\UnitsMeasurement $unitsMeasurement
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UnitsMeasurementUpdateRequest $request, UnitsMeasurement $unitsMeasurement)
+    /*-----------
+        UPDATE
+    -------------*/
+    public function update(Request $request, $id)
     {
-        $unitsMeasurement->update($request->validated());
 
-        $request->session()->flash('unitsMeasurement.id', $unitsMeasurement->id);
+        try {
 
-        return redirect()->route('unitsMeasurement.index');
+            $validate = [
+                'name' =>[
+                    'required',
+                    'string',
+                ],
+                'symbol' => [
+                    'required',
+                    'string'
+                ],
+                'description' => [
+                    'required',
+                    'string'
+                ],
+            ];
+
+            $this -> validate($request, $validate, $this->message());
+
+            ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;
+            (empty($request['description'])) ? $request['description'] = $request['name'] : null;
+
+            $data = request()->except('_token', '_method');
+            $data['name'] = ucfirst(strtolower($data['name']));
+            $data['symbol'] = ucfirst(strtolower($data['symbol']));
+            $data['description'] = ucfirst(strtolower($data['description']));
+            $data['created_at'] = Carbon::now();
+
+            UnitsMeasurement::where('id', '=', $id)->update($data);
+
+            Alert::success('Los datos de la unidad de medida fueron actualizados correctamente!');
+
+            return redirect('units-measurement');
+
+        }catch (Exception $e){
+
+            DB::rollBack();
+
+            throwException($e);
+
+        }
+
     }
 
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\UnitsMeasurement $unitsMeasurement
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request, UnitsMeasurement $unitsMeasurement)
+    /*------------
+        DESTROY
+    --------------*/
+    public function destroy($id)
     {
-        $unitsMeasurement->delete();
 
-        return redirect()->route('unitsMeasurement.index');
+        try {
+
+            $unitsMeasurement = UnitsMeasurement::findOrFail($id);
+
+            $unitsMeasurement->delete();
+
+            return redirect('units-measurement');
+
+        }catch (Exception $e){
+
+            DB::rollBack();
+
+            throwException($e);
+
+        }
+
     }
+
 }
