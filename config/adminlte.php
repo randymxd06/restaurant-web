@@ -388,8 +388,13 @@ return [
                             'submenu' => [
                                 [
                                     'text' => 'Tipo de cliente',
-                                    'url' => '',
+                                    'url' => 'customer-type',
                                     'icon' => 'far fa-user',
+                                ],
+                                [
+                                    'text' => 'Agregar',
+                                    'url' => 'customer-type/create',
+                                    'icon' => 'fas fa-user-plus',
                                 ],
                             ],
                         ],

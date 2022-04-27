@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerTypeController;
 
 /*-------------------------------------------------------------------------
-    RUTA BASE: http://127.0.0.1:8000/customer_type
+    RUTA BASE: http://127.0.0.1:8000/customer-type
     DESCRIPCION: ESTAS SON LAS RUTAS PARA MANEJAR LOS TIPOS DE CLIENTES.
 ---------------------------------------------------------------------------*/
 Route::group([

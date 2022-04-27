@@ -2,90 +2,173 @@
 
 namespace App\Http\Controllers;
 
-use App\CostumerType;
-use App\Http\Requests\CostumerTypeStoreRequest;
-use App\Http\Requests\CostumerTypeUpdateRequest;
-use App\Models\CustomerType;
+use App\Http\Requests\customerTypeStoreRequest;
+use App\Http\Requests\customerTypeUpdateRequest;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\CustomerType;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CustomerTypeController extends Controller
 {
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
+
+    /*------------
+        MENSAJE
+    --------------*/
+    public function message(){
+
+        return [
+
+            'name.required' => 'El nombre del tipo de cliente es requerido.',
+            'name.string' => 'El nombre del tipo de cliente debe ser un texto.',
+
+            'description.required' => 'La descripción es requerida.',
+            'description.string' => 'La descripcion del tipo de cliente debe ser un texto.',
+
+        ];
+
+    }
+
+    /*----------
+        INDEX
+    ------------*/
+    public function index()
     {
         $customerTypes = CustomerType::all();
-
-        return view('costumerType.index', compact('costumerTypes'));
+        return view('customerType.index', compact('customerTypes'));
     }
 
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
+    /*-----------
+        CREATE
+    -------------*/
+    public function create()
     {
-        return view('costumerType.create');
+        return view('customerType.create');
     }
 
-    /**
-     * @param \App\Http\Requests\CostumerTypeStoreRequest $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(CostumerTypeStoreRequest $request)
+    /*----------
+        STORE
+    ------------*/
+    public function store(Request $request)
     {
-        $costumerType = CustomerType::create($request->validated());
 
-        $request->session()->flash('costumerType.id', $costumerType->id);
+        try {
 
-        return redirect()->route('costumerType.index');
+            $validate = [
+                'name' =>[
+                    'required',
+                    'string',
+                    'unique:customer_types,name'
+                ],
+                'description' => [
+                    'required',
+                    'string'
+                ]
+            ];
+
+            $this -> validate($request, $validate, $this->message());
+
+            ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;
+            (empty($request['description'])) ? $request['description'] = $request['name'] : null;
+
+            $data = request()->except('_token');
+            $data['name'] = ucfirst(strtolower($data['name']));
+            $data['description'] = ucfirst(strtolower($data['description']));
+            $data['created_at'] = Carbon::now();
+
+            CustomerType::insert($data);
+
+            Alert::success('El tipo de cliente fue creado correctamente!');
+
+            return redirect('customer-type');
+
+        }catch (Exception $e){
+
+            DB::rollBack();
+
+            throw new Exception($e);
+
+        }
+
     }
 
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\costumerType $costumerType
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request, CostumerType $costumerType)
+    public function show($id)
     {
-        return view('costumerType.show', compact('costumerType'));
+        return view('customerType.show');
     }
 
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\costumerType $costumerType
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Request $request, CostumerType $costumerType)
+    public function edit($id)
     {
-        return view('costumerType.edit', compact('costumerType'));
+        $customerType = CustomerType::findOrFail($id);
+        return view('customerType.edit', compact(['customerType']));
     }
 
-    /**
-     * @param \App\Http\Requests\CostumerTypeUpdateRequest $request
-     * @param \App\costumerType $costumerType
-     * @return \Illuminate\Http\Response
-     */
-    public function update(CostumerTypeUpdateRequest $request, CostumerType $costumerType)
+    public function update(Request $request, $id)
     {
-        $costumerType->update($request->validated());
 
-        $request->session()->flash('costumerType.id', $costumerType->id);
+        try {
 
-        return redirect()->route('costumerType.index');
+            $validate = [
+                'name' =>[
+                    'required',
+                    'string',
+                    'unique:customer_types,name,'.$id
+                ],
+                'description' => [
+                    'required',
+                    'string'
+                ]
+            ];
+
+            $this -> validate($request, $validate, $this->message());
+
+            ($request['status'] == 'on') ? $request['status'] = true : $request['status'] = false;
+            (empty($request['description'])) ? $request['name'] = "" : null;
+
+            $data = request()->except('_token', '_method');
+            $data['name'] = ucfirst(strtolower($data['name']));
+            $data['description'] = ucfirst(strtolower($data['description']));
+            $data['updated_at'] = Carbon::now();
+
+            CustomerType::where('id', '=', $id)->update($data);
+
+            Alert::success('Los datos del tipo de cliente fueron actualizados correctamente!');
+
+            return redirect('customer-type');
+
+        }catch (Exception $e){
+
+            DB::rollBack();
+
+            throw new Exception($e);
+
+        }
+
     }
 
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\costumerType $costumerType
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request, CostumerType $costumerType)
+    /*------------
+        DESTROY
+    --------------*/
+    public function destroy($id)
     {
-        $costumerType->delete();
 
-        return redirect()->route('costumerType.index');
+        try {
+
+            $customerType = CustomerType::findOrFail($id);
+
+            $customerType->delete();
+
+            return redirect('customer-type');
+
+        }catch (Exception $e){
+
+            DB::rollBack();
+
+            throwException($e);
+
+        }
+
     }
+
 }
