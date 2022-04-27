@@ -3,7 +3,7 @@
 @section('title', 'Tipo de ordenes')
 
 @section('content_header')
-    <h1>Editar tipo de orden | {{ $orderTypes->name }} </h1>
+    <h1 class="mb-4">Editar tipo de orden | {{ $orderTypes->name }} </h1>
     <a class="btn btn-primary mt-1" href="{{url('order-type/')}}">
         <i class="fas fa-arrow-left"></i>
         Volver

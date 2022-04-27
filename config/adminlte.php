@@ -540,8 +540,13 @@ return [
                     'submenu' => [
                         [
                             'text' => 'Almacenes',
-                            'url'  => '#',
+                            'url'  => 'warehouse',
                             'icon' => 'fas fa-pallet'
+                        ],
+                        [
+                            'text' => 'Agregar',
+                            'url'  => 'warehouse/create',
+                            'icon' => 'far fa-pallet'
                         ]
                     ]
                 ]

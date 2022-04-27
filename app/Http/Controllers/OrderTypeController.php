@@ -15,6 +15,9 @@ use function PHPUnit\Framework\throwException;
 class OrderTypeController extends Controller
 {
 
+    /*------------
+        MESSAGE
+    --------------*/
     public function message(){
 
         return [

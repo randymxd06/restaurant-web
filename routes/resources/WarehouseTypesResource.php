@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WarehouseTypeController;
 
 /*--------------------------------------------------------------------------
-    RUTA BASE: http://127.0.0.1:8000/warehouse-type
+    RUTA BASE: http://127.0.0.1:8000/warehouse
     DESCRIPCION: ESTAS SON LAS RUTAS PARA MANEJAR LOS TIPOS DE ALMACENES.
 ----------------------------------------------------------------------------*/
 Route::group([
