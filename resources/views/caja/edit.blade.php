@@ -26,7 +26,7 @@
 
     <ul class="navbar-nav ml-auto">
     <li class="nav-item">
-            <a class="nav-link" href="#" role="button">
+            <a class="nav-link" href="#" data-toggle="modal" data-target="#ordenesModal">
                 <i class="fas fa-receipt"></i>
             </a>
         </li>

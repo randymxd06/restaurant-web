@@ -46,7 +46,7 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
@@ -74,25 +74,70 @@
                     </thead>
                     <tbody>
                         @foreach( $customers as $c )
-                            @foreach( $entities as $e )
-                                @if($e->id == $c->entity_id)
-                                <tr>
-                                    <td> {{ $c -> id }} </td>
-                                            <td>{{$e->first_name}} {{$e->last_name}}</td>
-                                            <td>
-                                                <button class="btn btn-primary btn-xs" data-dismiss="modal" onclick="selectCustomer({{ $c->id }},'{{$e->first_name}} {{$e->last_name}}')">
-                                                    <i class="fas fa-hand-pointer"></i>
-                                                </button>
-                                            </td>
-                                </tr>
-                                @endif
-                            @endforeach
+                            <tr>
+                                <td> {{ $c -> id }} </td>
+                                <td>{{$c->first_name}} {{$c->last_name}}</td>
+                                <td>
+                                    <button class="btn btn-primary btn-xs" data-dismiss="modal" onclick="selectCustomer({{ $c->id }},'{{$c->first_name}} {{$c->last_name}}')">
+                                        <i class="fas fa-hand-pointer"></i>
+                                    </button>
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- / -->
+
+
+<!-- Modal Ordenes sin facturar -->
+<div class="modal fade" id="ordenesModal" tabindex="-1" role="dialog" aria-labelledby="ordenesModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="tableModalTitle">Ordenes sin facturar</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body table-responsive">
+                <table class="table table-hover ">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Mesa</th>
+                            <th scope="col">Entrega</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <!-- No facturadas -->
+                    @foreach( $orders as $order )
+                        <tr>
+                            <th scope="row">{{$order->id}}</th>
+                            <td>{{$order->first_name}} {{$order->last_name}}</td>
+                            <td>{{$order->table_id}}</td>
+                            <td>{{($order->status == 0)? 'Entregado': 'No entregado'}}</td>
+                            <td>
+                                <a href="{{url('/caja/edit/'.$order->id)}}" class="btn btn-primary btn-xs">
+                                    <i class="fas fa-hand-pointer"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
