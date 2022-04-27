@@ -4,11 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderTypeController;
 
 /*------------------------------------------------------------------------
-    RUTA BASE: http://127.0.0.1:8000/order_type
+    RUTA BASE: http://127.0.0.1:8000/order-type
     DESCRIPCION: ESTAS SON LAS RUTAS PARA MANEJAR LOS TIPOS DE ORDENES.
 --------------------------------------------------------------------------*/
 Route::group([
-    'prefix' => 'order_type',
+    'prefix' => 'order-type',
 ], function () {
     Route::middleware(['auth:sanctum', 'verified'])->get('/', [OrderTypeController::class, 'index']);
     Route::middleware(['auth:sanctum', 'verified'])->get('/show/{id}', [OrderTypeController::class, 'show']);

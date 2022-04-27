@@ -4,7 +4,7 @@
 
 @section('content_header')
     <h1 class="mb-4">Crear tipo de orden</h1>
-    <a class="btn btn-primary mt-1" href="{{url('order_type/')}}">
+    <a class="btn btn-primary mt-1" href="{{url('order-type/')}}">
         <i class="fas fa-arrow-left"></i>
         Volver
     </a>
@@ -29,7 +29,7 @@
 @section('content')
 
     <!-- FORMULARIO TIPO DE ORDEN -->
-    <form autocomplete="off" method="post" action="{{ url('order_type/store') }}">
+    <form autocomplete="off" method="post" action="{{ url('order-type/store') }}">
 
         <!-- TOKEN -->
         @csrf

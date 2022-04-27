@@ -4,7 +4,7 @@
 
 @section('content_header')
     <h1 class="mb-2">Tipo de ordenes</h1>
-    <a class="btn btn-success mt-1" href="{{url('/order_type/create')}}">
+    <a class="btn btn-success mt-1" href="{{url('/order-type/create')}}">
         <i class="fas fa-tags"></i>
         Agregar
     </a>
@@ -44,7 +44,7 @@
 
                             <!-- Boton Editar -->
                             <div class="col-sm-12 col-md-6">
-                                <a href="{{url('/order_type/edit/'.$orderType->id)}}" class="btn btn-warning col-sm-12 my-1">
+                                <a href="{{url('/order-type/edit/'.$orderType->id)}}" class="btn btn-warning col-sm-12 my-1">
                                     <i class="fas fa-edit"></i>
                                     Editar
                                 </a>
@@ -52,7 +52,7 @@
                             <!-- Boton eliminar -->
 
                             <div class="col-sm-12 col-md-6">
-                                <form action="{{ url('/order_type/delete/'.$orderType->id) }}" method="post" class="form-delete">
+                                <form action="{{ url('/order-type/delete/'.$orderType->id) }}" method="post" class="form-delete">
                                     @csrf
                                     {{method_field('DELETE')}}
                                     <button type="submit" class="btn btn-danger col-sm-12 my-1">

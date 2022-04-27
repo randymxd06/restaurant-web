@@ -290,13 +290,13 @@ return [
                     'submenu' => [
                         [
                           'text' => 'Tipo de orden',
+                            'url' => 'order-type/',
                             'icon' => 'far fa-bags-shopping',
-                            'url' => 'order_type/',
                         ],
                         [
                             'text' => 'Agregar',
+                            'url' => 'order-type/create',
                             'icon' => 'far fa-shopping-bag',
-                            'url' => 'order_type/create',
                         ],
                     ],
                 ],
@@ -306,13 +306,13 @@ return [
                     'submenu' => [
                         [
                             'text' => 'Metodos de pago',
-                            'icon' => 'fal fa-sack-dollar',
                             'url' => 'payment-method/',
+                            'icon' => 'fal fa-sack-dollar',
                         ],
                         [
                             'text' => 'Agregar',
-                            'icon' => 'far fa-coins',
                             'url' => 'payment-method/create',
+                            'icon' => 'far fa-coins',
                         ],
                     ],
                 ],
@@ -381,7 +381,18 @@ return [
                             'text' => 'Registrar',
                             'url'  => 'customer/create',
                             'icon'    => 'fas fa-fw fa-clipboard',
-                        ]
+                        ],
+                        [
+                            'text' => 'Tipo de cliente',
+                            'icon' => 'fas fa-user',
+                            'submenu' => [
+                                [
+                                    'text' => 'Tipo de cliente',
+                                    'url' => '',
+                                    'icon' => 'far fa-user',
+                                ],
+                            ],
+                        ],
                     ]
                 ],
 

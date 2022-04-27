@@ -8,7 +8,7 @@ use App\Http\Controllers\CustomerTypeController;
     DESCRIPCION: ESTAS SON LAS RUTAS PARA MANEJAR LOS TIPOS DE CLIENTES.
 ---------------------------------------------------------------------------*/
 Route::group([
-    'prefix' => 'customer_type',
+    'prefix' => 'customer-type',
 ], function () {
     Route::middleware(['auth:sanctum', 'verified'])->get('/', [CustomerTypeController::class, 'index']);
     Route::middleware(['auth:sanctum', 'verified'])->get('/show/{id}', [CustomerTypeController::class, 'show']);

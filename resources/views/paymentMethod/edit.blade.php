@@ -4,7 +4,7 @@
 
 @section('content_header')
     <h1 class="mb-4">Editar metodo de pago | {{ $paymentMethods->name }} </h1>
-    <a class="btn btn-primary mt-1" href="{{url('payment_method/')}}">
+    <a class="btn btn-primary mt-1" href="{{url('payment-method/')}}">
         <i class="fas fa-arrow-left"></i>
         Volver
     </a>

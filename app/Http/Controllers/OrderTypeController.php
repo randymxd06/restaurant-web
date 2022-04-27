@@ -83,7 +83,7 @@ class OrderTypeController extends Controller
 
             Alert::success('El tipo de orden fue creado correctamente!');
 
-            return redirect('order_type');
+            return redirect('order-type');
 
         }catch (Exception $e){
 
@@ -142,9 +142,9 @@ class OrderTypeController extends Controller
 
             Alert::success('Los datos del tipo de orden fueron actualizados correctamente!');
 
-            return redirect('order_type');
+            return redirect('order-type');
 
-        }catch (\Exception $e){
+        }catch (Exception $e){
 
             DB::rollBack();
 
@@ -166,7 +166,7 @@ class OrderTypeController extends Controller
 
             $orderTypes->delete();
 
-            return redirect('order_type');
+            return redirect('order-type');
 
         }catch (Exception $e){
 
