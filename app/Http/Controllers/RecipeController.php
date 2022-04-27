@@ -76,7 +76,11 @@ class RecipeController extends Controller
             ->select('products.*')
             ->where('products.status', '=', 1)
             ->get();
-        $ingredients = Ingredient::all()->where('status', '=', true);
+        $ingredients = Ingredient::join('ingredients_stocks', 'ingredients_stocks.ingredient_id', '=', 'ingredients.id')
+            ->select('ingredients.*', 'ingredients_stocks.unit_measurement_id')
+            ->where('ingredients.status', '=', 1)
+            ->get();
+
         $unitsMeasurement = UnitsMeasurement::all()->where('status', '=', true);
         return view('recipe.create', compact(['products', 'ingredients', 'unitsMeasurement']));
 

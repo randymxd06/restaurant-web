@@ -131,7 +131,7 @@
                             <select class="custom-select mr-sm-2" id="ingredients_id" name="ingredients_id">
                                 <option selected="" disabled="" value="">Selecciona un ingrediente</option>
                                 @foreach($ingredients as $i)
-                                    <option value="{{$i}}">{{$i->name}}</option>
+                                    <option value="{{ $i }}" onclick="seleccionado({{$i->unit_measurement_id}})">{{$i->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -267,6 +267,21 @@
         document.getElementById("table-ingredientes").innerHTML = ingredientesTableHTML;
         document.getElementById('ingredients').value = JSON.stringify(ingredients, null, 3);
     }
+
+    let unitsMeasurement =  @json($unitsMeasurement);
+    let umHTML = '';
+    function seleccionado(idUM) {
+        umHTML = '';
+        @foreach($unitsMeasurement as $um)
+                
+                if({{$um->id}} == idUM) {
+                    umHTML += '<option value="{{$um}}">{{$um->name}} - {{$um->symbol}}</option>';
+                }
+        @endforeach
+        
+        document.getElementById('unit_measurement_id').innerHTML = umHTML;
+    }
+    
 
     </script>
 @stop

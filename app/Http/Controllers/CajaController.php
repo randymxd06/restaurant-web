@@ -19,6 +19,7 @@ use App\Models\Entity;
 use App\Models\Customer;
 use App\Models\Box;
 use App\Models\Invoice;
+use App\Models\IngredientsStock;
 use Carbon\Carbon;
 use Alert;
 
@@ -81,7 +82,18 @@ class CajaController extends Controller
             return redirect('dashboard')->with('error-box','ok');
         }
         $productCategories = ProductCategory::all()->where('status', '=', 1);
-        $products = Product::all()->where('status', '=', 1);
+
+        $products = Product::join('recipes', 'products.id', '=', 'recipes.product_id')
+            ->select('products.*')
+            ->whereRaw('(SELECT COUNT(T1.ingredient_id) FROM recipes_vs_ingredients T0 JOIN ingredients_stocks T1 ON T0.ingredients_id = T1.ingredient_id AND T1.quantity > 0 WHERE T0.id = recipes.id) = (SELECT COUNT(T0.ingredients_id) FROM recipes_vs_ingredients T0 WHERE T0.id = recipes.id)')
+            ->where('products.status', '=', 1)
+            ->get();
+        
+        // return response()->json($products);
+
+        // SELECT products.*, recipes.id AS recipes_id FROM products JOIN  ON products.id = recipes.product_id 
+        // WHERE (SELECT COUNT(T1.ingredient_id) FROM recipes_vs_ingredients T0 JOIN ingredients_stocks T1 ON T0.ingredients_id = T1.ingredient_id AND T1.quantity > 0 WHERE T0.id = recipes.id) = (SELECT COUNT(T0.ingredients_id) FROM recipes_vs_ingredients T0 WHERE T0.id = recipes.id) GROUP BY recipes_id; 
+
         $tables = Table::all()->where('status', '<>', 0);
         $livingRooms = LivingRoom::all()->where('status', '=', 1);
 
@@ -129,6 +141,33 @@ class CajaController extends Controller
 
             $request['products'] = json_decode($request['products']);
 
+            foreach ($request['products'] as $p){
+                
+                // Cantidades de ingrediente 
+                $quantities = DB::table('recipes_vs_ingredients')
+                    ->join('recipes', 'recipes.id', '=', 'recipes_vs_ingredients.id')
+                    ->select('recipes_vs_ingredients.quantity', 'recipes_vs_ingredients.ingredients_id')
+                    ->where('recipes.product_id', '=', $p->id)
+                    ->get();
+                foreach ($quantities as $qty ) {
+                    $stock = DB::table('ingredients_stocks')
+                        ->select('ingredients_stocks.quantity')
+                        ->where('ingredients_stocks.ingredient_id', '=', $qty->ingredients_id)
+                        ->get()
+                        ->first();
+                        
+                        $preparacion = $p->quantity * $qty->quantity;
+                        $preparacion = (int)$preparacion;
+                        $stock = (int)$stock->quantity;
+
+                    if($stock<$preparacion) {
+                        $mensaje = "No hay suficientes ingredientes para esa cantidad del producto ".$p->name;
+                        Alert::toast($mensaje, 'error');
+                        return back();
+                    }
+                }
+            }
+
             $order = [
                 'user_id' => (int) $request['user_id'],
                 'box_id' => (int) $request['box_id'],
@@ -153,16 +192,37 @@ class CajaController extends Controller
                     'description' => "Nota",
                     'created_at' => Carbon::now()
                 ];
+
+                
+                // Cantidades de ingrediente 
+                $quantities = DB::table('recipes_vs_ingredients')
+                    ->join('recipes', 'recipes.id', '=', 'recipes_vs_ingredients.id')
+                    ->select('recipes_vs_ingredients.quantity', 'recipes_vs_ingredients.ingredients_id')
+                    ->where('recipes.product_id', '=', $p->id)
+                    ->get();
+
+                foreach ($quantities as $qty ) {
+                    $stock = DB::table('ingredients_stocks')
+                        ->select('ingredients_stocks.quantity')
+                        ->where('ingredients_stocks.ingredient_id', '=', $qty->ingredients_id)
+                        ->get()
+                        ->first();
+                    $preparacion = $p->quantity * $qty->quantity;
+                    $preparacion = (int)$preparacion;
+                    $stock = (int)$stock->quantity;
+                    $value = $stock - $preparacion;
+                    IngredientsStock::where([
+                        ['ingredient_id', '=', $qty->ingredients_id]
+                    ])->update(['quantity' => $value]);
+                }
                 OrderProduct::insert($product);
             }
-
             Alert::toast('Orden realizada correctamente', 'success');
             return redirect('caja/edit/'.$order_id);
 
         }catch (Exception $e){
             Alert::toast('Error al realizar la orden', 'danger');
             throw new Exception($e);
-
         }
 
     }
@@ -196,7 +256,11 @@ class CajaController extends Controller
         }
 
         $productCategories = ProductCategory::all()->where('status', '=', 1);
-        $products = Product::all()->where('status', '=', 1);
+        $products = Product::join('recipes', 'products.id', '=', 'recipes.product_id')
+            ->select('products.*')
+            ->whereRaw('(SELECT COUNT(T1.ingredient_id) FROM recipes_vs_ingredients T0 JOIN ingredients_stocks T1 ON T0.ingredients_id = T1.ingredient_id AND T1.quantity > 0 WHERE T0.id = recipes.id) = (SELECT COUNT(T0.ingredients_id) FROM recipes_vs_ingredients T0 WHERE T0.id = recipes.id)')
+            ->where('products.status', '=', 1)
+            ->get();
         $tables = Table::all()->where('status', '<>', 0);
         $livingRooms = LivingRoom::all()->where('status', '=', 1);
         $customers = DB::table('customers')
