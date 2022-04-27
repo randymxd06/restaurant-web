@@ -70,6 +70,7 @@ class CajaController extends Controller
             ->sum('orders.total');
         return view('caja.cuadre', compact('facturas','total'));
     }
+    
     public function create(Request $request)
     {
         $currentuserid = Auth::user()->id;
@@ -79,15 +80,37 @@ class CajaController extends Controller
         //    El usuario registrado no tiene una caja
             return redirect('dashboard')->with('error-box','ok');
         }
-
         $productCategories = ProductCategory::all()->where('status', '=', 1);
         $products = Product::all()->where('status', '=', 1);
         $tables = Table::all()->where('status', '<>', 0);
         $livingRooms = LivingRoom::all()->where('status', '=', 1);
-        $customers = Customer::all();
-        $entities = Entity::all();
 
-        return view('caja.create', compact('productCategories', 'products', 'tables', 'livingRooms', 'customers', 'entities', 'box'));
+        $customers = DB::table('customers')
+            ->join('entities', 'customers.entity_id', '=', 'entities.id')
+            ->whereNotExists(function($query)
+            {
+                $query->select(DB::raw(1))
+                    ->from('orders')
+                    ->whereRaw('orders.customer_id = customers.id AND orders.status = 1');
+            })
+            ->select('customers.id', 'customers.entity_id', 'entities.first_name', 'entities.last_name')
+            ->get();
+
+        $orders = DB::table('orders')
+            ->join('customers', 'customers.id', '=', 'orders.customer_id')
+            ->join('entities', 'entities.id', '=', 'customers.entity_id')
+            ->whereNotExists(function($query)
+            {
+                $query->select(DB::raw(1))
+                    ->from('invoices')
+                    ->whereRaw('invoices.order_id = orders.id');
+            })
+            ->select('orders.*', 'entities.first_name', 'entities.last_name')
+            ->where('user_id', '=', $currentuserid)
+            ->get();
+            
+        // return response()->json($orders2);
+        return view('caja.create', compact('orders','productCategories', 'products', 'tables', 'livingRooms', 'customers', 'box'));
     }
 
     public function store(Request $request)
@@ -176,10 +199,31 @@ class CajaController extends Controller
         $products = Product::all()->where('status', '=', 1);
         $tables = Table::all()->where('status', '<>', 0);
         $livingRooms = LivingRoom::all()->where('status', '=', 1);
-        $customers = Customer::all();
-        $entities = Entity::all();
+        $customers = DB::table('customers')
+            ->join('entities', 'customers.entity_id', '=', 'entities.id')
+            ->whereNotExists(function($query)
+            {
+                $query->select(DB::raw(1))
+                    ->from('orders')
+                    ->whereRaw('orders.customer_id = customers.id AND orders.status = 1');
+            })
+            ->select('customers.id', 'customers.entity_id', 'entities.first_name', 'entities.last_name')
+            ->get();
 
-        return view('caja.edit', compact('order', 'orderProducts', 'productCategories', 'products', 'tables', 'livingRooms', 'customers', 'entities', 'box'));
+        $orders = DB::table('orders')
+            ->join('customers', 'customers.id', '=', 'orders.customer_id')
+            ->join('entities', 'entities.id', '=', 'customers.entity_id')
+            ->whereNotExists(function($query)
+            {
+                $query->select(DB::raw(1))
+                    ->from('invoices')
+                    ->whereRaw('invoices.order_id = orders.id');
+            })
+            ->select('orders.*', 'entities.first_name', 'entities.last_name')
+            ->where('user_id', '=', $currentuserid)
+            ->get();
+
+        return view('caja.edit', compact('order', 'orders', 'orderProducts', 'productCategories', 'products', 'tables', 'livingRooms', 'customers', 'box'));
     }
 
     public function update(Request $request, $id)

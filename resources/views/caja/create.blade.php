@@ -21,7 +21,7 @@
 
     <ul class="navbar-nav ml-auto">
     <li class="nav-item">
-            <a class="nav-link" href="#" role="button">
+            <a class="nav-link" href="#" data-toggle="modal" data-target="#ordenesModal">
                 <i class="fas fa-receipt"></i>
             </a>
         </li>
@@ -222,7 +222,7 @@
                                     <!-- TOKEN -->
                                     @csrf
                                     <input hidden type="number" name="user_id" id="user_id" value="{{{ Auth::user()->id }}}">
-                                    <input hidden type="number" name="box_id" id="box_id" value="1">
+                                    <input hidden type="number" name="box_id" id="box_id" value="{{ $box->id }}">
                                     <input hidden type="number" name="customer_id" id="customer_id" value="{{old('customer_id')}}">
                                     <input hidden type="number" name="table_id" id="table_id" value="{{old('table_id')}}">
                                     <input hidden type="text" name="total_order" id="total_order" value="{{old('total_order')}}">
