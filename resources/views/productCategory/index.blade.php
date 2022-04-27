@@ -70,7 +70,6 @@
 @stop
 
 @section('css')
-    
     <link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}">
     <style>
         .card-title{

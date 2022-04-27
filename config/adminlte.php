@@ -284,6 +284,38 @@ return [
                     'url'  => '#',
                     'icon' => 'fas fa-fw fa-piggy-bank'
                 ],
+                [
+                    'text' => 'Tipo de orden',
+                    'icon' => 'fas fa-bags-shopping',
+                    'submenu' => [
+                        [
+                          'text' => 'Tipo de orden',
+                            'icon' => 'far fa-bags-shopping',
+                            'url' => 'order_type/',
+                        ],
+                        [
+                            'text' => 'Agregar',
+                            'icon' => 'far fa-shopping-bag',
+                            'url' => 'order_type/create',
+                        ],
+                    ],
+                ],
+                [
+                    'text' => 'Metodos de pago',
+                    'icon' => 'fas fa-money-check-alt',
+                    'submenu' => [
+                        [
+                            'text' => 'Metodos de pago',
+                            'icon' => 'fal fa-sack-dollar',
+                            'url' => 'payment-method/',
+                        ],
+                        [
+                            'text' => 'Agregar',
+                            'icon' => 'far fa-coins',
+                            'url' => 'payment-method/create',
+                        ],
+                    ],
+                ],
             ],
         ],
 

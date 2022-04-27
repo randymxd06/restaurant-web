@@ -12,6 +12,12 @@ class OrderType extends Model
 
     protected $table = 'order_types';
 
+    protected $fillable = [
+        'name',
+        'description',
+        'status',
+    ];
+
     protected $casts = [
         'id' => 'integer',
         'status' => 'boolean',
@@ -21,4 +27,5 @@ class OrderType extends Model
     {
         return $this->belongsTo(Order::class);
     }
+
 }

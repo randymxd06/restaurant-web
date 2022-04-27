@@ -27,11 +27,15 @@
 @stop
 
 @section('content')
+
 <!-- Formulario Producto -->
 <form method="post" action="{{ url('/product_category/update/'.$productCategory->id)}}">
+
     <!-- TOKEN -->
     @csrf
+
     {{method_field('PUT')}}
+
     <div class="form-row">
         <!-- Nombre -->
         <div class="col-md-12 mb-2">

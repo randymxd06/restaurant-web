@@ -10,18 +10,7 @@ class PaymentMethod extends Model
 {
     use HasFactory, SoftDeletes;
 
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
+    protected $table = 'payment_method';
     protected $casts = [
         'id' => 'integer',
         'status' => 'boolean',
