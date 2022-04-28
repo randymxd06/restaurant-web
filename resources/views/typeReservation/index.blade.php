@@ -25,22 +25,13 @@
                     <div class="card-header">
                         <h5 class="card-title">
                             <i class="fas fa-chair"></i>
-                            ID del Tipo de reservación #{{ $typeReservation->id }}
+                            {{ $typeReservation->name }}
                         </h5>
                     </div>
 
                     <div class="card-body">
 
                         <ul class="list-group list-group-flush">
-
-                            <li class="list-group-item">
-                                <strong>
-                                    <i class="fas fa-archway"></i>
-                                    Nombre del tipo de reservación:
-                                </strong>
-                                <!-- Salón -->
-                                {{ $typeReservation->name }}
-                            </li>
 
                             <li class="list-group-item">
                                 <strong>
