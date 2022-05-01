@@ -36,10 +36,9 @@ class ProductController extends Controller
 
     public function index()
     {
-
         $products = Product::all();
         $ProductCategories = ProductCategory::all()->where('status', '=', 1);
-        return view('product.index', compact('products'))->with('ProductCategories', $ProductCategories);
+        return view('product.index', compact(['products', 'ProductCategories']));
     }
 
     public function create()

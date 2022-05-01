@@ -255,6 +255,10 @@ class ReservationController extends Controller
 
         $reservation = Reservation::findOrFail($id);
 
+        Reservation::where('id', '=', $id)->update([
+            'status' => false
+        ]);
+
         $reservation->delete();
 
         return redirect('reservation');

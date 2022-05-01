@@ -111,14 +111,12 @@
                         <!-- The footer of the card -->
                         <div class="row">
 
-                            
-                            <div class="col-sm-12 col-md-6">
+                            <div class="col-sm-12 col-md-12">
                                 <a href="{{url('/recepcion/reservar/'.$reservation->id)}}" class="btn btn-success col-sm-12 my-1">
                                     <i class="fas fa-calendar-check"></i>
-                                    Reservar
+                                    Confirmar reservación
                                 </a>
                             </div>
-
 
                         </div>
 
@@ -134,7 +132,7 @@
 @stop
 
 @section('css')
-    
+
     <link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}">
 @stop
 
